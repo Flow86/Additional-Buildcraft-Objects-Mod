@@ -2,6 +2,7 @@ package net.minecraft.src;
 
 import net.minecraft.src.AdditionalBuildcraftObjects.BlockABOPipe;
 import net.minecraft.src.AdditionalBuildcraftObjects.ItemABOPipe;
+import net.minecraft.src.AdditionalBuildcraftObjects.PipeItemsRoundRobin;
 import net.minecraft.src.AdditionalBuildcraftObjects.PipeLiquidsValve;
 import net.minecraft.src.buildcraft.core.CoreProxy;
 import net.minecraft.src.buildcraft.core.Utils;
@@ -26,6 +27,10 @@ public class mod_AdditionalBuildcraftObjects extends BaseModMp implements ICusto
 	@MLProp(min = 256.0D, max = 32000.0D)
 	public static int pipeLiquidsValveID = 10200;
 	public static Item pipeLiquidsValve = null;
+
+	@MLProp(min = 256.0D, max = 32000.0D)
+	public static int pipeItemsRoundRobinID = 10300;
+	public static Item pipeItemsRoundRobin = null;
 
 	public static String customTexture = "/net/minecraft/src/AdditionalBuildcraftObjects/gui/block_textures.png";
 	//public static String customSprites = "/net/minecraft/src/AdditionalBuildcraftObjects/gui/item_textures.png";
@@ -57,10 +62,13 @@ public class mod_AdditionalBuildcraftObjects extends BaseModMp implements ICusto
 
 		blockABOPipe = new BlockABOPipe(blockABOPipeID);
 
-		pipeLiquidsValve = createPipe(pipeLiquidsValveID, PipeLiquidsValve.class, "Valve Pipe",
-				BuildCraftTransport.pipeLiquidsIron, Item.ingotIron, BuildCraftTransport.pipeLiquidsIron);
-		
+		pipeLiquidsValve = createPipe(pipeLiquidsValveID, PipeLiquidsValve.class, "Valve Liquids Pipe",
+				BuildCraftTransport.pipeLiquidsWood, Item.ingotIron, BuildCraftTransport.pipeLiquidsIron);
 		MinecraftForgeClient.registerCustomItemRenderer(pipeLiquidsValve.shiftedIndex, this);
+
+		pipeItemsRoundRobin = createPipe(pipeItemsRoundRobinID, PipeItemsRoundRobin.class, "RoundRobin Transport Pipe",
+				Block.glass, Block.gravel, Block.glass);
+		MinecraftForgeClient.registerCustomItemRenderer(pipeItemsRoundRobin.shiftedIndex, this);
 	}
 
 	/**
