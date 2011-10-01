@@ -118,12 +118,14 @@ public class PipeLogicValve extends PipeLogic {
 			if (tile instanceof IPipeEntry || tile instanceof IInventory || tile instanceof ILiquidContainer
 					|| tile instanceof TileGenericPipe) {
 				worldObj.setBlockMetadata(xCoord, yCoord, zCoord, nextMetadataS);
+				baseT.onNeighborBlockChange();
 				return;
 			}
 
 			if (tile2 instanceof IPipeEntry || tile2 instanceof IInventory || tile2 instanceof ILiquidContainer
 					|| tile2 instanceof TileGenericPipe) {
 				worldObj.setBlockMetadata(xCoord, yCoord, zCoord, nextMetadataU);
+				baseT.onNeighborBlockChange();
 				return;
 			}
 		}
