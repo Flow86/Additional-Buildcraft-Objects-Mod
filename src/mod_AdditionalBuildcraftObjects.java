@@ -63,7 +63,7 @@ public class mod_AdditionalBuildcraftObjects extends BaseModMp implements ICusto
 		blockABOPipe = new BlockABOPipe(blockABOPipeID);
 
 		pipeLiquidsValve = createPipe(pipeLiquidsValveID, PipeLiquidsValve.class, "Valve Liquids Pipe",
-				BuildCraftTransport.pipeLiquidsWood, Item.ingotIron, BuildCraftTransport.pipeLiquidsIron);
+				BuildCraftTransport.pipeLiquidsWood, Item.ingotIron, BuildCraftTransport.pipeLiquidsWood);
 		MinecraftForgeClient.registerCustomItemRenderer(pipeLiquidsValve.shiftedIndex, this);
 
 		pipeItemsRoundRobin = createPipe(pipeItemsRoundRobinID, PipeItemsRoundRobin.class, "RoundRobin Transport Pipe",
