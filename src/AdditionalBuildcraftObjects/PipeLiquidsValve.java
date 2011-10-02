@@ -32,7 +32,9 @@ public class PipeLiquidsValve extends Pipe implements IPowerReceptor {
 	int liquidToExtract;
 
 	private final int closedTexture = 0 * 16 + 0;
+	private final int closedSideTexture = closedTexture + 2;
 	private final int openTexture = 0 * 16 + 1;
+	private final int openSideTexture = openTexture + 2;
 	private int nextTexture = closedTexture;
 
 	public PipeLiquidsValve(int itemID) {
@@ -45,9 +47,13 @@ public class PipeLiquidsValve extends Pipe implements IPowerReceptor {
 
 	@Override
 	public void prepareTextureFor(Orientations connection) {
-		// if (connection == Orientations.Unknown) {
-		nextTexture = ((PipeLogicValve) logic).isPowered() ? openTexture : closedTexture;
-		// }
+		int metadata = worldObj.getBlockMetadata(xCoord, yCoord, zCoord);
+		if (connection == Orientations.Unknown || metadata != connection.ordinal()) {
+			nextTexture = ((PipeLogicValve) logic).isPowered() ? openTexture : closedTexture;
+		}
+		else {
+			nextTexture = ((PipeLogicValve) logic).isPowered() ? openSideTexture : closedSideTexture;;
+		}
 	}
 
 	@Override
