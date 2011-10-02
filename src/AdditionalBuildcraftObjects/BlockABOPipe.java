@@ -11,6 +11,7 @@
 package net.minecraft.src.AdditionalBuildcraftObjects;
 
 import net.minecraft.src.Item;
+import net.minecraft.src.World;
 import net.minecraft.src.mod_AdditionalBuildcraftObjects;
 import net.minecraft.src.buildcraft.transport.BlockGenericPipe;
 import net.minecraft.src.buildcraft.transport.Pipe;
@@ -50,5 +51,13 @@ public class BlockABOPipe extends BlockGenericPipe {
 	@Override
 	public String getTextureFile() {
 		return mod_AdditionalBuildcraftObjects.customTexture;
+	}
+
+	/* (non-Javadoc)
+	 * @see net.minecraft.src.Block#isBlockSolidOnSide(net.minecraft.src.World, int, int, int, int)
+	 */
+	@Override
+	public boolean isBlockSolidOnSide(World world, int i, int j, int k, int side) {
+		return true;
 	}
 }
