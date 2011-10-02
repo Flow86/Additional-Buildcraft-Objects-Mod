@@ -23,6 +23,7 @@ import net.minecraft.src.buildcraft.core.TileNetworkData;
 import net.minecraft.src.buildcraft.transport.Pipe;
 import net.minecraft.src.buildcraft.transport.PipeLogicWood;
 import net.minecraft.src.buildcraft.transport.PipeTransportLiquids;
+import net.minecraft.src.buildcraft.transport.TileGenericPipe;
 
 public class PipeLiquidsValve extends Pipe implements IPowerReceptor {
 	PowerProvider powerProvider;
@@ -56,8 +57,6 @@ public class PipeLiquidsValve extends Pipe implements IPowerReceptor {
 		if (worldObj.isBlockIndirectlyGettingPowered(xCoord, yCoord, zCoord)) {
 			powerProvider.receiveEnergy(1);
 		}
-		else
-			powerProvider.useEnergy(1, 1, true);
 		
 		int meta = worldObj.getBlockMetadata(xCoord, yCoord, zCoord);
 
@@ -120,7 +119,7 @@ public class PipeLiquidsValve extends Pipe implements IPowerReceptor {
 			return;
 		}
 
-		if (tile instanceof ILiquidContainer) {
+		if (tile instanceof ILiquidContainer && !(tile instanceof TileGenericPipe)) {
 			if (liquidToExtract <= BuildCraftCore.BUCKET_VOLUME) {
 				liquidToExtract += powerProvider.useEnergy(1, 1, true) * BuildCraftCore.BUCKET_VOLUME;
 

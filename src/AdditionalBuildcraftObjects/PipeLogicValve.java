@@ -79,7 +79,7 @@ public class PipeLogicValve extends PipeLogic {
 			int nextMetadataS = (nextMetadata + ((nextMetadata%2 == 0) ? 0 : -1)) % 6;
 			int nextMetadataU = (nextMetadata + ((nextMetadata%2 == 0) ? 1 : 0)) % 6;
 			
-			System.out.println("M:" + metadata + " N:" + nextMetadata + " S:" + nextMetadataS + " U:" + nextMetadataU);
+			//System.out.println("M:" + metadata + " N:" + nextMetadata + " S:" + nextMetadataS + " U:" + nextMetadataU);
 
 			Position pos = new Position(xCoord, yCoord, zCoord, Orientations.values()[nextMetadataS]);
 			pos.moveForwards(1.0);
@@ -287,16 +287,35 @@ public class PipeLogicValve extends PipeLogic {
 		if (isPowered())
 			return false;
 
+		int nextMetadataS = (metadata + ((metadata%2 == 0) ? 0 : -1)) % 6;
+		int nextMetadataU = (metadata + ((metadata%2 == 0) ? 1 : 0)) % 6;
+
+		Position pos = new Position(xCoord, yCoord, zCoord, Orientations.values()[nextMetadataS]);
+		pos.moveForwards(1.0);
+		TileEntity tile = worldObj.getBlockTileEntity((int)pos.x, (int)pos.y, (int)pos.z);
+
+		Position pos2 = new Position(xCoord, yCoord, zCoord, Orientations.values()[nextMetadataU]);
+		pos2.moveForwards(1.0);
+		TileEntity tile2 = worldObj.getBlockTileEntity((int)pos2.x, (int)pos2.y, (int)pos2.z);
+		
+		boolean isPipe = (tile instanceof IPipeEntry || tile instanceof IInventory || tile instanceof ILiquidContainer
+				|| tile instanceof TileGenericPipe);
+
+		boolean isPipe2 = (tile2 instanceof IPipeEntry || tile2 instanceof IInventory || tile2 instanceof ILiquidContainer
+				|| tile2 instanceof TileGenericPipe);
+
+		System.out.println("input  1:" + isPipe + " 2:" + isPipe2 + " m:" + metadata + " f:" + from.ordinal());
+		
 		switch (from.ordinal()) {
 		case 0:
 		case 1:
-			return (metadata == 0 || metadata == 1);
+			return (isPipe || isPipe2) && (metadata == 0 || metadata == 1);
 		case 2:
 		case 3:
-			return (metadata == 2 || metadata == 3);
+			return (isPipe || isPipe2) && (metadata == 2 || metadata == 3);
 		case 4:
 		case 5:
-			return (metadata == 4 || metadata == 5);
+			return (isPipe || isPipe2) && (metadata == 4 || metadata == 5);
 		}
 
 		return false;
@@ -316,16 +335,35 @@ public class PipeLogicValve extends PipeLogic {
 		if (!isPowered())
 			return false;
 
+		int nextMetadataS = (metadata + ((metadata%2 == 0) ? 0 : -1)) % 6;
+		int nextMetadataU = (metadata + ((metadata%2 == 0) ? 1 : 0)) % 6;
+
+		Position pos = new Position(xCoord, yCoord, zCoord, Orientations.values()[nextMetadataS]);
+		pos.moveForwards(1.0);
+		TileEntity tile = worldObj.getBlockTileEntity((int)pos.x, (int)pos.y, (int)pos.z);
+
+		Position pos2 = new Position(xCoord, yCoord, zCoord, Orientations.values()[nextMetadataU]);
+		pos2.moveForwards(1.0);
+		TileEntity tile2 = worldObj.getBlockTileEntity((int)pos2.x, (int)pos2.y, (int)pos2.z);
+		
+		boolean isPipe = (tile instanceof IPipeEntry || tile instanceof IInventory || tile instanceof ILiquidContainer
+				|| tile instanceof TileGenericPipe);
+
+		boolean isPipe2 = (tile2 instanceof IPipeEntry || tile2 instanceof IInventory || tile2 instanceof ILiquidContainer
+				|| tile2 instanceof TileGenericPipe);
+		
+		//System.out.println("output 1:" + isPipe + " 2:" + isPipe2 + " m:" + metadata + " t:" + to.ordinal());
+
 		switch (to.ordinal()) {
 		case 0:
 		case 1:
-			return (metadata == 0 || metadata == 1);
+			return (isPipe || isPipe2) && (metadata == 0 || metadata == 1);
 		case 2:
 		case 3:
-			return (metadata == 2 || metadata == 3);
+			return (isPipe || isPipe2) && (metadata == 2 || metadata == 3);
 		case 4:
 		case 5:
-			return (metadata == 4 || metadata == 5);
+			return (isPipe || isPipe2) && (metadata == 4 || metadata == 5);
 		}
 
 		return false;
