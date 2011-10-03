@@ -13,6 +13,7 @@ package net.minecraft.src;
 import net.minecraft.src.AdditionalBuildcraftObjects.BlockABOPipe;
 import net.minecraft.src.AdditionalBuildcraftObjects.ItemABOPipe;
 import net.minecraft.src.AdditionalBuildcraftObjects.PipeItemsRoundRobin;
+import net.minecraft.src.AdditionalBuildcraftObjects.PipeLiquidsGoldenIron;
 import net.minecraft.src.AdditionalBuildcraftObjects.PipeLiquidsValve;
 import net.minecraft.src.AdditionalBuildcraftObjects.PipePowerSwitch;
 import net.minecraft.src.buildcraft.core.CoreProxy;
@@ -38,6 +39,10 @@ public class mod_AdditionalBuildcraftObjects extends BaseModMp implements ICusto
 	@MLProp(min = 256.0D, max = 32000.0D)
 	public static int pipeLiquidsValveID = 10200;
 	public static Item pipeLiquidsValve = null;
+
+	@MLProp(min = 256.0D, max = 32000.0D)
+	public static int pipeLiquidsGoldenIronID = 10201;
+	public static Item pipeLiquidsGoldenIron = null;
 
 	@MLProp(min = 256.0D, max = 32000.0D)
 	public static int pipeItemsRoundRobinID = 10300;
@@ -76,11 +81,17 @@ public class mod_AdditionalBuildcraftObjects extends BaseModMp implements ICusto
 		mod_BuildCraftCore.initialize();
 		BuildCraftTransport.initialize();
 
+		MinecraftForgeClient.preloadTexture(customTexture);
+
 		blockABOPipe = new BlockABOPipe(blockABOPipeID);
 
 		pipeLiquidsValve = createPipe(pipeLiquidsValveID, PipeLiquidsValve.class, "Valve Liquids Pipe",
 				BuildCraftTransport.pipeLiquidsWood, Item.ingotIron, BuildCraftTransport.pipeLiquidsWood);
 		MinecraftForgeClient.registerCustomItemRenderer(pipeLiquidsValve.shiftedIndex, this);
+
+		pipeLiquidsGoldenIron = createPipe(pipeLiquidsGoldenIronID, PipeLiquidsGoldenIron.class, "Golden Iron Pipe",
+				Item.ingotIron, Item.ingotGold, Item.ingotIron);
+		MinecraftForgeClient.registerCustomItemRenderer(pipeLiquidsGoldenIron.shiftedIndex, this);
 
 		pipeItemsRoundRobin = createPipe(pipeItemsRoundRobinID, PipeItemsRoundRobin.class, "RoundRobin Transport Pipe",
 				Block.glass, Block.gravel, Block.glass);

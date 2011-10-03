@@ -11,13 +11,21 @@ Recipe:
 
 ---------------------------------------------------------------------------------
 
-Valve Liquid Pipe
+Valve Liquids Pipe
   acts like a wooden pipe (without need of wooden engine)
   also acts like a, yes ..., valve ;-)
 
 
 Recipe:
   WoodenLiquidsPipe IronIngot WoodenLiquidsPipe
+
+---------------------------------------------------------------------------------
+
+Golden Iron Liquids Pipe
+  acts like a iron pipe with speed of a golden pipe
+
+Recipe:
+  IronIngot GoldIngot IronIngot
 
 ---------------------------------------------------------------------------------
 
@@ -32,11 +40,12 @@ Recipe:
 Changelog:
 
 0.2:
- - fixed Valve Liquid Pipe
+ - fixed Valve Liquids Pipe
  - added Power Switch Pipe
+ - added Golden Iron  Liquids Pipe
 
 0.1:
  - added Round Robin Transport Pipe
- - added Valve Liquid Pipe
+ - added Valve Liquids Pipe
 
 ---------------------------------------------------------------------------------
