@@ -14,6 +14,7 @@ import net.minecraft.src.AdditionalBuildcraftObjects.BlockABOPipe;
 import net.minecraft.src.AdditionalBuildcraftObjects.ItemABOPipe;
 import net.minecraft.src.AdditionalBuildcraftObjects.PipeItemsRoundRobin;
 import net.minecraft.src.AdditionalBuildcraftObjects.PipeLiquidsValve;
+import net.minecraft.src.AdditionalBuildcraftObjects.PipePowerSwitch;
 import net.minecraft.src.buildcraft.core.CoreProxy;
 import net.minecraft.src.buildcraft.core.Utils;
 import net.minecraft.src.buildcraft.transport.Pipe;
@@ -42,8 +43,14 @@ public class mod_AdditionalBuildcraftObjects extends BaseModMp implements ICusto
 	public static int pipeItemsRoundRobinID = 10300;
 	public static Item pipeItemsRoundRobin = null;
 
+	@MLProp(min = 256.0D, max = 32000.0D)
+	public static int pipePowerSwitchID = 10400;
+	public static Item pipePowerSwitch = null;
+
 	public static String customTexture = "/net/minecraft/src/AdditionalBuildcraftObjects/gui/block_textures.png";
-	//public static String customSprites = "/net/minecraft/src/AdditionalBuildcraftObjects/gui/item_textures.png";
+
+	// public static String customSprites =
+	// "/net/minecraft/src/AdditionalBuildcraftObjects/gui/item_textures.png";
 
 	/**
 	 * 
@@ -51,12 +58,11 @@ public class mod_AdditionalBuildcraftObjects extends BaseModMp implements ICusto
 	public mod_AdditionalBuildcraftObjects() {
 		instance = this;
 	}
-	
+
 	@Override
-	public void ModsLoaded()
-	{
+	public void ModsLoaded() {
 		super.ModsLoaded();
-		
+
 		initialize();
 	}
 
@@ -79,6 +85,10 @@ public class mod_AdditionalBuildcraftObjects extends BaseModMp implements ICusto
 		pipeItemsRoundRobin = createPipe(pipeItemsRoundRobinID, PipeItemsRoundRobin.class, "RoundRobin Transport Pipe",
 				Block.glass, Block.gravel, Block.glass);
 		MinecraftForgeClient.registerCustomItemRenderer(pipeItemsRoundRobin.shiftedIndex, this);
+
+		pipePowerSwitch = createPipe(pipePowerSwitchID, PipePowerSwitch.class, "Power Switch Pipe", Block.glass,
+				Block.lever, Block.glass);
+		MinecraftForgeClient.registerCustomItemRenderer(pipePowerSwitch.shiftedIndex, this);
 	}
 
 	/**

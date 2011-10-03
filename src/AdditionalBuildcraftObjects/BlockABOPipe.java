@@ -53,11 +53,19 @@ public class BlockABOPipe extends BlockGenericPipe {
 		return mod_AdditionalBuildcraftObjects.customTexture;
 	}
 
-	/* (non-Javadoc)
-	 * @see net.minecraft.src.Block#isBlockSolidOnSide(net.minecraft.src.World, int, int, int, int)
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see net.minecraft.src.Block#isBlockSolidOnSide(net.minecraft.src.World,
+	 * int, int, int, int)
 	 */
 	@Override
 	public boolean isBlockSolidOnSide(World world, int i, int j, int k, int side) {
-		return true;
+		Pipe pipe = getPipe(world, i, j, k);
+		if (pipe != null && pipe instanceof IABOSolid) {
+			IABOSolid spipe = (IABOSolid) pipe;
+			return spipe.isBlockSolidOnSide(world, i, j, k, side);
+		}
+		return false;
 	}
 }

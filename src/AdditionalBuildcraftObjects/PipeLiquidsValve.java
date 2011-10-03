@@ -13,6 +13,7 @@ package net.minecraft.src.AdditionalBuildcraftObjects;
 import net.minecraft.src.Block;
 import net.minecraft.src.BuildCraftCore;
 import net.minecraft.src.TileEntity;
+import net.minecraft.src.World;
 import net.minecraft.src.buildcraft.api.IPowerReceptor;
 import net.minecraft.src.buildcraft.api.Orientations;
 import net.minecraft.src.buildcraft.api.Position;
@@ -25,7 +26,7 @@ import net.minecraft.src.buildcraft.transport.PipeLogicWood;
 import net.minecraft.src.buildcraft.transport.PipeTransportLiquids;
 import net.minecraft.src.buildcraft.transport.TileGenericPipe;
 
-public class PipeLiquidsValve extends Pipe implements IPowerReceptor {
+public class PipeLiquidsValve extends Pipe implements IPowerReceptor, IABOSolid {
 	PowerProvider powerProvider;
 
 	public @TileNetworkData
@@ -50,9 +51,8 @@ public class PipeLiquidsValve extends Pipe implements IPowerReceptor {
 		int metadata = worldObj.getBlockMetadata(xCoord, yCoord, zCoord);
 		if (connection == Orientations.Unknown || metadata != connection.ordinal()) {
 			nextTexture = ((PipeLogicValve) logic).isPowered() ? openTexture : closedTexture;
-		}
-		else {
-			nextTexture = ((PipeLogicValve) logic).isPowered() ? openSideTexture : closedSideTexture;;
+		} else {
+			nextTexture = ((PipeLogicValve) logic).isPowered() ? openSideTexture : closedSideTexture;
 		}
 	}
 
@@ -63,7 +63,7 @@ public class PipeLiquidsValve extends Pipe implements IPowerReceptor {
 		if (worldObj.isBlockIndirectlyGettingPowered(xCoord, yCoord, zCoord)) {
 			powerProvider.receiveEnergy(1);
 		}
-		
+
 		int meta = worldObj.getBlockMetadata(xCoord, yCoord, zCoord);
 
 		if (liquidToExtract > 0 && meta < 6) {
@@ -96,7 +96,7 @@ public class PipeLiquidsValve extends Pipe implements IPowerReceptor {
 
 	@Override
 	public void setPowerProvider(PowerProvider provider) {
-		//powerProvider = provider;
+		// powerProvider = provider;
 	}
 
 	@Override
@@ -108,7 +108,7 @@ public class PipeLiquidsValve extends Pipe implements IPowerReceptor {
 	public void doWork() {
 		if (powerProvider.useEnergy(1, 1, false) < 1)
 			return;
-			
+
 		int meta = worldObj.getBlockMetadata(xCoord, yCoord, zCoord);
 
 		if (meta > 5) {
@@ -138,5 +138,11 @@ public class PipeLiquidsValve extends Pipe implements IPowerReceptor {
 	@Override
 	public int powerRequest() {
 		return getPowerProvider().maxEnergyReceived;
+	}
+
+	@Override
+	public boolean isBlockSolidOnSide(World world, int i, int j, int k, int side) {
+		// TODO: only allow specific sides
+		return true;
 	}
 }

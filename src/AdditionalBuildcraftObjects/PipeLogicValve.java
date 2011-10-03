@@ -64,7 +64,7 @@ public class PipeLogicValve extends PipeLogic {
 
 		return false;
 	}
-	
+
 	/**
 	 * 
 	 */
@@ -72,10 +72,10 @@ public class PipeLogicValve extends PipeLogic {
 		int metadata = worldObj.getBlockMetadata(xCoord, yCoord, zCoord);
 
 		int nextMetadata = metadata;
-		
-		for (int l = 0; l < 6; l ++) {
-			nextMetadata = (nextMetadata+1 % 6);
-			
+
+		for (int l = 0; l < 6; l++) {
+			nextMetadata = (nextMetadata + 1 % 6);
+
 			Position pos = new Position(xCoord, yCoord, zCoord, Orientations.values()[nextMetadata]);
 			pos.moveForwards(1.0);
 
@@ -87,12 +87,14 @@ public class PipeLogicValve extends PipeLogic {
 			if (tile instanceof TileGenericPipe) {
 				PipeTransport transport = ((TileGenericPipe) tile).pipe.transport;
 				PipeLogic logic = ((TileGenericPipe) tile).pipe.logic;
-				if (!baseT.getClass().isAssignableFrom(transport.getClass()) || !transport.getClass().isAssignableFrom(baseT.getClass()) ||
-						logic instanceof PipeLogicWood || logic instanceof PipeLogicValve)
+				if (!baseT.getClass().isAssignableFrom(transport.getClass())
+						|| !transport.getClass().isAssignableFrom(baseT.getClass()) || logic instanceof PipeLogicWood
+						|| logic instanceof PipeLogicValve)
 					continue;
 			}
 
-			if (tile instanceof IPipeEntry || tile instanceof TileGenericPipe || tile instanceof IInventory || tile instanceof ILiquidContainer) {
+			if (tile instanceof IPipeEntry || tile instanceof TileGenericPipe || tile instanceof IInventory
+					|| tile instanceof ILiquidContainer) {
 				worldObj.setBlockMetadata(xCoord, yCoord, zCoord, nextMetadata);
 				baseT.onNeighborBlockChange();
 				return;
@@ -103,11 +105,11 @@ public class PipeLogicValve extends PipeLogic {
 	@Override
 	public void onNeighborBlockChange() {
 		super.onNeighborBlockChange();
-		
+
 		int metadata = worldObj.getBlockMetadata(xCoord, yCoord, zCoord);
 
-		int nextMetadataS = (metadata + ((metadata%2 == 0) ? 0 : -1)) % 6;
-		int nextMetadataU = (metadata + ((metadata%2 == 0) ? 1 : 0)) % 6;
+		int nextMetadataS = (metadata + ((metadata % 2 == 0) ? 0 : -1)) % 6;
+		int nextMetadataU = (metadata + ((metadata % 2 == 0) ? 1 : 0)) % 6;
 
 		Position pos = new Position(xCoord, yCoord, zCoord, Orientations.values()[nextMetadataS]);
 		pos.moveForwards(1.0);
@@ -118,50 +120,52 @@ public class PipeLogicValve extends PipeLogic {
 		TileEntity base = worldObj.getBlockTileEntity(xCoord, yCoord, zCoord);
 		TileEntity tile = worldObj.getBlockTileEntity((int) pos.x, (int) pos.y, (int) pos.z);
 		TileEntity tile2 = worldObj.getBlockTileEntity((int) pos2.x, (int) pos2.y, (int) pos2.z);
-		
+
 		PipeTransport baseT = ((TileGenericPipe) base).pipe.transport;
-		
+
 		boolean fail = false;
 		boolean fail2 = false;
-		
+
 		if (tile instanceof TileGenericPipe) {
 			PipeTransport transport = ((TileGenericPipe) tile).pipe.transport;
 			PipeLogic logic = ((TileGenericPipe) tile).pipe.logic;
-			if (!baseT.getClass().isAssignableFrom(transport.getClass()) || !transport.getClass().isAssignableFrom(baseT.getClass()) ||
-					logic instanceof PipeLogicWood || logic instanceof PipeLogicValve)
+			if (!baseT.getClass().isAssignableFrom(transport.getClass())
+					|| !transport.getClass().isAssignableFrom(baseT.getClass()) || logic instanceof PipeLogicWood
+					|| logic instanceof PipeLogicValve)
 				fail = true;
 		}
 
 		if (tile2 instanceof TileGenericPipe) {
 			PipeTransport transport = ((TileGenericPipe) tile2).pipe.transport;
 			PipeLogic logic = ((TileGenericPipe) tile2).pipe.logic;
-			if (!baseT.getClass().isAssignableFrom(transport.getClass()) || !transport.getClass().isAssignableFrom(baseT.getClass()) ||
-					logic instanceof PipeLogicWood || logic instanceof PipeLogicValve)
+			if (!baseT.getClass().isAssignableFrom(transport.getClass())
+					|| !transport.getClass().isAssignableFrom(baseT.getClass()) || logic instanceof PipeLogicWood
+					|| logic instanceof PipeLogicValve)
 				fail2 = true;
 		}
-		
+
 		// both neighbours are pipes but invalid, switch position
-		if(fail && fail2) {
+		if (fail && fail2) {
 			switchPosition();
 			return;
 		}
 
 		// is neighbour one okay?
-		if (!fail && (tile instanceof IPipeEntry || tile instanceof IInventory || tile instanceof ILiquidContainer
-				|| tile instanceof TileGenericPipe)) {
+		if (!fail
+				&& (tile instanceof IPipeEntry || tile instanceof IInventory || tile instanceof ILiquidContainer || tile instanceof TileGenericPipe)) {
 			return;
 		}
 
 		// neighbour one is not okay, is neighbour two okay?
-		if (!fail2 && (tile2 instanceof IPipeEntry || tile2 instanceof IInventory || tile2 instanceof ILiquidContainer
-				|| tile2 instanceof TileGenericPipe)) {
+		if (!fail2
+				&& (tile2 instanceof IPipeEntry || tile2 instanceof IInventory || tile2 instanceof ILiquidContainer || tile2 instanceof TileGenericPipe)) {
 			return;
 		}
-		
+
 		// both neighbours are invalid, switch position
 		switchPosition();
 	}
-	
+
 	/*
 	 * (non-Javadoc)
 	 * 
@@ -256,25 +260,24 @@ public class PipeLogicValve extends PipeLogic {
 		if (isPowered())
 			return false;
 
-		int nextMetadataS = (metadata + ((metadata%2 == 0) ? 0 : -1)) % 6;
-		int nextMetadataU = (metadata + ((metadata%2 == 0) ? 1 : 0)) % 6;
+		int nextMetadataS = (metadata + ((metadata % 2 == 0) ? 0 : -1)) % 6;
+		int nextMetadataU = (metadata + ((metadata % 2 == 0) ? 1 : 0)) % 6;
 
 		Position pos = new Position(xCoord, yCoord, zCoord, Orientations.values()[nextMetadataS]);
 		pos.moveForwards(1.0);
-		TileEntity tile = worldObj.getBlockTileEntity((int)pos.x, (int)pos.y, (int)pos.z);
+		TileEntity tile = worldObj.getBlockTileEntity((int) pos.x, (int) pos.y, (int) pos.z);
 
 		Position pos2 = new Position(xCoord, yCoord, zCoord, Orientations.values()[nextMetadataU]);
 		pos2.moveForwards(1.0);
-		TileEntity tile2 = worldObj.getBlockTileEntity((int)pos2.x, (int)pos2.y, (int)pos2.z);
-		
-		boolean isPipe = (tile instanceof IPipeEntry || tile instanceof IInventory || tile instanceof ILiquidContainer
-				|| tile instanceof TileGenericPipe);
+		TileEntity tile2 = worldObj.getBlockTileEntity((int) pos2.x, (int) pos2.y, (int) pos2.z);
 
-		boolean isPipe2 = (tile2 instanceof IPipeEntry || tile2 instanceof IInventory || tile2 instanceof ILiquidContainer
-				|| tile2 instanceof TileGenericPipe);
+		boolean isPipe = (tile instanceof IPipeEntry || tile instanceof IInventory || tile instanceof ILiquidContainer || tile instanceof TileGenericPipe);
+
+		boolean isPipe2 = (tile2 instanceof IPipeEntry || tile2 instanceof IInventory
+				|| tile2 instanceof ILiquidContainer || tile2 instanceof TileGenericPipe);
 
 		System.out.println("input  1:" + isPipe + " 2:" + isPipe2 + " m:" + metadata + " f:" + from.ordinal());
-		
+
 		switch (from.ordinal()) {
 		case 0:
 		case 1:
@@ -304,24 +307,24 @@ public class PipeLogicValve extends PipeLogic {
 		if (!isPowered())
 			return false;
 
-		int nextMetadataS = (metadata + ((metadata%2 == 0) ? 0 : -1)) % 6;
-		int nextMetadataU = (metadata + ((metadata%2 == 0) ? 1 : 0)) % 6;
+		int nextMetadataS = (metadata + ((metadata % 2 == 0) ? 0 : -1)) % 6;
+		int nextMetadataU = (metadata + ((metadata % 2 == 0) ? 1 : 0)) % 6;
 
 		Position pos = new Position(xCoord, yCoord, zCoord, Orientations.values()[nextMetadataS]);
 		pos.moveForwards(1.0);
-		TileEntity tile = worldObj.getBlockTileEntity((int)pos.x, (int)pos.y, (int)pos.z);
+		TileEntity tile = worldObj.getBlockTileEntity((int) pos.x, (int) pos.y, (int) pos.z);
 
 		Position pos2 = new Position(xCoord, yCoord, zCoord, Orientations.values()[nextMetadataU]);
 		pos2.moveForwards(1.0);
-		TileEntity tile2 = worldObj.getBlockTileEntity((int)pos2.x, (int)pos2.y, (int)pos2.z);
-		
-		boolean isPipe = (tile instanceof IPipeEntry || tile instanceof IInventory || tile instanceof ILiquidContainer
-				|| tile instanceof TileGenericPipe);
+		TileEntity tile2 = worldObj.getBlockTileEntity((int) pos2.x, (int) pos2.y, (int) pos2.z);
 
-		boolean isPipe2 = (tile2 instanceof IPipeEntry || tile2 instanceof IInventory || tile2 instanceof ILiquidContainer
-				|| tile2 instanceof TileGenericPipe);
-		
-		//System.out.println("output 1:" + isPipe + " 2:" + isPipe2 + " m:" + metadata + " t:" + to.ordinal());
+		boolean isPipe = (tile instanceof IPipeEntry || tile instanceof IInventory || tile instanceof ILiquidContainer || tile instanceof TileGenericPipe);
+
+		boolean isPipe2 = (tile2 instanceof IPipeEntry || tile2 instanceof IInventory
+				|| tile2 instanceof ILiquidContainer || tile2 instanceof TileGenericPipe);
+
+		// System.out.println("output 1:" + isPipe + " 2:" + isPipe2 + " m:" +
+		// metadata + " t:" + to.ordinal());
 
 		switch (to.ordinal()) {
 		case 0:

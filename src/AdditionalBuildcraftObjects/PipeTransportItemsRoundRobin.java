@@ -23,7 +23,7 @@ public class PipeTransportItemsRoundRobin extends PipeTransportItems {
 	@Override
 	public void readFromNBT(NBTTagCompound nbttagcompound) {
 		super.readFromNBT(nbttagcompound);
-		
+
 		lastOrientation = nbttagcompound.getInteger("lastOrientation");
 	}
 
