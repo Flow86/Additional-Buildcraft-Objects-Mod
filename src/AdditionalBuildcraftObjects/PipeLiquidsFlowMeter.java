@@ -74,7 +74,7 @@ public class PipeLiquidsFlowMeter extends Pipe implements IABOSolid, IABOPower {
 	 * @return
 	 */
 	private int getLiquidRealCapacity() {
-		return 500;
+		return 600;
 	}
 
 	/**
@@ -83,7 +83,7 @@ public class PipeLiquidsFlowMeter extends Pipe implements IABOSolid, IABOPower {
 	 * @return
 	 */
 	private int getLiquidRealAmount() {
-		int total = 0;
+		int total = ((PipeTransportLiquids) transport).getCenter();
 
 		for (int i = 0; i < 6; ++i)
 			total += ((PipeTransportLiquids) transport).getSide(i);
@@ -150,8 +150,7 @@ public class PipeLiquidsFlowMeter extends Pipe implements IABOSolid, IABOPower {
 			notifyNeighbors();
 		}
 		
-		System.out.println("currentPower: " + currentPower + " lastPower: " + lastPower + " amount: " + amount
-				+ " on: " + onAmount + " off: " + offAmount);
+		//System.out.println("currentPower: " + currentPower + " amount: " + amount);
 	}
 
 	@Override
