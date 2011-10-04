@@ -74,7 +74,7 @@ public class PipeLogicValve extends PipeLogic {
 		int nextMetadata = metadata;
 
 		for (int l = 0; l < 6; l++) {
-			nextMetadata = (nextMetadata + 1 % 6);
+			nextMetadata = ((nextMetadata + 1) % 6);
 
 			Position pos = new Position(xCoord, yCoord, zCoord, Orientations.values()[nextMetadata]);
 			pos.moveForwards(1.0);
