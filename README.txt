@@ -7,25 +7,34 @@ Round Robin Transport Pipe
   will change output per item(stack)
 
 Recipe:
-  Glass Gravel Glass
+  StoneTransportPipe Gravel
 
 ---------------------------------------------------------------------------------
 
-Valve Liquids Pipe
+Valve Pipe
   acts like a wooden pipe (without need of wooden engine)
   also acts like a, yes ..., valve ;-)
 
 
 Recipe:
-  WoodenLiquidsPipe IronIngot WoodenLiquidsPipe
+  WoodenWaterproofPipe Lever WoodenWaterproofPipe 
 
 ---------------------------------------------------------------------------------
 
-Golden Iron Liquids Pipe
+Golden Iron Waterproof Pipe
   acts like a iron pipe with speed of a golden pipe
 
 Recipe:
-  IronIngot GoldIngot IronIngot
+  GoldenWaterproofPipe IronWaterproofPipe 
+
+---------------------------------------------------------------------------------
+
+Flow Meter Pipe
+  triggers redstone if water pressure above 60%, 
+  and resets redstone if its below 10%
+
+Recipe:
+  GoldenWaterproofPipe RedstoneTorch
 
 ---------------------------------------------------------------------------------
 
@@ -33,11 +42,15 @@ Power Switch Pipe
   acts as lever for power pipes
 
 Recipe:
-  Glass Lever Glass
+  GoldenConductivePipe Lever
 
 ---------------------------------------------------------------------------------
 
 Changelog:
+
+0.3:
+ - added Flow Meter Liquids Pipe
+ - changed recipes
 
 0.2:
  - fixed Valve Liquids Pipe

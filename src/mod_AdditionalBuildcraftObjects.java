@@ -90,21 +90,20 @@ public class mod_AdditionalBuildcraftObjects extends BaseModMp implements ICusto
 
 		blockABOPipe = new BlockABOPipe(blockABOPipeID);
 
-		pipeLiquidsValve = createPipe(pipeLiquidsValveID, PipeLiquidsValve.class, "Valve Liquids Pipe",
-				BuildCraftTransport.pipeLiquidsWood, Item.ingotIron, BuildCraftTransport.pipeLiquidsWood);
+		pipeLiquidsValve = createPipe(pipeLiquidsValveID, PipeLiquidsValve.class, "Valve Pipe",
+				BuildCraftTransport.pipeLiquidsWood, Block.lever, BuildCraftTransport.pipeLiquidsWood);
 
-		pipeLiquidsGoldenIron = createPipe(pipeLiquidsGoldenIronID, PipeLiquidsGoldenIron.class, "Golden Iron Pipe",
-				Item.ingotIron, Item.ingotGold, Item.ingotIron);
+		pipeLiquidsGoldenIron = createPipe(pipeLiquidsGoldenIronID, PipeLiquidsGoldenIron.class, "Golden Iron Waterproof Pipe",
+				BuildCraftTransport.pipeLiquidsGold, BuildCraftTransport.pipeLiquidsIron, null);
 
 		pipeLiquidsFlowMeter = createPipe(pipeLiquidsFlowMeterID, PipeLiquidsFlowMeter.class, "Flow Meter Pipe",
-				//Block.glass, BuildCraftCore.diamondGearItem, Block.glass);
-				Block.glass, Item.redstone, Block.glass);
+				BuildCraftTransport.pipeLiquidsGold, Block.torchRedstoneActive, null);
 		
 		pipeItemsRoundRobin = createPipe(pipeItemsRoundRobinID, PipeItemsRoundRobin.class, "RoundRobin Transport Pipe",
-				Block.glass, Block.gravel, Block.glass);
+				BuildCraftTransport.pipeItemsStone, Block.gravel, null);
 
-		pipePowerSwitch = createPipe(pipePowerSwitchID, PipePowerSwitch.class, "Power Switch Pipe", Block.glass,
-				Block.lever, Block.glass);
+		pipePowerSwitch = createPipe(pipePowerSwitchID, PipePowerSwitch.class, "Power Switch Pipe", 
+				BuildCraftTransport.pipePowerGold, Block.lever, null);
 	}
 
 	/**
