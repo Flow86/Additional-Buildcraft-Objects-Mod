@@ -42,7 +42,7 @@ public class PipeLiquidsValve extends Pipe implements IPowerReceptor, IABOSolid 
 		super(new PipeTransportLiquids(2, 80), new PipeLogicValve(), itemID);
 
 		powerProvider = new RedstonePowerProvider();
-		powerProvider.configure(50, 1, 64, 1, 64);
+		powerProvider.configure(25, 1, 64, 1, 64);
 		powerProvider.configurePowerPerdition(64, 1);
 	}
 

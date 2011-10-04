@@ -10,6 +10,7 @@
 
 package net.minecraft.src.AdditionalBuildcraftObjects;
 
+import net.minecraft.src.IBlockAccess;
 import net.minecraft.src.Item;
 import net.minecraft.src.World;
 import net.minecraft.src.mod_AdditionalBuildcraftObjects;
@@ -63,9 +64,41 @@ public class BlockABOPipe extends BlockGenericPipe {
 	public boolean isBlockSolidOnSide(World world, int i, int j, int k, int side) {
 		Pipe pipe = getPipe(world, i, j, k);
 		if (pipe != null && pipe instanceof IABOSolid) {
-			IABOSolid spipe = (IABOSolid) pipe;
+			IABOSolid spipe = (IABOSolid)pipe;
 			return spipe.isBlockSolidOnSide(world, i, j, k, side);
 		}
 		return false;
 	}
+	
+    @Override
+	public boolean isPoweringTo(IBlockAccess iblockaccess, int i, int j, int k, int side)
+    {
+    	Pipe pipe = getPipe(iblockaccess, i, j, k);
+    	if(pipe != null && pipe instanceof IABOPower) {
+    		IABOPower ppipe = (IABOPower)pipe;
+    		return ppipe.isPoweringTo(iblockaccess, i, j, k, side);
+    	}
+        return super.isPoweringTo(iblockaccess, i, j, k, side);
+    }
+
+    @Override
+	public boolean isIndirectlyPoweringTo(World world, int i, int j, int k, int side)
+    {
+    	Pipe pipe = getPipe(world, i, j, k);
+    	if(pipe != null && pipe instanceof IABOPower) {
+    		IABOPower ppipe = (IABOPower)pipe;
+    		return ppipe.isIndirectlyPoweringTo(world, i, j, k, side);
+    	}
+        return super.isIndirectlyPoweringTo(world, i, j, k, side);
+    }
+
+    /* (non-Javadoc)
+     * @see net.minecraft.src.Block#canProvidePower()
+     */
+    @Override
+	public boolean canProvidePower()
+    {
+    	// thats ugly but I have to provide power here :/ (no world, etc here :/)
+        return true;
+    }	
 }

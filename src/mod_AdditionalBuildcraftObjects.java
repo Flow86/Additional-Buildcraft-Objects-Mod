@@ -13,6 +13,7 @@ package net.minecraft.src;
 import net.minecraft.src.AdditionalBuildcraftObjects.BlockABOPipe;
 import net.minecraft.src.AdditionalBuildcraftObjects.ItemABOPipe;
 import net.minecraft.src.AdditionalBuildcraftObjects.PipeItemsRoundRobin;
+import net.minecraft.src.AdditionalBuildcraftObjects.PipeLiquidsFlowMeter;
 import net.minecraft.src.AdditionalBuildcraftObjects.PipeLiquidsGoldenIron;
 import net.minecraft.src.AdditionalBuildcraftObjects.PipeLiquidsValve;
 import net.minecraft.src.AdditionalBuildcraftObjects.PipePowerSwitch;
@@ -44,6 +45,10 @@ public class mod_AdditionalBuildcraftObjects extends BaseModMp implements ICusto
 	public static int pipeLiquidsGoldenIronID = 10201;
 	public static Item pipeLiquidsGoldenIron = null;
 
+	@MLProp(min = 256.0D, max = 32000.0D)
+	public static int pipeLiquidsFlowMeterID = 10202;
+	public static Item pipeLiquidsFlowMeter = null;
+	
 	@MLProp(min = 256.0D, max = 32000.0D)
 	public static int pipeItemsRoundRobinID = 10300;
 	public static Item pipeItemsRoundRobin = null;
@@ -87,19 +92,19 @@ public class mod_AdditionalBuildcraftObjects extends BaseModMp implements ICusto
 
 		pipeLiquidsValve = createPipe(pipeLiquidsValveID, PipeLiquidsValve.class, "Valve Liquids Pipe",
 				BuildCraftTransport.pipeLiquidsWood, Item.ingotIron, BuildCraftTransport.pipeLiquidsWood);
-		MinecraftForgeClient.registerCustomItemRenderer(pipeLiquidsValve.shiftedIndex, this);
 
 		pipeLiquidsGoldenIron = createPipe(pipeLiquidsGoldenIronID, PipeLiquidsGoldenIron.class, "Golden Iron Pipe",
 				Item.ingotIron, Item.ingotGold, Item.ingotIron);
-		MinecraftForgeClient.registerCustomItemRenderer(pipeLiquidsGoldenIron.shiftedIndex, this);
 
+		pipeLiquidsFlowMeter = createPipe(pipeLiquidsFlowMeterID, PipeLiquidsFlowMeter.class, "Flow Meter Pipe",
+				//Block.glass, BuildCraftCore.diamondGearItem, Block.glass);
+				Block.glass, Item.redstone, Block.glass);
+		
 		pipeItemsRoundRobin = createPipe(pipeItemsRoundRobinID, PipeItemsRoundRobin.class, "RoundRobin Transport Pipe",
 				Block.glass, Block.gravel, Block.glass);
-		MinecraftForgeClient.registerCustomItemRenderer(pipeItemsRoundRobin.shiftedIndex, this);
 
 		pipePowerSwitch = createPipe(pipePowerSwitchID, PipePowerSwitch.class, "Power Switch Pipe", Block.glass,
 				Block.lever, Block.glass);
-		MinecraftForgeClient.registerCustomItemRenderer(pipePowerSwitch.shiftedIndex, this);
 	}
 
 	/**
@@ -126,6 +131,7 @@ public class mod_AdditionalBuildcraftObjects extends BaseModMp implements ICusto
 					Character.valueOf('B'), r2 });
 		}
 
+		MinecraftForgeClient.registerCustomItemRenderer(res.shiftedIndex, mod_AdditionalBuildcraftObjects.instance);
 		return res;
 	}
 
