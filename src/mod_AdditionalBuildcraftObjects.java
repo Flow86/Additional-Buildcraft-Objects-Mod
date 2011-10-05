@@ -123,10 +123,10 @@ public class mod_AdditionalBuildcraftObjects extends BaseModMp implements ICusto
 		CraftingManager craftingmanager = CraftingManager.getInstance();
 
 		if (r1 != null && r2 != null && r3 != null) {
-			craftingmanager.addRecipe(new ItemStack(res, 8), new Object[] { "   ", "ABC", "   ",
+			craftingmanager.addRecipe(new ItemStack(res, 8), new Object[] { "ABC",
 					Character.valueOf('A'), r1, Character.valueOf('B'), r2, Character.valueOf('C'), r3 });
 		} else if (r1 != null && r2 != null) {
-			craftingmanager.addRecipe(new ItemStack(res, 1), new Object[] { "A ", "B ", Character.valueOf('A'), r1,
+			craftingmanager.addRecipe(new ItemStack(res, 1), new Object[] { "AB", Character.valueOf('A'), r1,
 					Character.valueOf('B'), r2 });
 		}
 

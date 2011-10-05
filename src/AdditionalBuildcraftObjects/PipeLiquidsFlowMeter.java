@@ -102,7 +102,8 @@ public class PipeLiquidsFlowMeter extends Pipe implements IABOSolid, IABOPower {
 	 */
 	private void notifyNeighbors() {
 		worldObj.markBlockNeedsUpdate(xCoord, yCoord, zCoord);
-
+		worldObj.markBlocksDirty(xCoord-1, yCoord-1, zCoord-1, xCoord+1, yCoord+1, zCoord+1);
+		
 		TileEntity tilePX = worldObj.getBlockTileEntity(xCoord + 1, yCoord, zCoord);
 		TileEntity tileNX = worldObj.getBlockTileEntity(xCoord - 1, yCoord, zCoord);
 		TileEntity tilePY = worldObj.getBlockTileEntity(xCoord, yCoord + 1, zCoord);
