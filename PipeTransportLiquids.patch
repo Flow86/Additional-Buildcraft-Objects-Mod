@@ -1,0 +1,15 @@
+diff --git a/buildcraft/common/net/minecraft/src/buildcraft/transport/PipeTransportLiquids.java b/buildcraft/common/net/minecraft/src/buildcraft/transport/PipeTransportLiquids.java
+index 0164797..7d6250b 100755
+--- a/buildcraft/common/net/minecraft/src/buildcraft/transport/PipeTransportLiquids.java
++++ b/buildcraft/common/net/minecraft/src/buildcraft/transport/PipeTransportLiquids.java
+@@ -501,8 +501,8 @@
+ 
+ 			pos.moveForwards(1);
+ 
+-			if (!canReceiveLiquid(pos)) {
+-				center.fill(side[i].qty, true, side[i].liquidId);
++			if (!Utils.checkPipesConnections(worldObj, (int) pos.x, (int) pos.y,
++					(int) pos.z, xCoord, yCoord, zCoord)) {
+ 				side[i].reset();
+ 			}
+ 		}
