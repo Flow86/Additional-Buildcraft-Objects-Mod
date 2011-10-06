@@ -42,6 +42,8 @@ Balance Pipe
   balances liquid of connected tanks when powered 
   with redstone
 
+  Thanks to Oxygene13 for his idea :-)
+
 Recipe:
   WoodenWaterproofPipe FlowMeter WoodenWaterproofPipe
 
