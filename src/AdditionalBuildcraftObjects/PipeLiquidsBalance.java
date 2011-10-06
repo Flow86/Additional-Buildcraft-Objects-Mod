@@ -26,6 +26,10 @@ import net.minecraft.src.buildcraft.transport.PipeLogicStone;
 import net.minecraft.src.buildcraft.transport.PipeTransportLiquids;
 import net.minecraft.src.buildcraft.transport.TileGenericPipe;
 
+/**
+ * @author Flow86
+ *
+ */
 public class PipeLiquidsBalance extends Pipe implements IPowerReceptor {
 	PowerProvider powerProvider;
 
@@ -73,17 +77,17 @@ public class PipeLiquidsBalance extends Pipe implements IPowerReceptor {
 	}
 
 	/**
-	 * @param xCoord
-	 * @param yCoord
-	 * @param zCoord
+	 * @param x
+	 * @param y
+	 * @param z
 	 * @return
 	 */
-	private Neighbor getLiquidContainerOfNeighbor(int xCoord, int yCoord, int zCoord) {
-		TileEntity tile = worldObj.getBlockTileEntity(xCoord, yCoord, zCoord);
+	private Neighbor getLiquidContainerOfNeighbor(int x, int y, int z) {
+		TileEntity tile = worldObj.getBlockTileEntity(x, y, z);
 		if (tile == null || !(tile instanceof ILiquidContainer))
 			return null;
 
-		return new Neighbor((ILiquidContainer) tile, xCoord, yCoord, zCoord);
+		return new Neighbor((ILiquidContainer) tile, x, y, z);
 	}
 
 	@Override
@@ -167,7 +171,7 @@ public class PipeLiquidsBalance extends Pipe implements IPowerReceptor {
 
 					//System.out.println("liquidToExtract: " + liquidToExtract);
 
-					Orientations pos = Utils.get2dOrientation(new Position(xCoord, yCoord, zCoord), new Position(
+					Orientations pos = Utils.get3dOrientation(new Position(xCoord, yCoord, zCoord), new Position(
 							n.x, n.y, n.z));
 
 					if (liquidToExtract > 0) {
@@ -179,7 +183,7 @@ public class PipeLiquidsBalance extends Pipe implements IPowerReceptor {
 						liquidToExtract = -liquidToExtract;
 						int extracted = ltransport.empty(liquidToExtract > ltransport.flowRate ? ltransport.flowRate
 								: liquidToExtract, false);
-						extracted = n.c.fill(pos, extracted, liquidID, true);
+						extracted = n.c.fill(pos.reverse(), extracted, liquidID, true);
 						ltransport.empty(extracted, true);
 					}
 				}
