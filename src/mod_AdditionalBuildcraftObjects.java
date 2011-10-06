@@ -13,6 +13,7 @@ package net.minecraft.src;
 import net.minecraft.src.AdditionalBuildcraftObjects.BlockABOPipe;
 import net.minecraft.src.AdditionalBuildcraftObjects.ItemABOPipe;
 import net.minecraft.src.AdditionalBuildcraftObjects.PipeItemsRoundRobin;
+import net.minecraft.src.AdditionalBuildcraftObjects.PipeLiquidsBalance;
 import net.minecraft.src.AdditionalBuildcraftObjects.PipeLiquidsFlowMeter;
 import net.minecraft.src.AdditionalBuildcraftObjects.PipeLiquidsGoldenIron;
 import net.minecraft.src.AdditionalBuildcraftObjects.PipeLiquidsValve;
@@ -48,6 +49,10 @@ public class mod_AdditionalBuildcraftObjects extends BaseModMp implements ICusto
 	@MLProp(min = 256.0D, max = 32000.0D)
 	public static int pipeLiquidsFlowMeterID = 10202;
 	public static Item pipeLiquidsFlowMeter = null;
+
+	@MLProp(min = 256.0D, max = 32000.0D)
+	public static int pipeLiquidsBalanceID = 10203;
+	public static Item pipeLiquidsBalance = null;
 	
 	@MLProp(min = 256.0D, max = 32000.0D)
 	public static int pipeItemsRoundRobinID = 10300;
@@ -98,6 +103,9 @@ public class mod_AdditionalBuildcraftObjects extends BaseModMp implements ICusto
 
 		pipeLiquidsFlowMeter = createPipe(pipeLiquidsFlowMeterID, PipeLiquidsFlowMeter.class, "Flow Meter Pipe",
 				BuildCraftTransport.pipeLiquidsGold, Block.torchRedstoneActive, null);
+
+		pipeLiquidsBalance = createPipe(pipeLiquidsBalanceID, PipeLiquidsBalance.class, "Balance Pipe",
+				BuildCraftTransport.pipeLiquidsWood, pipeLiquidsFlowMeter, BuildCraftTransport.pipeLiquidsWood);
 		
 		pipeItemsRoundRobin = createPipe(pipeItemsRoundRobinID, PipeItemsRoundRobin.class, "RoundRobin Transport Pipe",
 				BuildCraftTransport.pipeItemsStone, Block.gravel, null);
@@ -186,6 +194,6 @@ public class mod_AdditionalBuildcraftObjects extends BaseModMp implements ICusto
 	 */
 	@Override
 	public String Version() {
-		return "0.3 (MC 1.8.1, BC 2.2.0)";
+		return "0.4 (MC 1.8.1, BC 2.2.0)";
 	}
 }

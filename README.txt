@@ -38,6 +38,15 @@ Recipe:
 
 ---------------------------------------------------------------------------------
 
+Balance Pipe
+  balances liquid of connected tanks when powered 
+  with redstone
+
+Recipe:
+  WoodenWaterproofPipe FlowMeter WoodenWaterproofPipe
+
+---------------------------------------------------------------------------------
+
 Power Switch Pipe
   acts as lever for power pipes
 
@@ -47,6 +56,9 @@ Recipe:
 ---------------------------------------------------------------------------------
 
 Changelog:
+
+0.4:
+ - added Balance Pipe
 
 0.3:
  - added Flow Meter Liquids Pipe
