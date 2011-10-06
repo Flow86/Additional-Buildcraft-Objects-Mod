@@ -18,6 +18,7 @@ import net.minecraft.src.buildcraft.api.IPowerReceptor;
 import net.minecraft.src.buildcraft.api.Orientations;
 import net.minecraft.src.buildcraft.api.Position;
 import net.minecraft.src.buildcraft.api.PowerProvider;
+import net.minecraft.src.buildcraft.core.ILiquid;
 import net.minecraft.src.buildcraft.core.ILiquidContainer;
 import net.minecraft.src.buildcraft.core.RedstonePowerProvider;
 import net.minecraft.src.buildcraft.core.TileNetworkData;
@@ -55,6 +56,24 @@ public class PipeLiquidsValve extends Pipe implements IPowerReceptor, IABOSolid 
 			nextTexture = ((PipeLogicValve) logic).isPowered() ? openSideTexture : closedSideTexture;
 		}
 	}
+	
+	public int liquidIDtoBlockID(int liquidID)
+	{
+		if (liquidID == Block.waterStill.blockID) {
+			return Block.waterMoving.blockID;
+		} else if (liquidID == Block.lavaStill.blockID) {
+			return Block.lavaMoving.blockID;
+		}
+		
+		for(Block b : Block.blocksList) {
+			if(b instanceof ILiquid) {
+				if(liquidID == ((ILiquid)b).stillLiquidId()) {
+					return b.blockID;
+				}
+			}
+		}
+		return 0;
+	}
 
 	@Override
 	public void updateEntity() {
@@ -79,7 +98,21 @@ public class PipeLiquidsValve extends Pipe implements IPowerReceptor, IABOSolid 
 
 				int extracted = container.empty(liquidToExtract > flowRate ? flowRate : liquidToExtract, false);
 
-				extracted = ((PipeTransportLiquids) transport).fill(pos.orientation, extracted,
+				pos.moveBackwards(2);
+				TileEntity tile2 = worldObj.getBlockTileEntity((int) pos.x, (int) pos.y, (int) pos.z);
+				if( (tile2 == null || !isPipeConnected(tile2)) && (worldObj.isAirBlock((int) pos.x, (int) pos.y, (int) pos.z)))
+				{
+					int blockID = liquidIDtoBlockID(container.getLiquidId());
+					int flowDecay = extracted / 1000;
+					if(worldObj.getBlockId((int) pos.x, (int) pos.y, (int) pos.z) == blockID)
+						flowDecay += worldObj.getBlockMetadata((int) pos.x, (int) pos.y, (int) pos.z);
+					
+					worldObj.setBlockAndMetadataWithNotify((int) pos.x, (int) pos.y, (int) pos.z, blockID, flowDecay);
+					worldObj.markBlocksDirty((int) pos.x, (int) pos.y, (int) pos.z, (int) pos.x, (int) pos.y, (int) pos.z);
+					worldObj.markBlockNeedsUpdate((int) pos.x, (int) pos.y, (int) pos.z);
+				}
+				else
+					extracted = ((PipeTransportLiquids) transport).fill(pos.orientation, extracted,
 						container.getLiquidId(), true);
 
 				container.empty(extracted, true);
