@@ -11,9 +11,9 @@
 package net.minecraft.src.AdditionalBuildcraftObjects;
 
 import net.minecraft.src.Block;
-import net.minecraft.src.BuildCraftCore;
 import net.minecraft.src.TileEntity;
 import net.minecraft.src.World;
+import net.minecraft.src.buildcraft.api.API;
 import net.minecraft.src.buildcraft.api.ILiquidContainer;
 import net.minecraft.src.buildcraft.api.IPowerReceptor;
 import net.minecraft.src.buildcraft.api.Orientations;
@@ -168,8 +168,8 @@ public class PipeLiquidsValve extends Pipe implements IPowerReceptor, IABOSolid 
 		}
 
 		if (tile instanceof ILiquidContainer && !(tile instanceof TileGenericPipe)) {
-			if (liquidToExtract <= BuildCraftCore.BUCKET_VOLUME) {
-				liquidToExtract += powerProvider.useEnergy(1, 1, true) * BuildCraftCore.BUCKET_VOLUME;
+			if (liquidToExtract <= API.BUCKET_VOLUME) {
+				liquidToExtract += powerProvider.useEnergy(1, 1, true) * API.BUCKET_VOLUME;
 
 				// sendNetworkUpdate();
 			}
