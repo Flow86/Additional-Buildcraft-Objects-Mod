@@ -94,6 +94,7 @@ public class mod_AdditionalBuildcraftObjects extends BaseModMp implements ICusto
 		MinecraftForgeClient.preloadTexture(customTexture);
 
 		blockABOPipe = new BlockABOPipe(blockABOPipeID);
+		ModLoader.RegisterTileEntity(BlockABOPipe.class, "net.minecraft.src.AdditionalBuildcraftObjects.ABOPipe");
 
 		pipeLiquidsValve = createPipe(pipeLiquidsValveID, PipeLiquidsValve.class, "Valve Pipe",
 				BuildCraftTransport.pipeLiquidsWood, Block.lever, BuildCraftTransport.pipeLiquidsWood);
@@ -194,6 +195,6 @@ public class mod_AdditionalBuildcraftObjects extends BaseModMp implements ICusto
 	 */
 	@Override
 	public String Version() {
-		return "0.4 (MC 1.8.1, BC 2.2.0)";
+		return "0.4 (MC 1.8.1, BC 2.2.2)";
 	}
 }

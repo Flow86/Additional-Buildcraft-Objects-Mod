@@ -14,10 +14,10 @@ import net.minecraft.src.BuildCraftCore;
 import net.minecraft.src.EntityPlayer;
 import net.minecraft.src.IInventory;
 import net.minecraft.src.TileEntity;
+import net.minecraft.src.buildcraft.api.ILiquidContainer;
 import net.minecraft.src.buildcraft.api.IPipeEntry;
 import net.minecraft.src.buildcraft.api.Orientations;
 import net.minecraft.src.buildcraft.api.Position;
-import net.minecraft.src.buildcraft.core.ILiquidContainer;
 import net.minecraft.src.buildcraft.transport.Pipe;
 import net.minecraft.src.buildcraft.transport.PipeLogic;
 import net.minecraft.src.buildcraft.transport.PipeLogicWood;
@@ -323,7 +323,8 @@ public class PipeLogicValve extends PipeLogic {
 		boolean isPipe2 = (tile2 instanceof IPipeEntry || tile2 instanceof IInventory
 				|| tile2 instanceof ILiquidContainer || tile2 instanceof TileGenericPipe);
 
-		//System.out.println("output 1:" + isPipe + " 2:" + isPipe2 + " m:" + metadata + " t:" + to.ordinal());
+		// System.out.println("output 1:" + isPipe + " 2:" + isPipe2 + " m:" +
+		// metadata + " t:" + to.ordinal());
 
 		switch (to.ordinal()) {
 		case 0:
