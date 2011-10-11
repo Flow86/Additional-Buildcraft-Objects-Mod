@@ -14,11 +14,8 @@ import java.util.ArrayList;
 
 import net.minecraft.src.TileEntity;
 import net.minecraft.src.buildcraft.api.ILiquidContainer;
-import net.minecraft.src.buildcraft.api.IPowerReceptor;
 import net.minecraft.src.buildcraft.api.Orientations;
 import net.minecraft.src.buildcraft.api.Position;
-import net.minecraft.src.buildcraft.api.PowerProvider;
-import net.minecraft.src.buildcraft.core.RedstonePowerProvider;
 import net.minecraft.src.buildcraft.core.Utils;
 import net.minecraft.src.buildcraft.factory.TileTank;
 import net.minecraft.src.buildcraft.transport.Pipe;
@@ -30,9 +27,7 @@ import net.minecraft.src.buildcraft.transport.TileGenericPipe;
  * @author Flow86
  *
  */
-public class PipeLiquidsBalance extends Pipe implements IPowerReceptor {
-	PowerProvider powerProvider;
-
+public class PipeLiquidsBalance extends Pipe {
 	class Neighbor {
 		public Neighbor(ILiquidContainer container, int xCoord, int yCoord, int zCoord) {
 			c = container;
@@ -53,19 +48,13 @@ public class PipeLiquidsBalance extends Pipe implements IPowerReceptor {
 
 	public PipeLiquidsBalance(int itemID) {
 		super(new PipeTransportLiquids(2, 80), new PipeLogicStone(), itemID);
-
-		powerProvider = new RedstonePowerProvider();
-		powerProvider.configure(0, 1, 1, 1, 1);
-		powerProvider.configurePowerPerdition(1, 1);
 	}
 
 	@Override
 	public void updateEntity() {
 		super.updateEntity();
 
-		if (worldObj.isBlockIndirectlyGettingPowered(xCoord, yCoord, zCoord)) {
-			powerProvider.receiveEnergy(1);
-		}
+		doWork();
 	}
 
 	@Override
@@ -95,21 +84,7 @@ public class PipeLiquidsBalance extends Pipe implements IPowerReceptor {
 		return blockTexture;
 	}
 
-	@Override
-	public void setPowerProvider(PowerProvider provider) {
-		// powerProvider = provider;
-	}
-
-	@Override
-	public PowerProvider getPowerProvider() {
-		return powerProvider;
-	}
-
-	@Override
 	public void doWork() {
-		if (powerProvider.useEnergy(1, 1, false) < 1)
-			return;
-
 		ArrayList<Neighbor> neighbors = new ArrayList<Neighbor>();
 
 		neighbors.add(getLiquidContainerOfNeighbor(xCoord + 1, yCoord, zCoord));
@@ -189,10 +164,5 @@ public class PipeLiquidsBalance extends Pipe implements IPowerReceptor {
 				}
 			}
 		}
-	}
-
-	@Override
-	public int powerRequest() {
-		return getPowerProvider().maxEnergyReceived;
 	}
 }

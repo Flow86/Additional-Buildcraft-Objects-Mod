@@ -96,22 +96,22 @@ public class mod_AdditionalBuildcraftObjects extends BaseModMp implements ICusto
 		blockABOPipe = new BlockABOPipe(blockABOPipeID);
 		ModLoader.RegisterTileEntity(BlockABOPipe.class, "net.minecraft.src.AdditionalBuildcraftObjects.ABOPipe");
 
-		pipeLiquidsValve = createPipe(pipeLiquidsValveID, PipeLiquidsValve.class, "Valve Pipe",
+		pipeLiquidsValve = createPipe(pipeLiquidsValveID, PipeLiquidsValve.class, "Valve Pipe", 1,
 				BuildCraftTransport.pipeLiquidsWood, Block.lever, BuildCraftTransport.pipeLiquidsWood);
 
-		pipeLiquidsGoldenIron = createPipe(pipeLiquidsGoldenIronID, PipeLiquidsGoldenIron.class, "Golden Iron Waterproof Pipe",
+		pipeLiquidsGoldenIron = createPipe(pipeLiquidsGoldenIronID, PipeLiquidsGoldenIron.class, "Golden Iron Waterproof Pipe", 1,
 				BuildCraftTransport.pipeLiquidsGold, BuildCraftTransport.pipeLiquidsIron, null);
 
-		pipeLiquidsFlowMeter = createPipe(pipeLiquidsFlowMeterID, PipeLiquidsFlowMeter.class, "Flow Meter Pipe",
+		pipeLiquidsFlowMeter = createPipe(pipeLiquidsFlowMeterID, PipeLiquidsFlowMeter.class, "Flow Meter Pipe", 1,
 				BuildCraftTransport.pipeLiquidsGold, Block.torchRedstoneActive, null);
 
-		pipeLiquidsBalance = createPipe(pipeLiquidsBalanceID, PipeLiquidsBalance.class, "Balance Pipe",
+		pipeLiquidsBalance = createPipe(pipeLiquidsBalanceID, PipeLiquidsBalance.class, "Balance Pipe", 1,
 				BuildCraftTransport.pipeLiquidsWood, pipeLiquidsFlowMeter, BuildCraftTransport.pipeLiquidsWood);
 		
-		pipeItemsRoundRobin = createPipe(pipeItemsRoundRobinID, PipeItemsRoundRobin.class, "RoundRobin Transport Pipe",
+		pipeItemsRoundRobin = createPipe(pipeItemsRoundRobinID, PipeItemsRoundRobin.class, "RoundRobin Transport Pipe", 1,
 				BuildCraftTransport.pipeItemsStone, Block.gravel, null);
 
-		pipePowerSwitch = createPipe(pipePowerSwitchID, PipePowerSwitch.class, "Power Switch Pipe", 
+		pipePowerSwitch = createPipe(pipePowerSwitchID, PipePowerSwitch.class, "Power Switch Pipe", 1,
 				BuildCraftTransport.pipePowerGold, Block.lever, null);
 	}
 
@@ -124,7 +124,7 @@ public class mod_AdditionalBuildcraftObjects extends BaseModMp implements ICusto
 	 * @param r3
 	 * @return
 	 */
-	private static Item createPipe(int id, Class<? extends Pipe> clas, String descr, Object r1, Object r2, Object r3) {
+	private static Item createPipe(int id, Class<? extends Pipe> clas, String descr, int count, Object r1, Object r2, Object r3) {
 		Item res = BlockABOPipe.registerPipe(id, clas);
 		res.setItemName(clas.getSimpleName());
 		CoreProxy.addName(res, descr);
@@ -132,10 +132,10 @@ public class mod_AdditionalBuildcraftObjects extends BaseModMp implements ICusto
 		CraftingManager craftingmanager = CraftingManager.getInstance();
 
 		if (r1 != null && r2 != null && r3 != null) {
-			craftingmanager.addRecipe(new ItemStack(res, 8), new Object[] { "ABC",
+			craftingmanager.addRecipe(new ItemStack(res, count), new Object[] { "ABC",
 					Character.valueOf('A'), r1, Character.valueOf('B'), r2, Character.valueOf('C'), r3 });
 		} else if (r1 != null && r2 != null) {
-			craftingmanager.addRecipe(new ItemStack(res, 1), new Object[] { "AB", Character.valueOf('A'), r1,
+			craftingmanager.addRecipe(new ItemStack(res, count), new Object[] { "AB", Character.valueOf('A'), r1,
 					Character.valueOf('B'), r2 });
 		}
 

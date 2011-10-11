@@ -22,6 +22,7 @@ import net.minecraft.src.buildcraft.api.PowerProvider;
 import net.minecraft.src.buildcraft.api.TileNetworkData;
 import net.minecraft.src.buildcraft.core.ILiquid;
 import net.minecraft.src.buildcraft.core.RedstonePowerProvider;
+import net.minecraft.src.buildcraft.core.Utils;
 import net.minecraft.src.buildcraft.transport.Pipe;
 import net.minecraft.src.buildcraft.transport.PipeLogicWood;
 import net.minecraft.src.buildcraft.transport.PipeTransportLiquids;
@@ -74,6 +75,14 @@ public class PipeLiquidsValve extends Pipe implements IPowerReceptor, IABOSolid 
 		}
 		return 0;
 	}
+	
+	boolean isLiquidBlock(int liquid, int x, int y, int z) {
+		int blockID = worldObj.getBlockId( x, y, z );
+		if(blockID == 0)
+			return false;
+		
+		return (liquid == Utils.liquidId(blockID));
+	}
 
 	@Override
 	public void updateEntity() {
@@ -100,7 +109,7 @@ public class PipeLiquidsValve extends Pipe implements IPowerReceptor, IABOSolid 
 
 				pos.moveBackwards(2);
 				TileEntity tile2 = worldObj.getBlockTileEntity((int) pos.x, (int) pos.y, (int) pos.z);
-				if( (tile2 == null || !isPipeConnected(tile2)) && (worldObj.isAirBlock((int) pos.x, (int) pos.y, (int) pos.z)))
+				if( (tile2 == null || !isPipeConnected(tile2)) && (worldObj.isAirBlock((int) pos.x, (int) pos.y, (int) pos.z) || isLiquidBlock(container.getLiquidId(), (int) pos.x, (int) pos.y, (int) pos.z)))
 				{
 					int blockID = liquidIDtoBlockID(container.getLiquidId());
 					int flowDecay = extracted / 1000;
