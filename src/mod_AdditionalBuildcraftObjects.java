@@ -11,6 +11,7 @@
 package net.minecraft.src;
 
 import net.minecraft.src.AdditionalBuildcraftObjects.BlockABOPipe;
+import net.minecraft.src.AdditionalBuildcraftObjects.BlockRedstonePowerConverter;
 import net.minecraft.src.AdditionalBuildcraftObjects.ItemABOPipe;
 import net.minecraft.src.AdditionalBuildcraftObjects.PipeItemsRoundRobin;
 import net.minecraft.src.AdditionalBuildcraftObjects.PipeLiquidsBalance;
@@ -18,6 +19,7 @@ import net.minecraft.src.AdditionalBuildcraftObjects.PipeLiquidsFlowMeter;
 import net.minecraft.src.AdditionalBuildcraftObjects.PipeLiquidsGoldenIron;
 import net.minecraft.src.AdditionalBuildcraftObjects.PipeLiquidsValve;
 import net.minecraft.src.AdditionalBuildcraftObjects.PipePowerSwitch;
+import net.minecraft.src.AdditionalBuildcraftObjects.TileRedstonePowerConverter;
 import net.minecraft.src.buildcraft.core.CoreProxy;
 import net.minecraft.src.buildcraft.core.Utils;
 import net.minecraft.src.buildcraft.transport.Pipe;
@@ -37,6 +39,10 @@ public class mod_AdditionalBuildcraftObjects extends BaseModMp implements ICusto
 	@MLProp(min = 0.0D, max = 255.0D)
 	public static int blockABOPipeID = 200;
 	public static Block blockABOPipe = null;
+
+	@MLProp(min = 0.0D, max = 255.0D)
+	public static int blockRedstonePowerConverterID = 201;
+	public static Block blockRedstonePowerConverter = null;
 
 	@MLProp(min = 256.0D, max = 32000.0D)
 	public static int pipeLiquidsValveID = 10200;
@@ -77,7 +83,6 @@ public class mod_AdditionalBuildcraftObjects extends BaseModMp implements ICusto
 	@Override
 	public void ModsLoaded() {
 		super.ModsLoaded();
-
 		initialize();
 	}
 
@@ -90,12 +95,25 @@ public class mod_AdditionalBuildcraftObjects extends BaseModMp implements ICusto
 
 		mod_BuildCraftCore.initialize();
 		BuildCraftTransport.initialize();
+		BuildCraftEnergy.initialize();
 
 		MinecraftForgeClient.preloadTexture(customTexture);
 
 		blockABOPipe = new BlockABOPipe(blockABOPipeID);
-		ModLoader.RegisterTileEntity(BlockABOPipe.class, "net.minecraft.src.AdditionalBuildcraftObjects.ABOPipe");
+		ModLoader.RegisterBlock(blockABOPipe);
+		ModLoader.RegisterTileEntity(ItemABOPipe.class, "net.minecraft.src.AdditionalBuildcraftObjects.ItemABOPipe");
 
+		blockRedstonePowerConverter = new BlockRedstonePowerConverter(blockRedstonePowerConverterID);
+		blockRedstonePowerConverter.setBlockName("redstonePowerConverter");
+		ModLoader.AddName(blockRedstonePowerConverter, "Redstone Power Converter");
+		ModLoader.RegisterBlock(blockRedstonePowerConverter);
+		ModLoader.RegisterTileEntity(TileRedstonePowerConverter.class, "net.minecraft.src.AdditionalBuildcraftObjects.TileRedstonePowerConverter");
+		ModLoader.AddRecipe(new ItemStack(blockRedstonePowerConverter, 1), new Object[] { 
+			"RL", 
+			Character.valueOf('R'), new ItemStack(BuildCraftEnergy.engineBlock, 1, 0),
+			Character.valueOf('L'), Block.lever,
+		});
+		
 		pipeLiquidsValve = createPipe(pipeLiquidsValveID, PipeLiquidsValve.class, "Valve Pipe", 1,
 				BuildCraftTransport.pipeLiquidsWood, Block.lever, BuildCraftTransport.pipeLiquidsWood);
 
