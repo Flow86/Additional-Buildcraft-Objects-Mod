@@ -57,7 +57,19 @@ Recipe:
 
 ---------------------------------------------------------------------------------
 
+Redstone Power Converter
+  acts as a reverse redstone engine
+  it converts power to redstone current
+
+Recipe:
+  RedstoneEngine Lever
+
+---------------------------------------------------------------------------------
+
 Changelog:
+
+0.5:
+ - added Redstone Power Converter
 
 0.4:
  - added Balance Pipe
