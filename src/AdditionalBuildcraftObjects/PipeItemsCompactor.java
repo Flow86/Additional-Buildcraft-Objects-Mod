@@ -112,7 +112,7 @@ public class PipeItemsCompactor extends Pipe implements IPipeTransportItemsHook,
 			return;
 		}
 
-		//System.out.println("isPowered = true");
+		// System.out.println("isPowered = true");
 		isPowered = true;
 		worldObj.markBlockNeedsUpdate(xCoord, yCoord, zCoord);
 
@@ -127,9 +127,11 @@ public class PipeItemsCompactor extends Pipe implements IPipeTransportItemsHook,
 					processed = true;
 					itemStack.getValue().underruns = 0;
 
-					System.out.println(">>> itemStack(" + itemStack.getValue().underruns + "):" + item.getKey() + ", "
-							+ itemStack.getValue().itemStack.itemID + " has "
-							+ itemStack.getValue().itemStack.stackSize);
+					// System.out.println(">>> itemStack(" +
+					// itemStack.getValue().underruns + "):" + item.getKey() +
+					// ", "
+					// + itemStack.getValue().itemStack.itemID + " has "
+					// + itemStack.getValue().itemStack.stackSize);
 
 					int stackSize = itemStack.getValue().itemStack.stackSize;
 					if (itemStack.getValue().itemStack.stackSize >= 16)
@@ -151,9 +153,11 @@ public class PipeItemsCompactor extends Pipe implements IPipeTransportItemsHook,
 
 				if (!processed) {
 					itemStack.getValue().underruns++;
-					System.out.println("=== itemStack(" + itemStack.getValue().underruns + "):" + item.getKey() + ", "
-							+ itemStack.getValue().itemStack.itemID + " has "
-							+ itemStack.getValue().itemStack.stackSize);
+					// System.out.println("=== itemStack(" +
+					// itemStack.getValue().underruns + "):" + item.getKey() +
+					// ", "
+					// + itemStack.getValue().itemStack.itemID + " has "
+					// + itemStack.getValue().itemStack.stackSize);
 				}
 			}
 
