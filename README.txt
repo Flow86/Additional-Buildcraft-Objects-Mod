@@ -11,6 +11,16 @@ Recipe:
 
 ---------------------------------------------------------------------------------
 
+Compactor Pipe
+  will merge same items to larger itemstacks
+  has to be powered with redstone
+  ignores itemstacks larger than 16 items (only compacts smaller ones)
+
+Recipe:
+  StoneTransportPipe Piston
+
+---------------------------------------------------------------------------------
+
 Valve Pipe
   acts like a wooden pipe (without need of wooden engine)
   also acts like a, yes ..., valve ;-)
@@ -70,6 +80,7 @@ Changelog:
 
 0.5:
  - added Redstone Power Converter
+ - added Compactor Pipe
 
 0.4:
  - added Balance Pipe
