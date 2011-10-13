@@ -15,6 +15,7 @@ package net.minecraft.src;
 import net.minecraft.src.AdditionalBuildcraftObjects.BlockABOPipe;
 import net.minecraft.src.AdditionalBuildcraftObjects.BlockRedstonePowerConverter;
 import net.minecraft.src.AdditionalBuildcraftObjects.ItemABOPipe;
+import net.minecraft.src.AdditionalBuildcraftObjects.PipeItemsCompactor;
 import net.minecraft.src.AdditionalBuildcraftObjects.PipeItemsRoundRobin;
 import net.minecraft.src.AdditionalBuildcraftObjects.PipeLiquidsBalance;
 import net.minecraft.src.AdditionalBuildcraftObjects.PipeLiquidsFlowMeter;
@@ -66,6 +67,10 @@ public class mod_AdditionalBuildcraftObjects extends BaseModMp implements ICusto
 	public static int pipeItemsRoundRobinID = 10300;
 	public static Item pipeItemsRoundRobin = null;
 
+	@MLProp(min = 256.0D, max = 32000.0D)
+	public static int pipeItemsCompactorID = 10301;
+	public static Item pipeItemsCompactor = null;
+	
 	@MLProp(min = 256.0D, max = 32000.0D)
 	public static int pipePowerSwitchID = 10400;
 	public static Item pipePowerSwitch = null;
@@ -131,6 +136,9 @@ public class mod_AdditionalBuildcraftObjects extends BaseModMp implements ICusto
 		pipeItemsRoundRobin = createPipe(pipeItemsRoundRobinID, PipeItemsRoundRobin.class, "RoundRobin Transport Pipe", 1,
 				BuildCraftTransport.pipeItemsStone, Block.gravel, null);
 
+		pipeItemsCompactor = createPipe(pipeItemsCompactorID, PipeItemsCompactor.class, "Compactor Pipe", 1,
+				BuildCraftTransport.pipeItemsStone, Block.pistonBase, null);
+		
 		pipePowerSwitch = createPipe(pipePowerSwitchID, PipePowerSwitch.class, "Power Switch Pipe", 1,
 				BuildCraftTransport.pipePowerGold, Block.lever, null);
 	}

@@ -94,13 +94,19 @@ public class BlockABOPipe extends BlockGenericPipe {
         return super.isIndirectlyPoweringTo(world, i, j, k, side);
     }
 
-    /* (non-Javadoc)
-     * @see net.minecraft.src.Block#canProvidePower()
-     */
     @Override
 	public boolean canProvidePower()
     {
     	// thats ugly but I have to provide power here :/ (no world, etc here :/)
         return true;
-    }	
+    }
+    
+	@Override
+	public void onBlockRemoval(World world, int i, int j, int k) {
+		Pipe pipe = getPipe(world, i, j, k);
+		if(pipe != null && pipe instanceof IABODestroy)
+			((IABODestroy)pipe).destroy();
+
+		super.onBlockRemoval(world, i, j, k);
+	}
 }
