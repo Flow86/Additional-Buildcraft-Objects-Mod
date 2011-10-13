@@ -19,6 +19,7 @@ import java.util.TreeMap;
 import net.minecraft.src.ItemStack;
 import net.minecraft.src.NBTTagCompound;
 import net.minecraft.src.NBTTagList;
+import net.minecraft.src.World;
 import net.minecraft.src.buildcraft.api.EntityPassiveItem;
 import net.minecraft.src.buildcraft.api.IPowerReceptor;
 import net.minecraft.src.buildcraft.api.Orientations;
@@ -35,7 +36,7 @@ import net.minecraft.src.buildcraft.transport.PipeTransportItems;
  * @author Flow86
  * 
  */
-public class PipeItemsCompactor extends Pipe implements IPipeTransportItemsHook, IPowerReceptor, IABODestroy {
+public class PipeItemsCompactor extends Pipe implements IPipeTransportItemsHook, IPowerReceptor, IABODestroy, IABOSolid {
 
 	/**
 	 * @author Flow86
@@ -296,5 +297,10 @@ public class PipeItemsCompactor extends Pipe implements IPipeTransportItemsHook,
 		}
 
 		nbttagcompound.setTag("items", nbtItems);
+	}
+
+	@Override
+	public boolean isBlockSolidOnSide(World world, int i, int j, int k, int side) {
+		return true;
 	}
 }
