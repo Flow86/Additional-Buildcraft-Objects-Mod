@@ -78,6 +78,9 @@ Recipe:
 
 Changelog:
 
+0.5b:
+ - fixed bc > 2.2.2 compat
+
 0.5:
  - added Redstone Power Converter
  - added Compactor Pipe

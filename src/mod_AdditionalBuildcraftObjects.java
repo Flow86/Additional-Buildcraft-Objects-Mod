@@ -223,6 +223,6 @@ public class mod_AdditionalBuildcraftObjects extends BaseModMp implements ICusto
 	 */
 	@Override
 	public String Version() {
-		return "0.5 (MC 1.8.1, BC 2.2.2)";
+		return "0.5b (MC 1.8.1, BC 2.2.4)";
 	}
 }
