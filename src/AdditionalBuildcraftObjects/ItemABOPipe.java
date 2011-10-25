@@ -61,7 +61,7 @@ public class ItemABOPipe extends ItemPipe {
 			return false;
 		}
 		if (world.canBlockBePlacedAt(blockID, i, j, k, false, l)) {
-			BlockABOPipe.createPipe(i, j, k, shiftedIndex);
+			BlockABOPipe.createPipe(world, i, j, k, shiftedIndex);
 			if (world.setBlockAndMetadataWithNotify(i, j, k, blockID, 0)) {
 				Block.blocksList[blockID].onBlockPlaced(world, i, j, k, l);
 				Block.blocksList[blockID].onBlockPlacedBy(world, i, j, k, entityplayer);
