@@ -49,7 +49,10 @@ public class PipeLiquidsBalance extends Pipe {
 	private final int blockTexture = 5 * 16 + 0;
 
 	public PipeLiquidsBalance(int itemID) {
-		super(new PipeTransportLiquids(2, 80), new PipeLogicStone(), itemID);
+		super(new PipeTransportLiquids(), new PipeLogicStone(), itemID);
+
+		((PipeTransportLiquids)transport).travelDelay = 2;
+		((PipeTransportLiquids)transport).flowRate = 80;
 	}
 
 	@Override

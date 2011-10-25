@@ -24,7 +24,10 @@ public class PipeLiquidsGoldenIron extends Pipe {
 	private int nextTexture = baseTexture;
 
 	public PipeLiquidsGoldenIron(int itemID) {
-		super(new PipeTransportLiquids(2, 80), new PipeLogicIron(), itemID);
+		super(new PipeTransportLiquids(), new PipeLogicIron(), itemID);
+
+		((PipeTransportLiquids)transport).travelDelay = 2;
+		((PipeTransportLiquids)transport).flowRate = 80;
 	}
 
 	@Override
