@@ -51,8 +51,8 @@ public class PipeLiquidsBalance extends Pipe {
 	public PipeLiquidsBalance(int itemID) {
 		super(new PipeTransportLiquids(), new PipeLogicStone(), itemID);
 
-		((PipeTransportLiquids)transport).travelDelay = 2;
 		((PipeTransportLiquids)transport).flowRate = 80;
+		((PipeTransportLiquids)transport).travelDelay = 2;
 	}
 
 	@Override

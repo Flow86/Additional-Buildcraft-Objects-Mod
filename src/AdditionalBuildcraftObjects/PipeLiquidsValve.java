@@ -45,8 +45,8 @@ public class PipeLiquidsValve extends Pipe implements IPowerReceptor, IABOSolid 
 	public PipeLiquidsValve(int itemID) {
 		super(new PipeTransportLiquids(), new PipeLogicValve(), itemID);
 
-		((PipeTransportLiquids)transport).travelDelay = 2;
 		((PipeTransportLiquids)transport).flowRate = 80;
+		((PipeTransportLiquids)transport).travelDelay = 2;
 
 		powerProvider = new RedstonePowerProvider();
 		powerProvider.configure(25, 1, 64, 1, 64);

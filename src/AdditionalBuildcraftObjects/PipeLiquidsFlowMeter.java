@@ -50,8 +50,8 @@ public class PipeLiquidsFlowMeter extends Pipe implements IABOSolid, IABOPower {
 	public PipeLiquidsFlowMeter(int itemID) {
 		super(new PipeTransportLiquids(), new PipeLogicGold(), itemID);
 
-		((PipeTransportLiquids)transport).travelDelay = 2;
 		((PipeTransportLiquids)transport).flowRate = 80;
+		((PipeTransportLiquids)transport).travelDelay = 2;
 		
 		offAmount = (int) ((offAmountInPercent * getLiquidRealCapacity()) / 100.0);
 		onAmount = (int) ((onAmountInPercent * getLiquidRealCapacity()) / 100.0);

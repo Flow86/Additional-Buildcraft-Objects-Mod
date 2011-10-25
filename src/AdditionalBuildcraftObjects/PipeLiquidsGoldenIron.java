@@ -26,8 +26,8 @@ public class PipeLiquidsGoldenIron extends Pipe {
 	public PipeLiquidsGoldenIron(int itemID) {
 		super(new PipeTransportLiquids(), new PipeLogicIron(), itemID);
 
-		((PipeTransportLiquids)transport).travelDelay = 2;
 		((PipeTransportLiquids)transport).flowRate = 80;
+		((PipeTransportLiquids)transport).travelDelay = 2;
 	}
 
 	@Override
