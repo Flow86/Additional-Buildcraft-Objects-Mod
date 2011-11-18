@@ -117,9 +117,12 @@ public class PipeLiquidsValve extends Pipe implements IPowerReceptor, IABOSolid 
 				if( (tile2 == null || !isPipeConnected(tile2)) && (worldObj.isAirBlock((int) pos.x, (int) pos.y, (int) pos.z) || isLiquidBlock(container.getLiquidId(), (int) pos.x, (int) pos.y, (int) pos.z)))
 				{
 					int blockID = liquidIDtoBlockID(container.getLiquidId());
-					int flowDecay = extracted / 1000;
-					if(worldObj.getBlockId((int) pos.x, (int) pos.y, (int) pos.z) == blockID)
+					int flowDecay = extracted / 10;
+					if(worldObj.getBlockId((int) pos.x, (int) pos.y, (int) pos.z) == blockID) {
 						flowDecay += worldObj.getBlockMetadata((int) pos.x, (int) pos.y, (int) pos.z);
+						if(flowDecay > 14)
+							flowDecay = 14;
+					}
 					
 					worldObj.setBlockAndMetadataWithNotify((int) pos.x, (int) pos.y, (int) pos.z, blockID, flowDecay);
 					worldObj.markBlocksDirty((int) pos.x, (int) pos.y, (int) pos.z, (int) pos.x, (int) pos.y, (int) pos.z);

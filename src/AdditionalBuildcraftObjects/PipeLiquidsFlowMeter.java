@@ -15,7 +15,6 @@ package net.minecraft.src.AdditionalBuildcraftObjects;
 import net.minecraft.src.Block;
 import net.minecraft.src.IBlockAccess;
 import net.minecraft.src.NBTTagCompound;
-import net.minecraft.src.TileEntity;
 import net.minecraft.src.World;
 import net.minecraft.src.buildcraft.api.Orientations;
 import net.minecraft.src.buildcraft.api.PowerProvider;
@@ -109,7 +108,7 @@ public class PipeLiquidsFlowMeter extends Pipe implements IABOSolid, IABOPower {
 		worldObj.markBlockNeedsUpdate(xCoord, yCoord, zCoord);
 		worldObj.markBlocksDirty(xCoord-1, yCoord-1, zCoord-1, xCoord+1, yCoord+1, zCoord+1);
 		
-		TileEntity tilePX = worldObj.getBlockTileEntity(xCoord + 1, yCoord, zCoord);
+		/*TileEntity tilePX = worldObj.getBlockTileEntity(xCoord + 1, yCoord, zCoord);
 		TileEntity tileNX = worldObj.getBlockTileEntity(xCoord - 1, yCoord, zCoord);
 		TileEntity tilePY = worldObj.getBlockTileEntity(xCoord, yCoord + 1, zCoord);
 		TileEntity tileNY = worldObj.getBlockTileEntity(xCoord, yCoord - 1, zCoord);
@@ -130,7 +129,7 @@ public class PipeLiquidsFlowMeter extends Pipe implements IABOSolid, IABOPower {
 		if (tilePZ == null || !isPipeConnected(tilePZ))
 			notifyNeighbor(xCoord, yCoord, zCoord + 1);
 		if (tileNZ == null || !isPipeConnected(tileNZ))
-			notifyNeighbor(xCoord, yCoord, zCoord - 1);
+			notifyNeighbor(xCoord, yCoord, zCoord - 1);*/
 	}
 
 	/**
@@ -138,7 +137,7 @@ public class PipeLiquidsFlowMeter extends Pipe implements IABOSolid, IABOPower {
 	 */
 	private void updatePower() {
 		int amount = getLiquidRealAmount();
-
+		
 		if (lastPower && amount <= offAmount) {
 			currentPower = false;
 			lastPower = false;
@@ -151,8 +150,8 @@ public class PipeLiquidsFlowMeter extends Pipe implements IABOSolid, IABOPower {
 			unknownPower = false;
 			notifyNeighbors();
 		}
-		else {
-			unknownPower = (currentPower == lastPower && amount > offAmount && amount < onAmount);
+		else if (currentPower == lastPower && amount > offAmount && amount < onAmount) {
+			unknownPower = true;
 			notifyNeighbors();
 		}
 		
