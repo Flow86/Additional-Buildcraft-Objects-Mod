@@ -165,7 +165,7 @@ public class PipeLiquidsFlowMeter extends Pipe implements IABOSolid, IABOPower {
 	}
 
 	@Override
-	public int getBlockTexture() {
+	public int getMainBlockTexture() {
 		return nextTexture;
 	}
 

@@ -78,13 +78,13 @@ public class BlockRedstonePowerConverter extends BlockContainer implements IText
 	}
 
 	@Override
-	public boolean isPipeConnected(IBlockAccess blockAccess, int x1, int y1, int z1, int x2, int y2, int z2) {
-		TileGenericPipe tile2 = (TileGenericPipe) blockAccess.getBlockTileEntity(x2, y2, z2);
-		if (tile2 == null)
+	public boolean isPipeConnected(TileEntity with) {
+		TileGenericPipe tile = (TileGenericPipe)with;
+		if (tile == null)
 			return false;
 
 		// TODO:
-		return (tile2.pipe.transport instanceof PipeTransportPower);
+		return (tile.pipe.transport instanceof PipeTransportPower);
 	}
 
 	@Override

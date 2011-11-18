@@ -140,7 +140,7 @@ public class PipeLiquidsValve extends Pipe implements IPowerReceptor, IABOSolid 
 	}
 
 	@Override
-	public int getBlockTexture() {
+	public int getMainBlockTexture() {
 		return nextTexture;
 	}
 
