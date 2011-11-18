@@ -39,15 +39,6 @@ Recipe:
 
 ---------------------------------------------------------------------------------
 
-Flow Meter Pipe
-  triggers redstone if water pressure above 60%, 
-  and resets redstone if its below 10%
-
-Recipe:
-  GoldenWaterproofPipe RedstoneTorch
-
----------------------------------------------------------------------------------
-
 Balance Pipe
   balances liquid of connected tanks when powered 
   with redstone
@@ -55,7 +46,7 @@ Balance Pipe
   Thanks to Oxygene13 for his idea :-)
 
 Recipe:
-  WoodenWaterproofPipe FlowMeter WoodenWaterproofPipe
+  WoodenWaterproofPipe IronORGate WoodenWaterproofPipe
 
 ---------------------------------------------------------------------------------
 
@@ -77,6 +68,11 @@ Recipe:
 ---------------------------------------------------------------------------------
 
 Changelog:
+
+0.6:
+ - bc 3.0.0 compat
+ - removed flowmeter (obsolete)
+
 
 0.5b:
  - fixed bc > 2.2.2 compat

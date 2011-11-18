@@ -18,10 +18,10 @@ import net.minecraft.src.AdditionalBuildcraftObjects.ItemABOPipe;
 import net.minecraft.src.AdditionalBuildcraftObjects.PipeItemsCompactor;
 import net.minecraft.src.AdditionalBuildcraftObjects.PipeItemsRoundRobin;
 import net.minecraft.src.AdditionalBuildcraftObjects.PipeLiquidsBalance;
-import net.minecraft.src.AdditionalBuildcraftObjects.PipeLiquidsFlowMeter;
 import net.minecraft.src.AdditionalBuildcraftObjects.PipeLiquidsGoldenIron;
 import net.minecraft.src.AdditionalBuildcraftObjects.PipeLiquidsValve;
 import net.minecraft.src.AdditionalBuildcraftObjects.PipePowerSwitch;
+import net.minecraft.src.AdditionalBuildcraftObjects.PipeRemoveMe;
 import net.minecraft.src.AdditionalBuildcraftObjects.TileRedstonePowerConverter;
 import net.minecraft.src.buildcraft.core.CoreProxy;
 import net.minecraft.src.buildcraft.core.Utils;
@@ -57,7 +57,7 @@ public class mod_AdditionalBuildcraftObjects extends BaseModMp implements ICusto
 
 	@MLProp(min = 256.0D, max = 32000.0D)
 	public static int pipeLiquidsFlowMeterID = 10202;
-	public static Item pipeLiquidsFlowMeter = null;
+	//public static Item pipeLiquidsFlowMeter = null;
 
 	@MLProp(min = 256.0D, max = 32000.0D)
 	public static int pipeLiquidsBalanceID = 10203;
@@ -127,11 +127,12 @@ public class mod_AdditionalBuildcraftObjects extends BaseModMp implements ICusto
 		pipeLiquidsGoldenIron = createPipe(pipeLiquidsGoldenIronID, PipeLiquidsGoldenIron.class, "Golden Iron Waterproof Pipe", 1,
 				BuildCraftTransport.pipeLiquidsGold, BuildCraftTransport.pipeLiquidsIron, null);
 
-		pipeLiquidsFlowMeter = createPipe(pipeLiquidsFlowMeterID, PipeLiquidsFlowMeter.class, "Flow Meter Pipe", 1,
-				BuildCraftTransport.pipeLiquidsGold, Block.torchRedstoneActive, null);
+		//pipeLiquidsFlowMeter = createPipe(pipeLiquidsFlowMeterID, PipeLiquidsFlowMeter.class, "Flow Meter Pipe", 1,
+		//		BuildCraftTransport.pipeLiquidsGold, Block.torchRedstoneActive, null);
+		createPipe(pipeLiquidsFlowMeterID, PipeRemoveMe.class, "Invalid Pipe", 1, null, null, null);
 
 		pipeLiquidsBalance = createPipe(pipeLiquidsBalanceID, PipeLiquidsBalance.class, "Balance Pipe", 1,
-				BuildCraftTransport.pipeLiquidsWood, pipeLiquidsFlowMeter, BuildCraftTransport.pipeLiquidsWood);
+				BuildCraftTransport.pipeLiquidsWood, new ItemStack(BuildCraftTransport.pipeGate, 1, 2), BuildCraftTransport.pipeLiquidsWood);
 		
 		pipeItemsRoundRobin = createPipe(pipeItemsRoundRobinID, PipeItemsRoundRobin.class, "RoundRobin Transport Pipe", 1,
 				BuildCraftTransport.pipeItemsStone, Block.gravel, null);
@@ -223,6 +224,6 @@ public class mod_AdditionalBuildcraftObjects extends BaseModMp implements ICusto
 	 */
 	@Override
 	public String Version() {
-		return "0.5b (MC 1.8.1, BC 2.2.4)";
+		return "0.6 (MC 1.8.1, BC 3.0.0)";
 	}
 }
