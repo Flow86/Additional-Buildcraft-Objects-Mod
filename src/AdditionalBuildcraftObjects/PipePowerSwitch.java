@@ -23,6 +23,7 @@ public class PipePowerSwitch extends Pipe implements IABOSolid {
 	private final int unpoweredTexture = 2 * 16 + 0;
 	private final int poweredTexture = 2 * 16 + 1;
 	private int nextTexture = unpoweredTexture;
+	private boolean powered;
 
 	public PipePowerSwitch(int itemID) {
 		super(new PipeTransportPower(), new PipeLogicGold(), itemID);
@@ -57,6 +58,14 @@ public class PipePowerSwitch extends Pipe implements IABOSolid {
 	 * @return
 	 */
 	public boolean isPowered() {
-		return worldObj.isBlockIndirectlyGettingPowered(xCoord, yCoord, zCoord);
+		return powered; // worldObj.isBlockIndirectlyGettingPowered(xCoord, yCoord, zCoord);
 	}
+
+	@Override
+	public void onNeighborBlockChange(int blockId) {
+		powered = worldObj.isBlockIndirectlyGettingPowered(xCoord, yCoord, zCoord);
+		
+		super.onNeighborBlockChange(blockId);
+	}
+
 }

@@ -36,7 +36,7 @@ import net.minecraft.src.buildcraft.transport.PipeTransportItems;
  * @author Flow86
  * 
  */
-public class PipeItemsCompactor extends Pipe implements IPipeTransportItemsHook, IPowerReceptor, IABODestroy, IABOSolid {
+public class PipeItemsCompactor extends Pipe implements IPipeTransportItemsHook, IPowerReceptor, /*IABODestroy,*/ IABOSolid {
 
 	/**
 	 * @author Flow86
