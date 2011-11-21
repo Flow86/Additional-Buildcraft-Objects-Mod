@@ -70,7 +70,7 @@ Recipe:
 Changelog:
 
 0.6:
- - bc 3.0.0 compat
+ - bc 3.0.1 compat
  - removed flowmeter (obsolete)
 
 
