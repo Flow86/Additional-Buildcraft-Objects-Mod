@@ -12,6 +12,7 @@
 
 package net.minecraft.src.AdditionalBuildcraftObjects;
 
+import net.minecraft.src.NBTTagCompound;
 import net.minecraft.src.TileEntity;
 import net.minecraft.src.World;
 import net.minecraft.src.buildcraft.api.Orientations;
@@ -63,9 +64,33 @@ public class PipePowerSwitch extends Pipe implements IABOSolid {
 
 	@Override
 	public void onNeighborBlockChange(int blockId) {
-		powered = worldObj.isBlockIndirectlyGettingPowered(xCoord, yCoord, zCoord);
-		
 		super.onNeighborBlockChange(blockId);
+
+		powered = worldObj.isBlockIndirectlyGettingPowered(xCoord, yCoord, zCoord);
+	}
+
+	@Override
+	public void writeToNBT(NBTTagCompound nbttagcompound) {
+		super.writeToNBT(nbttagcompound);
+
+		nbttagcompound.setBoolean("powered", powered);
+	}
+
+	@Override
+	public void readFromNBT(NBTTagCompound nbttagcompound) {
+		super.readFromNBT(nbttagcompound);
+		
+		powered = nbttagcompound.getBoolean("powered");
+	}
+
+	/* (non-Javadoc)
+	 * @see net.minecraft.src.buildcraft.transport.Pipe#updateEntity()
+	 */
+	@Override
+	public void updateEntity() {
+		super.updateEntity();
+		
+		powered = worldObj.isBlockIndirectlyGettingPowered(xCoord, yCoord, zCoord);
 	}
 
 }
