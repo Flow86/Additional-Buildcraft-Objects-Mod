@@ -51,8 +51,8 @@ public class PipeLiquidsBalance extends Pipe {
 	public PipeLiquidsBalance(int itemID) {
 		super(new PipeTransportLiquids(), new PipeLogicStone(), itemID);
 
-		((PipeTransportLiquids)transport).flowRate = 80;
-		((PipeTransportLiquids)transport).travelDelay = 2;
+		((PipeTransportLiquids)transport).flowRate = 100;
+		((PipeTransportLiquids)transport).travelDelay = 1;
 	}
 
 	@Override
@@ -149,11 +149,14 @@ public class PipeLiquidsBalance extends Pipe {
 				if (n != null && liquidID == n.c.getLiquidId()) {
 					int liquidToExtract = n.q - avg;
 
+					if(liquidToExtract == 0)
+						continue;
+
 					//System.out.println("liquidToExtract: " + liquidToExtract);
 
 					Orientations pos = Utils.get3dOrientation(new Position(xCoord, yCoord, zCoord), new Position(
 							n.x, n.y, n.z));
-
+					
 					if (liquidToExtract > 0) {
 						int extracted = n.c.empty(liquidToExtract > ltransport.flowRate ? ltransport.flowRate
 								: liquidToExtract, false);
