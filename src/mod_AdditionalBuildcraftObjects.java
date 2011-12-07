@@ -88,6 +88,10 @@ public class mod_AdditionalBuildcraftObjects extends BaseModMp implements ICusto
 	}
 
 	@Override
+	public void load () {
+	}
+	
+	@Override
 	public void ModsLoaded() {
 		super.ModsLoaded();
 		initialize();
@@ -223,7 +227,7 @@ public class mod_AdditionalBuildcraftObjects extends BaseModMp implements ICusto
 	 * @see net.minecraft.src.BaseMod#Version()
 	 */
 	@Override
-	public String Version() {
-		return "0.6b (MC 1.8.1, BC 3.0.1)";
+	public String getVersion() {
+		return "0.6c (MC 1.0.0, BC 3.0.3)";
 	}
 }
