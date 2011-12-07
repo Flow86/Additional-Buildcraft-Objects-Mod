@@ -69,6 +69,14 @@ Recipe:
 
 Changelog:
 
+0.6c:
+ - bc 3.0.3 compat
+ - mc 1.0.0 compat
+
+0.6b:
+ - bc 3.0.2 compat
+ - fixed power switch pipe
+
 0.6:
  - bc 3.0.1 compat
  - removed flowmeter (obsolete)
