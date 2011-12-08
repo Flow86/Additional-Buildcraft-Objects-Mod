@@ -94,7 +94,7 @@ public class PipeLiquidsValve extends Pipe implements IPowerReceptor, IABOSolid 
 		super.updateEntity();
 
 		if (worldObj.isBlockIndirectlyGettingPowered(xCoord, yCoord, zCoord)) {
-			powerProvider.receiveEnergy(1);
+			powerProvider.receiveEnergy(1, Orientations.YNeg);
 		}
 
 		int meta = worldObj.getBlockMetadata(xCoord, yCoord, zCoord);
