@@ -47,7 +47,6 @@ REM ---------------------------------------------------------------------------
 	
 	for /f %%i in ('find src -type f') do (
 		set file=%%i
-		echo %%i
 	
 		if /I "!file:~-5!" EQU ".java" (
 			set list=!file:~4,-5!.class !list!
@@ -55,7 +54,7 @@ REM ---------------------------------------------------------------------------
 	)
 	
 	pushd %MCPDIR%\reobf\minecraft
-	rar a %MODDIR%\package.zip %list%
+	zip -v %MODDIR%\package.zip %list%
 	IF ERRORLEVEL 1 GOTO ERROR
 	popd
 
