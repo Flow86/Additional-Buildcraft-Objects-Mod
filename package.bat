@@ -37,10 +37,9 @@ REM ---------------------------------------------------------------------------
 	SETLOCAL enabledelayedexpansion
 	
 	copy /Y README.txt %MCPDIR%\reobf\minecraft
+	rmdir /S /Q %MCPDIR%\reobf\minecraft\net\minecraft\src\AdditionalBuildcraftObjects\gui
 	mkdir %MCPDIR%\reobf\minecraft\net\minecraft\src\AdditionalBuildcraftObjects\gui
-	xcopy /Y src\gui\*.png %MCPDIR%\reobf\minecraft\net\minecraft\src\AdditionalBuildcraftObjects\gui
-	
-	mkdir 
+	xcopy /Y src\AdditionalBuildcraftObjects\gui\*.png %MCPDIR%\reobf\minecraft\net\minecraft\src\AdditionalBuildcraftObjects\gui
 	
 	SET list=README.txt net\minecraft\src\AdditionalBuildcraftObjects\gui\*.png
 	
@@ -55,11 +54,6 @@ REM ---------------------------------------------------------------------------
 	
 	pushd %MCPDIR%\reobf\minecraft
 	rar a %MODDIR%\package.zip %list%
-	IF ERRORLEVEL 1 GOTO ERROR
-	popd
-
-	pushd %MODDIR%\src
-	rar a %MODDIR%\package.zip README.TXT
 	IF ERRORLEVEL 1 GOTO ERROR
 	popd
 
