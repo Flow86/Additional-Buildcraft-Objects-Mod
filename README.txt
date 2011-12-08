@@ -69,6 +69,9 @@ Recipe:
 
 Changelog:
 
+0.6e
+ - fix valve crash 2 (sorry again!!)
+
 0.6d
  - fix valve crash (sorry!!)
 
