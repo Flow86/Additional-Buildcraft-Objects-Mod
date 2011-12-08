@@ -69,6 +69,9 @@ Recipe:
 
 Changelog:
 
+0.6d
+ - fix valve crash (sorry!!)
+
 0.6c:
  - bc 3.0.3 compat
  - mc 1.0.0 compat

@@ -37,8 +37,12 @@ REM ---------------------------------------------------------------------------
 	SETLOCAL enabledelayedexpansion
 	
 	copy /Y README.txt %MCPDIR%\reobf\minecraft
+	mkdir %MCPDIR%\reobf\minecraft\net\minecraft\src\AdditionalBuildcraftObjects\gui
+	xcopy /Y src\gui\*.png %MCPDIR%\reobf\minecraft\net\minecraft\src\AdditionalBuildcraftObjects\gui
 	
-	SET list=README.TXT
+	mkdir 
+	
+	SET list=README.txt net\minecraft\src\AdditionalBuildcraftObjects\gui\*.png
 	
 	for /f %%i in ('find src -type f') do (
 		set file=%%i
@@ -51,6 +55,11 @@ REM ---------------------------------------------------------------------------
 	
 	pushd %MCPDIR%\reobf\minecraft
 	rar a %MODDIR%\package.zip %list%
+	IF ERRORLEVEL 1 GOTO ERROR
+	popd
+
+	pushd %MODDIR%\src
+	rar a %MODDIR%\package.zip README.TXT
 	IF ERRORLEVEL 1 GOTO ERROR
 	popd
 
