@@ -7,6 +7,8 @@ CALL :COMPILE
 CALL :REOBFUSCATE
 CALL :PACKAGE
 
+EXIT 0
+
 REM ---------------------------------------------------------------------------
 
 :COMPILE
