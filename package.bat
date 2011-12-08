@@ -48,10 +48,13 @@ REM ---------------------------------------------------------------------------
 			set list=!file:~4,-5!.class !list!
 		)
 	)
+	
 	pushd %MCPDIR%\reobf\minecraft
 	rar a %MODDIR%\package.zip %list%
 	IF ERRORLEVEL 1 GOTO ERROR
 	popd
+
+	ENDLOCAL
 	
 	pause
 	
