@@ -49,7 +49,7 @@ REM ---------------------------------------------------------------------------
 		set file=%%i
 	
 		if /I "!file:~-5!" EQU ".java" (
-			set list=!file:~4,-5!.class !list!
+			set list=!file:~4,-5!*.class !list!
 		)
 	)
 	

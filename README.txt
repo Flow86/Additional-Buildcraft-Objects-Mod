@@ -69,10 +69,13 @@ Recipe:
 
 Changelog:
 
-0.6e
+0.6f:
+ - fix missing class file (damn packaging script ...)
+
+0.6e:
  - fix valve crash 2 (sorry again!!)
 
-0.6d
+0.6d:
  - fix valve crash (sorry!!)
 
 0.6c:
