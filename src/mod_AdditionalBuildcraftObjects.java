@@ -13,7 +13,6 @@
 package net.minecraft.src;
 
 import net.minecraft.src.AdditionalBuildcraftObjects.BlockABOPipe;
-import net.minecraft.src.AdditionalBuildcraftObjects.BlockRedstonePowerConverter;
 import net.minecraft.src.AdditionalBuildcraftObjects.ItemABOPipe;
 import net.minecraft.src.AdditionalBuildcraftObjects.PipeItemsCompactor;
 import net.minecraft.src.AdditionalBuildcraftObjects.PipeItemsRoundRobin;
@@ -21,8 +20,6 @@ import net.minecraft.src.AdditionalBuildcraftObjects.PipeLiquidsBalance;
 import net.minecraft.src.AdditionalBuildcraftObjects.PipeLiquidsGoldenIron;
 import net.minecraft.src.AdditionalBuildcraftObjects.PipeLiquidsValve;
 import net.minecraft.src.AdditionalBuildcraftObjects.PipePowerSwitch;
-import net.minecraft.src.AdditionalBuildcraftObjects.PipeRemoveMe;
-import net.minecraft.src.AdditionalBuildcraftObjects.TileRedstonePowerConverter;
 import net.minecraft.src.buildcraft.core.CoreProxy;
 import net.minecraft.src.buildcraft.core.Utils;
 import net.minecraft.src.buildcraft.transport.Pipe;
@@ -43,9 +40,9 @@ public class mod_AdditionalBuildcraftObjects extends BaseModMp implements ICusto
 	public static int blockABOPipeID = 200;
 	public static Block blockABOPipe = null;
 
-	@MLProp(min = 0.0D, max = 255.0D)
-	public static int blockRedstonePowerConverterID = 201;
-	public static Block blockRedstonePowerConverter = null;
+	//@MLProp(min = 0.0D, max = 255.0D)
+	//public static int blockRedstonePowerConverterID = 201;
+	//public static Block blockRedstonePowerConverter = null;
 
 	@MLProp(min = 256.0D, max = 32000.0D)
 	public static int pipeLiquidsValveID = 10200;
@@ -55,8 +52,8 @@ public class mod_AdditionalBuildcraftObjects extends BaseModMp implements ICusto
 	public static int pipeLiquidsGoldenIronID = 10201;
 	public static Item pipeLiquidsGoldenIron = null;
 
-	@MLProp(min = 256.0D, max = 32000.0D)
-	public static int pipeLiquidsFlowMeterID = 10202;
+	//@MLProp(min = 256.0D, max = 32000.0D)
+	//public static int pipeLiquidsFlowMeterID = 10202;
 	//public static Item pipeLiquidsFlowMeter = null;
 
 	@MLProp(min = 256.0D, max = 32000.0D)
@@ -113,27 +110,12 @@ public class mod_AdditionalBuildcraftObjects extends BaseModMp implements ICusto
 		blockABOPipe = new BlockABOPipe(blockABOPipeID);
 		ModLoader.RegisterBlock(blockABOPipe);
 		ModLoader.RegisterTileEntity(ItemABOPipe.class, "net.minecraft.src.AdditionalBuildcraftObjects.ItemABOPipe");
-
-		blockRedstonePowerConverter = new BlockRedstonePowerConverter(blockRedstonePowerConverterID);
-		blockRedstonePowerConverter.setBlockName("redstonePowerConverter");
-		ModLoader.AddName(blockRedstonePowerConverter, "Redstone Power Converter");
-		ModLoader.RegisterBlock(blockRedstonePowerConverter);
-		ModLoader.RegisterTileEntity(TileRedstonePowerConverter.class, "net.minecraft.src.AdditionalBuildcraftObjects.TileRedstonePowerConverter");
-		ModLoader.AddRecipe(new ItemStack(blockRedstonePowerConverter, 1), new Object[] { 
-			"RL", 
-			Character.valueOf('R'), new ItemStack(BuildCraftEnergy.engineBlock, 1, 0),
-			Character.valueOf('L'), Block.lever,
-		});
 		
 		pipeLiquidsValve = createPipe(pipeLiquidsValveID, PipeLiquidsValve.class, "Valve Pipe", 1,
 				BuildCraftTransport.pipeLiquidsWood, Block.lever, BuildCraftTransport.pipeLiquidsWood);
 
 		pipeLiquidsGoldenIron = createPipe(pipeLiquidsGoldenIronID, PipeLiquidsGoldenIron.class, "Golden Iron Waterproof Pipe", 1,
 				BuildCraftTransport.pipeLiquidsGold, BuildCraftTransport.pipeLiquidsIron, null);
-
-		//pipeLiquidsFlowMeter = createPipe(pipeLiquidsFlowMeterID, PipeLiquidsFlowMeter.class, "Flow Meter Pipe", 1,
-		//		BuildCraftTransport.pipeLiquidsGold, Block.torchRedstoneActive, null);
-		createPipe(pipeLiquidsFlowMeterID, PipeRemoveMe.class, "Invalid Pipe", 1, null, null, null);
 
 		pipeLiquidsBalance = createPipe(pipeLiquidsBalanceID, PipeLiquidsBalance.class, "Balance Pipe", 1,
 				BuildCraftTransport.pipeLiquidsWood, new ItemStack(BuildCraftTransport.pipeGate, 1, 2), BuildCraftTransport.pipeLiquidsWood);
@@ -228,6 +210,6 @@ public class mod_AdditionalBuildcraftObjects extends BaseModMp implements ICusto
 	 */
 	@Override
 	public String getVersion() {
-		return "0.6g (MC 1.0.0, BC 3.0.3)";
+		return "0.7 (MC 1.0.0, BC 3.0.4)";
 	}
 }

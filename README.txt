@@ -58,16 +58,12 @@ Recipe:
 
 ---------------------------------------------------------------------------------
 
-Redstone Power Converter
-  acts as a reverse redstone engine
-  it converts power to redstone current
-
-Recipe:
-  RedstoneEngine Lever
-
----------------------------------------------------------------------------------
-
 Changelog:
+
+0.7:
+ - bc 3.0.4 compat
+ - removed obsolete Redstone Power Converter
+ - removed "Invalid Pipe" (buildcraft now reacts correctly on unknown pipe ids)
 
 0.6f:
  - fix missing class file (damn packaging script ...)
