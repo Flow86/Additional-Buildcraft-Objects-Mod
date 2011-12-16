@@ -94,7 +94,7 @@ public class PipeLiquidsValve extends Pipe implements IPowerReceptor, IABOSolid 
 		super.updateEntity();
 
 		if (worldObj.isBlockIndirectlyGettingPowered(xCoord, yCoord, zCoord)) {
-			powerProvider.receiveEnergy(1, Orientations.YNeg);
+			powerProvider.receiveEnergy(1);
 		}
 
 		int meta = worldObj.getBlockMetadata(xCoord, yCoord, zCoord);
@@ -140,7 +140,7 @@ public class PipeLiquidsValve extends Pipe implements IPowerReceptor, IABOSolid 
 	}
 
 	@Override
-	public int getMainBlockTexture() {
+	public int getBlockTexture() {
 		return nextTexture;
 	}
 

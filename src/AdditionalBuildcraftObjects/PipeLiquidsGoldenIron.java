@@ -46,7 +46,7 @@ public class PipeLiquidsGoldenIron extends Pipe {
 	}
 
 	@Override
-	public int getMainBlockTexture() {
+	public int getBlockTexture() {
 		return nextTexture;
 	}
 }

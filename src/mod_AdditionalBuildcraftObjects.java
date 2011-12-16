@@ -118,7 +118,7 @@ public class mod_AdditionalBuildcraftObjects extends BaseModMp implements ICusto
 				BuildCraftTransport.pipeLiquidsGold, BuildCraftTransport.pipeLiquidsIron, null);
 
 		pipeLiquidsBalance = createPipe(pipeLiquidsBalanceID, PipeLiquidsBalance.class, "Balance Pipe", 1,
-				BuildCraftTransport.pipeLiquidsWood, new ItemStack(BuildCraftTransport.pipeGate, 1, 2), BuildCraftTransport.pipeLiquidsWood);
+				BuildCraftTransport.pipeLiquidsWood, new ItemStack(BuildCraftEnergy.engineBlock, 1, 0), BuildCraftTransport.pipeLiquidsWood);
 		
 		pipeItemsRoundRobin = createPipe(pipeItemsRoundRobinID, PipeItemsRoundRobin.class, "RoundRobin Transport Pipe", 1,
 				BuildCraftTransport.pipeItemsStone, Block.gravel, null);
