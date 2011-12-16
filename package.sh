@@ -29,7 +29,7 @@ pushd src
 popd
 
 pushd $MCP_DIR/reobf/minecraft
-	zip $MCP_DIR/additionalbuildcraftobjects-$VERSION.zip $list || exit 1
+	zip $MCP_DIR/../additionalbuildcraftobjects-$VERSION.zip $list || exit 1
 popd
 
 exit 0
