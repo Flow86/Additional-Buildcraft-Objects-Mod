@@ -23,7 +23,7 @@ list="README.txt net/minecraft/src/AdditionalBuildcraftObjects/gui/*.png"
 
 for I in $(find -type f -name \*.java)
 do
-	list="$list $(echo $I | "sed s/.java/*.class/g")"
+	list="$list $(echo $I | sed "s/.java/*.class/g")"
 done
 
 pushd $MCP_DIR/reobf/minecraft
