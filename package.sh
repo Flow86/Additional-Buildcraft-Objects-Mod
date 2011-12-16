@@ -21,10 +21,12 @@ cp -va src/AdditionalBuildcraftObjects/gui/*.png $MCP_DIR/reobf/minecraft/net/mi
 
 list="README.txt net/minecraft/src/AdditionalBuildcraftObjects/gui/*.png"
 
-for I in $(find -type f -name \*.java)
-do
-	list="$list $(echo $I | sed "s/.java/*.class/g")"
-done
+pushd src
+	for I in $(find -type f -name \*.java)
+	do
+		list="$list $(echo $I | sed "s/.java/*.class/g")"
+	done
+popd
 
 pushd $MCP_DIR/reobf/minecraft
 	zip $MCP_DIR/additionalbuildcraftobjects-$VERSION.zip $list || exit 1
