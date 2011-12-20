@@ -12,14 +12,62 @@
 
 package net.minecraft.src.AdditionalBuildcraftObjects;
 
+import net.minecraft.src.ModLoader;
+import net.minecraft.src.buildcraft.api.IPowerReceptor;
+import net.minecraft.src.buildcraft.api.Orientations;
 import net.minecraft.src.buildcraft.transport.Pipe;
-import net.minecraft.src.buildcraft.transport.PipeLogicStone;
 import net.minecraft.src.buildcraft.transport.PipeTransportItems;
+import net.minecraft.src.buildcraft.transport.pipes.PipeItemsWood;
 
-public class PipeItemsExtraction extends Pipe {
-
+public class PipeItemsExtraction extends PipeItemsWood implements IPowerReceptor {
+	private final int baseTexture = 9 * 16 + 0;
+	private final int sideTexture = baseTexture + 1;
+	private int nextTexture = baseTexture;
+	
 	public PipeItemsExtraction(int itemID) {
-		super(new PipeTransportItems(), new PipeLogicStone(), itemID);
+		super(itemID);
+		
+		((PipeTransportItems) transport).allowBouncing = true;
+		
+		// THIS IS DAMN UGLY - but I have no other chance to change logic and transport afterwards :/
+		try {
+			ModLoader.setPrivateValue(Pipe.class, this, "logic", new PipeLogicExtraction());
+		} catch (IllegalArgumentException e) {
+			e.printStackTrace();
+		} catch (SecurityException e) {
+			e.printStackTrace();
+		} catch (NoSuchFieldException e) {
+			e.printStackTrace();
+		}
+
+		try {
+			ModLoader.setPrivateValue(Pipe.class, this, "transport", new PipeTransportItemsExtraction());
+		} catch (IllegalArgumentException e) {
+			e.printStackTrace();
+		} catch (SecurityException e) {
+			e.printStackTrace();
+		} catch (NoSuchFieldException e) {
+			e.printStackTrace();
+		}
 	}
 
+	@Override
+	public void prepareTextureFor(Orientations connection) {
+		if (connection == Orientations.Unknown) {
+			nextTexture = sideTexture;
+		} else {
+			int metadata = worldObj.getBlockMetadata(xCoord, yCoord, zCoord);
+
+			if (metadata == connection.ordinal()) {
+				nextTexture = sideTexture;
+			} else {
+				nextTexture = baseTexture;
+			}
+		}
+	}
+	
+	@Override
+	public int getMainBlockTexture() {
+		return nextTexture;
+	}
 }
