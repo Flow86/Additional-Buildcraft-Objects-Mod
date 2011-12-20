@@ -154,7 +154,7 @@ public class mod_AdditionalBuildcraftObjects extends BaseModMp implements ICusto
 				BuildCraftTransport.pipeItemsStone, Block.planks, null);
 		
 		pipeItemsBounce = createPipe(pipeItemsBounceID, PipeItemsBounce.class, "Bounce Pipe", 1,
-				BuildCraftTransport.pipeItemsStone, Block.pistonBase, null);
+				BuildCraftTransport.pipeItemsStone, Block.cobblestone, null);
 		
 		pipeItemsCrossover = createPipe(pipeItemsCrossoverID, PipeItemsCrossover.class, "Crossover Pipe", 1,
 				BuildCraftTransport.pipeItemsStone, BuildCraftTransport.pipeItemsIron, null);
