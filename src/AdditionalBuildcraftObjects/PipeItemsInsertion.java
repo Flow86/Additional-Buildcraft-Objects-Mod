@@ -14,14 +14,13 @@ package net.minecraft.src.AdditionalBuildcraftObjects;
 
 import net.minecraft.src.buildcraft.transport.Pipe;
 import net.minecraft.src.buildcraft.transport.PipeLogicStone;
+import net.minecraft.src.buildcraft.transport.PipeTransportItems;
 
-/**
- * @author sifldoer
- * 
- */
 public class PipeItemsInsertion extends Pipe {
 	public PipeItemsInsertion(int itemID) {
 		super(new PipeTransportItemsInsertion(), new PipeLogicStone(), itemID);
+		
+		((PipeTransportItems) transport).allowBouncing = true;
 	}
 
 	@Override
