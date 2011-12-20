@@ -116,6 +116,8 @@ Changelog:
    
    see: http://www.minecraftforum.net/topic/474348-173-2012-extrabuildcraftpipes/
 
+   oh and YES - they gave me the permission (before someones shouting about copyright...)
+
 0.7:
  - bc 3.0.4 compat
  - removed obsolete Redstone Power Converter
