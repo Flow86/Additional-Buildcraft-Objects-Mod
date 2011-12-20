@@ -12,14 +12,43 @@
 
 package net.minecraft.src.AdditionalBuildcraftObjects;
 
+import net.minecraft.src.World;
+import net.minecraft.src.buildcraft.api.Orientations;
 import net.minecraft.src.buildcraft.transport.Pipe;
 import net.minecraft.src.buildcraft.transport.PipeLogicStone;
-import net.minecraft.src.buildcraft.transport.PipeTransportItems;
 
-public class PipeItemsBounce extends Pipe {
+public class PipeItemsBounce extends Pipe implements IABOSolid {
+	private final int openTexture = 10 * 16 + 0;
+	private final int closedTexture = openTexture + 1;
+	private int nextTexture = openTexture;
 
 	public PipeItemsBounce(int itemID) {
-		super(new PipeTransportItems(), new PipeLogicStone(), itemID);
+		super(new PipeTransportItemsBounce(), new PipeLogicStone(), itemID);
 	}
 
+	@Override
+	public void prepareTextureFor(Orientations connection) {
+		if (connection == Orientations.Unknown) {
+			nextTexture = (worldObj.getBlockMetadata(xCoord, yCoord, zCoord) == PipeTransportItemsBounce.metaOpen ? openTexture : closedTexture);
+		} else {
+			nextTexture = openTexture;
+		}
+	}
+
+	@Override
+	public int getMainBlockTexture() {
+		return nextTexture;
+	}
+	
+	@Override
+	public void updateEntity() {
+		super.updateEntity();
+		((PipeTransportItemsBounce)transport).updatePowerMeta(worldObj.isBlockIndirectlyGettingPowered(xCoord, yCoord, zCoord));
+	}
+
+	@Override
+	public boolean isBlockSolidOnSide(World world, int i, int j, int k, int side) {
+		// TODO: only allow specific sides
+		return true;
+	}
 }

@@ -14,42 +14,50 @@ package net.minecraft.src.AdditionalBuildcraftObjects;
 
 import java.util.LinkedList;
 
-import net.minecraft.src.TileEntity;
 import net.minecraft.src.buildcraft.api.EntityPassiveItem;
-import net.minecraft.src.buildcraft.api.IPipeEntry;
 import net.minecraft.src.buildcraft.api.Orientations;
 import net.minecraft.src.buildcraft.api.Position;
 import net.minecraft.src.buildcraft.transport.PipeTransportItems;
 
 /**
- * This pipe will always prefer to insert it's objects into another pipe over
- * one that is not a pipe.
+ * This pipe will bounce the items back if not powered.
  * 
  * @author Scott Chamberlain (Leftler)
  *         ported to BC > 2.2 by Flow86
  */
-public class PipeTransportItemsExtraction extends PipeTransportItems {
+public class PipeTransportItemsBounce extends PipeTransportItems {
+	public static final int metaClosed = 0;
+	public static final int metaOpen = 1;
+
 	@Override
 	public LinkedList<Orientations> getPossibleMovements(Position pos, EntityPassiveItem item) {
-		LinkedList<Orientations> nonPipesList = new LinkedList<Orientations>();
-		LinkedList<Orientations> pipesList = new LinkedList<Orientations>();
+		LinkedList<Orientations> list;
+		boolean powered = worldObj.isBlockIndirectlyGettingPowered(xCoord, yCoord, zCoord);
 
-		for (Orientations o : Orientations.dirs()) {
-			if (o != pos.orientation.reverse() && container.pipe.outputOpen(o)) {
-				if (canReceivePipeObjects(o, item)) {
-
-					TileEntity entity = container.getTile(o);
-					if (entity instanceof IPipeEntry)
-						pipesList.add(o);
-					else
-						nonPipesList.add(o);
-				}
-			}
+		if (powered)
+			list = super.getPossibleMovements(pos, item);
+		else {
+			list = new LinkedList<Orientations>();
+			list.add(pos.orientation.reverse());
 		}
 
-		if (!pipesList.isEmpty())
-			return pipesList;
+		updatePowerMeta(powered);
+
+		return list;
+	}
+
+	void updatePowerMeta(boolean powered) {
+		int meta = worldObj.getBlockMetadata(xCoord, yCoord, zCoord);
+		int newMeta = meta;
+
+		if (powered)
+			newMeta = metaOpen;
 		else
-			return nonPipesList;
+			newMeta = metaClosed;
+
+		if (newMeta != meta) {
+			worldObj.setBlockMetadata(xCoord, yCoord, zCoord, newMeta);
+			worldObj.markBlockNeedsUpdate(xCoord, yCoord, zCoord);
+		}
 	}
 }

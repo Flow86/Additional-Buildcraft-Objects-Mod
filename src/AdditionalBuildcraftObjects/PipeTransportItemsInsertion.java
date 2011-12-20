@@ -26,7 +26,7 @@ import net.minecraft.src.buildcraft.transport.PipeTransportItems;
  * pipe over another pipe.
  * 
  * @author Scott Chamberlain (Leftler)
- * 
+ *         ported to BC > 2.2 by Flow86
  */
 public class PipeTransportItemsInsertion extends PipeTransportItems {
 	@Override
