@@ -37,20 +37,19 @@ public class PipeTransportItemsInsertion extends PipeTransportItems {
 		for (Orientations o : Orientations.dirs()) {
 			if (o != pos.orientation.reverse() && container.pipe.outputOpen(o)) {
 				if (canReceivePipeObjects(o, item)) {
+
 					TileEntity entity = container.getTile(o);
-					if (entity instanceof IPipeEntry) {
+					if (entity instanceof IPipeEntry)
 						pipesList.add(o);
-					} else {
+					else
 						nonPipesList.add(o);
-					}
 				}
 			}
 		}
 
-		if (!nonPipesList.isEmpty()) {
+		if (!nonPipesList.isEmpty())
 			return nonPipesList;
-		} else {
+		else
 			return pipesList;
-		}
 	}
 }
