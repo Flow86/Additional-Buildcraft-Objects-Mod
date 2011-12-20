@@ -14,12 +14,15 @@ package net.minecraft.src.AdditionalBuildcraftObjects;
 
 import net.minecraft.src.buildcraft.transport.Pipe;
 import net.minecraft.src.buildcraft.transport.PipeLogicStone;
-import net.minecraft.src.buildcraft.transport.PipeTransportItems;
 
 public class PipeItemsCrossover extends Pipe {
 
 	public PipeItemsCrossover(int itemID) {
-		super(new PipeTransportItems(), new PipeLogicStone(), itemID);
+		super(new PipeTransportItemsCrossover(), new PipeLogicStone(), itemID);
 	}
 
+	@Override
+	public int getMainBlockTexture() {
+		return 11 * 16 + 0;
+	}
 }
