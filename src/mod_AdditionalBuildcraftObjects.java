@@ -14,7 +14,11 @@ package net.minecraft.src;
 
 import net.minecraft.src.AdditionalBuildcraftObjects.BlockABOPipe;
 import net.minecraft.src.AdditionalBuildcraftObjects.ItemABOPipe;
+import net.minecraft.src.AdditionalBuildcraftObjects.PipeItemsBounce;
 import net.minecraft.src.AdditionalBuildcraftObjects.PipeItemsCompactor;
+import net.minecraft.src.AdditionalBuildcraftObjects.PipeItemsCrossover;
+import net.minecraft.src.AdditionalBuildcraftObjects.PipeItemsExtraction;
+import net.minecraft.src.AdditionalBuildcraftObjects.PipeItemsInsertion;
 import net.minecraft.src.AdditionalBuildcraftObjects.PipeItemsRoundRobin;
 import net.minecraft.src.AdditionalBuildcraftObjects.PipeLiquidsBalance;
 import net.minecraft.src.AdditionalBuildcraftObjects.PipeLiquidsGoldenIron;
@@ -69,9 +73,26 @@ public class mod_AdditionalBuildcraftObjects extends BaseModMp implements ICusto
 	public static Item pipeItemsCompactor = null;
 	
 	@MLProp(min = 256.0D, max = 32000.0D)
+	public static int pipeItemsInsertionID = 10302;
+	public static Item pipeItemsInsertion = null;
+
+	@MLProp(min = 256.0D, max = 32000.0D)
+	public static int pipeItemsExtractionID = 10303;
+	public static Item pipeItemsExtraction = null;
+
+	@MLProp(min = 256.0D, max = 32000.0D)
+	public static int pipeItemsBounceID = 10304;
+	public static Item pipeItemsBounce = null;
+
+	@MLProp(min = 256.0D, max = 32000.0D)
+	public static int pipeItemsCrossoverID = 10305;
+	public static Item pipeItemsCrossover = null;
+	
+	@MLProp(min = 256.0D, max = 32000.0D)
 	public static int pipePowerSwitchID = 10400;
 	public static Item pipePowerSwitch = null;
 
+	
 	public static String customTexture = "/net/minecraft/src/AdditionalBuildcraftObjects/gui/block_textures.png";
 
 	// public static String customSprites =
@@ -125,6 +146,18 @@ public class mod_AdditionalBuildcraftObjects extends BaseModMp implements ICusto
 
 		pipeItemsCompactor = createPipe(pipeItemsCompactorID, PipeItemsCompactor.class, "Compactor Pipe", 1,
 				BuildCraftTransport.pipeItemsStone, Block.pistonBase, null);
+
+		pipeItemsInsertion = createPipe(pipeItemsInsertionID, PipeItemsInsertion.class, "Insertion Pipe", 1,
+				BuildCraftTransport.pipeItemsStone, Item.redstone, null);
+		
+		pipeItemsExtraction = createPipe(pipeItemsExtractionID, PipeItemsExtraction.class, "Extraction Pipe", 1,
+				BuildCraftTransport.pipeItemsStone, Block.planks, null);
+		
+		pipeItemsBounce = createPipe(pipeItemsBounceID, PipeItemsBounce.class, "Bounce Pipe", 1,
+				BuildCraftTransport.pipeItemsStone, Block.pistonBase, null);
+		
+		pipeItemsCrossover = createPipe(pipeItemsCrossoverID, PipeItemsCrossover.class, "Crossover Pipe", 1,
+				BuildCraftTransport.pipeItemsStone, BuildCraftTransport.pipeItemsIron, null);
 		
 		pipePowerSwitch = createPipe(pipePowerSwitchID, PipePowerSwitch.class, "Power Switch Pipe", 1,
 				BuildCraftTransport.pipePowerGold, Block.lever, null);
@@ -210,6 +243,6 @@ public class mod_AdditionalBuildcraftObjects extends BaseModMp implements ICusto
 	 */
 	@Override
 	public String getVersion() {
-		return "0.7 (MC 1.0.0, BC 3.0.4)";
+		return "0.8 (MC 1.0.0, BC 3.0.4)";
 	}
 }
