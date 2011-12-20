@@ -17,7 +17,7 @@ GOTO :EOF
 REM ---------------------------------------------------------------------------
 
 :APPLYPATCH
-	%MCPDIR%\runtime\bin\applydiff.exe -N -t --binary -p1 -u -i %ABPDIR%\mlprop.patch -d %MCPDIR%
+	%MCPDIR%\runtime\bin\applydiff.exe -N -t --binary -p1 -u -i %ABPDIR%\patches\mlprop.patch -d %MCPDIR%
 GOTO :EOF
 
 REM ---------------------------------------------------------------------------
