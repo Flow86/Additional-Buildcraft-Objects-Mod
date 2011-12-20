@@ -34,6 +34,7 @@ REM ---------------------------------------------------------------------------
 
 :COPYCLIENT
 	xcopy /Y /E %ABPDIR%\src\*  %MCPDIR%\src\minecraft\net\minecraft\src
+	del %MCPDIR%\src\minecraft\net\minecraft\src\AdditionalBuildcraftObjects\gui\*.psd
 GOTO :EOF
 
 REM ---------------------------------------------------------------------------

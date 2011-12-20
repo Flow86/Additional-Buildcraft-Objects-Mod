@@ -54,7 +54,7 @@ public class PipeItemsExtraction extends PipeItemsWood implements IPowerReceptor
 	@Override
 	public void prepareTextureFor(Orientations connection) {
 		if (connection == Orientations.Unknown) {
-			nextTexture = sideTexture;
+			nextTexture = baseTexture;
 		} else {
 			int metadata = worldObj.getBlockMetadata(xCoord, yCoord, zCoord);
 
