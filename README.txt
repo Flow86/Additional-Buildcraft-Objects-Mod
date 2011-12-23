@@ -105,7 +105,26 @@ Recipe:
 
 ---------------------------------------------------------------------------------
 
+Engine Control Pipe
+  acts like a wooden power pipe, but provides a trigger for engine safety
+  (=blue&green state)
+
+  With this trigger, an and gate can be used to control the engine(s)
+
+  i.e power them up via the gate and an external wire signal
+
+  Sorry, I was not able to a add a simple trigger to the engine's, so I had to
+  create a pipe for it :/
+
+Recipe:
+  WoodenConductivePipe IronORGate
+
+---------------------------------------------------------------------------------
+
 Changelog:
+
+0.8.1:
+ - added engine control pipe
 
 0.8:
  - added pipes from old "ExtraBuildcraftPipes"-Mod by leftler/blakmajik

@@ -23,8 +23,11 @@ import net.minecraft.src.AdditionalBuildcraftObjects.PipeItemsRoundRobin;
 import net.minecraft.src.AdditionalBuildcraftObjects.PipeLiquidsBalance;
 import net.minecraft.src.AdditionalBuildcraftObjects.PipeLiquidsGoldenIron;
 import net.minecraft.src.AdditionalBuildcraftObjects.PipeLiquidsValve;
+import net.minecraft.src.AdditionalBuildcraftObjects.PipePowerEngineControl;
 import net.minecraft.src.AdditionalBuildcraftObjects.PipePowerSwitch;
+import net.minecraft.src.AdditionalBuildcraftObjects.TriggerEngineControl;
 import net.minecraft.src.buildcraft.core.CoreProxy;
+import net.minecraft.src.buildcraft.core.Trigger;
 import net.minecraft.src.buildcraft.core.Utils;
 import net.minecraft.src.buildcraft.transport.Pipe;
 import net.minecraft.src.forge.ICustomItemRenderer;
@@ -92,12 +95,21 @@ public class mod_AdditionalBuildcraftObjects extends BaseModMp implements ICusto
 	public static int pipePowerSwitchID = 10400;
 	public static Item pipePowerSwitch = null;
 
+	@MLProp(min = 256.0D, max = 32000.0D)
+	public static int pipePowerEngineControlID = 10401;
+	public static Item pipePowerEngineControl = null;
+
+	@MLProp(min = 128.0D, max = 256.0D)
+	public static int triggerEngineControlID = 128;
+	public static Trigger triggerEngineControl = null;
 	
 	public static String customTexture = "/net/minecraft/src/AdditionalBuildcraftObjects/gui/block_textures.png";
 
 	// public static String customSprites =
 	// "/net/minecraft/src/AdditionalBuildcraftObjects/gui/item_textures.png";
 
+	public static String triggerTexture = "/net/minecraft/src/AdditionalBuildcraftObjects/gui/trigger_textures.png";
+	
 	/**
 	 * 
 	 */
@@ -150,17 +162,22 @@ public class mod_AdditionalBuildcraftObjects extends BaseModMp implements ICusto
 		pipeItemsInsertion = createPipe(pipeItemsInsertionID, PipeItemsInsertion.class, "Insertion Pipe", 1,
 				BuildCraftTransport.pipeItemsStone, Item.redstone, null);
 		
-		pipeItemsExtraction = createPipe(pipeItemsExtractionID, PipeItemsExtraction.class, "Extraction Pipe", 1,
+		pipeItemsExtraction = createPipe(pipeItemsExtractionID, PipeItemsExtraction.class, "Extraction Transport Pipe", 1,
 				BuildCraftTransport.pipeItemsStone, Block.planks, null);
 		
-		pipeItemsBounce = createPipe(pipeItemsBounceID, PipeItemsBounce.class, "Bounce Pipe", 1,
+		pipeItemsBounce = createPipe(pipeItemsBounceID, PipeItemsBounce.class, "Bounce Transport Pipe", 1,
 				BuildCraftTransport.pipeItemsStone, Block.cobblestone, null);
 		
-		pipeItemsCrossover = createPipe(pipeItemsCrossoverID, PipeItemsCrossover.class, "Crossover Pipe", 1,
+		pipeItemsCrossover = createPipe(pipeItemsCrossoverID, PipeItemsCrossover.class, "Crossover Transport Pipe", 1,
 				BuildCraftTransport.pipeItemsStone, BuildCraftTransport.pipeItemsIron, null);
 		
 		pipePowerSwitch = createPipe(pipePowerSwitchID, PipePowerSwitch.class, "Power Switch Pipe", 1,
 				BuildCraftTransport.pipePowerGold, Block.lever, null);
+
+		pipePowerEngineControl = createPipe(pipePowerEngineControlID, PipePowerEngineControl.class, "Power Engine Control Pipe", 1,
+				BuildCraftTransport.pipePowerWood, new ItemStack(BuildCraftTransport.pipeGate, 1, 2), null);
+
+		triggerEngineControl = new TriggerEngineControl(triggerEngineControlID);
 	}
 
 	/**
@@ -243,6 +260,6 @@ public class mod_AdditionalBuildcraftObjects extends BaseModMp implements ICusto
 	 */
 	@Override
 	public String getVersion() {
-		return "0.8 (MC 1.0.0, BC 3.0.4)";
+		return "0.8.1 (MC 1.0.0, BC 3.0.4)";
 	}
 }
