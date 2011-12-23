@@ -67,7 +67,7 @@ public class PipeItemsExtraction extends PipeItemsWood implements IPowerReceptor
 	}
 	
 	@Override
-	public int getMainBlockTexture() {
+	public int getBlockTexture() {
 		return nextTexture;
 	}
 }
