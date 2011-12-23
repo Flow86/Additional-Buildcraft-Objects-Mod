@@ -17,7 +17,7 @@ GOTO :EOF
 REM ---------------------------------------------------------------------------
 
 :APPLYPATCH
-	%MCPDIR%\runtime\bin\applydiff.exe -N -t --binary -p1 -u -i %ABPDIR%\mlprop.patch -d %MCPDIR%
+	%MCPDIR%\runtime\bin\applydiff.exe -N -t --binary -p1 -u -i %ABPDIR%\patches\mlprop.patch -d %MCPDIR%
 GOTO :EOF
 
 REM ---------------------------------------------------------------------------
@@ -34,6 +34,7 @@ REM ---------------------------------------------------------------------------
 
 :COPYCLIENT
 	xcopy /Y /E %ABPDIR%\src\*  %MCPDIR%\src\minecraft\net\minecraft\src
+	del %MCPDIR%\src\minecraft\net\minecraft\src\AdditionalBuildcraftObjects\gui\*.psd
 GOTO :EOF
 
 REM ---------------------------------------------------------------------------
