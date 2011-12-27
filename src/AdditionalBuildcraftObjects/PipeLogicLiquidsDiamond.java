@@ -6,6 +6,10 @@ import net.minecraft.src.buildcraft.api.Orientations;
 import net.minecraft.src.buildcraft.transport.PipeLogicDiamond;
 import net.minecraft.src.buildcraft.transport.PipeTransportLiquids;
 
+/**
+ * @author Flow86
+ *
+ */
 public class PipeLogicLiquidsDiamond extends PipeLogicDiamond {
 
 	@Override
