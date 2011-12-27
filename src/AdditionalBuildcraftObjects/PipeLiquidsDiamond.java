@@ -33,7 +33,7 @@ public class PipeLiquidsDiamond extends Pipe {
 	}
 	
 	@Override
-	public int getMainBlockTexture() {
+	public int getBlockTexture() {
 		return nextTexture;
 	}
 	

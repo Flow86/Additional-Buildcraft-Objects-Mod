@@ -18,7 +18,7 @@ public class PipeLogicLiquidsDiamond extends PipeLogicDiamond {
 		for (int slot = 0; slot < 9; ++slot) {
 			ItemStack stack = getStackInSlot(to.ordinal() * 9 + slot);
 
-			if(stack != null && API.getLiquidForFilledItem(stack) != 0 && transport.getLiquidId() == API.getLiquidForFilledItem(stack))
+			if(stack != null && API.getLiquidForBucket(stack.itemID) != 0 && transport.getLiquidId() == API.getLiquidForBucket(stack.itemID))
 				return true;
 		}
 
