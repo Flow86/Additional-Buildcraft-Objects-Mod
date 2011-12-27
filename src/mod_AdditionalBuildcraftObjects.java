@@ -12,6 +12,7 @@
 
 package net.minecraft.src;
 
+import net.minecraft.src.AdditionalBuildcraftObjects.ABOTriggerProvider;
 import net.minecraft.src.AdditionalBuildcraftObjects.BlockABOPipe;
 import net.minecraft.src.AdditionalBuildcraftObjects.ItemABOPipe;
 import net.minecraft.src.AdditionalBuildcraftObjects.PipeItemsBounce;
@@ -27,8 +28,8 @@ import net.minecraft.src.AdditionalBuildcraftObjects.PipeLiquidsValve;
 import net.minecraft.src.AdditionalBuildcraftObjects.PipePowerEngineControl;
 import net.minecraft.src.AdditionalBuildcraftObjects.PipePowerSwitch;
 import net.minecraft.src.AdditionalBuildcraftObjects.TriggerEngineControl;
+import net.minecraft.src.buildcraft.api.Trigger;
 import net.minecraft.src.buildcraft.core.CoreProxy;
-import net.minecraft.src.buildcraft.core.Trigger;
 import net.minecraft.src.buildcraft.core.Utils;
 import net.minecraft.src.buildcraft.transport.Pipe;
 import net.minecraft.src.forge.ICustomItemRenderer;
@@ -186,6 +187,8 @@ public class mod_AdditionalBuildcraftObjects extends BaseModMp implements ICusto
 				BuildCraftTransport.pipePowerWood, new ItemStack(BuildCraftTransport.pipeGate, 1, 2), null);
 
 		triggerEngineControl = new TriggerEngineControl(triggerEngineControlID);
+		
+		Trigger.registerTriggerProvider(new ABOTriggerProvider());
 	}
 
 	/**

@@ -16,12 +16,17 @@ import java.util.LinkedList;
 
 import net.minecraft.src.TileEntity;
 import net.minecraft.src.mod_AdditionalBuildcraftObjects;
+import net.minecraft.src.buildcraft.api.IOverrideDefaultTriggers;
 import net.minecraft.src.buildcraft.api.Orientations;
-import net.minecraft.src.buildcraft.core.Trigger;
+import net.minecraft.src.buildcraft.api.Trigger;
 import net.minecraft.src.buildcraft.energy.TileEngine;
 import net.minecraft.src.buildcraft.transport.pipes.PipePowerWood;
 
-public class PipePowerEngineControl extends PipePowerWood {
+/**
+ * @author Flow86
+ *
+ */
+public class PipePowerEngineControl extends PipePowerWood implements IOverrideDefaultTriggers {
 
 	public PipePowerEngineControl(int itemID) {
 		super(itemID);
@@ -30,8 +35,6 @@ public class PipePowerEngineControl extends PipePowerWood {
 	@Override
 	public LinkedList<Trigger> getTriggers() {
 		LinkedList<Trigger> triggers = new LinkedList<Trigger>();
-
-		triggers.addAll(super.getTriggers());
 
 		for (Orientations o : Orientations.dirs()) {
 			TileEntity entity = container.getTile(o);

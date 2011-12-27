@@ -15,14 +15,18 @@ package net.minecraft.src.AdditionalBuildcraftObjects;
 import net.minecraft.src.TileEntity;
 import net.minecraft.src.mod_AdditionalBuildcraftObjects;
 import net.minecraft.src.buildcraft.api.Orientations;
-import net.minecraft.src.buildcraft.core.Trigger;
-import net.minecraft.src.buildcraft.core.TriggerParameter;
+import net.minecraft.src.buildcraft.api.Trigger;
+import net.minecraft.src.buildcraft.api.TriggerParameter;
 import net.minecraft.src.buildcraft.energy.Engine;
 import net.minecraft.src.buildcraft.energy.Engine.EnergyStage;
 import net.minecraft.src.buildcraft.energy.TileEngine;
 import net.minecraft.src.buildcraft.transport.ITriggerPipe;
 import net.minecraft.src.buildcraft.transport.Pipe;
 
+/**
+ * @author Flow86
+ *
+ */
 public class TriggerEngineControl extends Trigger implements ITriggerPipe {
 
 	public TriggerEngineControl(int id) {
@@ -51,7 +55,7 @@ public class TriggerEngineControl extends Trigger implements ITriggerPipe {
 
 	@Override
 	public String getDescription() {
-		return "engine safe";
+		return "Engine Safe";
 	}
 
 	@Override
