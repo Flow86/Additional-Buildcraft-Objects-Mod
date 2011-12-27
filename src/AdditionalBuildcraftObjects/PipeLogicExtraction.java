@@ -15,6 +15,13 @@ import net.minecraft.src.buildcraft.transport.Pipe;
 import net.minecraft.src.buildcraft.transport.PipeLogicWood;
 import net.minecraft.src.buildcraft.transport.TileGenericPipe;
 
+/**
+ * This pipe will always prefer to insert it's objects into another pipe over
+ * one that is not a pipe.
+ * 
+ * @author Scott Chamberlain (Leftler)
+ *         ported to BC > 2.2 by Flow86
+ */
 public class PipeLogicExtraction extends PipeLogicWood {
 	@Override
 	public boolean isPipeConnected(TileEntity tile) {

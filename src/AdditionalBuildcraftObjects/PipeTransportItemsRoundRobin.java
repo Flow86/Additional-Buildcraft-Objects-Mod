@@ -19,6 +19,10 @@ import net.minecraft.src.buildcraft.api.Orientations;
 import net.minecraft.src.buildcraft.api.Position;
 import net.minecraft.src.buildcraft.transport.PipeTransportItems;
 
+/**
+ * @author Flow86
+ *
+ */
 public class PipeTransportItemsRoundRobin extends PipeTransportItems {
 	private int lastOrientation = 0;
 
