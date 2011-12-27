@@ -21,6 +21,7 @@ import net.minecraft.src.AdditionalBuildcraftObjects.PipeItemsExtraction;
 import net.minecraft.src.AdditionalBuildcraftObjects.PipeItemsInsertion;
 import net.minecraft.src.AdditionalBuildcraftObjects.PipeItemsRoundRobin;
 import net.minecraft.src.AdditionalBuildcraftObjects.PipeLiquidsBalance;
+import net.minecraft.src.AdditionalBuildcraftObjects.PipeLiquidsDiamond;
 import net.minecraft.src.AdditionalBuildcraftObjects.PipeLiquidsGoldenIron;
 import net.minecraft.src.AdditionalBuildcraftObjects.PipeLiquidsValve;
 import net.minecraft.src.AdditionalBuildcraftObjects.PipePowerEngineControl;
@@ -66,6 +67,10 @@ public class mod_AdditionalBuildcraftObjects extends BaseModMp implements ICusto
 	@MLProp(min = 256.0D, max = 32000.0D)
 	public static int pipeLiquidsBalanceID = 10203;
 	public static Item pipeLiquidsBalance = null;
+	
+	@MLProp(min = 256.0D, max = 32000.0D)
+	public static int pipeLiquidsDiamondID = 10204;
+	public static Item pipeLiquidsDiamond = null;
 	
 	@MLProp(min = 256.0D, max = 32000.0D)
 	public static int pipeItemsRoundRobinID = 10300;
@@ -152,7 +157,10 @@ public class mod_AdditionalBuildcraftObjects extends BaseModMp implements ICusto
 
 		pipeLiquidsBalance = createPipe(pipeLiquidsBalanceID, PipeLiquidsBalance.class, "Balance Pipe", 1,
 				BuildCraftTransport.pipeLiquidsWood, new ItemStack(BuildCraftTransport.pipeGate, 1, 2), BuildCraftTransport.pipeLiquidsWood);
-		
+
+		pipeLiquidsDiamond = createPipe(pipeLiquidsDiamondID, PipeLiquidsDiamond.class, "Diamond Liquids Pipe", 1,
+				BuildCraftTransport.pipeItemsDiamond, BuildCraftTransport.pipeWaterproof, null);
+
 		pipeItemsRoundRobin = createPipe(pipeItemsRoundRobinID, PipeItemsRoundRobin.class, "RoundRobin Transport Pipe", 1,
 				BuildCraftTransport.pipeItemsStone, Block.gravel, null);
 
