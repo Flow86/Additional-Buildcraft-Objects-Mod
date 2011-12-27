@@ -20,6 +20,10 @@ import net.minecraft.src.mod_AdditionalBuildcraftObjects;
 import net.minecraft.src.buildcraft.transport.ItemPipe;
 import net.minecraft.src.buildcraft.transport.Pipe;
 
+/**
+ * @author Flow86
+ *
+ */
 public class ItemABOPipe extends ItemPipe {
 
 	Pipe dummyPipe;

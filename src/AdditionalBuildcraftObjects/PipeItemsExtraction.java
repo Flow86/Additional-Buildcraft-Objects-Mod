@@ -19,6 +19,13 @@ import net.minecraft.src.buildcraft.transport.Pipe;
 import net.minecraft.src.buildcraft.transport.PipeTransportItems;
 import net.minecraft.src.buildcraft.transport.pipes.PipeItemsWood;
 
+/**
+ * This pipe will always prefer to insert it's objects into another pipe over
+ * one that is not a pipe.
+ * 
+ * @author Scott Chamberlain (Leftler)
+ *         ported to BC > 2.2 by Flow86
+ */
 public class PipeItemsExtraction extends PipeItemsWood implements IPowerReceptor {
 	private final int baseTexture = 9 * 16 + 0;
 	private final int sideTexture = baseTexture + 1;
