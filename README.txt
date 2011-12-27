@@ -97,6 +97,15 @@ Recipe:
 
 ---------------------------------------------------------------------------------
 
+Diamond Waterproof Pipe
+  acts like a diamond pipe but for liquids.
+  every filter item not being a bucket or liquid gets ignored.
+
+Recipe:
+  DiamondTransportPipe PipeWaterproof
+
+---------------------------------------------------------------------------------
+
 Power Switch Pipe
   acts as lever for power pipes
 
@@ -122,6 +131,10 @@ Recipe:
 ---------------------------------------------------------------------------------
 
 Changelog:
+
+0.8.2:
+ - added diamond liquid pipe
+
 
 0.8.1:
  - added engine control pipe

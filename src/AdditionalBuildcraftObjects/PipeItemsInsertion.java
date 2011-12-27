@@ -16,6 +16,13 @@ import net.minecraft.src.buildcraft.transport.Pipe;
 import net.minecraft.src.buildcraft.transport.PipeLogicStone;
 import net.minecraft.src.buildcraft.transport.PipeTransportItems;
 
+/**
+ * This pipe will always prefer to insert it's objects into a tile that is not a
+ * pipe over another pipe.
+ * 
+ * @author Scott Chamberlain (Leftler)
+ *         ported to BC > 2.2 by Flow86
+ */
 public class PipeItemsInsertion extends Pipe {
 	public PipeItemsInsertion(int itemID) {
 		super(new PipeTransportItemsInsertion(), new PipeLogicStone(), itemID);

@@ -15,6 +15,13 @@ package net.minecraft.src.AdditionalBuildcraftObjects;
 import net.minecraft.src.buildcraft.transport.Pipe;
 import net.minecraft.src.buildcraft.transport.PipeLogicStone;
 
+/**
+ * This pipe will always prefer to use the opposite direction,
+ * so items will go "straight through"
+ * 
+ * @author blakmajik
+ *         ported to BC > 2.2 by Flow86
+ */
 public class PipeItemsCrossover extends Pipe {
 
 	public PipeItemsCrossover(int itemID) {
