@@ -30,6 +30,10 @@ import net.minecraft.src.buildcraft.transport.PipeLogicWood;
 import net.minecraft.src.buildcraft.transport.PipeTransportLiquids;
 import net.minecraft.src.buildcraft.transport.TileGenericPipe;
 
+/**
+ * @author Flow86
+ *
+ */
 public class PipeLiquidsValve extends Pipe implements IPowerReceptor, IABOSolid {
 	PowerProvider powerProvider;
 
