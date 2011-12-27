@@ -17,6 +17,12 @@ import net.minecraft.src.buildcraft.api.Orientations;
 import net.minecraft.src.buildcraft.transport.Pipe;
 import net.minecraft.src.buildcraft.transport.PipeLogicStone;
 
+/**
+ * This pipe will bounce the items back if not powered.
+ * 
+ * @author Scott Chamberlain (Leftler)
+ *         ported to BC > 2.2 by Flow86
+ */
 public class PipeItemsBounce extends Pipe implements IABOSolid {
 	private final int openTexture = 10 * 16 + 0;
 	private final int closedTexture = openTexture + 1;

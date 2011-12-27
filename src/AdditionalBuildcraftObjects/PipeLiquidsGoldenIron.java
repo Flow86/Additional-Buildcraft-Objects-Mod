@@ -17,6 +17,10 @@ import net.minecraft.src.buildcraft.transport.Pipe;
 import net.minecraft.src.buildcraft.transport.PipeLogicIron;
 import net.minecraft.src.buildcraft.transport.PipeTransportLiquids;
 
+/**
+ * @author Flow86
+ *
+ */
 public class PipeLiquidsGoldenIron extends Pipe {
 
 	private final int baseTexture = 3 * 16 + 0;
