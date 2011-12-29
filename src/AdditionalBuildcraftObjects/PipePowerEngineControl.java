@@ -12,38 +12,16 @@
 
 package net.minecraft.src.AdditionalBuildcraftObjects;
 
-import java.util.LinkedList;
-
-import net.minecraft.src.TileEntity;
-import net.minecraft.src.mod_AdditionalBuildcraftObjects;
-import net.minecraft.src.buildcraft.api.IOverrideDefaultTriggers;
-import net.minecraft.src.buildcraft.api.Orientations;
-import net.minecraft.src.buildcraft.api.Trigger;
-import net.minecraft.src.buildcraft.energy.TileEngine;
 import net.minecraft.src.buildcraft.transport.pipes.PipePowerWood;
 
 /**
  * @author Flow86
  *
  */
-public class PipePowerEngineControl extends PipePowerWood implements IOverrideDefaultTriggers {
+public class PipePowerEngineControl extends PipePowerWood {
 
 	public PipePowerEngineControl(int itemID) {
 		super(itemID);
-	}
-
-	@Override
-	public LinkedList<Trigger> getTriggers() {
-		LinkedList<Trigger> triggers = new LinkedList<Trigger>();
-
-		for (Orientations o : Orientations.dirs()) {
-			TileEntity entity = container.getTile(o);
-
-			if (entity instanceof TileEngine && !triggers.contains(mod_AdditionalBuildcraftObjects.triggerEngineControl))
-				triggers.add(mod_AdditionalBuildcraftObjects.triggerEngineControl);
-		}
-		
-		return triggers;
 	}
 
 	@Override
