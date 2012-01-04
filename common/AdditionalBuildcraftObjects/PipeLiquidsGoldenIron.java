@@ -14,35 +14,43 @@ package net.minecraft.src.AdditionalBuildcraftObjects;
 
 import net.minecraft.src.buildcraft.api.Orientations;
 import net.minecraft.src.buildcraft.transport.Pipe;
+import net.minecraft.src.buildcraft.transport.PipeLogicIron;
 import net.minecraft.src.buildcraft.transport.PipeTransportLiquids;
 
 /**
  * @author Flow86
  *
  */
-public class PipeLiquidsDiamond extends Pipe {
+public class PipeLiquidsGoldenIron extends Pipe {
 
-	private static int baseTexture = 13 * 16 + 0;
+	private final int baseTexture = 3 * 16 + 0;
+	private final int sideTexture = 3 * 16 + 1;
 	private int nextTexture = baseTexture;
-	
-	public PipeLiquidsDiamond(int itemID) {
-		super(new PipeTransportLiquids(), new PipeLogicLiquidsDiamond(), itemID);
-			
+
+	public PipeLiquidsGoldenIron(int itemID) {
+		super(new PipeTransportLiquids(), new PipeLogicIron(), itemID);
+
 		((PipeTransportLiquids)transport).flowRate = 80;
 		((PipeTransportLiquids)transport).travelDelay = 2;
 	}
-	
-	@Override
-	public int getMainBlockTexture() {
-		return nextTexture;
-	}
-	
+
 	@Override
 	public void prepareTextureFor(Orientations connection) {
 		if (connection == Orientations.Unknown) {
 			nextTexture = baseTexture;
 		} else {
-			nextTexture = baseTexture + connection.ordinal() + 1;
+			int metadata = worldObj.getBlockMetadata(xCoord, yCoord, zCoord);
+
+			if (metadata == connection.ordinal()) {
+				nextTexture = baseTexture;
+			} else {
+				nextTexture = sideTexture;
+			}
 		}
+	}
+
+	@Override
+	public int getBlockTexture() {
+		return nextTexture;
 	}
 }

@@ -16,7 +16,6 @@ import net.minecraft.src.Block;
 import net.minecraft.src.EntityPlayer;
 import net.minecraft.src.ItemStack;
 import net.minecraft.src.World;
-import net.minecraft.src.mod_AdditionalBuildcraftObjects;
 import net.minecraft.src.buildcraft.transport.ItemPipe;
 import net.minecraft.src.buildcraft.transport.Pipe;
 
@@ -34,7 +33,7 @@ public class ItemABOPipe extends ItemPipe {
 
 	@Override
 	public boolean onItemUse(ItemStack itemstack, EntityPlayer entityplayer, World world, int i, int j, int k, int l) {
-		int blockID = mod_AdditionalBuildcraftObjects.blockABOPipe.blockID;
+		int blockID = ABO.blockABOPipe.blockID;
 
 		if (world.getBlockId(i, j, k) == Block.snow.blockID) {
 			l = 0;
@@ -84,7 +83,7 @@ public class ItemABOPipe extends ItemPipe {
 
 	@Override
 	public String getTextureFile() {
-		return mod_AdditionalBuildcraftObjects.customTexture;
+		return ABO.customTexture;
 	}
 
 	@Override

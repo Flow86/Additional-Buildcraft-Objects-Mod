@@ -33,19 +33,21 @@ GOTO :EOF
 REM ---------------------------------------------------------------------------
 
 :COPYCLIENT
-	xcopy /Y /E %ABPDIR%\src\*  %MCPDIR%\src\minecraft\net\minecraft\src
+	xcopy /Y /E %ABPDIR%\common\*  %MCPDIR%\src\minecraft\net\minecraft\src
+	xcopy /Y /E %ABPDIR%\client\*  %MCPDIR%\src\minecraft\net\minecraft\src
 	del %MCPDIR%\src\minecraft\net\minecraft\src\AdditionalBuildcraftObjects\gui\*.psd
 GOTO :EOF
 
 REM ---------------------------------------------------------------------------
 
 :COPYSERVER
-
+	xcopy /Y /E %ABPDIR%\common\*  %MCPDIR%\src\minecraft_server\net\minecraft\src
+	xcopy /Y /E %ABPDIR%\server\*  %MCPDIR%\src\minecraft_server\net\minecraft\src
 GOTO :EOF
 
 REM ---------------------------------------------------------------------------
 
 :COPYTEXTURES
 	mkdir %MCPDIR%\bin\minecraft\net\minecraft\src\AdditionalBuildcraftObjects\gui
-	xcopy /Y /E %ABPDIR%\src\AdditionalBuildcraftObjects\gui\*.png  %MCPDIR%\bin\minecraft\net\minecraft\src\AdditionalBuildcraftObjects\gui
+	xcopy /Y /E %ABPDIR%\client\AdditionalBuildcraftObjects\gui\*.png  %MCPDIR%\bin\minecraft\net\minecraft\src\AdditionalBuildcraftObjects\gui
 GOTO :EOF

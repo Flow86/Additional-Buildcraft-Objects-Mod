@@ -42,7 +42,7 @@ public class PipeItemsBounce extends Pipe implements IABOSolid {
 	}
 
 	@Override
-	public int getMainBlockTexture() {
+	public int getBlockTexture() {
 		return nextTexture;
 	}
 	

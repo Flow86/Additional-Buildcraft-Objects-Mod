@@ -33,7 +33,7 @@ public class PipeItemsRoundRobin extends Pipe implements IPipeTransportItemsHook
 	}
 
 	@Override
-	public int getMainBlockTexture() {
+	public int getBlockTexture() {
 		return 1 * 16 + 0;
 	}
 
