@@ -22,34 +22,39 @@ import net.minecraft.src.buildcraft.api.Position;
 import net.minecraft.src.buildcraft.transport.PipeTransportItems;
 
 /**
- * This pipe will always prefer to insert it's objects into another pipe over
- * one that is not a pipe.
+ * This pipe will always prefer to insert it's objects into a tile that is not a
+ * pipe over another pipe.
  * 
  * @author Scott Chamberlain (Leftler)
  *         ported to BC > 2.2 by Flow86
  */
-public class PipeTransportItemsExtraction extends PipeTransportItems {
+public class PipeTransportItemsInsertion extends PipeTransportItems {
 	@Override
 	public LinkedList<Orientations> getPossibleMovements(Position pos, EntityPassiveItem item) {
 		LinkedList<Orientations> nonPipesList = new LinkedList<Orientations>();
 		LinkedList<Orientations> pipesList = new LinkedList<Orientations>();
 
-		for (Orientations o : Orientations.dirs()) {
-			if (o != pos.orientation.reverse() && container.pipe.outputOpen(o)) {
-				if (canReceivePipeObjects(o, item)) {
+		for (int o = 0; o < 6; ++o) {
+			if (Orientations.values()[o] != pos.orientation.reverse()
+					&& container.pipe.outputOpen(Orientations.values()[o])) {
+				Position newPos = new Position(pos);
+				newPos.orientation = Orientations.values()[o];
+				newPos.moveForwards(1.0);
+				
+				if (canReceivePipeObjects(newPos, item)) {
 
-					TileEntity entity = container.getTile(o);
+					TileEntity entity = worldObj.getBlockTileEntity((int)newPos.x, (int)newPos.y, (int)newPos.z);
 					if (entity instanceof IPipeEntry)
-						pipesList.add(o);
+						pipesList.add(newPos.orientation);
 					else
-						nonPipesList.add(o);
+						nonPipesList.add(newPos.orientation);
 				}
 			}
 		}
 
-		if (!pipesList.isEmpty())
-			return pipesList;
-		else
+		if (!nonPipesList.isEmpty())
 			return nonPipesList;
+		else
+			return pipesList;
 	}
 }

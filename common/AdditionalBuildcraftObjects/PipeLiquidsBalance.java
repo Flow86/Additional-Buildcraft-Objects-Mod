@@ -85,7 +85,7 @@ public class PipeLiquidsBalance extends Pipe {
 	}
 
 	@Override
-	public int getMainBlockTexture() {
+	public int getBlockTexture() {
 		return blockTexture;
 	}
 

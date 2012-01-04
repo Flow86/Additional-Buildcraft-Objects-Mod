@@ -14,7 +14,6 @@ package net.minecraft.src.AdditionalBuildcraftObjects;
 
 import net.minecraft.src.Item;
 import net.minecraft.src.World;
-import net.minecraft.src.mod_AdditionalBuildcraftObjects;
 import net.minecraft.src.buildcraft.transport.BlockGenericPipe;
 import net.minecraft.src.buildcraft.transport.Pipe;
 
@@ -52,7 +51,7 @@ public class BlockABOPipe extends BlockGenericPipe {
 	 */
 	@Override
 	public String getTextureFile() {
-		return mod_AdditionalBuildcraftObjects.customTexture;
+		return ABO.customTexture;
 	}
 
 	/*

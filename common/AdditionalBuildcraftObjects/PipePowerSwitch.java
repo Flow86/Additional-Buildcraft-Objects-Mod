@@ -42,7 +42,7 @@ public class PipePowerSwitch extends Pipe implements IABOSolid {
 	}
 
 	@Override
-	public int getMainBlockTexture() {
+	public int getBlockTexture() {
 		return nextTexture;
 	}
 
@@ -67,8 +67,8 @@ public class PipePowerSwitch extends Pipe implements IABOSolid {
 	}
 
 	@Override
-	public void onNeighborBlockChange(int blockId) {
-		super.onNeighborBlockChange(blockId);
+	public void onNeighborBlockChange() {
+		super.onNeighborBlockChange();
 
 		powered = worldObj.isBlockIndirectlyGettingPowered(xCoord, yCoord, zCoord);
 	}
