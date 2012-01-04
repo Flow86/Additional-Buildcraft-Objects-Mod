@@ -41,8 +41,8 @@ GOTO :EOF
 REM ---------------------------------------------------------------------------
 
 :COPYSERVER
-	xcopy /Y /E %ABPDIR%\common\*  %MCPDIR%\src\minecraft\net\minecraft_server\src
-	xcopy /Y /E %ABPDIR%\server\*  %MCPDIR%\src\minecraft\net\minecraft_server\src
+	xcopy /Y /E %ABPDIR%\common\*  %MCPDIR%\src\minecraft_server\net\minecraft\src
+	xcopy /Y /E %ABPDIR%\server\*  %MCPDIR%\src\minecraft_server\net\minecraft\src
 GOTO :EOF
 
 REM ---------------------------------------------------------------------------
