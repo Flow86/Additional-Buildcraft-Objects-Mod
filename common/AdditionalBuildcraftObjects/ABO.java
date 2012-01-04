@@ -1,39 +1,18 @@
-/** 
- * Copyright (C) 2011 Flow86
- * 
- * AdditionalBuildcraftObjects is open-source.
- *
- * It is distributed under the terms of my Open Source License. 
- * It grants rights to read, modify, compile or run the code. 
- * It does *NOT* grant the right to redistribute this software or its 
- * modifications in any form, binary or source, except if expressively
- * granted by the copyright holder.
- */
+package net.minecraft.src.AdditionalBuildcraftObjects;
 
-package net.minecraft.src;
-
-import net.minecraft.src.AdditionalBuildcraftObjects.BlockABOPipe;
-import net.minecraft.src.AdditionalBuildcraftObjects.ItemABOPipe;
-import net.minecraft.src.AdditionalBuildcraftObjects.PipeItemsBounce;
-import net.minecraft.src.AdditionalBuildcraftObjects.PipeItemsCompactor;
-import net.minecraft.src.AdditionalBuildcraftObjects.PipeItemsCrossover;
-import net.minecraft.src.AdditionalBuildcraftObjects.PipeItemsExtraction;
-import net.minecraft.src.AdditionalBuildcraftObjects.PipeItemsInsertion;
-import net.minecraft.src.AdditionalBuildcraftObjects.PipeItemsRoundRobin;
-import net.minecraft.src.AdditionalBuildcraftObjects.PipeLiquidsBalance;
-import net.minecraft.src.AdditionalBuildcraftObjects.PipeLiquidsDiamond;
-import net.minecraft.src.AdditionalBuildcraftObjects.PipeLiquidsGoldenIron;
-import net.minecraft.src.AdditionalBuildcraftObjects.PipeLiquidsValve;
-import net.minecraft.src.AdditionalBuildcraftObjects.PipePowerSwitch;
+import net.minecraft.src.Block;
+import net.minecraft.src.BuildCraftEnergy;
+import net.minecraft.src.BuildCraftTransport;
+import net.minecraft.src.Item;
+import net.minecraft.src.ItemStack;
+import net.minecraft.src.MLProp;
+import net.minecraft.src.ModLoader;
+import net.minecraft.src.mod_BuildCraftCore;
 import net.minecraft.src.buildcraft.core.CoreProxy;
 import net.minecraft.src.buildcraft.transport.Pipe;
-/**
- * @author Flow86
- * 
- */
-public class mod_AdditionalBuildcraftObjects extends BaseModMp {
+
+public class ABO {
 	private static boolean initialized = false;
-	public static mod_AdditionalBuildcraftObjects instance;
 
 	@MLProp(min = 0.0D, max = 255.0D)
 	public static int blockABOPipeID = 200;
@@ -94,23 +73,19 @@ public class mod_AdditionalBuildcraftObjects extends BaseModMp {
 	@MLProp(min = 256.0D, max = 32000.0D)
 	public static int pipePowerEngineControlID = 10401;
 	public static Item pipePowerEngineControl = null;
+
+	//@MLProp(min = 128.0D, max = 256.0D)
+	//public static int triggerEngineControlID = 128;
+	//public static Trigger triggerEngineControl = null;
 	
 	public static String customTexture = "/net/minecraft/src/AdditionalBuildcraftObjects/gui/block_textures.png";
 
-	/**
-	 * 
-	 */
-	public mod_AdditionalBuildcraftObjects() {
-		instance = this;
-	}
+	// public static String customSprites =
+	// "/net/minecraft/src/AdditionalBuildcraftObjects/gui/item_textures.png";
 
-	@Override
-	public void ModsLoaded() {
-		super.ModsLoaded();
-		initialize();
-	}
+	//public static String triggerTexture = "/net/minecraft/src/AdditionalBuildcraftObjects/gui/trigger_textures.png";
 
-	public void initialize() {
+	public static void initialize() {
 		if (initialized) {
 			return;
 		}
@@ -120,6 +95,8 @@ public class mod_AdditionalBuildcraftObjects extends BaseModMp {
 		mod_BuildCraftCore.initialize();
 		BuildCraftTransport.initialize();
 		BuildCraftEnergy.initialize();
+
+		ABOProxy.preloadTexture(customTexture);
 
 		blockABOPipe = new BlockABOPipe(blockABOPipeID);
 		ModLoader.RegisterBlock(blockABOPipe);
@@ -157,42 +134,28 @@ public class mod_AdditionalBuildcraftObjects extends BaseModMp {
 		
 		pipePowerSwitch = createPipe(pipePowerSwitchID, PipePowerSwitch.class, "Power Switch Pipe", 1,
 				BuildCraftTransport.pipePowerGold, Block.lever, null);
-	}
 
-	/**
-	 * @param id
-	 * @param clas
-	 * @param descr
-	 * @param r1
-	 * @param r2
-	 * @param r3
-	 * @return
-	 */
+		//pipePowerEngineControl = createPipe(pipePowerEngineControlID, PipePowerEngineControl.class, "Power Engine Control Pipe", 1,
+		//		BuildCraftTransport.pipePowerWood, new ItemStack(BuildCraftTransport.pipeGate, 1, 2), null);
+
+		//triggerEngineControl = new TriggerEngineControl(triggerEngineControlID);
+	}
+	
+
 	private static Item createPipe(int id, Class<? extends Pipe> clas, String descr, int count, Object r1, Object r2, Object r3) {
 		Item res = BlockABOPipe.registerPipe(id, clas);
 		res.setItemName(clas.getSimpleName());
 		CoreProxy.addName(res, descr);
 
-		CraftingManager craftingmanager = CraftingManager.getInstance();
-
 		if (r1 != null && r2 != null && r3 != null) {
-			craftingmanager.addRecipe(new ItemStack(res, count), new Object[] { "ABC",
+			ModLoader.AddRecipe(new ItemStack(res, count), new Object[] { "ABC",
 					Character.valueOf('A'), r1, Character.valueOf('B'), r2, Character.valueOf('C'), r3 });
 		} else if (r1 != null && r2 != null) {
-			craftingmanager.addRecipe(new ItemStack(res, count), new Object[] { "AB", Character.valueOf('A'), r1,
+			ModLoader.AddRecipe(new ItemStack(res, count), new Object[] { "AB", Character.valueOf('A'), r1,
 					Character.valueOf('B'), r2 });
 		}
 
+		ABOProxy.registerItemInRenderer(res.shiftedIndex);
 		return res;
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see net.minecraft.src.BaseMod#Version()
-	 */
-	@Override
-	public String Version() {
-		return "0.8.2 (MC 1.0.0, BC 2.2.11)";
 	}
 }
