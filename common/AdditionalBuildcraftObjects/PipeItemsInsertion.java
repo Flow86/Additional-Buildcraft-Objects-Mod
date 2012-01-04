@@ -31,7 +31,7 @@ public class PipeItemsInsertion extends Pipe {
 	}
 
 	@Override
-	public int getBlockTexture() {
+	public int getMainBlockTexture() {
 		return 8 * 16 + 0;
 	}
 

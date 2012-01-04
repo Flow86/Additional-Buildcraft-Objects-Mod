@@ -29,7 +29,7 @@ public class PipeItemsCrossover extends Pipe {
 	}
 
 	@Override
-	public int getBlockTexture() {
+	public int getMainBlockTexture() {
 		return 11 * 16 + 0;
 	}
 }

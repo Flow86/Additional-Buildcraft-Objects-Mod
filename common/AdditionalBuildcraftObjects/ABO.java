@@ -20,6 +20,7 @@ import net.minecraft.src.ItemStack;
 import net.minecraft.src.MLProp;
 import net.minecraft.src.ModLoader;
 import net.minecraft.src.mod_BuildCraftCore;
+import net.minecraft.src.buildcraft.api.Trigger;
 import net.minecraft.src.buildcraft.core.CoreProxy;
 import net.minecraft.src.buildcraft.transport.Pipe;
 
@@ -86,16 +87,16 @@ public class ABO {
 	public static int pipePowerEngineControlID = 10401;
 	public static Item pipePowerEngineControl = null;
 
-	//@MLProp(min = 128.0D, max = 256.0D)
-	//public static int triggerEngineControlID = 128;
-	//public static Trigger triggerEngineControl = null;
+	@MLProp(min = 128.0D, max = 256.0D)
+	public static int triggerEngineControlID = 128;
+	public static Trigger triggerEngineControl = null;
 	
 	public static String customTexture = "/net/minecraft/src/AdditionalBuildcraftObjects/gui/block_textures.png";
 
 	// public static String customSprites =
 	// "/net/minecraft/src/AdditionalBuildcraftObjects/gui/item_textures.png";
 
-	//public static String triggerTexture = "/net/minecraft/src/AdditionalBuildcraftObjects/gui/trigger_textures.png";
+	public static String triggerTexture = "/net/minecraft/src/AdditionalBuildcraftObjects/gui/trigger_textures.png";
 
 	public static void initialize() {
 		if (initialized) {
@@ -147,10 +148,10 @@ public class ABO {
 		pipePowerSwitch = createPipe(pipePowerSwitchID, PipePowerSwitch.class, "Power Switch Pipe", 1,
 				BuildCraftTransport.pipePowerGold, Block.lever, null);
 
-		//pipePowerEngineControl = createPipe(pipePowerEngineControlID, PipePowerEngineControl.class, "Power Engine Control Pipe", 1,
-		//		BuildCraftTransport.pipePowerWood, new ItemStack(BuildCraftTransport.pipeGate, 1, 2), null);
+		pipePowerEngineControl = createPipe(pipePowerEngineControlID, PipePowerEngineControl.class, "Power Engine Control Pipe", 1,
+				BuildCraftTransport.pipePowerWood, new ItemStack(BuildCraftTransport.pipeGate, 1, 2), null);
 
-		//triggerEngineControl = new TriggerEngineControl(triggerEngineControlID);
+		triggerEngineControl = new TriggerEngineControl(triggerEngineControlID);
 	}
 	
 

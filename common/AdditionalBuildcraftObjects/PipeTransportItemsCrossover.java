@@ -21,7 +21,7 @@ public class PipeTransportItemsCrossover extends PipeTransportItems {
 		
 		Position newPos = new Position(pos);
 		newPos.moveForwards(1.0);
-		if (canReceivePipeObjects(newPos, item))
+		if (canReceivePipeObjects(newPos.orientation, item))
 			list.add(newPos.orientation);
 		else
 			list = super.getPossibleMovements(pos, item);

@@ -16,7 +16,6 @@ import java.util.LinkedList;
 
 import net.minecraft.src.Block;
 import net.minecraft.src.TileEntity;
-import net.minecraft.src.mod_AdditionalBuildcraftObjects;
 import net.minecraft.src.buildcraft.api.IPipe;
 import net.minecraft.src.buildcraft.api.ITriggerProvider;
 import net.minecraft.src.buildcraft.api.Trigger;
@@ -38,7 +37,7 @@ public class ABOTriggerProvider implements ITriggerProvider {
 		LinkedList<Trigger> result = new LinkedList<Trigger>();
 
 		if (tile instanceof TileEngine) {
-			result.add(mod_AdditionalBuildcraftObjects.triggerEngineControl);
+			result.add(ABO.triggerEngineControl);
 		}
 
 		return result;
