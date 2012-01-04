@@ -32,6 +32,6 @@ public class mod_AdditionalBuildcraftObjects extends BaseModMp {
 
 	@Override
 	public String getVersion() {
-		return "0.8.2 (MC 1.0.0, BC 2.2.11)";
+		return ABO.getVersion();
 	}
 }
