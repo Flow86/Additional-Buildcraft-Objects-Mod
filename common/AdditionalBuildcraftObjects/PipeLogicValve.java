@@ -98,15 +98,15 @@ public class PipeLogicValve extends PipeLogic {
 			if (tile instanceof IPipeEntry || tile instanceof TileGenericPipe || tile instanceof IInventory
 					|| tile instanceof ILiquidContainer) {
 				worldObj.setBlockMetadata(xCoord, yCoord, zCoord, nextMetadata);
-				baseT.onNeighborBlockChange();
+				baseT.onNeighborBlockChange(0);
 				return;
 			}
 		}
 	}
 
 	@Override
-	public void onNeighborBlockChange() {
-		super.onNeighborBlockChange();
+	public void onNeighborBlockChange(int blockId) {
+		super.onNeighborBlockChange(blockId);
 
 		int metadata = worldObj.getBlockMetadata(xCoord, yCoord, zCoord);
 

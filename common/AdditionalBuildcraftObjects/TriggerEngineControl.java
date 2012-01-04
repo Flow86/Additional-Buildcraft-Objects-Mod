@@ -13,7 +13,6 @@
 package net.minecraft.src.AdditionalBuildcraftObjects;
 
 import net.minecraft.src.TileEntity;
-import net.minecraft.src.mod_AdditionalBuildcraftObjects;
 import net.minecraft.src.buildcraft.api.Orientations;
 import net.minecraft.src.buildcraft.api.Trigger;
 import net.minecraft.src.buildcraft.api.TriggerParameter;
@@ -45,7 +44,7 @@ public class TriggerEngineControl extends Trigger implements ITriggerPipe {
 
 	@Override
 	public String getTexture() {
-		return mod_AdditionalBuildcraftObjects.triggerTexture;
+		return ABO.triggerTexture;
 	}
 
 	@Override
