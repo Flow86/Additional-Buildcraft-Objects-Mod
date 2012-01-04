@@ -10,28 +10,14 @@
  * granted by the copyright holder.
  */
 
-package net.minecraft.src;
+package net.minecraft.src.AdditionalBuildcraftObjects;
 
-import net.minecraft.src.AdditionalBuildcraftObjects.ABO;
+import net.minecraft.src.World;
 
 /**
  * @author Flow86
  * 
  */
-public class mod_AdditionalBuildcraftObjects extends BaseModMp {
-
-	@Override
-	public void load () {
-	}
-	
-	@Override
-	public void ModsLoaded() {
-		super.ModsLoaded();
-		ABO.initialize();
-	}
-
-	@Override
-	public String getVersion() {
-		return "0.8.2 (MC 1.0.0, BC 2.2.11)";
-	}
+public interface IABOSolid {
+	public boolean isBlockSolidOnSide(World world, int i, int j, int k, int side);
 }
