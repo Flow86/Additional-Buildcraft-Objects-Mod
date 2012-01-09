@@ -173,6 +173,6 @@ public class ABO {
 	}
 
 	public static String getVersion() {
-		return "0.8.2 (MC 1.0.0, BC 2.2.11)";
+		return "0.8.2 (MC 1.0.0, BC 3.1.1)";
 	}
 }
