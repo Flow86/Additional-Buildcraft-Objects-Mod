@@ -92,6 +92,6 @@ public class ItemABOPipe extends ItemPipe {
 			dummyPipe = BlockABOPipe.createPipe(shiftedIndex);
 		}
 
-		return dummyPipe.getBlockTexture();
+		return dummyPipe.getPipeTexture();
 	}
 }

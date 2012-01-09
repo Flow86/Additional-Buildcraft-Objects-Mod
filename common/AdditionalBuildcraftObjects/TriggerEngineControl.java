@@ -43,7 +43,7 @@ public class TriggerEngineControl extends Trigger implements ITriggerPipe {
 	}
 
 	@Override
-	public String getTexture() {
+	public String getTextureFile() {
 		return ABO.triggerTexture;
 	}
 
