@@ -23,6 +23,7 @@ import net.minecraft.src.ItemStack;
 import net.minecraft.src.MLProp;
 import net.minecraft.src.ModLoader;
 import net.minecraft.src.mod_BuildCraftCore;
+import net.minecraft.src.buildcraft.api.BuildCraftAPI;
 import net.minecraft.src.buildcraft.api.Trigger;
 import net.minecraft.src.buildcraft.core.CoreProxy;
 import net.minecraft.src.buildcraft.transport.Pipe;
@@ -157,6 +158,8 @@ public class ABO {
 				BuildCraftTransport.pipePowerWood, new ItemStack(BuildCraftTransport.pipeGate, 1, 2), null);
 
 		triggerEngineControl = new TriggerEngineControl(triggerEngineControlID);
+		
+		BuildCraftAPI.registerTriggerProvider(new ABOTriggerProvider());
 	}
 	
 
@@ -198,6 +201,6 @@ public class ABO {
 	}
 
 	public static String getVersion() {
-		return "0.8.2 (MC 1.0.0, BC 3.1.1)";
+		return "0.8.2 (MC 1.0.0, BC 2.2.11)";
 	}
 }
