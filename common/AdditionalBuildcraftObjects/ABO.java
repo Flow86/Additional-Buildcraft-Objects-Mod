@@ -12,6 +12,9 @@
 
 package net.minecraft.src.AdditionalBuildcraftObjects;
 
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
+
 import net.minecraft.src.Block;
 import net.minecraft.src.BuildCraftEnergy;
 import net.minecraft.src.BuildCraftTransport;
@@ -107,6 +110,8 @@ public class ABO {
 		mod_BuildCraftCore.initialize();
 		BuildCraftTransport.initialize();
 		BuildCraftEnergy.initialize();
+		
+		setupProperties();
 
 		ABOProxy.preloadTexture(customTexture);
 
@@ -153,6 +158,26 @@ public class ABO {
 		//triggerEngineControl = new TriggerEngineControl(triggerEngineControlID);
 	}
 	
+
+	private static void setupProperties() {
+		try {
+			Method setupProperties = ModLoader.class.getDeclaredMethod("setupProperties", new Class[]{Class.class});
+			setupProperties.setAccessible(true);
+			
+			setupProperties.invoke(null, new Object[]{ ABO.class });
+		} catch (SecurityException e) {
+			e.printStackTrace();
+		} catch (NoSuchMethodException e) {
+			e.printStackTrace();
+		} catch (IllegalArgumentException e) {
+			e.printStackTrace();
+		} catch (IllegalAccessException e) {
+			e.printStackTrace();
+		} catch (InvocationTargetException e) {
+			e.printStackTrace();
+		}
+	}
+
 
 	private static Item createPipe(int id, Class<? extends Pipe> clas, String descr, int count, Object r1, Object r2, Object r3) {
 		Item res = BlockABOPipe.registerPipe(id, clas);
