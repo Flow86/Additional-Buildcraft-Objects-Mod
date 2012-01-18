@@ -54,8 +54,6 @@ public class PipePowerSwitch extends Pipe implements IABOSolid {
 
 	@Override
 	public boolean isPipeConnected(TileEntity tile) {
-		System.out.println("isPipeConnected(" + tile + ")");
-
 		if (!isPowered())
 			return false;
 		return super.isPipeConnected(tile);
@@ -70,18 +68,13 @@ public class PipePowerSwitch extends Pipe implements IABOSolid {
 
 	@Override
 	public void onNeighborBlockChange(int blockId) {
-		System.out.println("onNeighborBlockChange(" + blockId + ")");
-
 		super.onNeighborBlockChange(blockId);
-
 		boolean lastPowered = powered;
 		powered = worldObj.isBlockIndirectlyGettingPowered(xCoord, yCoord, zCoord);
 		if(lastPowered != powered) {
 			this.container.scheduleNeighborChange();
 			this.container.updateEntity();
 		}
-		
-		System.out.println("LastPowered:" + lastPowered + " - now: " + powered);
 	}
 
 	@Override
@@ -105,7 +98,6 @@ public class PipePowerSwitch extends Pipe implements IABOSolid {
 	public void updateEntity() {
 		super.updateEntity();
 		
-		//System.out.println("updateEntity()");
 		boolean lastPowered = powered;
 		powered = worldObj.isBlockIndirectlyGettingPowered(xCoord, yCoord, zCoord);
 		if(lastPowered != powered) {

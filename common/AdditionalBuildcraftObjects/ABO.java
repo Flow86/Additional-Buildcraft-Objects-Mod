@@ -16,6 +16,7 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
 import net.minecraft.src.Block;
+import net.minecraft.src.BuildCraftCore;
 import net.minecraft.src.BuildCraftEnergy;
 import net.minecraft.src.BuildCraftTransport;
 import net.minecraft.src.Item;
@@ -112,6 +113,9 @@ public class ABO {
 		mod_BuildCraftCore.initialize();
 		BuildCraftTransport.initialize();
 		BuildCraftEnergy.initialize();
+
+		// set continuous current model
+		BuildCraftCore.continuousCurrentModel = true;
 		
 		setupProperties();
 
