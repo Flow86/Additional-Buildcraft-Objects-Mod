@@ -21,7 +21,7 @@ import net.minecraft.src.AdditionalBuildcraftObjects.ABO;
 public class mod_AdditionalBuildcraftObjects extends BaseModMp {
 
 	@Override
-	public void load () {
+	public void load() {
 	}
 	
 	@Override
