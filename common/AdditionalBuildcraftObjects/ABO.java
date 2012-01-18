@@ -87,9 +87,9 @@ public class ABO {
 	public static int pipePowerSwitchID = 10400;
 	public static Item pipePowerSwitch = null;
 
-	@MLProp(min = 256.0D, max = 32000.0D)
-	public static int pipePowerEngineControlID = 10401;
-	public static Item pipePowerEngineControl = null;
+	//@MLProp(min = 256.0D, max = 32000.0D)
+	//public static int pipePowerEngineControlID = 10401;
+	//public static Item pipePowerEngineControl = null;
 
 	@MLProp(min = 128.0D, max = 256.0D)
 	public static int triggerEngineControlID = 128;
@@ -154,9 +154,6 @@ public class ABO {
 		pipePowerSwitch = createPipe(pipePowerSwitchID, PipePowerSwitch.class, "Power Switch Pipe", 1,
 				BuildCraftTransport.pipePowerGold, Block.lever, null);
 
-		pipePowerEngineControl = createPipe(pipePowerEngineControlID, PipePowerEngineControl.class, "Power Engine Control Pipe", 1,
-				BuildCraftTransport.pipePowerWood, new ItemStack(BuildCraftTransport.pipeGate, 1, 2), null);
-
 		triggerEngineControl = new TriggerEngineControl(triggerEngineControlID);
 		
 		BuildCraftAPI.registerTriggerProvider(new ABOTriggerProvider());
@@ -201,6 +198,6 @@ public class ABO {
 	}
 
 	public static String getVersion() {
-		return "0.8.2 (MC 1.0.0, BC 2.2.11)";
+		return "0.9 (MC 1.1, BC 3.1.2)";
 	}
 }
