@@ -114,23 +114,21 @@ Recipe:
 
 ---------------------------------------------------------------------------------
 
-Engine Control Pipe
-  acts like a wooden power pipe, but provides a trigger for engine safety
-  (=blue&green state)
+Safe-Engine Trigger
+  acts like the blue & green state trigger, so it will be active as long the 
+  engines are "blue" or "green"
 
-  With this trigger, an and gate can be used to control the engine(s)
-
-  i.e power them up via the gate and an external wire signal
-
-  Sorry, I was not able to a add a simple trigger to the engine's, so I had to
-  create a pipe for it :/
-
-Recipe:
-  WoodenConductivePipe IronORGate
+  i.e power them up via an AND gate and an external wire signal, but have an 
+  "emergency stop"
 
 ---------------------------------------------------------------------------------
 
 Changelog:
+
+0.9:
+ - removed engine control pipe (unnecessary now, buildcraft has a trigger api now)
+ - mc 1.1 compatible
+ - bc 3.1.2/2.2.12 compatible
 
 0.8.2:
  - added diamond liquid pipe

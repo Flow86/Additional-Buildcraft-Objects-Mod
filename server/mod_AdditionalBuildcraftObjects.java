@@ -19,6 +19,10 @@ import net.minecraft.src.AdditionalBuildcraftObjects.ABO;
  * 
  */
 public class mod_AdditionalBuildcraftObjects extends BaseModMp {
+
+	@Override
+	public void load () {
+	}
 	
 	@Override
 	public void ModsLoaded() {
@@ -27,7 +31,7 @@ public class mod_AdditionalBuildcraftObjects extends BaseModMp {
 	}
 
 	@Override
-	public String Version() {
+	public String getVersion() {
 		return ABO.getVersion();
 	}
 }
