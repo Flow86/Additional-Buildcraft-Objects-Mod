@@ -20,6 +20,10 @@ import net.minecraft.src.buildcraft.transport.Pipe;
 import net.minecraft.src.buildcraft.transport.PipeLogicGold;
 import net.minecraft.src.buildcraft.transport.PipeTransportPower;
 
+/**
+ * @author Flow86
+ *
+ */
 public class PipePowerSwitch extends Pipe implements IABOSolid {
 	private final int unpoweredTexture = 2 * 16 + 0;
 	private final int poweredTexture = 2 * 16 + 1;
@@ -66,7 +70,12 @@ public class PipePowerSwitch extends Pipe implements IABOSolid {
 	public void onNeighborBlockChange() {
 		super.onNeighborBlockChange();
 
+		boolean lastPowered = powered;
 		powered = worldObj.isBlockIndirectlyGettingPowered(xCoord, yCoord, zCoord);
+		if(lastPowered != powered) {
+			this.container.scheduleNeighborChange();
+			this.container.updateEntity();
+		}
 	}
 
 	@Override
@@ -90,7 +99,12 @@ public class PipePowerSwitch extends Pipe implements IABOSolid {
 	public void updateEntity() {
 		super.updateEntity();
 		
+		boolean lastPowered = powered;
 		powered = worldObj.isBlockIndirectlyGettingPowered(xCoord, yCoord, zCoord);
+		if(lastPowered != powered) {
+			this.container.scheduleNeighborChange();
+			this.container.updateEntity();
+		}
 	}
 
 }
