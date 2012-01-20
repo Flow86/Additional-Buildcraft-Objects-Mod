@@ -12,13 +12,22 @@
 
 package net.minecraft.src.AdditionalBuildcraftObjects;
 
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
+
+import net.minecraft.src.ModLoader;
 import net.minecraft.src.NBTTagCompound;
 import net.minecraft.src.TileEntity;
 import net.minecraft.src.World;
 import net.minecraft.src.buildcraft.api.Orientations;
+import net.minecraft.src.buildcraft.api.Position;
+import net.minecraft.src.buildcraft.core.TileBuffer;
+import net.minecraft.src.buildcraft.core.Utils;
+import net.minecraft.src.buildcraft.transport.BlockGenericPipe;
 import net.minecraft.src.buildcraft.transport.Pipe;
 import net.minecraft.src.buildcraft.transport.PipeLogicGold;
 import net.minecraft.src.buildcraft.transport.PipeTransportPower;
+import net.minecraft.src.buildcraft.transport.TileGenericPipe;
 
 /**
  * @author Flow86
@@ -65,16 +74,60 @@ public class PipePowerSwitch extends Pipe implements IABOSolid {
 	public boolean isPowered() {
 		return powered; // worldObj.isBlockIndirectlyGettingPowered(xCoord, yCoord, zCoord);
 	}
+	
+	private void computeConnections()
+	{
+		try {
+			Method computeConnections = TileGenericPipe.class.getDeclaredMethod("computeConnections");
+			computeConnections.setAccessible(true);
+			
+			computeConnections.invoke(this.container);
+		} catch (SecurityException e) {
+			e.printStackTrace();
+		} catch (NoSuchMethodException e) {
+			e.printStackTrace();
+		} catch (IllegalArgumentException e) {
+			e.printStackTrace();
+		} catch (IllegalAccessException e) {
+			e.printStackTrace();
+		} catch (InvocationTargetException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public void updateRedstoneCurrent() {
+		boolean lastPowered = powered;
+		
+		powered = false;
+		for (Orientations o : Orientations.dirs()) {
+			Position pos = new Position (xCoord, yCoord, zCoord, o);
+			pos.moveForwards(1.0);
+
+			TileEntity tile = container.getTile(o);
+			
+			if (tile instanceof TileGenericPipe) {
+				TileGenericPipe pipe = (TileGenericPipe)tile;
+				if(BlockGenericPipe.isValid(pipe.pipe) && pipe.pipe.broadcastRedstone)
+					powered = true;
+			}
+		}
+
+		if(!powered)
+			powered = worldObj.isBlockIndirectlyGettingPowered(xCoord, yCoord, zCoord);
+
+		if(lastPowered != powered) {
+			//this.container.scheduleNeighborChange();
+			//this.container.updateEntity();
+			computeConnections();
+		}
+
+		//System.out.println("lastPowered:" + lastPowered + " powered: " + powered);
+	}
 
 	@Override
 	public void onNeighborBlockChange(int blockId) {
 		super.onNeighborBlockChange(blockId);
-		boolean lastPowered = powered;
-		powered = worldObj.isBlockIndirectlyGettingPowered(xCoord, yCoord, zCoord);
-		if(lastPowered != powered) {
-			this.container.scheduleNeighborChange();
-			this.container.updateEntity();
-		}
+		updateRedstoneCurrent();
 	}
 
 	@Override
@@ -97,13 +150,7 @@ public class PipePowerSwitch extends Pipe implements IABOSolid {
 	@Override
 	public void updateEntity() {
 		super.updateEntity();
-		
-		boolean lastPowered = powered;
-		powered = worldObj.isBlockIndirectlyGettingPowered(xCoord, yCoord, zCoord);
-		if(lastPowered != powered) {
-			this.container.scheduleNeighborChange();
-			this.container.updateEntity();
-		}
+		updateRedstoneCurrent();
 	}
 
 }
