@@ -127,8 +127,8 @@ public class ABO {
 		ABOProxy.preloadTexture(customTexture);
 
 		blockABOPipe = new BlockABOPipe(blockABOPipeID);
-		ModLoader.RegisterBlock(blockABOPipe);
-		ModLoader.RegisterTileEntity(ItemABOPipe.class, "net.minecraft.src.AdditionalBuildcraftObjects.ItemABOPipe");
+		ModLoader.registerBlock(blockABOPipe);
+		ModLoader.registerTileEntity(ItemABOPipe.class, "net.minecraft.src.AdditionalBuildcraftObjects.ItemABOPipe");
 
 		pipeLiquidsValve = createPipe(pipeLiquidsValveID, PipeLiquidsValve.class, "Valve Pipe", 1, BuildCraftTransport.pipeLiquidsWood,
 				Block.lever, BuildCraftTransport.pipeLiquidsWood);
@@ -200,10 +200,10 @@ public class ABO {
 		CoreProxy.addName(res, descr);
 
 		if (r1 != null && r2 != null && r3 != null) {
-			ModLoader.AddRecipe(new ItemStack(res, count), new Object[] { "ABC", Character.valueOf('A'), r1, Character.valueOf('B'), r2,
+			ModLoader.addRecipe(new ItemStack(res, count), new Object[] { "ABC", Character.valueOf('A'), r1, Character.valueOf('B'), r2,
 					Character.valueOf('C'), r3 });
 		} else if (r1 != null && r2 != null) {
-			ModLoader.AddRecipe(new ItemStack(res, count), new Object[] { "AB", Character.valueOf('A'), r1, Character.valueOf('B'), r2 });
+			ModLoader.addRecipe(new ItemStack(res, count), new Object[] { "AB", Character.valueOf('A'), r1, Character.valueOf('B'), r2 });
 		}
 
 		ABOProxy.registerItemInRenderer(res.shiftedIndex);
@@ -211,6 +211,6 @@ public class ABO {
 	}
 
 	public static String getVersion() {
-		return "0.9 (MC 1.1, BC 3.1.2)";
+		return "0.9.1 (MC 1.2.3, BC 3.1.4)";
 	}
 }
