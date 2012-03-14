@@ -120,8 +120,8 @@ public class ABO {
 		ABOProxy.preloadTexture(customTexture);
 
 		blockABOPipe = new BlockABOPipe(blockABOPipeID);
-		ModLoader.RegisterBlock(blockABOPipe);
-		ModLoader.RegisterTileEntity(ItemABOPipe.class, "net.minecraft.src.AdditionalBuildcraftObjects.ItemABOPipe");
+		ModLoader.registerBlock(blockABOPipe);
+		ModLoader.registerTileEntity(ItemABOPipe.class, "net.minecraft.src.AdditionalBuildcraftObjects.ItemABOPipe");
 		
 		pipeLiquidsValve = createPipe(pipeLiquidsValveID, PipeLiquidsValve.class, "Valve Pipe", 1,
 				BuildCraftTransport.pipeLiquidsWood, Block.lever, BuildCraftTransport.pipeLiquidsWood);
