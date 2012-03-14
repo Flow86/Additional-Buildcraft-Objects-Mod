@@ -25,8 +25,8 @@ public class mod_AdditionalBuildcraftObjects extends BaseModMp {
 	}
 	
 	@Override
-	public void ModsLoaded() {
-		super.ModsLoaded();
+	public void modsLoaded() {
+		super.modsLoaded();
 		ABO.initialize();
 	}
 

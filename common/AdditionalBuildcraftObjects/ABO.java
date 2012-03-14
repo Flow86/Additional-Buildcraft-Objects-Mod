@@ -188,10 +188,10 @@ public class ABO {
 		CoreProxy.addName(res, descr);
 
 		if (r1 != null && r2 != null && r3 != null) {
-			ModLoader.AddRecipe(new ItemStack(res, count), new Object[] { "ABC",
+			ModLoader.addRecipe(new ItemStack(res, count), new Object[] { "ABC",
 					Character.valueOf('A'), r1, Character.valueOf('B'), r2, Character.valueOf('C'), r3 });
 		} else if (r1 != null && r2 != null) {
-			ModLoader.AddRecipe(new ItemStack(res, count), new Object[] { "AB", Character.valueOf('A'), r1,
+			ModLoader.addRecipe(new ItemStack(res, count), new Object[] { "AB", Character.valueOf('A'), r1,
 					Character.valueOf('B'), r2 });
 		}
 
