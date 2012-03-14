@@ -129,7 +129,7 @@ public class ABO {
 		while(blockABOPipeID < Block.blocksList.length && Block.blocksList[blockABOPipeID] != null)
 			blockABOPipeID++;
 		if(blockABOPipeID >= Block.blocksList.length || Block.blocksList[blockABOPipeID] != null) {
-			ModLoader.throwException("Additional Buildcraft Objects:", new RuntimeException("no free block-ID for Additional Buildcraft Objects's basic pipe!"));
+			ModLoader.ThrowException("Additional Buildcraft Objects:", new RuntimeException("no free block-ID for Additional Buildcraft Objects's basic pipe!"));
 			return;
 		}
 
