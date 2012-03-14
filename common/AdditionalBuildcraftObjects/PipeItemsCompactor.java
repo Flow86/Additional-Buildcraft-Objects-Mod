@@ -51,14 +51,102 @@ public class PipeItemsCompactor extends Pipe implements IPipeTransportItemsHook,
 		 * @param iS
 		 */
 		public ItemStacker(ItemStack iS) {
+			super();
+			
 			itemStack = iS;
 			underruns = 0;
 		}
 	}
+	
+	private class Pair<A, B> implements java.lang.Comparable {
+	    private A first;
+	    private B second;
+
+	    public Pair(A first, B second) {
+	        super();
+	        
+	        this.first = first;
+	        this.second = second;
+	    }
+
+	    public int hashCode() {
+	        int hashFirst = first != null ? first.hashCode() : 0;
+	        int hashSecond = second != null ? second.hashCode() : 0;
+
+	        return (hashFirst + hashSecond) * hashSecond + hashFirst;
+	    }
+
+	    public boolean equals(Object other) {
+	        if (other instanceof Pair) {
+	                Pair otherPair = (Pair) other;
+	                return 
+	                ((  this.first == otherPair.first ||
+	                        ( this.first != null && otherPair.first != null &&
+	                          this.first.equals(otherPair.first))) &&
+	                 (      this.second == otherPair.second ||
+	                        ( this.second != null && otherPair.second != null &&
+	                          this.second.equals(otherPair.second))) );
+	        }
+
+	        return false;
+	    }
+
+	    public String toString()
+	    { 
+	           return "(" + first + ", " + second + ")"; 
+	    }
+
+	    public A getFirst() {
+	        return first;
+	    }
+
+	    public void setFirst(A first) {
+	        this.first = first;
+	    }
+
+	    public B getSecond() {
+	        return second;
+	    }
+
+	    public void setSecond(B second) {
+	        this.second = second;
+	    }
+
+		@Override
+		public int compareTo(Object other) {
+			final int BEFORE = -1;
+		    final int EQUAL = 0;
+		    final int AFTER = 1;
+
+            //this optimization is usually worthwhile, and can
+		    //always be added
+		    if ( this == other ) return EQUAL;
+
+		    if (! (other instanceof Pair))
+	        	return BEFORE;
+	        
+            Pair otherPair = (Pair) other;
+
+		    //objects, including type-safe enums, follow this form
+		    //note that null objects will throw an exception here
+		    int comparison = ((Comparable) this.first).compareTo(otherPair.first);
+		    if ( comparison != EQUAL ) return comparison;
+
+		    comparison = ((Comparable) this.second).compareTo(otherPair.second);
+		    if ( comparison != EQUAL ) return comparison;
+
+		    //all comparisons have yielded equality
+		    //verify that compareTo is consistent with equals (optional)
+		    assert this.equals(other) : "compareTo inconsistent with equals.";
+
+		    return EQUAL;
+		   }
+	}
+
 
 	private PowerProvider powerProvider;
 	private boolean isPowered = false;
-	TreeMap<Orientations, TreeMap<Integer, ItemStacker>> items = new TreeMap<Orientations, TreeMap<Integer, ItemStacker>>();
+	TreeMap<Orientations, TreeMap<Pair<Integer, Integer>, ItemStacker>> items = new TreeMap<Orientations, TreeMap<Pair<Integer, Integer>, ItemStacker>>();
 
 	/**
 	 * @param itemID
@@ -75,27 +163,27 @@ public class PipeItemsCompactor extends Pipe implements IPipeTransportItemsHook,
 	 * @param itemID
 	 * @param stackSize
 	 */
-	public void addItemToItemStack(Orientations orientation, Integer itemID, Integer stackSize) {
+	public void addItemToItemStack(Orientations orientation, Integer itemID, Integer dmgID, Integer stackSize) {
 		if (!items.containsKey(orientation))
-			items.put(orientation, new TreeMap<Integer, ItemStacker>());
+			items.put(orientation, new TreeMap<Pair<Integer, Integer>, ItemStacker>());
 
-		// System.out.println("ItemID: " + itemID + " - Size: " + stackSize);
+		// System.out.println("ItemID: " + itemID + "/" + dmgID + " - Size: " + stackSize);
 
-		if (!items.get(orientation).containsKey(itemID))
-			items.get(orientation).put(itemID, new ItemStacker(new ItemStack(itemID, stackSize, 0)));
+		Pair key = new Pair(itemID, dmgID);
+		if (!items.get(orientation).containsKey(key))
+			items.get(orientation).put(key, new ItemStacker(new ItemStack(itemID, stackSize, dmgID)));
 		else
-			items.get(orientation).get(itemID).itemStack.stackSize += stackSize;
+			items.get(orientation).get(key).itemStack.stackSize += stackSize;
 
-		// System.out.println("New Size: " +
-		// items.get(orientation).get(itemID).itemStack.stackSize);
+		// System.out.println("New Size: " + items.get(orientation).get(key).itemStack.stackSize);
 	}
 
 	@Override
 	public void destroy() {
 		isPowered = false;
 
-		for (Entry<Orientations, TreeMap<Integer, ItemStacker>> item : items.entrySet()) {
-			for (Entry<Integer, ItemStacker> itemStack : item.getValue().entrySet()) {
+		for (Entry<Orientations, TreeMap<Pair<Integer, Integer>, ItemStacker>> item : items.entrySet()) {
+			for (Entry<Pair<Integer, Integer>, ItemStacker> itemStack : item.getValue().entrySet()) {
 				Utils.dropItems(worldObj, itemStack.getValue().itemStack, xCoord, yCoord, zCoord);
 			}
 		}
@@ -118,10 +206,10 @@ public class PipeItemsCompactor extends Pipe implements IPipeTransportItemsHook,
 
 		// System.out.println("Output:");
 
-		for (Entry<Orientations, TreeMap<Integer, ItemStacker>> item : items.entrySet()) {
+		for (Entry<Orientations, TreeMap<Pair<Integer, Integer>, ItemStacker>> item : items.entrySet()) {
 			LinkedList<ItemStacker> toRemove = new LinkedList<ItemStacker>();
 
-			for (Entry<Integer, ItemStacker> itemStack : item.getValue().entrySet()) {
+			for (Entry<Pair<Integer, Integer>, ItemStacker> itemStack : item.getValue().entrySet()) {
 				boolean processed = false;
 				while (itemStack.getValue().itemStack.stackSize >= 16 || itemStack.getValue().underruns >= 5) {
 					processed = true;
@@ -135,9 +223,14 @@ public class PipeItemsCompactor extends Pipe implements IPipeTransportItemsHook,
 
 					int stackSize = itemStack.getValue().itemStack.stackSize;
 					if (itemStack.getValue().itemStack.stackSize >= 16)
-						stackSize = Math.max(64, itemStack.getValue().itemStack.stackSize);
+						stackSize = Math.min(64, itemStack.getValue().itemStack.stackSize);
+					
+					// System.out.println("Stacksize: " + stackSize);
+					// System.out.println("Before: " +  itemStack.getValue().itemStack.stackSize);
 
 					ItemStack output = itemStack.getValue().itemStack.splitStack(stackSize);
+
+					// System.out.println("After: " +  itemStack.getValue().itemStack.stackSize);
 
 					if (!Utils.addToRandomPipeEntry(this.container, item.getKey(), output)) {
 						Position destPos = new Position(xCoord, yCoord, zCoord, item.getKey());
@@ -173,7 +266,7 @@ public class PipeItemsCompactor extends Pipe implements IPipeTransportItemsHook,
 	@Override
 	public void entityEntered(EntityPassiveItem item, Orientations orientation) {
 		if (isPowered && item.item.stackSize < 16) {
-			addItemToItemStack(orientation, item.item.itemID, item.item.stackSize);
+			addItemToItemStack(orientation, item.item.itemID, item.item.getItemDamage(), item.item.stackSize);
 			((PipeTransportItems) transport).scheduleRemoval(item);
 		}
 	}
@@ -219,12 +312,13 @@ public class PipeItemsCompactor extends Pipe implements IPipeTransportItemsHook,
 					try {
 						NBTTagCompound nbtItemStack = (NBTTagCompound) nbtItemStacks.tagAt(k);
 						Integer itemID = nbtItemStack.getInteger("itemID");
+						Integer dmgID = nbtItemStack.getInteger("dmgID");
 						Integer stackSize = nbtItemStack.getInteger("stackSize");
 
 						// System.out.println("read: item " + itemID +
 						// " has size " + stackSize);
 
-						addItemToItemStack(orientation, itemID, stackSize);
+						addItemToItemStack(orientation, itemID, dmgID, stackSize);
 					} catch (Throwable t) {
 						// It may be the case that entities cannot be reloaded
 						// between
@@ -276,17 +370,18 @@ public class PipeItemsCompactor extends Pipe implements IPipeTransportItemsHook,
 
 		NBTTagList nbtItems = new NBTTagList();
 
-		for (Entry<Orientations, TreeMap<Integer, ItemStacker>> item : items.entrySet()) {
+		for (Entry<Orientations, TreeMap<Pair<Integer, Integer>, ItemStacker>> item : items.entrySet()) {
 			NBTTagCompound nbtTreeMap = new NBTTagCompound();
 			NBTTagList nbtItemStacks = new NBTTagList();
 
-			for (Entry<Integer, ItemStacker> itemStack : item.getValue().entrySet()) {
+			for (Entry<Pair<Integer, Integer>, ItemStacker> itemStack : item.getValue().entrySet()) {
 				// System.out.println("write: item " + itemStack.getKey() +
 				// " has size " + itemStack.getValue().itemStack.stackSize);
 
 				NBTTagCompound nbtItemStack = new NBTTagCompound();
 
-				nbtItemStack.setInteger("itemID", itemStack.getKey());
+				nbtItemStack.setInteger("itemID", itemStack.getKey().getFirst());
+				nbtItemStack.setInteger("dmgID", itemStack.getKey().getSecond());
 				nbtItemStack.setInteger("stackSize", itemStack.getValue().itemStack.stackSize);
 				// nbtItemStack.setInteger("underruns",
 				// itemStack.getValue().underruns);
