@@ -119,6 +119,13 @@ public class ABO {
 
 		ABOProxy.preloadTexture(customTexture);
 
+		while(blockABOPipeID < Block.blocksList.length && Block.blocksList[blockABOPipeID] != null)
+			blockABOPipeID++;
+		if(blockABOPipeID >= Block.blocksList.length || Block.blocksList[blockABOPipeID] != null) {
+			ModLoader.throwException("Additional Buildcraft Objects:", new RuntimeException("no free block-ID for Additional Buildcraft Objects's basic pipe!"));
+			return;
+		}
+
 		blockABOPipe = new BlockABOPipe(blockABOPipeID);
 		ModLoader.registerBlock(blockABOPipe);
 		ModLoader.registerTileEntity(ItemABOPipe.class, "net.minecraft.src.AdditionalBuildcraftObjects.ItemABOPipe");
@@ -200,6 +207,6 @@ public class ABO {
 	}
 
 	public static String getVersion() {
-		return "0.9 (MC 1.1, BC 2.2.12)";
+		return "0.9.1 (MC 1.2.3, BC 2.2.13)";
 	}
 }
