@@ -291,13 +291,13 @@ public class PipeItemsCompactor extends Pipe implements IPipeTransportItemsHook,
 				// nbtItemStack.setInteger("underruns",
 				// itemStack.getValue().underruns);
 
-				nbtItemStacks.setTag(nbtItemStack);
+				nbtItemStacks.appendTag(nbtItemStack);
 			}
 
 			nbtTreeMap.setInteger("orientation", item.getKey().ordinal());
 			nbtTreeMap.setTag("itemStacks", nbtItemStacks);
 
-			nbtItems.setTag(nbtTreeMap);
+			nbtItems.appendTag(nbtTreeMap);
 		}
 
 		nbttagcompound.setTag("items", nbtItems);
