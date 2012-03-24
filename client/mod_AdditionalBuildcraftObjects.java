@@ -21,15 +21,15 @@ import net.minecraft.src.AdditionalBuildcraftObjects.ABO;
 public class mod_AdditionalBuildcraftObjects extends BaseModMp {
 
 	@Override
-	public void load () {
-	}
-	
-	@Override
-	public void modsLoaded() {
-		super.modsLoaded();
-		ABO.initialize();
+	public String getPriorities() {
+		return "after:mod_BuildCraftCore;after:mod_BuildCraftTransport;after:mod_BuildCraftEnergy";
 	}
 
+	@Override
+	public void load () {
+		ABO.initialize();
+	}
+	
 	@Override
 	public String getVersion() {
 		return ABO.getVersion();
