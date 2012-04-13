@@ -13,17 +13,18 @@
 package net.minecraft.src;
 
 import net.minecraft.src.AdditionalBuildcraftObjects.ABO;
+import net.minecraft.src.forge.NetworkMod;
 
 /**
  * @author Flow86
  * 
  */
-public class mod_AdditionalBuildcraftObjects extends BaseModMp {
+public class mod_AdditionalBuildcraftObjects extends NetworkMod {
 
 	@Override
 	public void load() {
 	}
-	
+
 	@Override
 	public void modsLoaded() {
 		super.modsLoaded();
@@ -33,5 +34,15 @@ public class mod_AdditionalBuildcraftObjects extends BaseModMp {
 	@Override
 	public String getVersion() {
 		return ABO.getVersion();
+	}
+
+	@Override
+	public boolean clientSideRequired() {
+		return true;
+	}
+
+	@Override
+	public boolean serverSideRequired() {
+		return false;
 	}
 }
