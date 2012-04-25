@@ -39,21 +39,13 @@ public class PipeItemsExtraction extends PipeItemsWood implements IPowerReceptor
 		// THIS IS DAMN UGLY - but I have no other chance to change logic and transport afterwards :/
 		try {
 			ModLoader.setPrivateValue(Pipe.class, this, "logic", new PipeLogicExtraction());
-		} catch (IllegalArgumentException e) {
-			e.printStackTrace();
-		} catch (SecurityException e) {
-			e.printStackTrace();
-		} catch (NoSuchFieldException e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 
 		try {
 			ModLoader.setPrivateValue(Pipe.class, this, "transport", new PipeTransportItemsExtraction());
-		} catch (IllegalArgumentException e) {
-			e.printStackTrace();
-		} catch (SecurityException e) {
-			e.printStackTrace();
-		} catch (NoSuchFieldException e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
