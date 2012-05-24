@@ -12,7 +12,6 @@
 
 package net.minecraft.src.AdditionalBuildcraftObjects;
 
-import net.minecraft.src.BuildCraftCore;
 import net.minecraft.src.buildcraft.api.Action;
 
 /**
@@ -22,8 +21,8 @@ import net.minecraft.src.buildcraft.api.Action;
  */
 public class ActionSwitchOnPipe extends Action {
 
-	public ActionSwitchOnPipe (int id) {
-		super (id);
+	public ActionSwitchOnPipe(int id) {
+		super(id);
 	}
 
 	@Override
@@ -37,7 +36,7 @@ public class ActionSwitchOnPipe extends Action {
 	}
 
 	@Override
-	public String getDescription () {
+	public String getDescription() {
 		return "Switch On Pipe";
 	}
 }
