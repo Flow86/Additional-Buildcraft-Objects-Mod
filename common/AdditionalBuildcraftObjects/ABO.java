@@ -24,6 +24,7 @@ import net.minecraft.src.ItemStack;
 import net.minecraft.src.MLProp;
 import net.minecraft.src.ModLoader;
 import net.minecraft.src.mod_BuildCraftCore;
+import net.minecraft.src.buildcraft.api.Action;
 import net.minecraft.src.buildcraft.api.BptBlock;
 import net.minecraft.src.buildcraft.api.BuildCraftAPI;
 import net.minecraft.src.buildcraft.api.Trigger;
@@ -101,6 +102,9 @@ public class ABO {
 	public static int triggerEngineControlID = 128;
 	public static Trigger triggerEngineControl = null;
 
+	public static int ActionSwitchOnPipeID = 128; 
+	public static Action actionSwitchOnPipe = null;
+
 	public static String customTexture = "/net/minecraft/src/AdditionalBuildcraftObjects/gui/block_textures.png";
 
 	// public static String customSprites =
@@ -171,6 +175,7 @@ public class ABO {
 				Block.lever, null);
 
 		triggerEngineControl = new TriggerEngineControl(triggerEngineControlID);
+                actionSwitchOnPipe = new ActionSwitchOnPipe(ActionSwitchOnPipeID);
 
 		BuildCraftAPI.registerTriggerProvider(new ABOTriggerProvider());
 
