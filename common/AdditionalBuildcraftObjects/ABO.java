@@ -25,7 +25,6 @@ import net.minecraft.src.MLProp;
 import net.minecraft.src.ModLoader;
 import net.minecraft.src.mod_BuildCraftCore;
 import net.minecraft.src.buildcraft.api.Action;
-import net.minecraft.src.buildcraft.api.BptBlock;
 import net.minecraft.src.buildcraft.api.BuildCraftAPI;
 import net.minecraft.src.buildcraft.api.Trigger;
 import net.minecraft.src.buildcraft.core.CoreProxy;
@@ -102,7 +101,8 @@ public class ABO {
 	public static int triggerEngineControlID = 128;
 	public static Trigger triggerEngineControl = null;
 
-	public static int ActionSwitchOnPipeID = 128; 
+	@MLProp(min = 128.0D, max = 256.0D)
+	public static int actionSwitchOnPipeID = 128;
 	public static Action actionSwitchOnPipe = null;
 
 	public static String customTexture = "/net/minecraft/src/AdditionalBuildcraftObjects/gui/block_textures.png";
@@ -130,10 +130,11 @@ public class ABO {
 
 		ABOProxy.preloadTexture(customTexture);
 
-		while(blockABOPipeID < Block.blocksList.length && Block.blocksList[blockABOPipeID] != null)
+		while (blockABOPipeID < Block.blocksList.length && Block.blocksList[blockABOPipeID] != null)
 			blockABOPipeID++;
-		if(blockABOPipeID >= Block.blocksList.length || Block.blocksList[blockABOPipeID] != null) {
-			ModLoader.throwException("Additional Buildcraft Objects:", new RuntimeException("no free block-ID for Additional Buildcraft Objects's basic pipe!"));
+		if (blockABOPipeID >= Block.blocksList.length || Block.blocksList[blockABOPipeID] != null) {
+			ModLoader.throwException("Additional Buildcraft Objects:", new RuntimeException(
+					"no free block-ID for Additional Buildcraft Objects's basic pipe!"));
 			return;
 		}
 
@@ -141,20 +142,22 @@ public class ABO {
 		ModLoader.registerBlock(blockABOPipe);
 		ModLoader.registerTileEntity(ItemABOPipe.class, "net.minecraft.src.AdditionalBuildcraftObjects.ItemABOPipe");
 
-		pipeLiquidsValve = createPipe(pipeLiquidsValveID, PipeLiquidsValve.class, "Valve Pipe", 1, BuildCraftTransport.pipeLiquidsWood,
-				Block.lever, BuildCraftTransport.pipeLiquidsWood);
+		pipeLiquidsValve = createPipe(pipeLiquidsValveID, PipeLiquidsValve.class, "Valve Pipe", 1,
+				BuildCraftTransport.pipeLiquidsWood, Block.lever, BuildCraftTransport.pipeLiquidsWood);
 
-		pipeLiquidsGoldenIron = createPipe(pipeLiquidsGoldenIronID, PipeLiquidsGoldenIron.class, "Golden Iron Waterproof Pipe", 1,
-				BuildCraftTransport.pipeLiquidsGold, BuildCraftTransport.pipeLiquidsIron, null);
+		pipeLiquidsGoldenIron = createPipe(pipeLiquidsGoldenIronID, PipeLiquidsGoldenIron.class,
+				"Golden Iron Waterproof Pipe", 1, BuildCraftTransport.pipeLiquidsGold,
+				BuildCraftTransport.pipeLiquidsIron, null);
 
 		pipeLiquidsBalance = createPipe(pipeLiquidsBalanceID, PipeLiquidsBalance.class, "Balance Pipe", 1,
-				BuildCraftTransport.pipeLiquidsWood, new ItemStack(BuildCraftEnergy.engineBlock, 1, 0), BuildCraftTransport.pipeLiquidsWood);
+				BuildCraftTransport.pipeLiquidsWood, new ItemStack(BuildCraftEnergy.engineBlock, 1, 0),
+				BuildCraftTransport.pipeLiquidsWood);
 
 		pipeLiquidsDiamond = createPipe(pipeLiquidsDiamondID, PipeLiquidsDiamond.class, "Diamond Liquids Pipe", 1,
 				BuildCraftTransport.pipeItemsDiamond, BuildCraftTransport.pipeWaterproof, null);
 
-		pipeItemsRoundRobin = createPipe(pipeItemsRoundRobinID, PipeItemsRoundRobin.class, "RoundRobin Transport Pipe", 1,
-				BuildCraftTransport.pipeItemsStone, Block.gravel, null);
+		pipeItemsRoundRobin = createPipe(pipeItemsRoundRobinID, PipeItemsRoundRobin.class, "RoundRobin Transport Pipe",
+				1, BuildCraftTransport.pipeItemsStone, Block.gravel, null);
 
 		pipeItemsCompactor = createPipe(pipeItemsCompactorID, PipeItemsCompactor.class, "Compactor Pipe", 1,
 				BuildCraftTransport.pipeItemsStone, Block.pistonBase, null);
@@ -162,8 +165,8 @@ public class ABO {
 		pipeItemsInsertion = createPipe(pipeItemsInsertionID, PipeItemsInsertion.class, "Insertion Pipe", 1,
 				BuildCraftTransport.pipeItemsStone, Item.redstone, null);
 
-		pipeItemsExtraction = createPipe(pipeItemsExtractionID, PipeItemsExtraction.class, "Extraction Transport Pipe", 1,
-				BuildCraftTransport.pipeItemsStone, Block.planks, null);
+		pipeItemsExtraction = createPipe(pipeItemsExtractionID, PipeItemsExtraction.class, "Extraction Transport Pipe",
+				1, BuildCraftTransport.pipeItemsStone, Block.planks, null);
 
 		pipeItemsBounce = createPipe(pipeItemsBounceID, PipeItemsBounce.class, "Bounce Transport Pipe", 1,
 				BuildCraftTransport.pipeItemsStone, Block.cobblestone, null);
@@ -171,11 +174,11 @@ public class ABO {
 		pipeItemsCrossover = createPipe(pipeItemsCrossoverID, PipeItemsCrossover.class, "Crossover Transport Pipe", 1,
 				BuildCraftTransport.pipeItemsStone, BuildCraftTransport.pipeItemsIron, null);
 
-		pipePowerSwitch = createPipe(pipePowerSwitchID, PipePowerSwitch.class, "Power Switch Pipe", 1, BuildCraftTransport.pipePowerGold,
-				Block.lever, null);
+		pipePowerSwitch = createPipe(pipePowerSwitchID, PipePowerSwitch.class, "Power Switch Pipe", 1,
+				BuildCraftTransport.pipePowerGold, Block.lever, null);
 
 		triggerEngineControl = new TriggerEngineControl(triggerEngineControlID);
-                actionSwitchOnPipe = new ActionSwitchOnPipe(ActionSwitchOnPipeID);
+		actionSwitchOnPipe = new ActionSwitchOnPipe(actionSwitchOnPipeID);
 
 		BuildCraftAPI.registerTriggerProvider(new ABOTriggerProvider());
 
@@ -206,16 +209,20 @@ public class ABO {
 		}
 	}
 
-	private static Item createPipe(int id, Class<? extends Pipe> clas, String descr, int count, Object r1, Object r2, Object r3) {
+	private static Item createPipe(int id, Class<? extends Pipe> clas, String descr, int count, Object r1, Object r2,
+			Object r3) {
 		Item res = BlockABOPipe.registerPipe(id, clas);
 		res.setItemName(clas.getSimpleName());
 		CoreProxy.addName(res, descr);
 
 		if (r1 != null && r2 != null && r3 != null) {
-			ModLoader.addRecipe(new ItemStack(res, count), new Object[] { "ABC", Character.valueOf('A'), r1, Character.valueOf('B'), r2,
-					Character.valueOf('C'), r3 });
+			ModLoader.addRecipe(
+					new ItemStack(res, count),
+					new Object[] { "ABC", Character.valueOf('A'), r1, Character.valueOf('B'), r2,
+							Character.valueOf('C'), r3 });
 		} else if (r1 != null && r2 != null) {
-			ModLoader.addRecipe(new ItemStack(res, count), new Object[] { "AB", Character.valueOf('A'), r1, Character.valueOf('B'), r2 });
+			ModLoader.addRecipe(new ItemStack(res, count),
+					new Object[] { "AB", Character.valueOf('A'), r1, Character.valueOf('B'), r2 });
 		}
 
 		ABOProxy.registerItemInRenderer(res.shiftedIndex);
