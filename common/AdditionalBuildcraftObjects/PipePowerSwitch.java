@@ -12,6 +12,9 @@
 
 package net.minecraft.src.AdditionalBuildcraftObjects;
 
+import java.util.HashMap;
+import java.util.LinkedList;
+
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
@@ -19,6 +22,8 @@ import net.minecraft.src.ModLoader;
 import net.minecraft.src.NBTTagCompound;
 import net.minecraft.src.TileEntity;
 import net.minecraft.src.World;
+import net.minecraft.src.buildcraft.api.Action;
+import net.minecraft.src.buildcraft.api.BuildCraftAPI;
 import net.minecraft.src.buildcraft.api.Orientations;
 import net.minecraft.src.buildcraft.api.Position;
 import net.minecraft.src.buildcraft.core.TileBuffer;
@@ -38,6 +43,7 @@ public class PipePowerSwitch extends Pipe implements IABOSolid {
 	private final int poweredTexture = 2 * 16 + 1;
 	private int nextTexture = unpoweredTexture;
 	private boolean powered;
+	private boolean switched;
 
 	public PipePowerSwitch(int itemID) {
 		super(new PipeTransportPower(), new PipeLogicGold(), itemID);
@@ -63,16 +69,22 @@ public class PipePowerSwitch extends Pipe implements IABOSolid {
 
 	@Override
 	public boolean isPipeConnected(TileEntity tile) {
+		Pipe pipe2 = null;
+
+		if (tile instanceof TileGenericPipe)
+			pipe2 = ((TileGenericPipe) tile).pipe;
+
 		if (!isPowered())
 			return false;
-		return super.isPipeConnected(tile);
+
+		return (pipe2 == null || !(pipe2 instanceof PipePowerSwitch)) && super.isPipeConnected(tile);
 	}
 
 	/**
 	 * @return
 	 */
 	public boolean isPowered() {
-		return powered; // worldObj.isBlockIndirectlyGettingPowered(xCoord, yCoord, zCoord);
+		return powered || switched; // worldObj.isBlockIndirectlyGettingPowered(xCoord, yCoord, zCoord);
 	}
 	
 	private void computeConnections()
@@ -151,6 +163,31 @@ public class PipePowerSwitch extends Pipe implements IABOSolid {
 	public void updateEntity() {
 		super.updateEntity();
 		updateRedstoneCurrent();
+	}
+	@Override
+	public LinkedList<Action> getActions() {
+		LinkedList<Action> actions = super.getActions();
+		actions.add(ABO.actionSwitchOnPipe);
+		return actions;
+	}
+	@Override
+	protected void actionsActivated(HashMap<Integer, Boolean> actions) {
+		boolean lastSwitched = switched;
+
+		super.actionsActivated(actions);
+
+		switched = false;
+		// Activate the actions
+		for (Integer i : actions.keySet()) {
+			if (actions.get(i)) {
+				if (BuildCraftAPI.actions[i] instanceof ActionSwitchOnPipe){
+					switched = true;
+				}
+			}
+		}
+		if(lastSwitched != switched) {
+			computeConnections();
+		}
 	}
 
 }
