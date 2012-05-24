@@ -1,10 +1,13 @@
-/**
- * Copyright (c) SpaceToad, 2011
- * http://www.mod-buildcraft.com
+/** 
+ * Copyright (C) 2011 Flow86
+ * 
+ * AdditionalBuildcraftObjects is open-source.
  *
- * BuildCraft is distributed under the terms of the Minecraft Mod Public
- * License 1.0, or MMPL. Please check the contents of the license located in
- * http://www.mod-buildcraft.com/MMPL-1.0.txt
+ * It is distributed under the terms of my Open Source License. 
+ * It grants rights to read, modify, compile or run the code. 
+ * It does *NOT* grant the right to redistribute this software or its 
+ * modifications in any form, binary or source, except if expressively
+ * granted by the copyright holder.
  */
 
 package net.minecraft.src.AdditionalBuildcraftObjects;
@@ -12,6 +15,11 @@ package net.minecraft.src.AdditionalBuildcraftObjects;
 import net.minecraft.src.BuildCraftCore;
 import net.minecraft.src.buildcraft.api.Action;
 
+/**
+ * 
+ * 
+ * @author mistaqur
+ */
 public class ActionSwitchOnPipe extends Action {
 
 	public ActionSwitchOnPipe (int id) {
@@ -32,5 +40,4 @@ public class ActionSwitchOnPipe extends Action {
 	public String getDescription () {
 		return "Switch On Pipe";
 	}
-
 }
