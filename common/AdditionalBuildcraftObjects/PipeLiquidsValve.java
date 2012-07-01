@@ -10,25 +10,25 @@
  * granted by the copyright holder.
  */
 
-package net.minecraft.src.AdditionalBuildcraftObjects;
+package AdditionalBuildcraftObjects;
 
 import net.minecraft.src.Block;
 import net.minecraft.src.TileEntity;
 import net.minecraft.src.World;
-import net.minecraft.src.buildcraft.api.API;
-import net.minecraft.src.buildcraft.api.ILiquidContainer;
-import net.minecraft.src.buildcraft.api.IPowerReceptor;
-import net.minecraft.src.buildcraft.api.Orientations;
-import net.minecraft.src.buildcraft.api.Position;
-import net.minecraft.src.buildcraft.api.PowerProvider;
-import net.minecraft.src.buildcraft.api.TileNetworkData;
-import net.minecraft.src.buildcraft.core.ILiquid;
-import net.minecraft.src.buildcraft.core.RedstonePowerProvider;
-import net.minecraft.src.buildcraft.core.Utils;
-import net.minecraft.src.buildcraft.transport.Pipe;
-import net.minecraft.src.buildcraft.transport.PipeLogicWood;
-import net.minecraft.src.buildcraft.transport.PipeTransportLiquids;
-import net.minecraft.src.buildcraft.transport.TileGenericPipe;
+import buildcraft.api.API;
+import buildcraft.api.ILiquidContainer;
+import buildcraft.api.IPowerReceptor;
+import buildcraft.api.Orientations;
+import buildcraft.api.Position;
+import buildcraft.api.PowerProvider;
+import buildcraft.api.TileNetworkData;
+import buildcraft.core.ILiquid;
+import buildcraft.core.RedstonePowerProvider;
+import buildcraft.core.Utils;
+import buildcraft.transport.Pipe;
+import buildcraft.transport.PipeLogicWood;
+import buildcraft.transport.PipeTransportLiquids;
+import buildcraft.transport.TileGenericPipe;
 
 /**
  * @author Flow86

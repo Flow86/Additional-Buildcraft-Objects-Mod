@@ -10,15 +10,15 @@
  * granted by the copyright holder.
  */
 
-package net.minecraft.src.AdditionalBuildcraftObjects;
+package AdditionalBuildcraftObjects;
 
 import net.minecraft.src.NBTTagCompound;
 import net.minecraft.src.TileEntity;
 import net.minecraft.src.World;
-import net.minecraft.src.buildcraft.api.Orientations;
-import net.minecraft.src.buildcraft.transport.Pipe;
-import net.minecraft.src.buildcraft.transport.PipeLogicGold;
-import net.minecraft.src.buildcraft.transport.PipeTransportPower;
+import buildcraft.api.Orientations;
+import buildcraft.transport.Pipe;
+import buildcraft.transport.PipeLogicGold;
+import buildcraft.transport.PipeTransportPower;
 
 /**
  * @author Flow86
@@ -93,7 +93,7 @@ public class PipePowerSwitch extends Pipe implements IABOSolid {
 	}
 
 	/* (non-Javadoc)
-	 * @see net.minecraft.src.buildcraft.transport.Pipe#updateEntity()
+	 * @see buildcraft.transport.Pipe#updateEntity()
 	 */
 	@Override
 	public void updateEntity() {

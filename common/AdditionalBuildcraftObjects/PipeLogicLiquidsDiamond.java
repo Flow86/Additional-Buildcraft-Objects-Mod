@@ -1,10 +1,10 @@
-package net.minecraft.src.AdditionalBuildcraftObjects;
+package AdditionalBuildcraftObjects;
 
 import net.minecraft.src.ItemStack;
-import net.minecraft.src.buildcraft.api.API;
-import net.minecraft.src.buildcraft.api.Orientations;
-import net.minecraft.src.buildcraft.transport.PipeLogicDiamond;
-import net.minecraft.src.buildcraft.transport.PipeTransportLiquids;
+import buildcraft.api.API;
+import buildcraft.api.Orientations;
+import buildcraft.transport.PipeLogicDiamond;
+import buildcraft.transport.PipeTransportLiquids;
 
 public class PipeLogicLiquidsDiamond extends PipeLogicDiamond {
 

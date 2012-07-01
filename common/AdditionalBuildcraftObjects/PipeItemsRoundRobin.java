@@ -10,17 +10,17 @@
  * granted by the copyright holder.
  */
 
-package net.minecraft.src.AdditionalBuildcraftObjects;
+package AdditionalBuildcraftObjects;
 
 import java.util.LinkedList;
 
-import net.minecraft.src.buildcraft.api.EntityPassiveItem;
-import net.minecraft.src.buildcraft.api.Orientations;
-import net.minecraft.src.buildcraft.api.Position;
-import net.minecraft.src.buildcraft.core.Utils;
-import net.minecraft.src.buildcraft.transport.IPipeTransportItemsHook;
-import net.minecraft.src.buildcraft.transport.Pipe;
-import net.minecraft.src.buildcraft.transport.PipeLogicStone;
+import buildcraft.api.EntityPassiveItem;
+import buildcraft.api.Orientations;
+import buildcraft.api.Position;
+import buildcraft.core.Utils;
+import buildcraft.transport.IPipeTransportItemsHook;
+import buildcraft.transport.Pipe;
+import buildcraft.transport.PipeLogicStone;
 
 /**
  * @author Flow86
@@ -43,8 +43,8 @@ public class PipeItemsRoundRobin extends Pipe implements IPipeTransportItemsHook
 	 * (non-Javadoc)
 	 * 
 	 * @see
-	 * net.minecraft.src.buildcraft.transport.IPipeTransportItemsHook#readjustSpeed
-	 * (net.minecraft.src.buildcraft.api.EntityPassiveItem)
+	 * buildcraft.transport.IPipeTransportItemsHook#readjustSpeed
+	 * (buildcraft.api.EntityPassiveItem)
 	 */
 	@Override
 	public void readjustSpeed(EntityPassiveItem item) {

@@ -10,12 +10,12 @@
  * granted by the copyright holder.
  */
 
-package net.minecraft.src.AdditionalBuildcraftObjects;
+package AdditionalBuildcraftObjects;
 
 import net.minecraft.src.World;
-import net.minecraft.src.buildcraft.api.Orientations;
-import net.minecraft.src.buildcraft.transport.Pipe;
-import net.minecraft.src.buildcraft.transport.PipeLogicStone;
+import buildcraft.api.Orientations;
+import buildcraft.transport.Pipe;
+import buildcraft.transport.PipeLogicStone;
 
 /**
  * This pipe will bounce the items back if not powered.

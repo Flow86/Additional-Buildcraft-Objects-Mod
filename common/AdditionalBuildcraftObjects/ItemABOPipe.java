@@ -10,14 +10,15 @@
  * granted by the copyright holder.
  */
 
-package net.minecraft.src.AdditionalBuildcraftObjects;
+package AdditionalBuildcraftObjects;
 
 import net.minecraft.src.Block;
 import net.minecraft.src.EntityPlayer;
 import net.minecraft.src.ItemStack;
 import net.minecraft.src.World;
-import net.minecraft.src.buildcraft.transport.ItemPipe;
-import net.minecraft.src.buildcraft.transport.Pipe;
+import net.minecraft.src.mod_AdditionalBuildcraftObjects;
+import buildcraft.transport.ItemPipe;
+import buildcraft.transport.Pipe;
 
 /**
  * @author Flow86
@@ -33,7 +34,7 @@ public class ItemABOPipe extends ItemPipe {
 
 	@Override
 	public boolean onItemUse(ItemStack itemstack, EntityPlayer entityplayer, World world, int i, int j, int k, int l) {
-		int blockID = ABO.blockABOPipe.blockID;
+		int blockID = mod_AdditionalBuildcraftObjects.blockABOPipe.blockID;
 
 		if (world.getBlockId(i, j, k) == Block.snow.blockID) {
 			l = 0;
@@ -83,7 +84,7 @@ public class ItemABOPipe extends ItemPipe {
 
 	@Override
 	public String getTextureFile() {
-		return ABO.customTexture;
+		return mod_AdditionalBuildcraftObjects.customTexture;
 	}
 
 	@Override

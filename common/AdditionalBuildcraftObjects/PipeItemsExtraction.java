@@ -10,14 +10,14 @@
  * granted by the copyright holder.
  */
 
-package net.minecraft.src.AdditionalBuildcraftObjects;
+package AdditionalBuildcraftObjects;
 
 import net.minecraft.src.ModLoader;
-import net.minecraft.src.buildcraft.api.IPowerReceptor;
-import net.minecraft.src.buildcraft.api.Orientations;
-import net.minecraft.src.buildcraft.transport.Pipe;
-import net.minecraft.src.buildcraft.transport.PipeTransportItems;
-import net.minecraft.src.buildcraft.transport.pipes.PipeItemsWood;
+import buildcraft.api.IPowerReceptor;
+import buildcraft.api.Orientations;
+import buildcraft.transport.Pipe;
+import buildcraft.transport.PipeTransportItems;
+import buildcraft.transport.pipes.PipeItemsWood;
 
 /**
  * This pipe will always prefer to insert it's objects into another pipe over

@@ -10,11 +10,11 @@
  * granted by the copyright holder.
  */
 
-package net.minecraft.src.AdditionalBuildcraftObjects;
+package AdditionalBuildcraftObjects;
 
-import net.minecraft.src.buildcraft.api.Orientations;
-import net.minecraft.src.buildcraft.transport.Pipe;
-import net.minecraft.src.buildcraft.transport.PipeTransportLiquids;
+import buildcraft.api.Orientations;
+import buildcraft.transport.Pipe;
+import buildcraft.transport.PipeTransportLiquids;
 
 /**
  * @author Flow86

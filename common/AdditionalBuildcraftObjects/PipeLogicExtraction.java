@@ -7,13 +7,13 @@
  * http://www.mod-buildcraft.com/MMPL-1.0.txt
  */
 
-package net.minecraft.src.AdditionalBuildcraftObjects;
+package AdditionalBuildcraftObjects;
 
 import net.minecraft.src.BuildCraftTransport;
 import net.minecraft.src.TileEntity;
-import net.minecraft.src.buildcraft.transport.Pipe;
-import net.minecraft.src.buildcraft.transport.PipeLogicWood;
-import net.minecraft.src.buildcraft.transport.TileGenericPipe;
+import buildcraft.transport.Pipe;
+import buildcraft.transport.PipeLogicWood;
+import buildcraft.transport.TileGenericPipe;
 
 public class PipeLogicExtraction extends PipeLogicWood {
 	@Override
