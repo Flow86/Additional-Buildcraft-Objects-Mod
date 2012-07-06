@@ -179,7 +179,7 @@ public class PipeItemsCompactor extends Pipe implements IPipeTransportItemsHook,
 	}
 
 	@Override
-	public void destroy() {
+	public void dropContents() {
 		isPowered = false;
 
 		for (Entry<Orientations, TreeMap<Pair<Integer, Integer>, ItemStacker>> item : items.entrySet()) {
@@ -188,6 +188,7 @@ public class PipeItemsCompactor extends Pipe implements IPipeTransportItemsHook,
 			}
 		}
 		items.clear();
+		super.dropContents();
 	}
 
 	@Override
