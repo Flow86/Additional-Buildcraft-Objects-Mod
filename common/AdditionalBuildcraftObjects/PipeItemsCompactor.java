@@ -281,7 +281,7 @@ public class PipeItemsCompactor extends Pipe implements IPipeTransportItemsHook,
 	@Override
 	public int getMainBlockTexture() {
 
-		return 7 * 16 + (isPowered ? 1 : 0);
+		return ABO.customTextures[14+(isPowered ? 1 : 0)];
 	}
 
 	@Override

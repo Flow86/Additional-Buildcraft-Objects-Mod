@@ -83,11 +83,6 @@ public class ItemABOPipe extends ItemPipe {
 	}
 
 	@Override
-	public String getTextureFile() {
-		return ABO.customTexture;
-	}
-
-	@Override
 	public int getTextureIndex() {
 		if (dummyPipe == null) {
 			dummyPipe = BlockABOPipe.createPipe(shiftedIndex);

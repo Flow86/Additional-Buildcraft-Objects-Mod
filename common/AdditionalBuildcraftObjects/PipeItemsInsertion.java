@@ -32,7 +32,7 @@ public class PipeItemsInsertion extends Pipe {
 
 	@Override
 	public int getMainBlockTexture() {
-		return 8 * 16 + 0;
+		return ABO.customTextures[16];
 	}
 
 }

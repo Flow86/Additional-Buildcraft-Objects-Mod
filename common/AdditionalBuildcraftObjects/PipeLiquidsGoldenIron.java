@@ -23,8 +23,8 @@ import net.minecraft.src.buildcraft.transport.PipeTransportLiquids;
  */
 public class PipeLiquidsGoldenIron extends Pipe {
 
-	private final int baseTexture = 3 * 16 + 0;
-	private final int sideTexture = 3 * 16 + 1;
+	private final int baseTexture = ABO.customTextures[7];
+	private final int sideTexture = ABO.customTextures[8];
 	private int nextTexture = baseTexture;
 
 	public PipeLiquidsGoldenIron(int itemID) {

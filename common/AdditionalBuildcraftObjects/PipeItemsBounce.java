@@ -24,8 +24,8 @@ import net.minecraft.src.buildcraft.transport.PipeLogicStone;
  *         ported to BC > 2.2 by Flow86
  */
 public class PipeItemsBounce extends Pipe implements IABOSolid {
-	private final int openTexture = 10 * 16 + 0;
-	private final int closedTexture = openTexture + 1;
+	private final int openTexture = ABO.customTextures[19];
+	private final int closedTexture = ABO.customTextures[20];
 	private int nextTexture = openTexture;
 
 	public PipeItemsBounce(int itemID) {

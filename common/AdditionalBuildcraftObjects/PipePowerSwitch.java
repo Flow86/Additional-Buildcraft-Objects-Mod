@@ -35,8 +35,8 @@ import net.minecraft.src.buildcraft.transport.TileGenericPipe;
  * 
  */
 public class PipePowerSwitch extends Pipe implements IABOSolid {
-	private final int unpoweredTexture = 2 * 16 + 0;
-	private final int poweredTexture = 2 * 16 + 1;
+	private final int unpoweredTexture = ABO.customTextures[5];
+	private final int poweredTexture = ABO.customTextures[6];
 	private int nextTexture = unpoweredTexture;
 	private boolean powered;
 	private boolean switched;
