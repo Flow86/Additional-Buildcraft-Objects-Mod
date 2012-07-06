@@ -30,6 +30,6 @@ public class PipeItemsCrossover extends Pipe {
 
 	@Override
 	public int getMainBlockTexture() {
-		return 11 * 16 + 0;
+		return ABO.customTextures[21];
 	}
 }

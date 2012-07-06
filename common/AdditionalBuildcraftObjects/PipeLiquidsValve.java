@@ -40,10 +40,10 @@ public class PipeLiquidsValve extends Pipe implements IPowerReceptor, IABOSolid 
 	public @TileNetworkData
 	int liquidToExtract;
 
-	private final int closedTexture = 0 * 16 + 0;
-	private final int closedSideTexture = closedTexture + 2;
-	private final int openTexture = 0 * 16 + 1;
-	private final int openSideTexture = openTexture + 2;
+	private final int closedTexture = ABO.customTextures[0];
+	private final int closedSideTexture = ABO.customTextures[2];
+	private final int openTexture = ABO.customTextures[1];
+	private final int openSideTexture = ABO.customTextures[3];
 	private int nextTexture = closedTexture;
 
 	public PipeLiquidsValve(int itemID) {

@@ -93,7 +93,8 @@ public class ABO {
 	public static int actionSwitchOnPipeID = 128;
 	public static Action actionSwitchOnPipe = null;
 
-	public static String customTexture = "/net/minecraft/src/AdditionalBuildcraftObjects/gui/block_textures.png";
+	public static String customTexturePath = "/net/minecraft/src/AdditionalBuildcraftObjects/gui";
+	public static int[] customTextures = new int[30];
 
 	// public static String customSprites =
 	// "/net/minecraft/src/AdditionalBuildcraftObjects/gui/item_textures.png";
@@ -116,7 +117,8 @@ public class ABO {
 
 		setupProperties();
 
-		ABOProxy.preloadTexture(customTexture);
+		ABOProxy.preloadTexture(customTexturePath);
+		ABOProxy.AddCustomTextures(customTexturePath);
 
 		while (blockABOPipeID < Block.blocksList.length && Block.blocksList[blockABOPipeID] != null)
 			blockABOPipeID++;
