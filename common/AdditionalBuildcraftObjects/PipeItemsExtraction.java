@@ -43,8 +43,8 @@ public class PipeItemsExtraction extends PipeItemsWood implements IPowerReceptor
 			e.printStackTrace();
 		} catch (SecurityException e) {
 			e.printStackTrace();
-		} catch (NoSuchFieldException e) {
-			e.printStackTrace();
+//		} catch (NoSuchFieldException e) {
+//			e.printStackTrace();
 		}
 
 		try {
@@ -53,8 +53,8 @@ public class PipeItemsExtraction extends PipeItemsWood implements IPowerReceptor
 			e.printStackTrace();
 		} catch (SecurityException e) {
 			e.printStackTrace();
-		} catch (NoSuchFieldException e) {
-			e.printStackTrace();
+//		} catch (NoSuchFieldException e) {
+//			e.printStackTrace();
 		}
 	}
 

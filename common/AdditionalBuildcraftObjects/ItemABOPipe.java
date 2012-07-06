@@ -64,21 +64,22 @@ public class ItemABOPipe extends ItemPipe {
 			return false;
 		}
 		if (world.canBlockBePlacedAt(blockID, i, j, k, false, l)) {
-			BlockABOPipe.createPipe(world, i, j, k, shiftedIndex);
-			if (world.setBlockAndMetadataWithNotify(i, j, k, blockID, 0)) {
+			
+			Pipe pipe = BlockABOPipe.createPipe(shiftedIndex);
+			if (BlockABOPipe.placePipe(pipe, world, i, j, k, blockID, 0)) {
+				
 				Block.blocksList[blockID].onBlockPlaced(world, i, j, k, l);
 				Block.blocksList[blockID].onBlockPlacedBy(world, i, j, k, entityplayer);
 				// To move to a proxt
 				// world.playSoundEffect((float)i + 0.5F, (float)j + 0.5F,
-				// (float)k + 0.5F, block.stepSound.stepSoundDir2(),
+				// (float)k + 0.5F, block.stepSound.func_1145_d(),
 				// (block.stepSound.getVolume() + 1.0F) / 2.0F,
 				// block.stepSound.getPitch() * 0.8F);
 				itemstack.stackSize--;
 			}
 			return true;
-		} else {
+		} else
 			return false;
-		}
 	}
 
 	@Override
