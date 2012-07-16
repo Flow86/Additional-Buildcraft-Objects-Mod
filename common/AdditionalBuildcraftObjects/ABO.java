@@ -34,7 +34,6 @@ import net.minecraft.src.buildcraft.transport.BptItemPipeDiamond;
 import net.minecraft.src.buildcraft.transport.BptItemPipeIron;
 import net.minecraft.src.buildcraft.transport.BptItemPipeWodden;
 import net.minecraft.src.buildcraft.transport.Pipe;
-import net.minecraft.src.buildcraft.transport.RenderPipe;
 
 public class ABO {
 	private static boolean initialized = false;
