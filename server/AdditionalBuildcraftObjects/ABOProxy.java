@@ -31,4 +31,7 @@ public class ABOProxy {
 	
 	public static void preloadTexture(String texture) {
 	}
+	
+	public static void AddCustomTextures(String texture) {
+	}
 }
