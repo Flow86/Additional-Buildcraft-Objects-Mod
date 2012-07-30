@@ -10,11 +10,11 @@
  * granted by the copyright holder.
  */
 
-package net.minecraft.src.AdditionalBuildcraftObjects;
+package AdditionalBuildcraftObjects;
 
-import net.minecraft.src.buildcraft.transport.Pipe;
-import net.minecraft.src.buildcraft.transport.PipeLogicStone;
-import net.minecraft.src.buildcraft.transport.PipeTransportItems;
+import buildcraft.transport.Pipe;
+import buildcraft.transport.PipeLogicStone;
+import buildcraft.transport.PipeTransportItems;
 
 /**
  * This pipe will always prefer to insert it's objects into a tile that is not a

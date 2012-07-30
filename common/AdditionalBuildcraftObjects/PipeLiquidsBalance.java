@@ -10,20 +10,20 @@
  * granted by the copyright holder.
  */
 
-package net.minecraft.src.AdditionalBuildcraftObjects;
+package AdditionalBuildcraftObjects;
 
 import java.util.ArrayList;
 
 import net.minecraft.src.TileEntity;
-import net.minecraft.src.buildcraft.api.ILiquidContainer;
-import net.minecraft.src.buildcraft.api.Orientations;
-import net.minecraft.src.buildcraft.api.Position;
-import net.minecraft.src.buildcraft.core.Utils;
-import net.minecraft.src.buildcraft.factory.TileTank;
-import net.minecraft.src.buildcraft.transport.Pipe;
-import net.minecraft.src.buildcraft.transport.PipeLogicStone;
-import net.minecraft.src.buildcraft.transport.PipeTransportLiquids;
-import net.minecraft.src.buildcraft.transport.TileGenericPipe;
+import buildcraft.api.ILiquidContainer;
+import buildcraft.api.Orientations;
+import buildcraft.api.Position;
+import buildcraft.core.Utils;
+import buildcraft.factory.TileTank;
+import buildcraft.transport.Pipe;
+import buildcraft.transport.PipeLogicStone;
+import buildcraft.transport.PipeTransportLiquids;
+import buildcraft.transport.TileGenericPipe;
 
 /**
  * @author Flow86

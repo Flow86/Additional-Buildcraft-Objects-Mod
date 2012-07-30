@@ -10,21 +10,21 @@
  * granted by the copyright holder.
  */
 
-package net.minecraft.src.AdditionalBuildcraftObjects;
+package AdditionalBuildcraftObjects;
 
 import net.minecraft.src.BuildCraftCore;
 import net.minecraft.src.EntityPlayer;
 import net.minecraft.src.IInventory;
 import net.minecraft.src.TileEntity;
-import net.minecraft.src.buildcraft.api.ILiquidContainer;
-import net.minecraft.src.buildcraft.api.IPipeEntry;
-import net.minecraft.src.buildcraft.api.Orientations;
-import net.minecraft.src.buildcraft.api.Position;
-import net.minecraft.src.buildcraft.transport.Pipe;
-import net.minecraft.src.buildcraft.transport.PipeLogic;
-import net.minecraft.src.buildcraft.transport.PipeLogicWood;
-import net.minecraft.src.buildcraft.transport.PipeTransport;
-import net.minecraft.src.buildcraft.transport.TileGenericPipe;
+import buildcraft.api.ILiquidContainer;
+import buildcraft.api.IPipeEntry;
+import buildcraft.api.Orientations;
+import buildcraft.api.Position;
+import buildcraft.transport.Pipe;
+import buildcraft.transport.PipeLogic;
+import buildcraft.transport.PipeLogicWood;
+import buildcraft.transport.PipeTransport;
+import buildcraft.transport.TileGenericPipe;
 
 /**
  * @author Flow86
@@ -34,7 +34,7 @@ public class PipeLogicValve extends PipeLogic {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see net.minecraft.src.buildcraft.transport.PipeLogic#onBlockPlaced()
+	 * @see buildcraft.transport.PipeLogic#onBlockPlaced()
 	 */
 	@Override
 	public void onBlockPlaced() {
@@ -48,7 +48,7 @@ public class PipeLogicValve extends PipeLogic {
 	 * (non-Javadoc)
 	 * 
 	 * @see
-	 * net.minecraft.src.buildcraft.transport.PipeLogic#blockActivated(net.minecraft
+	 * buildcraft.transport.PipeLogic#blockActivated(net.minecraft
 	 * .src.EntityPlayer)
 	 */
 	@Override
@@ -172,7 +172,7 @@ public class PipeLogicValve extends PipeLogic {
 	 * (non-Javadoc)
 	 * 
 	 * @see
-	 * net.minecraft.src.buildcraft.transport.PipeLogic#isPipeConnected(net.
+	 * buildcraft.transport.PipeLogic#isPipeConnected(net.
 	 * minecraft.src.TileEntity)
 	 */
 	@Override
@@ -252,7 +252,7 @@ public class PipeLogicValve extends PipeLogic {
 	 * (non-Javadoc)
 	 * 
 	 * @see
-	 * net.minecraft.src.buildcraft.transport.PipeLogic#inputOpen(net.minecraft
+	 * buildcraft.transport.PipeLogic#inputOpen(net.minecraft
 	 * .src.buildcraft.api.Orientations)
 	 */
 	@Override
@@ -299,7 +299,7 @@ public class PipeLogicValve extends PipeLogic {
 	 * (non-Javadoc)
 	 * 
 	 * @see
-	 * net.minecraft.src.buildcraft.transport.PipeLogic#outputOpen(net.minecraft
+	 * buildcraft.transport.PipeLogic#outputOpen(net.minecraft
 	 * .src.buildcraft.api.Orientations)
 	 */
 	@Override

@@ -10,16 +10,16 @@
  * granted by the copyright holder.
  */
 
-package net.minecraft.src.AdditionalBuildcraftObjects;
+package AdditionalBuildcraftObjects;
 
 import java.util.LinkedList;
 
 import net.minecraft.src.TileEntity;
-import net.minecraft.src.buildcraft.api.EntityPassiveItem;
-import net.minecraft.src.buildcraft.api.IPipeEntry;
-import net.minecraft.src.buildcraft.api.Orientations;
-import net.minecraft.src.buildcraft.api.Position;
-import net.minecraft.src.buildcraft.transport.PipeTransportItems;
+import buildcraft.api.EntityPassiveItem;
+import buildcraft.api.IPipeEntry;
+import buildcraft.api.Orientations;
+import buildcraft.api.Position;
+import buildcraft.transport.PipeTransportItems;
 
 /**
  * This pipe will always prefer to insert it's objects into a tile that is not a

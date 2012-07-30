@@ -10,7 +10,7 @@
  * granted by the copyright holder.
  */
 
-package net.minecraft.src.AdditionalBuildcraftObjects;
+package AdditionalBuildcraftObjects;
 
 import java.util.LinkedList;
 import java.util.Map.Entry;
@@ -20,17 +20,17 @@ import net.minecraft.src.ItemStack;
 import net.minecraft.src.NBTTagCompound;
 import net.minecraft.src.NBTTagList;
 import net.minecraft.src.World;
-import net.minecraft.src.buildcraft.api.EntityPassiveItem;
-import net.minecraft.src.buildcraft.api.IPowerReceptor;
-import net.minecraft.src.buildcraft.api.Orientations;
-import net.minecraft.src.buildcraft.api.Position;
-import net.minecraft.src.buildcraft.api.PowerProvider;
-import net.minecraft.src.buildcraft.core.RedstonePowerFramework;
-import net.minecraft.src.buildcraft.core.Utils;
-import net.minecraft.src.buildcraft.transport.IPipeTransportItemsHook;
-import net.minecraft.src.buildcraft.transport.Pipe;
-import net.minecraft.src.buildcraft.transport.PipeLogicStone;
-import net.minecraft.src.buildcraft.transport.PipeTransportItems;
+import buildcraft.api.EntityPassiveItem;
+import buildcraft.api.IPowerReceptor;
+import buildcraft.api.Orientations;
+import buildcraft.api.Position;
+import buildcraft.api.PowerProvider;
+import buildcraft.core.RedstonePowerFramework;
+import buildcraft.core.Utils;
+import buildcraft.transport.IPipeTransportItemsHook;
+import buildcraft.transport.Pipe;
+import buildcraft.transport.PipeLogicStone;
+import buildcraft.transport.PipeTransportItems;
 
 /**
  * @author Flow86

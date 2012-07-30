@@ -10,14 +10,15 @@
  * granted by the copyright holder.
  */
 
-package net.minecraft.src.AdditionalBuildcraftObjects;
+package AdditionalBuildcraftObjects;
 
 import net.minecraft.src.Block;
 import net.minecraft.src.Item;
 import net.minecraft.src.ItemStack;
 import net.minecraft.src.RenderBlocks;
 import net.minecraft.src.Tessellator;
-import net.minecraft.src.buildcraft.core.Utils;
+import net.minecraft.src.mod_AdditionalBuildcraftObjects;
+import buildcraft.core.Utils;
 import net.minecraft.src.forge.IItemRenderer;
 import net.minecraft.src.forge.MinecraftForgeClient;
 
@@ -79,7 +80,7 @@ public class ABOProxy implements IItemRenderer {
 			float translateZ) {
 		Tessellator tessellator = Tessellator.instance;
 
-		Block block = ABO.blockABOPipe;
+		Block block = mod_AdditionalBuildcraftObjects.blockABOPipe;
 		int textureID = ((ItemABOPipe)Item.itemsList[item.itemID]).getTextureIndex();
 
 		block.setBlockBounds(Utils.pipeMinPos, 0.0F, Utils.pipeMinPos, Utils.pipeMaxPos, 1.0F, Utils.pipeMaxPos);

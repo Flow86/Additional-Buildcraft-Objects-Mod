@@ -10,24 +10,51 @@
  * granted by the copyright holder.
  */
 
-package net.minecraft.src.AdditionalBuildcraftObjects;
+package net.minecraft.src;
 
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
+import buildcraft.core.CoreProxy;
+import buildcraft.transport.Pipe;
+import AdditionalBuildcraftObjects.ABOProxy;
+import AdditionalBuildcraftObjects.BlockABOPipe;
+import AdditionalBuildcraftObjects.PipeItemsBounce;
+import AdditionalBuildcraftObjects.PipeItemsCompactor;
+import AdditionalBuildcraftObjects.PipeItemsCrossover;
+import AdditionalBuildcraftObjects.PipeItemsExtraction;
+import AdditionalBuildcraftObjects.PipeItemsInsertion;
+import AdditionalBuildcraftObjects.PipeItemsRoundRobin;
+import AdditionalBuildcraftObjects.PipeLiquidsBalance;
+import AdditionalBuildcraftObjects.PipeLiquidsDiamond;
+import AdditionalBuildcraftObjects.PipeLiquidsGoldenIron;
+import AdditionalBuildcraftObjects.PipeLiquidsValve;
+import AdditionalBuildcraftObjects.PipePowerSwitch;
+import net.minecraft.src.forge.NetworkMod;
 
-import net.minecraft.src.Block;
-import net.minecraft.src.BuildCraftCore;
-import net.minecraft.src.BuildCraftEnergy;
-import net.minecraft.src.BuildCraftTransport;
-import net.minecraft.src.Item;
-import net.minecraft.src.ItemStack;
-import net.minecraft.src.MLProp;
-import net.minecraft.src.ModLoader;
-import net.minecraft.src.mod_BuildCraftCore;
-import net.minecraft.src.buildcraft.core.CoreProxy;
-import net.minecraft.src.buildcraft.transport.Pipe;
+/**
+ * @author Flow86
+ * 
+ */
+public class mod_AdditionalBuildcraftObjects extends NetworkMod {
 
-public class ABO {
+	@Override
+	public void load() {
+	}
+
+	@Override
+	public void modsLoaded() {
+		super.modsLoaded();
+		initialize();
+	}
+
+	@Override
+	public boolean clientSideRequired() {
+		return true;
+	}
+
+	@Override
+	public boolean serverSideRequired() {
+		return false;
+	}
+	
 	private static boolean initialized = false;
 
 	@MLProp(min = 0.0D, max = 255.0D)
@@ -94,7 +121,7 @@ public class ABO {
 	//public static int triggerEngineControlID = 128;
 	//public static Trigger triggerEngineControl = null;
 	
-	public static String customTexture = "/net/minecraft/src/AdditionalBuildcraftObjects/gui/block_textures.png";
+	public static String customTexture = "AdditionalBuildcraftObjects/gui/block_textures.png";
 
 	// public static String customSprites =
 	// "/net/minecraft/src/AdditionalBuildcraftObjects/gui/item_textures.png";
@@ -115,8 +142,6 @@ public class ABO {
 		// set continuous current model
 		BuildCraftCore.continuousCurrentModel = true;
 		
-		setupProperties();
-
 		ABOProxy.preloadTexture(customTexture);
 
 		while(blockABOPipeID < Block.blocksList.length && Block.blocksList[blockABOPipeID] != null)
@@ -167,27 +192,6 @@ public class ABO {
 		
 		//BuildCraftAPI.registerTriggerProvider(new ABOTriggerProvider());
 	}
-	
-
-	private static void setupProperties() {
-		try {
-			Method setupProperties = ModLoader.class.getDeclaredMethod("setupProperties", new Class[]{Class.class});
-			setupProperties.setAccessible(true);
-			
-			setupProperties.invoke(null, new Object[]{ ABO.class });
-		} catch (SecurityException e) {
-			e.printStackTrace();
-		} catch (NoSuchMethodException e) {
-			e.printStackTrace();
-		} catch (IllegalArgumentException e) {
-			e.printStackTrace();
-		} catch (IllegalAccessException e) {
-			e.printStackTrace();
-		} catch (InvocationTargetException e) {
-			e.printStackTrace();
-		}
-	}
-
 
 	private static Item createPipe(int id, Class<? extends Pipe> clas, String descr, int count, Object r1, Object r2, Object r3) {
 		Item res = BlockABOPipe.registerPipe(id, clas);
@@ -206,7 +210,8 @@ public class ABO {
 		return res;
 	}
 
-	public static String getVersion() {
-		return "0.9.1 (MC 1.2.5, BC 2.2.14)";
+	@Override
+	public String getVersion() {
+		return "0.9.1-97 (MC 1.2.5, BC 2.2.14)";
 	}
 }

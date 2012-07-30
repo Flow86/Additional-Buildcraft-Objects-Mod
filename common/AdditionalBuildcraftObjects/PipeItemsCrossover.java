@@ -10,10 +10,10 @@
  * granted by the copyright holder.
  */
 
-package net.minecraft.src.AdditionalBuildcraftObjects;
+package AdditionalBuildcraftObjects;
 
-import net.minecraft.src.buildcraft.transport.Pipe;
-import net.minecraft.src.buildcraft.transport.PipeLogicStone;
+import buildcraft.transport.Pipe;
+import buildcraft.transport.PipeLogicStone;
 
 /**
  * This pipe will always prefer to use the opposite direction,

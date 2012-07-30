@@ -10,12 +10,13 @@
  * granted by the copyright holder.
  */
 
-package net.minecraft.src.AdditionalBuildcraftObjects;
+package AdditionalBuildcraftObjects;
 
 import net.minecraft.src.Item;
 import net.minecraft.src.World;
-import net.minecraft.src.buildcraft.transport.BlockGenericPipe;
-import net.minecraft.src.buildcraft.transport.Pipe;
+import net.minecraft.src.mod_AdditionalBuildcraftObjects;
+import buildcraft.transport.BlockGenericPipe;
+import buildcraft.transport.Pipe;
 
 /**
  * @author Flow86
@@ -47,11 +48,11 @@ public class BlockABOPipe extends BlockGenericPipe {
 	 * (non-Javadoc)
 	 * 
 	 * @see
-	 * net.minecraft.src.buildcraft.transport.BlockGenericPipe#getTextureFile()
+	 * buildcraft.transport.BlockGenericPipe#getTextureFile()
 	 */
 	@Override
 	public String getTextureFile() {
-		return ABO.customTexture;
+		return mod_AdditionalBuildcraftObjects.customTexture;
 	}
 
 	/*
