@@ -14,6 +14,7 @@ package net.minecraft.src.AdditionalBuildcraftObjects;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.io.File;
 
 import net.minecraft.src.Block;
 import net.minecraft.src.BuildCraftCore;
@@ -21,7 +22,7 @@ import net.minecraft.src.BuildCraftEnergy;
 import net.minecraft.src.BuildCraftTransport;
 import net.minecraft.src.Item;
 import net.minecraft.src.ItemStack;
-import net.minecraft.src.MLProp;
+import net.minecraft.src.forge.Configuration;
 import net.minecraft.src.ModLoader;
 import net.minecraft.src.mod_BuildCraftCore;
 import net.minecraft.src.buildcraft.api.Action;
@@ -37,7 +38,6 @@ import net.minecraft.src.buildcraft.transport.Pipe;
 public class ABO {
 	private static boolean initialized = false;
 
-	@MLProp(min = 0.0D, max = 255.0D)
 	public static int blockABOPipeID = 200;
 	public static Block blockABOPipe = null;
 
@@ -45,11 +45,9 @@ public class ABO {
 	// public static int blockRedstonePowerConverterID = 201;
 	// public static Block blockRedstonePowerConverter = null;
 
-	@MLProp(min = 256.0D, max = 32000.0D)
 	public static int pipeLiquidsValveID = 10200;
 	public static Item pipeLiquidsValve = null;
 
-	@MLProp(min = 256.0D, max = 32000.0D)
 	public static int pipeLiquidsGoldenIronID = 10201;
 	public static Item pipeLiquidsGoldenIron = null;
 
@@ -57,39 +55,30 @@ public class ABO {
 	// public static int pipeLiquidsFlowMeterID = 10202;
 	// public static Item pipeLiquidsFlowMeter = null;
 
-	@MLProp(min = 256.0D, max = 32000.0D)
 	public static int pipeLiquidsBalanceID = 10203;
 	public static Item pipeLiquidsBalance = null;
 
-	@MLProp(min = 256.0D, max = 32000.0D)
 	public static int pipeLiquidsDiamondID = 10204;
 	public static Item pipeLiquidsDiamond = null;
 
-	@MLProp(min = 256.0D, max = 32000.0D)
 	public static int pipeItemsRoundRobinID = 10300;
 	public static Item pipeItemsRoundRobin = null;
 
-	@MLProp(min = 256.0D, max = 32000.0D)
 	public static int pipeItemsCompactorID = 10301;
 	public static Item pipeItemsCompactor = null;
 
-	@MLProp(min = 256.0D, max = 32000.0D)
 	public static int pipeItemsInsertionID = 10302;
 	public static Item pipeItemsInsertion = null;
 
-	@MLProp(min = 256.0D, max = 32000.0D)
 	public static int pipeItemsExtractionID = 10303;
 	public static Item pipeItemsExtraction = null;
 
-	@MLProp(min = 256.0D, max = 32000.0D)
 	public static int pipeItemsBounceID = 10304;
 	public static Item pipeItemsBounce = null;
 
-	@MLProp(min = 256.0D, max = 32000.0D)
 	public static int pipeItemsCrossoverID = 10305;
 	public static Item pipeItemsCrossover = null;
 
-	@MLProp(min = 256.0D, max = 32000.0D)
 	public static int pipePowerSwitchID = 10400;
 	public static Item pipePowerSwitch = null;
 
@@ -97,15 +86,14 @@ public class ABO {
 	// public static int pipePowerEngineControlID = 10401;
 	// public static Item pipePowerEngineControl = null;
 
-	@MLProp(min = 128.0D, max = 256.0D)
 	public static int triggerEngineControlID = 128;
 	public static Trigger triggerEngineControl = null;
 
-	@MLProp(min = 128.0D, max = 256.0D)
 	public static int actionSwitchOnPipeID = 128;
 	public static Action actionSwitchOnPipe = null;
 
-	public static String customTexture = "/net/minecraft/src/AdditionalBuildcraftObjects/gui/block_textures.png";
+	public static String customTexturePath = "/net/minecraft/src/AdditionalBuildcraftObjects/gui";
+	public static int[] customTextures = new int[30];
 
 	// public static String customSprites =
 	// "/net/minecraft/src/AdditionalBuildcraftObjects/gui/item_textures.png";
@@ -128,7 +116,8 @@ public class ABO {
 
 		setupProperties();
 
-		ABOProxy.preloadTexture(customTexture);
+		ABOProxy.preloadTexture(customTexturePath);
+		ABOProxy.AddCustomTextures(customTexturePath);
 
 		while (blockABOPipeID < Block.blocksList.length && Block.blocksList[blockABOPipeID] != null)
 			blockABOPipeID++;
@@ -140,7 +129,7 @@ public class ABO {
 
 		blockABOPipe = new BlockABOPipe(blockABOPipeID);
 		ModLoader.registerBlock(blockABOPipe);
-		ModLoader.registerTileEntity(ItemABOPipe.class, "net.minecraft.src.AdditionalBuildcraftObjects.ItemABOPipe");
+		//ModLoader.registerTileEntity(ItemABOPipe.class, "net.minecraft.src.AdditionalBuildcraftObjects.ItemABOPipe",new RenderPipe());
 
 		pipeLiquidsValve = createPipe(pipeLiquidsValveID, PipeLiquidsValve.class, "Valve Pipe", 1,
 				BuildCraftTransport.pipeLiquidsWood, Block.lever, BuildCraftTransport.pipeLiquidsWood);
@@ -191,22 +180,28 @@ public class ABO {
 	}
 
 	private static void setupProperties() {
-		try {
-			Method setupProperties = ModLoader.class.getDeclaredMethod("setupProperties", new Class[] { Class.class });
-			setupProperties.setAccessible(true);
+		File configFile = new File(CoreProxy.getBuildCraftBase(), "config/ABO.cfg");
+		Configuration configuration = new Configuration(configFile);
+		configuration.load();
 
-			setupProperties.invoke(null, new Object[] { ABO.class });
-		} catch (SecurityException e) {
-			e.printStackTrace();
-		} catch (NoSuchMethodException e) {
-			e.printStackTrace();
-		} catch (IllegalArgumentException e) {
-			e.printStackTrace();
-		} catch (IllegalAccessException e) {
-			e.printStackTrace();
-		} catch (InvocationTargetException e) {
-			e.printStackTrace();
-		}
+		blockABOPipeID = Integer.parseInt(configuration.getOrCreateIntProperty("blockABOPipeID", Configuration.CATEGORY_BLOCK, 200).value);
+
+		pipeLiquidsValveID = Integer.parseInt(configuration.getOrCreateIntProperty("pipeLiquidsValveID", Configuration.CATEGORY_ITEM, 10200).value);
+		pipeLiquidsGoldenIronID = Integer.parseInt(configuration.getOrCreateIntProperty("pipeLiquidsGoldenIronID", Configuration.CATEGORY_ITEM, 10201).value);
+		pipeLiquidsBalanceID = Integer.parseInt(configuration.getOrCreateIntProperty("pipeLiquidsBalanceID", Configuration.CATEGORY_ITEM, 10203).value);
+		pipeLiquidsDiamondID = Integer.parseInt(configuration.getOrCreateIntProperty("pipeLiquidsDiamondID", Configuration.CATEGORY_ITEM, 10204).value);
+		pipeItemsRoundRobinID = Integer.parseInt(configuration.getOrCreateIntProperty("pipeItemsRoundRobinID", Configuration.CATEGORY_ITEM, 10300).value);
+		pipeItemsCompactorID = Integer.parseInt(configuration.getOrCreateIntProperty("pipeItemsCompactorID", Configuration.CATEGORY_ITEM, 10301).value);
+		pipeItemsInsertionID = Integer.parseInt(configuration.getOrCreateIntProperty("pipeItemsInsertionID", Configuration.CATEGORY_ITEM, 10302).value);
+		pipeItemsExtractionID = Integer.parseInt(configuration.getOrCreateIntProperty("pipeItemsExtractionID", Configuration.CATEGORY_ITEM, 10303).value);
+		pipeItemsBounceID = Integer.parseInt(configuration.getOrCreateIntProperty("pipeItemsBounceID", Configuration.CATEGORY_ITEM, 10304).value);
+		pipeItemsCrossoverID = Integer.parseInt(configuration.getOrCreateIntProperty("pipeItemsCrossoverID", Configuration.CATEGORY_ITEM, 10305).value);
+		pipePowerSwitchID = Integer.parseInt(configuration.getOrCreateIntProperty("pipePowerSwitchID", Configuration.CATEGORY_ITEM, 10400).value);
+
+		triggerEngineControlID = Integer.parseInt(configuration.getOrCreateIntProperty("triggerEngineControlID", Configuration.CATEGORY_GENERAL, 128).value);
+		actionSwitchOnPipeID = Integer.parseInt(configuration.getOrCreateIntProperty("actionSwitchOnPipeID", Configuration.CATEGORY_GENERAL, 128).value);
+
+		configuration.save();
 	}
 
 	private static Item createPipe(int id, Class<? extends Pipe> clas, String descr, int count, Object r1, Object r2,
@@ -230,6 +225,6 @@ public class ABO {
 	}
 
 	public static String getVersion() {
-		return "0.9.1 (MC 1.2.5, BC 3.1.5)";
+		return "0.9.2 (MC 1.2.5, BC 3.1.6)";
 	}
 }

@@ -46,17 +46,6 @@ public class BlockABOPipe extends BlockGenericPipe {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see
-	 * net.minecraft.src.buildcraft.transport.BlockGenericPipe#getTextureFile()
-	 */
-	@Override
-	public String getTextureFile() {
-		return ABO.customTexture;
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
 	 * @see net.minecraft.src.Block#isBlockSolidOnSide(net.minecraft.src.World,
 	 * int, int, int, int)
 	 */

@@ -22,7 +22,7 @@ import net.minecraft.src.buildcraft.transport.PipeTransportLiquids;
  */
 public class PipeLiquidsDiamond extends Pipe {
 
-	private static int baseTexture = 13 * 16 + 0;
+	private static int baseTexture = ABO.customTextures[23];
 	private int nextTexture = baseTexture;
 	
 	public PipeLiquidsDiamond(int itemID) {
@@ -40,9 +40,9 @@ public class PipeLiquidsDiamond extends Pipe {
 	@Override
 	public void prepareTextureFor(Orientations connection) {
 		if (connection == Orientations.Unknown) {
-			nextTexture = baseTexture;
+			nextTexture = ABO.customTextures[23];
 		} else {
-			nextTexture = baseTexture + connection.ordinal() + 1;
+			nextTexture = ABO.customTextures[23 + connection.ordinal() + 1];
 		}
 	}
 }

@@ -27,8 +27,8 @@ import net.minecraft.src.buildcraft.transport.pipes.PipeItemsWood;
  *         ported to BC > 2.2 by Flow86
  */
 public class PipeItemsExtraction extends PipeItemsWood implements IPowerReceptor {
-	private final int baseTexture = 9 * 16 + 0;
-	private final int sideTexture = baseTexture + 1;
+	private final int baseTexture =  ABO.customTextures[17];
+	private final int sideTexture =  ABO.customTextures[18];
 	private int nextTexture = baseTexture;
 	
 	public PipeItemsExtraction(int itemID) {
@@ -43,8 +43,8 @@ public class PipeItemsExtraction extends PipeItemsWood implements IPowerReceptor
 			e.printStackTrace();
 		} catch (SecurityException e) {
 			e.printStackTrace();
-		} catch (NoSuchFieldException e) {
-			e.printStackTrace();
+//		} catch (NoSuchFieldException e) {
+//			e.printStackTrace();
 		}
 
 		try {
@@ -53,8 +53,8 @@ public class PipeItemsExtraction extends PipeItemsWood implements IPowerReceptor
 			e.printStackTrace();
 		} catch (SecurityException e) {
 			e.printStackTrace();
-		} catch (NoSuchFieldException e) {
-			e.printStackTrace();
+//		} catch (NoSuchFieldException e) {
+//			e.printStackTrace();
 		}
 	}
 
