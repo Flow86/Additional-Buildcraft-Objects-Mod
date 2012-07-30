@@ -179,7 +179,7 @@ public class PipeItemsCompactor extends Pipe implements IPipeTransportItemsHook,
 	}
 
 	@Override
-	public void destroy() {
+	public void dropContents() {
 		isPowered = false;
 
 		for (Entry<Orientations, TreeMap<Pair<Integer, Integer>, ItemStacker>> item : items.entrySet()) {
@@ -188,6 +188,7 @@ public class PipeItemsCompactor extends Pipe implements IPipeTransportItemsHook,
 			}
 		}
 		items.clear();
+		super.dropContents();
 	}
 
 	@Override
@@ -280,7 +281,7 @@ public class PipeItemsCompactor extends Pipe implements IPipeTransportItemsHook,
 	@Override
 	public int getMainBlockTexture() {
 
-		return 7 * 16 + (isPowered ? 1 : 0);
+		return ABO.customTextures[14+(isPowered ? 1 : 0)];
 	}
 
 	@Override

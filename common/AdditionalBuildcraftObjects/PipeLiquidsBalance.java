@@ -46,7 +46,7 @@ public class PipeLiquidsBalance extends Pipe {
 		int q;
 	}
 
-	private final int blockTexture = 5 * 16 + 0;
+	private final int blockTexture = ABO.customTextures[12];
 
 	public PipeLiquidsBalance(int itemID) {
 		super(new PipeTransportLiquids(), new PipeLogicStone(), itemID);

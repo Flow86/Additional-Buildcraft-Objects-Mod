@@ -34,7 +34,7 @@ public class PipeItemsRoundRobin extends Pipe implements IPipeTransportItemsHook
 
 	@Override
 	public int getMainBlockTexture() {
-		return 1 * 16 + 0;
+		return ABO.customTextures[4];
 	}
 
 	/*

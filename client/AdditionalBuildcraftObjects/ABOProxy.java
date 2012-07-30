@@ -20,6 +20,7 @@ import net.minecraft.src.Tessellator;
 import net.minecraft.src.buildcraft.core.Utils;
 import net.minecraft.src.forge.IItemRenderer;
 import net.minecraft.src.forge.MinecraftForgeClient;
+import net.minecraft.src.buildcraft.core.CoreProxy;
 
 import org.lwjgl.opengl.GL11;
 
@@ -40,8 +41,71 @@ public class ABOProxy implements IItemRenderer {
 		MinecraftForgeClient.registerItemRenderer(itemID, instance());
 	}
 
-	public static void preloadTexture(String texture) {
-		MinecraftForgeClient.preloadTexture(texture);
+	public static void preloadTexture(String pipeTexturePath) {
+	        MinecraftForgeClient.preloadTexture(pipeTexturePath + "/ABOPipe_0.png");
+	        MinecraftForgeClient.preloadTexture(pipeTexturePath + "/ABOPipe_1.png");
+	        MinecraftForgeClient.preloadTexture(pipeTexturePath + "/ABOPipe_2.png");
+	        MinecraftForgeClient.preloadTexture(pipeTexturePath + "/ABOPipe_3.png");
+	        MinecraftForgeClient.preloadTexture(pipeTexturePath + "/ABOPipe_16.png");
+	        MinecraftForgeClient.preloadTexture(pipeTexturePath + "/ABOPipe_32.png");
+	        MinecraftForgeClient.preloadTexture(pipeTexturePath + "/ABOPipe_33.png");
+	        MinecraftForgeClient.preloadTexture(pipeTexturePath + "/ABOPipe_48.png");
+	        MinecraftForgeClient.preloadTexture(pipeTexturePath + "/ABOPipe_49.png");
+	        MinecraftForgeClient.preloadTexture(pipeTexturePath + "/ABOPipe_64.png");
+	        MinecraftForgeClient.preloadTexture(pipeTexturePath + "/ABOPipe_65.png");
+	        MinecraftForgeClient.preloadTexture(pipeTexturePath + "/ABOPipe_66.png");
+	        MinecraftForgeClient.preloadTexture(pipeTexturePath + "/ABOPipe_80.png");
+	        MinecraftForgeClient.preloadTexture(pipeTexturePath + "/ABOPipe_96.png");
+	        MinecraftForgeClient.preloadTexture(pipeTexturePath + "/ABOPipe_112.png");
+	        MinecraftForgeClient.preloadTexture(pipeTexturePath + "/ABOPipe_113.png");
+	        MinecraftForgeClient.preloadTexture(pipeTexturePath + "/ABOPipe_128.png");
+	        MinecraftForgeClient.preloadTexture(pipeTexturePath + "/ABOPipe_144.png");
+	        MinecraftForgeClient.preloadTexture(pipeTexturePath + "/ABOPipe_145.png");
+	        MinecraftForgeClient.preloadTexture(pipeTexturePath + "/ABOPipe_160.png");
+	        MinecraftForgeClient.preloadTexture(pipeTexturePath + "/ABOPipe_161.png");
+	        MinecraftForgeClient.preloadTexture(pipeTexturePath + "/ABOPipe_176.png");
+	        MinecraftForgeClient.preloadTexture(pipeTexturePath + "/ABOPipe_192.png");
+	        MinecraftForgeClient.preloadTexture(pipeTexturePath + "/ABOPipe_208.png");
+	        MinecraftForgeClient.preloadTexture(pipeTexturePath + "/ABOPipe_209.png");
+	        MinecraftForgeClient.preloadTexture(pipeTexturePath + "/ABOPipe_210.png");
+	        MinecraftForgeClient.preloadTexture(pipeTexturePath + "/ABOPipe_211.png");
+	        MinecraftForgeClient.preloadTexture(pipeTexturePath + "/ABOPipe_212.png");
+	        MinecraftForgeClient.preloadTexture(pipeTexturePath + "/ABOPipe_213.png");
+	        MinecraftForgeClient.preloadTexture(pipeTexturePath + "/ABOPipe_214.png");
+	}
+
+	public static void AddCustomTextures(String pipeTexturePath) {
+	        ABO.customTextures[0] = CoreProxy.addCustomTexture(pipeTexturePath + "/ABOPipe_0.png");//
+	        ABO.customTextures[1] = CoreProxy.addCustomTexture(pipeTexturePath + "/ABOPipe_1.png");//
+	        ABO.customTextures[2] = CoreProxy.addCustomTexture(pipeTexturePath + "/ABOPipe_2.png");//
+	        ABO.customTextures[3] = CoreProxy.addCustomTexture(pipeTexturePath + "/ABOPipe_3.png");//
+	        ABO.customTextures[4] = CoreProxy.addCustomTexture(pipeTexturePath + "/ABOPipe_16.png");//
+	        ABO.customTextures[5] = CoreProxy.addCustomTexture(pipeTexturePath + "/ABOPipe_32.png");//
+	        ABO.customTextures[6] = CoreProxy.addCustomTexture(pipeTexturePath + "/ABOPipe_33.png");//
+	        ABO.customTextures[7] = CoreProxy.addCustomTexture(pipeTexturePath + "/ABOPipe_48.png");//
+	        ABO.customTextures[8] = CoreProxy.addCustomTexture(pipeTexturePath + "/ABOPipe_49.png");//
+	        ABO.customTextures[9] = CoreProxy.addCustomTexture(pipeTexturePath + "/ABOPipe_64.png");
+	        ABO.customTextures[10] = CoreProxy.addCustomTexture(pipeTexturePath + "/ABOPipe_65.png");
+	        ABO.customTextures[11] = CoreProxy.addCustomTexture(pipeTexturePath + "/ABOPipe_66.png");
+	        ABO.customTextures[12] = CoreProxy.addCustomTexture(pipeTexturePath + "/ABOPipe_80.png");//
+	        ABO.customTextures[13] = CoreProxy.addCustomTexture(pipeTexturePath + "/ABOPipe_96.png");
+	        ABO.customTextures[14] = CoreProxy.addCustomTexture(pipeTexturePath + "/ABOPipe_112.png");//
+	        ABO.customTextures[15] = CoreProxy.addCustomTexture(pipeTexturePath + "/ABOPipe_113.png");//
+	        ABO.customTextures[16] = CoreProxy.addCustomTexture(pipeTexturePath + "/ABOPipe_128.png");//
+	        ABO.customTextures[17] = CoreProxy.addCustomTexture(pipeTexturePath + "/ABOPipe_144.png");//
+	        ABO.customTextures[18] = CoreProxy.addCustomTexture(pipeTexturePath + "/ABOPipe_145.png");//
+	        ABO.customTextures[19] = CoreProxy.addCustomTexture(pipeTexturePath + "/ABOPipe_160.png");//
+	        ABO.customTextures[20] = CoreProxy.addCustomTexture(pipeTexturePath + "/ABOPipe_161.png");//
+	        ABO.customTextures[21] = CoreProxy.addCustomTexture(pipeTexturePath + "/ABOPipe_176.png");//
+	        ABO.customTextures[22] = CoreProxy.addCustomTexture(pipeTexturePath + "/ABOPipe_192.png");
+	        ABO.customTextures[23] = CoreProxy.addCustomTexture(pipeTexturePath + "/ABOPipe_208.png");//
+	        ABO.customTextures[24] = CoreProxy.addCustomTexture(pipeTexturePath + "/ABOPipe_209.png");//
+	        ABO.customTextures[25] = CoreProxy.addCustomTexture(pipeTexturePath + "/ABOPipe_210.png");//
+	        ABO.customTextures[26] = CoreProxy.addCustomTexture(pipeTexturePath + "/ABOPipe_211.png");//
+	        ABO.customTextures[27] = CoreProxy.addCustomTexture(pipeTexturePath + "/ABOPipe_212.png");//
+	        ABO.customTextures[28] = CoreProxy.addCustomTexture(pipeTexturePath + "/ABOPipe_213.png");//
+	        ABO.customTextures[29] = CoreProxy.addCustomTexture(pipeTexturePath + "/ABOPipe_214.png");//
+
 	}
 
 	@Override
