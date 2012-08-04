@@ -10,30 +10,28 @@
  * granted by the copyright holder.
  */
 
-package net.minecraft.src.AdditionalBuildcraftObjects;
+package AdditionalBuildcraftObjects;
 
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
 import java.io.File;
 
 import net.minecraft.src.Block;
-import net.minecraft.src.BuildCraftCore;
-import net.minecraft.src.BuildCraftEnergy;
-import net.minecraft.src.BuildCraftTransport;
 import net.minecraft.src.Item;
 import net.minecraft.src.ItemStack;
-import net.minecraft.src.forge.Configuration;
 import net.minecraft.src.ModLoader;
-import net.minecraft.src.mod_BuildCraftCore;
-import net.minecraft.src.buildcraft.api.Action;
-import net.minecraft.src.buildcraft.api.BuildCraftAPI;
-import net.minecraft.src.buildcraft.api.Trigger;
-import net.minecraft.src.buildcraft.core.CoreProxy;
-import net.minecraft.src.buildcraft.transport.BptBlockPipe;
-import net.minecraft.src.buildcraft.transport.BptItemPipeDiamond;
-import net.minecraft.src.buildcraft.transport.BptItemPipeIron;
-import net.minecraft.src.buildcraft.transport.BptItemPipeWodden;
-import net.minecraft.src.buildcraft.transport.Pipe;
+import net.minecraft.src.forge.Configuration;
+import buildcraft.BuildCraftCore;
+import buildcraft.BuildCraftEnergy;
+import buildcraft.BuildCraftTransport;
+import buildcraft.mod_BuildCraftCore;
+import buildcraft.api.core.BuildCraftAPI;
+import buildcraft.api.gates.Action;
+import buildcraft.api.gates.Trigger;
+import buildcraft.core.CoreProxy;
+import buildcraft.transport.BptBlockPipe;
+import buildcraft.transport.BptItemPipeDiamond;
+import buildcraft.transport.BptItemPipeIron;
+import buildcraft.transport.BptItemPipeWodden;
+import buildcraft.transport.Pipe;
 
 public class ABO {
 	private static boolean initialized = false;
@@ -129,7 +127,7 @@ public class ABO {
 
 		blockABOPipe = new BlockABOPipe(blockABOPipeID);
 		ModLoader.registerBlock(blockABOPipe);
-		//ModLoader.registerTileEntity(ItemABOPipe.class, "net.minecraft.src.AdditionalBuildcraftObjects.ItemABOPipe",new RenderPipe());
+		//ModLoader.registerTileEntity(ItemABOPipe.class, "AdditionalBuildcraftObjects.ItemABOPipe",new RenderPipe());
 
 		pipeLiquidsValve = createPipe(pipeLiquidsValveID, PipeLiquidsValve.class, "Valve Pipe", 1,
 				BuildCraftTransport.pipeLiquidsWood, Block.lever, BuildCraftTransport.pipeLiquidsWood);
@@ -225,6 +223,6 @@ public class ABO {
 	}
 
 	public static String getVersion() {
-		return "@VERSION@";
+		return "1.0.0 (BC {$buildcraft.version}, Forge {$forge.version})";
 	}
 }

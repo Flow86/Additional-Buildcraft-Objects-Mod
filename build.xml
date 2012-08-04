@@ -9,6 +9,12 @@
 		</classpath>
 	</taskdef>	
 
+	<taskdef resource="net/sf/antcontrib/antcontrib.properties">
+		<classpath>
+			<pathelement location="ant/ant-contrib-1.0b3.jar"/>
+		</classpath>
+	</taskdef>
+
 	<!-- Properties -->
 	<property name="build.dir"              value="build"/>
 	<property name="abo.dir"                value="abo"/>
@@ -21,7 +27,7 @@
 	  
 	<property name="mcp.dir"                value="${build.dir}/mcp"/>
 	<property name="forge.dir"              value="${mcp.dir}/forge"/>
-	<property name="buildcraft.dir"         value="${build.dir}/buildcraft"/>
+	<property name="buildcraft.dir"         value="${download.dir}/buildcraft"/>
 	  
 	<property name="mc.client.dir"          value="${mcp.dir}/src/minecraft"/>
 	<property name="mc.server.dir"          value="${mcp.dir}/src/minecraft_server"/>
@@ -52,7 +58,13 @@
 		<get src="https://raw.github.com/gist/3028736/fd11487fce1bf3ba070071b1e057d70f43ef8306/mcp.patch" dest="${download.dir}" usetimestamp="True" />
 		
 		<!-- todo: use buildcraft-src-*.zip as soon as it exists -->
-		<git-clone uri="git://github.com/SirSengir/BuildCraft.git" dest="${buildcraft.dir}"/>
+		<if>
+			<available file="${buildcraft.dir}" type="dir" />
+			<else>
+				<git-clone uri="git://github.com/SirSengir/BuildCraft.git" dest="${buildcraft.dir}"/>
+			</else>
+		</if>
+		
 		<git-checkout src="${buildcraft.dir}" branch="${buildcraft.version.git}" />
 	</target>
 
@@ -107,24 +119,11 @@
 		<echo message="Installing buildcraft source"/>
 		<!-- Copy BC source -->
 		<copy todir="${mc.client.dir}">
-			<fileset dir="${buildcraft.dir}/buildcraft_client">
-				<exclude name="**/buildcraft/mod_*"/>
-				<exclude name="**/buildcraft/Build*"/>
-			</fileset>
-			<fileset dir="${buildcraft.dir}/buildcraft_client/buildcraft">
-				<exclude name="mod_*"/>
-				<exclude name="Build*"/>
-			</fileset>
+			<fileset dir="${buildcraft.dir}/buildcraft_client"/>
 		</copy>
 		<copy todir="${mc.client.dir}">
 			<fileset dir="${buildcraft.dir}/common">
-				<exclude name="**/buildcraft/mod_*"/>
-				<exclude name="**/buildcraft/Build*"/>
 				<exclude name="**/buildcraft/devel"/>
-			</fileset>
-			<fileset dir="${buildcraft.dir}/common/buildcraft">
-				<exclude name="mod_*"/>
-				<exclude name="Build*"/>
 			</fileset>
 			<filterset>
 				<filter token="VERSION" value="${buildcraft.version}" />
@@ -132,24 +131,11 @@
 		</copy>
 		
 		<copy todir="${mc.server.dir}">
-			<fileset dir="${buildcraft.dir}/buildcraft_server">
-				<exclude name="**/buildcraft/mod_*"/>
-				<exclude name="**/buildcraft/Build*"/>
-			</fileset>
-			<fileset dir="${buildcraft.dir}/buildcraft_server/buildcraft">
-				<exclude name="mod_*"/>
-				<exclude name="Build*"/>
-			</fileset>
+			<fileset dir="${buildcraft.dir}/buildcraft_server"/>
 		</copy>
 		<copy todir="${mc.server.dir}">
 			<fileset dir="${buildcraft.dir}/common">
-				<exclude name="**/buildcraft/mod_*"/>
-				<exclude name="**/buildcraft/Build*"/>
 				<exclude name="**/buildcraft/devel"/>
-			</fileset>
-			<fileset dir="${buildcraft.dir}/common/buildcraft">
-				<exclude name="mod_*"/>
-				<exclude name="Build*"/>
 			</fileset>
 			<filterset>
 				<filter token="VERSION" value="${buildcraft.version}" />
@@ -204,7 +190,11 @@
 		<exec dir="${mcp.dir}" executable="sh" osfamily="unix">
 			<arg value="recompile.sh" />
 		</exec>
-		
+	</target>
+	
+	<target name="copy-abo">
+		<echo message="Copying build results"/>
+
 		<!-- Reobf -->
 		<exec dir="${mcp.dir}" executable="cmd" osfamily="windows">
 			<arg line="/c reobfuscate.bat"/>
@@ -213,10 +203,6 @@
 		<exec dir="${mcp.dir}" executable="sh" osfamily="unix">
 			<arg value="reobfuscate.sh" />
 		</exec>
-	</target>
-	
-	<target name="copy-abo">
-		<echo message="Copying build results"/>
 
 		<!-- Copy ABO classes -->
 		<copy todir="${classes.dir}/client">

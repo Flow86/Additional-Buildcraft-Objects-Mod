@@ -10,9 +10,8 @@
  * granted by the copyright holder.
  */
 
-package net.minecraft.src;
+package AdditionalBuildcraftObjects;
 
-import net.minecraft.src.AdditionalBuildcraftObjects.ABO;
 import net.minecraft.src.forge.NetworkMod;
 
 /**

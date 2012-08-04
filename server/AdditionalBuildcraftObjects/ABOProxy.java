@@ -10,7 +10,7 @@
  * granted by the copyright holder.
  */
 
-package net.minecraft.src.AdditionalBuildcraftObjects;
+package AdditionalBuildcraftObjects;
 
 public class ABOProxy {
 	private static ABOProxy instance = null;

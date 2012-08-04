@@ -1,11 +1,11 @@
-package net.minecraft.src.AdditionalBuildcraftObjects;
+package AdditionalBuildcraftObjects;
 
 import java.util.LinkedList;
 
-import net.minecraft.src.buildcraft.api.EntityPassiveItem;
-import net.minecraft.src.buildcraft.api.Orientations;
-import net.minecraft.src.buildcraft.api.Position;
-import net.minecraft.src.buildcraft.transport.PipeTransportItems;
+import buildcraft.api.EntityPassiveItem;
+import buildcraft.api.Orientations;
+import buildcraft.api.Position;
+import buildcraft.transport.PipeTransportItems;
 
 /**
  * This pipe will always prefer to use the opposite direction,
