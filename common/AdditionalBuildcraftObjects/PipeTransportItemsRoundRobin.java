@@ -10,15 +10,15 @@
  * granted by the copyright holder.
  */
 
-package net.minecraft.src.AdditionalBuildcraftObjects;
+package AdditionalBuildcraftObjects;
 
 import java.util.LinkedList;
 
 import net.minecraft.src.NBTTagCompound;
-import net.minecraft.src.buildcraft.api.Orientations;
-import net.minecraft.src.buildcraft.api.Position;
-import net.minecraft.src.buildcraft.transport.EntityData;
-import net.minecraft.src.buildcraft.transport.PipeTransportItems;
+import buildcraft.api.Orientations;
+import buildcraft.api.Position;
+import buildcraft.transport.EntityData;
+import buildcraft.transport.PipeTransportItems;
 
 /**
  * @author Flow86

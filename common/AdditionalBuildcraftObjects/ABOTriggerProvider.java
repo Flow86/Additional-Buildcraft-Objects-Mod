@@ -10,16 +10,16 @@
  * granted by the copyright holder.
  */
 
-package net.minecraft.src.AdditionalBuildcraftObjects;
+package AdditionalBuildcraftObjects;
 
 import java.util.LinkedList;
 
 import net.minecraft.src.Block;
 import net.minecraft.src.TileEntity;
-import net.minecraft.src.buildcraft.api.IPipe;
-import net.minecraft.src.buildcraft.api.ITriggerProvider;
-import net.minecraft.src.buildcraft.api.Trigger;
-import net.minecraft.src.buildcraft.energy.TileEngine;
+import buildcraft.api.IPipe;
+import buildcraft.api.ITriggerProvider;
+import buildcraft.api.Trigger;
+import buildcraft.energy.TileEngine;
 
 /**
  * @author Flow86

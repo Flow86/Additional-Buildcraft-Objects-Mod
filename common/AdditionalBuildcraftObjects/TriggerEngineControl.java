@@ -10,17 +10,17 @@
  * granted by the copyright holder.
  */
 
-package net.minecraft.src.AdditionalBuildcraftObjects;
+package AdditionalBuildcraftObjects;
 
 import net.minecraft.src.TileEntity;
-import net.minecraft.src.buildcraft.api.Orientations;
-import net.minecraft.src.buildcraft.api.Trigger;
-import net.minecraft.src.buildcraft.api.TriggerParameter;
-import net.minecraft.src.buildcraft.energy.Engine;
-import net.minecraft.src.buildcraft.energy.Engine.EnergyStage;
-import net.minecraft.src.buildcraft.energy.TileEngine;
-import net.minecraft.src.buildcraft.transport.ITriggerPipe;
-import net.minecraft.src.buildcraft.transport.Pipe;
+import buildcraft.api.Orientations;
+import buildcraft.api.Trigger;
+import buildcraft.api.TriggerParameter;
+import buildcraft.energy.Engine;
+import buildcraft.energy.Engine.EnergyStage;
+import buildcraft.energy.TileEngine;
+import buildcraft.transport.ITriggerPipe;
+import buildcraft.transport.Pipe;
 
 /**
  * @author Flow86
