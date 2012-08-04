@@ -1,0 +1,22 @@
+[
+{
+  "modid": "mod_AdditionalBuildcraftObjects",
+  "name": "Additional Buildcraft Objects",
+  "description": "Extending Buildcraft with additional pipes and machines.",
+  "version": "",
+  "credits": "Created by Flow86",
+  "logoFile": "/gfx/additionalbuildcraftobjects/logo.png",
+  "mcversion": "",
+  "url": "http://www.minecraftforum.net/index.php?app=forums&module=forums&section=findpost&pid=8920844",
+  "updateUrl": "",
+  "authors": [ "Flow86", "blakmajik", "Others" ],
+  "parent":"",
+  "screenshots": [],
+  "dependencies": [
+     "mod_BuildCraftCore",
+     "mod_BuildCraftTransport",
+     "mod_BuildCraftEnergy",
+     "mod_MinecraftForge"
+  ]
+}
+]
