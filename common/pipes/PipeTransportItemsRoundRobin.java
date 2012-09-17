@@ -1,5 +1,5 @@
 /** 
- * Copyright (C) 2011 Flow86
+ * Copyright (C) 2012 Flow86
  * 
  * AdditionalBuildcraftObjects is open-source.
  *
@@ -10,19 +10,19 @@
  * granted by the copyright holder.
  */
 
-package AdditionalBuildcraftObjects;
+package AdditionalBuildcraftObjects.pipes;
 
 import java.util.LinkedList;
 
 import net.minecraft.src.NBTTagCompound;
-import buildcraft.api.Orientations;
-import buildcraft.api.Position;
+import buildcraft.api.core.Orientations;
+import buildcraft.api.core.Position;
 import buildcraft.transport.EntityData;
 import buildcraft.transport.PipeTransportItems;
 
 /**
  * @author Flow86
- *
+ * 
  */
 public class PipeTransportItemsRoundRobin extends PipeTransportItems {
 	private int lastOrientation = 0;

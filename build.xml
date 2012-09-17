@@ -30,7 +30,9 @@
 
 		<!-- Copy ABO source -->
 		<copy todir="${mcpsrc.dir}">
-			<fileset dir="${abo.dir}/common"/>
+			<fileset dir="${abo.dir}/common">
+				<exclude name="**/*.bak"/>
+			</fileset>
 			<filterset>
 				<filter token="ABO_VERSION" value="${abo.version}" />
 				<filter token="BUILD_NUMBER" value="${build.number}" />
