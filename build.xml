@@ -1,238 +1,92 @@
-<project name="Buildcraft" basedir="../" default="main">
-	<property name="jgit.version" value="2.0.0.201206130900-r"/>
+<project name="Additional-Buildcraft-Objects" basedir="../" default="main">
+	<property environment="env" />
 
-	<taskdef resource="org/eclipse/jgit/ant/ant-tasks.properties">
-		<classpath>
-			<pathelement location="ant/org.eclipse.jgit.ant-${jgit.version}.jar"/>
-			<pathelement location="ant/org.eclipse.jgit-${jgit.version}.jar"/>
-			<pathelement location="ant/jsch-0.1.29.jar"/>
-		</classpath>
-	</taskdef>	
-
-	<taskdef resource="net/sf/antcontrib/antcontrib.properties">
-		<classpath>
-			<pathelement location="ant/ant-contrib-1.0b3.jar"/>
-		</classpath>
-	</taskdef>
-
-	<!-- Properties -->
-	<property name="build.dir"              value="build"/>
-	<property name="abo.dir"                value="abo"/>
-	
-	<property name="download.dir"           value="download"/>
-	<property name="files.minecraft.dir"    value="jars"/>
-	
-	<property name="classes.dir"            value="${build.dir}/classes"/>
-	<property name="jar.dir"                value="${build.dir}/dist"/>
-	  
-	<property name="mcp.dir"                value="${build.dir}/mcp"/>
-	<property name="forge.dir"              value="${mcp.dir}/forge"/>
-	<property name="buildcraft.dir"         value="${download.dir}/buildcraft"/>
-	  
-	<property name="mc.client.dir"          value="${mcp.dir}/src/minecraft"/>
-	<property name="mc.server.dir"          value="${mcp.dir}/src/minecraft_server"/>
-	  
-	<property name="mcp.version"            value="62"/>
-	<property name="forge.version"          value="3.3.8.152"/>
-	<property name="buildcraft.version"     value="3.1.6.91"/>
-	<property name="buildcraft.version.git" value="8187f94ac5db285934e089902002c0d439d9e577"/>
-	
 	<property name="abo.version"            value="1.0.0"/>
-	<property name="abo.version.full"       value="${abo.version}.${BUILD_NUMBER}"/>
+	<property name="abo.dir"                value="Additional-Buildcraft-Objects"/>
 	
-	<echo message="Starting build for ${abo.version.full} with forge ${forge.version} and buildcraft ${buildcraft.version}"/>
+	<import file="../BuildCraft/build.xml" as="BuildCraft"/>
 	
 	<!-- Targets -->
-	
-	<target name="clean">
-		<delete dir="${build.dir}" failonerror="False" verbose="True"/>
+	<target name="initialize-version" depends="BuildCraft.initialize-version,version-provided,version-not-provided">
+		<property name="abo.version.full"     value="${abo.version}.${build.number}"/>
+		<echo message="Building ${ant.project.name} ${abo.version.full} with Forge ${forge.version} and BuildCraft ${bc.version}"/>
+	</target>
+
+	<target name="version-not-provided" unless="env.BUILD_NUMBER">
+		<buildnumber/>
+	</target>
+
+	<target name="version-provided" if="env.BUILD_NUMBER">
+		<property name="build.number" value="${env.BUILD_NUMBER}"/>
 	</target>
 	
-	<target name="download">
-		<echo message="Downloading files into ${download.dir}"/>
-
-		<mkdir dir="${download.dir}"/>
-		
-		<get src="http://mcp.ocean-labs.de/files/mcp${mcp.version}.zip" dest="${download.dir}" usetimestamp="True" />
-		<get src="https://dl.dropbox.com/u/28221422/MinecraftForge/forge-${forge.version}/minecraftforge-src-${forge.version}.zip" dest="${download.dir}" usetimestamp="True" />
-		<get src="https://raw.github.com/gist/3028736/fd11487fce1bf3ba070071b1e057d70f43ef8306/mcp.patch" dest="${download.dir}" usetimestamp="True" />
-		
-		<!-- todo: use buildcraft-src-*.zip as soon as it exists -->
-		<if>
-			<available file="${buildcraft.dir}" type="dir" />
-			<else>
-				<git-clone uri="git://github.com/SirSengir/BuildCraft.git" dest="${buildcraft.dir}"/>
-			</else>
-		</if>
-		
-		<git-checkout src="${buildcraft.dir}" branch="${buildcraft.version.git}" />
+	<target name="clean" depends="BuildCraft.clean">
+	</target>
+	<target name="setup" depends="initialize-version,BuildCraft.download-files,clean,BuildCraft.setup">
 	</target>
 
-	<target name="extract">
-		<echo message="Extracting files into ${mcp.dir}"/>
-		
-		<unzip dest="${mcp.dir}">
-			<fileset dir="${download.dir}">
-				<include name="mcp${mcp.version}.zip"/>
-			</fileset>
-		</unzip>
-		
-		<unzip dest="${mcp.dir}">
-			<fileset dir="${download.dir}">
-				<include name="minecraftforge-src-${forge.version}.zip"/>
-			</fileset>
-		</unzip>
-
-		<!-- todo: use buildcraft-src-*.zip as soon as it exists -->
-		<!--<unzip dest="${buildcraft.dir}">
-			<fileset dir="${download.dir}">
-				<include name="buildcraft-src-${buildcraft.version}.zip"/>
-			</fileset>
-		</unzip>-->
-			
-		<copy todir="${mcp.dir}/jars">
-			<fileset dir="${files.minecraft.dir}"/>
-		</copy>
-	
-		<fixcrlf file="${download.dir}/mcp.patch" eol="crlf" />
-		<patch patchfile="${download.dir}/mcp.patch" dir="${mcp.dir}" strip="0" failonerror="True" />
-		
-		<chmod file="${mcp.dir}/updatemd5.sh" perm="+x"/>
-		<chmod file="${mcp.dir}/recompile.sh" perm="+x"/>
-		<chmod file="${mcp.dir}/reobfuscate.sh" perm="+x"/>
-		<chmod file="${forge.dir}/install.sh" perm="+x"/>
-	</target>
-	
-	<target name="install-forge-src">
-		<echo message="Installing forge (calling install.cmd/install.sh)"/>
-		<!-- Install forge -->
-		<exec dir="${forge.dir}" executable="cmd" osfamily="windows">
-			<arg line="/c install.cmd"/>
-		</exec>
-		
-		<exec dir="${forge.dir}" executable="sh" osfamily="unix">
-			<arg value="install.sh" />
-		</exec>
-	</target>
-
-	<target name="install-buildcraft-src">
-		<echo message="Installing buildcraft source"/>
-		<!-- Copy BC source -->
-		<copy todir="${mc.client.dir}">
-			<fileset dir="${buildcraft.dir}/buildcraft_client"/>
-		</copy>
-		<copy todir="${mc.client.dir}">
-			<fileset dir="${buildcraft.dir}/common">
-				<exclude name="**/buildcraft/devel"/>
-			</fileset>
-			<filterset>
-				<filter token="VERSION" value="${buildcraft.version}" />
-			</filterset>
-		</copy>
-		
-		<copy todir="${mc.server.dir}">
-			<fileset dir="${buildcraft.dir}/buildcraft_server"/>
-		</copy>
-		<copy todir="${mc.server.dir}">
-			<fileset dir="${buildcraft.dir}/common">
-				<exclude name="**/buildcraft/devel"/>
-			</fileset>
-			<filterset>
-				<filter token="VERSION" value="${buildcraft.version}" />
-			</filterset>
-		</copy>
-		
-		<echo message="Refreshing MD5s"/>
-
-		<!-- Refresh MD5 -->
-		<exec dir="${mcp.dir}" executable="cmd" osfamily="windows">
-			<arg line="/c updatemd5.bat -f"/>
-		</exec>
-		
-		<exec dir="${mcp.dir}" executable="sh" osfamily="unix">
-			<arg line="updatemd5.sh -f" />
-		</exec>
-	</target>
-
-	<target name="install-abo-src">
+	<target name="copy-src">
 		<echo message="Installing ABO source"/>
 
 		<!-- Copy ABO source -->
-		<copy todir="${mc.client.dir}">
-			<fileset dir="${abo.dir}/client"/>
-		</copy>
-		<copy todir="${mc.client.dir}">
+		<copy todir="${mcpsrc.dir}">
 			<fileset dir="${abo.dir}/common"/>
 			<filterset>
-				<filter token="VERSION" value="${abo.version} (BC {$buildcraft.version}, Forge {$forge.version})" />
-			</filterset>
-		</copy>
-		
-		<copy todir="${mc.server.dir}">
-			<fileset dir="${abo.dir}/server"/>
-		</copy>
-		<copy todir="${mc.server.dir}">
-			<fileset dir="${abo.dir}/common"/>
-			<filterset>
-				<filter token="VERSION" value="${abo.version} (BC {$buildcraft.version}, Forge {$forge.version})" />
+				<filter token="ABO_VERSION" value="${abo.version}" />
+				<filter token="BUILD_NUMBER" value="${build.number}" />
+				<filter token="BUILDCRAFT_VERSION" value="${bc.version}" />
+				<filter token="FORGE_VERSION" value="${forge.version}" />
 			</filterset>
 		</copy>
 	</target>
 	
-	<target name="compile-abo">
+	<target name="compile">
 		<echo message="Compiling ABO"/>
 
 		<!-- Recompile -->
 		<exec dir="${mcp.dir}" executable="cmd" osfamily="windows">
 			<arg line="/c recompile.bat"/>
 		</exec>
-		
+
 		<exec dir="${mcp.dir}" executable="sh" osfamily="unix">
 			<arg value="recompile.sh" />
 		</exec>
-	</target>
-	
-	<target name="copy-abo">
-		<echo message="Copying build results"/>
 
 		<!-- Reobf -->
 		<exec dir="${mcp.dir}" executable="cmd" osfamily="windows">
 			<arg line="/c reobfuscate.bat"/>
 		</exec>
-		
+
 		<exec dir="${mcp.dir}" executable="sh" osfamily="unix">
 			<arg value="reobfuscate.sh" />
 		</exec>
+	</target>
+	
+	<target name="copy">
+		<echo message="Copying build results"/>
 
 		<!-- Copy ABO classes -->
-		<copy todir="${classes.dir}/client">
+		<copy todir="${classes.dir}">
 			<fileset dir="${mcp.dir}/reobf/minecraft"/>
 		</copy>
-		<copy todir="${classes.dir}/server">
-			<fileset dir="${mcp.dir}/reobf/minecraft_server"/>
-		</copy>
-	
-		<!-- Copy resoucres -->
-		<copy todir="${classes.dir}/client">
+
+		<!-- Copy resources -->
+		<copy todir="${classes.dir}">
 			<fileset dir="${abo.dir}/resources">
-			<exclude name="gui/*/*.psd"/>
-			</fileset>
-		</copy>
-		<copy todir="${classes.dir}/server">
-			<fileset dir="${abo.dir}/resources">
-			<exclude name="gui/*"/>
+				<exclude name="build.xml"/>
+				<exclude name="build.number"/>
 			</fileset>
 		</copy>
 	</target>
 	
-	<target name="package-abo">
-		<echo message="Creating jars"/>
+	<target name="package">
 		
-		<jar destfile="${jar.dir}/additionalbuildcraft-client-${abo.version.full}.jar" basedir="${classes.dir}/client"/>
-		<jar destfile="${jar.dir}/additionalbuildcraft-server-${abo.version.full}.jar" basedir="${classes.dir}/server"/>
+		<echo message="Creating JAR"/>
+		
+		<jar destfile="${jar.dir}/buildcraft-Z-additional-buildcraft-objects-${abo.version.full}.jar" basedir="${classes.dir}"/>
 	</target>
 	
-	<target name="main" depends="clean,download,extract,install-forge-src,install-buildcraft-src,install-abo-src,compile-abo,copy-abo,package-abo">
+	<target name="main" depends="clean,setup,copy-src,compile,copy,package">
 		<echo message="Finished building ABO"/>
 	</target>
 
