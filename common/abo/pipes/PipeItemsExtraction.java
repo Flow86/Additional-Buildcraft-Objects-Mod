@@ -59,9 +59,9 @@ public class PipeItemsExtraction extends PipeItemsWood implements IPowerReceptor
 			int metadata = worldObj.getBlockMetadata(xCoord, yCoord, zCoord);
 
 			if (metadata == direction.ordinal())
-				return baseTexture;
-			else
 				return sideTexture;
+
+			return sideTexture;
 		}
 	}
 }

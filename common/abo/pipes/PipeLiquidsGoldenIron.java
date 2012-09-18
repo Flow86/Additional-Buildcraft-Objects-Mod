@@ -41,8 +41,8 @@ public class PipeLiquidsGoldenIron extends ABOPipe {
 
 			if (metadata == direction.ordinal())
 				return baseTexture;
-			else
-				return sideTexture;
+
+			return sideTexture;
 		}
 	}
 }
