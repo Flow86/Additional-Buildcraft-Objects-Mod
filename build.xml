@@ -92,6 +92,7 @@
 		<!-- Copy resources -->
 		<copy todir="${classes.dir}">
 			<fileset dir="${abo.dir}/resources">
+				<exclude name="**/*.psd"/>
 				<exclude name="build.xml"/>
 				<exclude name="build.number"/>
 			</fileset>
