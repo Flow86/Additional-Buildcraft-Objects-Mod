@@ -40,6 +40,14 @@
 				<filter token="FORGE_VERSION" value="${forge.version}" />
 			</filterset>
 		</copy>
+
+		<!-- Copy resources to debug it -->
+		<copy todir="${mcpsrc.dir}">
+			<fileset dir="${abo.dir}/resources">
+				<exclude name="build.xml"/>
+				<exclude name="build.number"/>
+			</fileset>
+		</copy>
 	</target>
 	
 	<target name="compile">
