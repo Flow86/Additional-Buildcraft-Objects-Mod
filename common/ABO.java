@@ -41,9 +41,9 @@ import cpw.mods.fml.common.registry.LanguageRegistry;
  * @author Flow86
  * 
  */
-@Mod(modid = "Additional-Buildcraft-Objects", name = "Additional-Buildcraft-Objects", version = "@ABO_VERSION@", dependencies = "required-after:BuildCraft|Transport")
+@Mod(modid = "Additional-Buildcraft-Objects", name = "Additional-Buildcraft-Objects", version = "1.0.0", dependencies = "required-after:BuildCraft|Transport")
 public class ABO {
-	public static final String VERSION = "@ABO_VERSION@";
+	public static final String VERSION = "1.0.0";
 
 	public static ABOConfiguration aboConfiguration;
 	public static Logger aboLog = Logger.getLogger("Additional-Buildcraft-Objects");
