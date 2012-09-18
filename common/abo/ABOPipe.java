@@ -10,7 +10,7 @@
  * granted by the copyright holder.
  */
 
-package AdditionalBuildcraftObjects;
+package abo;
 
 import buildcraft.transport.Pipe;
 import buildcraft.transport.PipeTransport;
