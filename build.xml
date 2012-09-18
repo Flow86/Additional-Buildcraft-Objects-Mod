@@ -24,12 +24,17 @@
 	</target>
 
 	<target name="setup" depends="initialize-version,BuildCraft.download-files,clean,BuildCraft.setup">
-		<exec dir="${mcp.dir}" executable="cmd" osfamily="windows">
-			<arg line="/c updatemd5.bat --force"/>
+		
+		<!-- Update MD5 otherwise we get all the buildcraft classes too :/ -->
+		<exec dir="${mcp.dir}" executable="cmd" osfamily="windows" failonerror="true">
+			<arg line="/c"/>
+			<arg line="updatemd5.bat"/>
+			<arg line="--force"/>
 		</exec>
 
-		<exec dir="${mcp.dir}" executable="sh" osfamily="unix">
-			<arg value="updatemd5.sh --force" />
+		<exec dir="${mcp.dir}" executable="sh" osfamily="unix" failonerror="true">
+			<arg line="updatemd5.sh"/>
+			<arg line="--force"/>
 		</exec>
 	</target>
 
@@ -63,20 +68,22 @@
 		<echo message="Compiling ABO"/>
 
 		<!-- Recompile -->
-		<exec dir="${mcp.dir}" executable="cmd" osfamily="windows">
-			<arg line="/c recompile.bat"/>
+		<exec dir="${mcp.dir}" executable="cmd" osfamily="windows" failonerror="true">
+			<arg line="/c"/>
+			<arg line="recompile.bat"/>
 		</exec>
 
-		<exec dir="${mcp.dir}" executable="sh" osfamily="unix">
+		<exec dir="${mcp.dir}" executable="sh" osfamily="unix" failonerror="true">
 			<arg value="recompile.sh" />
 		</exec>
 
 		<!-- Reobf -->
-		<exec dir="${mcp.dir}" executable="cmd" osfamily="windows">
-			<arg line="/c reobfuscate.bat"/>
+		<exec dir="${mcp.dir}" executable="cmd" osfamily="windows" failonerror="true">
+			<arg line="/c"/>
+			<arg line="reobfuscate.bat"/>
 		</exec>
 
-		<exec dir="${mcp.dir}" executable="sh" osfamily="unix">
+		<exec dir="${mcp.dir}" executable="sh" osfamily="unix" failonerror="true">
 			<arg value="reobfuscate.sh" />
 		</exec>
 	</target>
