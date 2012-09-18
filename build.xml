@@ -44,6 +44,7 @@
 		<!-- Copy resources to debug it -->
 		<copy todir="${mcpsrc.dir}">
 			<fileset dir="${abo.dir}/resources">
+				<exclude name="**/*.psd"/>
 				<exclude name="build.xml"/>
 				<exclude name="build.number"/>
 			</fileset>
