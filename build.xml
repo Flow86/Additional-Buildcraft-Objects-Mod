@@ -22,7 +22,15 @@
 	
 	<target name="clean" depends="BuildCraft.clean">
 	</target>
+
 	<target name="setup" depends="initialize-version,BuildCraft.download-files,clean,BuildCraft.setup">
+		<exec dir="${mcp.dir}" executable="cmd" osfamily="windows">
+			<arg line="/c updatemd5.bat --force"/>
+		</exec>
+
+		<exec dir="${mcp.dir}" executable="sh" osfamily="unix">
+			<arg value="updatemd5.sh --force" />
+		</exec>
 	</target>
 
 	<target name="copy-src">
