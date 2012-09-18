@@ -1,5 +1,5 @@
 /** 
- * Copyright (C) 2012 Flow86
+ * Copyright (C) 2011-2012 Flow86
  * 
  * AdditionalBuildcraftObjects is open-source.
  *
@@ -10,7 +10,7 @@
  * granted by the copyright holder.
  */
 
-package AdditionalBuildcraftObjects.pipes;
+package abo.pipes;
 
 import java.util.LinkedList;
 
