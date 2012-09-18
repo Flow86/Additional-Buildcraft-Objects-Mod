@@ -10,13 +10,13 @@
  * granted by the copyright holder.
  */
 
-package AdditionalBuildcraftObjects;
+package abo;
 
 import cpw.mods.fml.common.SidedProxy;
 
 public class ABOProxy {
 
-	@SidedProxy(clientSide = "AdditionalBuildcraftObjects.ABOProxyClient", serverSide = "AdditionalBuildcraftObjects.ABOProxy")
+	@SidedProxy(clientSide = "abo.ABOProxyClient", serverSide = "abo.ABOProxy")
 	public static ABOProxy proxy;
 
 	public void registerTileEntities() {

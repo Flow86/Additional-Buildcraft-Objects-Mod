@@ -10,7 +10,7 @@
  * granted by the copyright holder.
  */
 
-package AdditionalBuildcraftObjects;
+package abo;
 
 import net.minecraftforge.client.MinecraftForgeClient;
 import buildcraft.transport.TransportProxyClient;
