@@ -1,5 +1,5 @@
 /** 
- * Copyright (C) 2012 Flow86
+ * Copyright (C) 2011-2012 Flow86
  * 
  * AdditionalBuildcraftObjects is open-source.
  *
@@ -10,30 +10,28 @@
  * granted by the copyright holder.
  */
 
-package AdditionalBuildcraftObjects.pipes;
+package abo.pipes;
 
-import AdditionalBuildcraftObjects.ABO;
 import buildcraft.api.core.Orientations;
-import buildcraft.transport.Pipe;
+import buildcraft.transport.PipeTransportItems;
 import buildcraft.transport.pipes.PipeLogicStone;
 
 /**
- * @author Flow86
+ * This pipe will always prefer to insert it's objects into a tile that is not a
+ * pipe over another pipe.
  * 
+ * @author Scott Chamberlain (Leftler) ported to BC > 2.2 by Flow86
  */
-public class PipeItemsRoundRobin extends Pipe {
+public class PipeItemsInsertion extends ABOPipe {
 
-	public PipeItemsRoundRobin(int itemID) {
-		super(new PipeTransportItemsRoundRobin(), new PipeLogicStone(), itemID);
-	}
+	public PipeItemsInsertion(int itemID) {
+		super(new PipeTransportItemsInsertion(), new PipeLogicStone(), itemID);
 
-	@Override
-	public String getTextureFile() {
-		return ABO.texturePipes;
+		((PipeTransportItems) transport).allowBouncing = true;
 	}
 
 	@Override
 	public int getTextureIndex(Orientations direction) {
-		return 1 * 16 + 0;
+		return 8 * 16 + 0;
 	}
 }

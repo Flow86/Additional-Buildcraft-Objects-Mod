@@ -1,5 +1,5 @@
 /** 
- * Copyright (C) 2012 Flow86
+ * Copyright (C) 2011-2012 Flow86
  * 
  * AdditionalBuildcraftObjects is open-source.
  *
@@ -10,7 +10,7 @@
  * granted by the copyright holder.
  */
 
-package AdditionalBuildcraftObjects.pipes;
+package abo.pipes;
 
 import java.util.LinkedList;
 
@@ -43,8 +43,7 @@ public class PipeTransportItemsRoundRobin extends PipeTransportItems {
 
 	@Override
 	public Orientations resolveDestination(EntityData data) {
-		LinkedList<Orientations> listOfPossibleMovements = getPossibleMovements(new Position(xCoord, yCoord, zCoord,
-				data.orientation), data.item);
+		LinkedList<Orientations> listOfPossibleMovements = getPossibleMovements(new Position(xCoord, yCoord, zCoord, data.orientation), data.item);
 
 		if (listOfPossibleMovements.size() == 0) {
 			return Orientations.Unknown;
