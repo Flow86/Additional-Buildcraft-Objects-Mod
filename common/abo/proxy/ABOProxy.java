@@ -16,7 +16,7 @@ import cpw.mods.fml.common.SidedProxy;
 
 public class ABOProxy {
 
-	@SidedProxy(clientSide = "AdditionalBuildcraftObjects.proxy.ABOProxyClient", serverSide = "AdditionalBuildcraftObjects.proxy.ABOProxy")
+	@SidedProxy(clientSide = "abo.proxy.ABOProxyClient", serverSide = "abo.proxy.ABOProxy")
 	public static ABOProxy proxy;
 
 	public void registerTileEntities() {
