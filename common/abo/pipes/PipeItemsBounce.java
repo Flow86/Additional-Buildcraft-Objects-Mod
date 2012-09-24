@@ -12,7 +12,13 @@
 
 package abo.pipes;
 
+import java.util.LinkedList;
+
 import buildcraft.api.core.Orientations;
+import buildcraft.api.core.Position;
+import buildcraft.api.transport.IPipedItem;
+import buildcraft.transport.IPipeTransportItemsHook;
+import buildcraft.transport.PipeTransportItems;
 import buildcraft.transport.pipes.PipeLogicStone;
 
 /**
@@ -20,19 +26,18 @@ import buildcraft.transport.pipes.PipeLogicStone;
  * 
  * @author Scott Chamberlain (Leftler) ported to BC > 2.2 by Flow86
  */
-public class PipeItemsBounce extends ABOPipe {
+public class PipeItemsBounce extends ABOPipe implements IPipeTransportItemsHook {
 	private final int openTexture = 10 * 16 + 0;
 	private final int closedTexture = openTexture + 1;
 
 	public PipeItemsBounce(int itemID) {
-		super(new PipeTransportItemsBounce(), new PipeLogicStone(), itemID);
+		super(new PipeTransportItems(), new PipeLogicStone(), itemID);
 	}
 
 	@Override
 	public int getTextureIndex(Orientations direction) {
 
-		// TODO: does not work ?!?
-		return (worldObj.getBlockMetadata(xCoord, yCoord, zCoord) == PipeTransportItemsBounce.metaOpen ? openTexture : closedTexture);
+		return (worldObj.isBlockIndirectlyGettingPowered(xCoord, yCoord, zCoord) ? openTexture : closedTexture);
 	}
 
 	@Override
@@ -41,9 +46,22 @@ public class PipeItemsBounce extends ABOPipe {
 	}
 
 	@Override
-	public void updateEntity() {
-		super.updateEntity();
+	public LinkedList<Orientations> filterPossibleMovements(
+			LinkedList<Orientations> possibleOrientations, Position pos,
+			IPipedItem item) {
+		
+		if(worldObj.isBlockIndirectlyGettingPowered(xCoord, yCoord, zCoord))
+			return possibleOrientations;
+		
+		return new LinkedList<Orientations>();
+	}
 
-		((PipeTransportItemsBounce) transport).updatePowerMeta(worldObj.isBlockIndirectlyGettingPowered(xCoord, yCoord, zCoord));
+	@Override
+	public void entityEntered(IPipedItem item, Orientations orientation) {
+	}
+
+	@Override
+	public void readjustSpeed(IPipedItem item) {
+		((PipeTransportItems) transport).defaultReajustSpeed(item);
 	}
 }
