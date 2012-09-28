@@ -187,6 +187,7 @@ public class ABO {
 
 		ABOProxy.proxy.registerTileEntities();
 		ABOProxy.proxy.registerRenderers();
+		loadRecipes();
 	}
 
 	private static class PipeRecipe {
