@@ -17,24 +17,18 @@ import abo.ABO;
 import buildcraft.transport.TransportProxyClient;
 
 public class ABOProxyClient extends ABOProxy {
-
 	@Override
-	public void registerTileEntities() {
-		super.registerTileEntities();
-	}
-
-	@Override
-	public void registerRenderers() {
-		super.registerRenderers();
+	public void preloadTextures() {
+		super.preloadTextures();
 
 		MinecraftForgeClient.preloadTexture(ABO.texturePipes);
 		MinecraftForgeClient.preloadTexture(ABO.textureTriggers);
+	}
 
-		MinecraftForgeClient.registerItemRenderer(ABO.pipeLiquidsGoldenIron.shiftedIndex, TransportProxyClient.pipeItemRenderer);
-		MinecraftForgeClient.registerItemRenderer(ABO.pipeItemsRoundRobin.shiftedIndex, TransportProxyClient.pipeItemRenderer);
-		MinecraftForgeClient.registerItemRenderer(ABO.pipeItemsInsertion.shiftedIndex, TransportProxyClient.pipeItemRenderer);
-		MinecraftForgeClient.registerItemRenderer(ABO.pipeItemsExtraction.shiftedIndex, TransportProxyClient.pipeItemRenderer);
-		MinecraftForgeClient.registerItemRenderer(ABO.pipeItemsBounce.shiftedIndex, TransportProxyClient.pipeItemRenderer);
-		MinecraftForgeClient.registerItemRenderer(ABO.pipeItemsCrossover.shiftedIndex, TransportProxyClient.pipeItemRenderer);
+	@Override
+	public void registerPipe(int itemID) {
+		super.registerPipe(itemID);
+
+		MinecraftForgeClient.registerItemRenderer(itemID, TransportProxyClient.pipeItemRenderer);
 	}
 }
