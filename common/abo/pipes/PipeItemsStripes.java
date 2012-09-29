@@ -88,13 +88,13 @@ public class PipeItemsStripes extends ABOPipe implements IItemTravelingHook, IPo
 			data.item
 					.getItemStack()
 					.getItem()
-					.tryPlaceIntoWorld(data.item.getItemStack(), CoreProxy.proxy.getBuildCraftPlayer(worldObj), worldObj, (int) p.x, (int) p.y - 1, (int) p.z,
+					.onItemUse(data.item.getItemStack(), CoreProxy.proxy.getBuildCraftPlayer(worldObj), worldObj, (int) p.x, (int) p.y - 1, (int) p.z,
 							1, 0.0f, 0.0f, 0.0f);
 		else
 			data.item
 					.getItemStack()
 					.getItem()
-					.tryPlaceIntoWorld(data.item.getItemStack(), CoreProxy.proxy.getBuildCraftPlayer(worldObj), worldObj, (int) p.x, (int) p.y, (int) p.z, 1,
+					.onItemUse(data.item.getItemStack(), CoreProxy.proxy.getBuildCraftPlayer(worldObj), worldObj, (int) p.x, (int) p.y, (int) p.z, 1,
 							0.0f, 0.0f, 0.0f);
 	}
 
