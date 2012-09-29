@@ -26,6 +26,7 @@ import abo.pipes.PipeItemsCrossover;
 import abo.pipes.PipeItemsExtraction;
 import abo.pipes.PipeItemsInsertion;
 import abo.pipes.PipeItemsRoundRobin;
+import abo.pipes.PipeItemsStripes;
 import abo.pipes.PipeLiquidsGoldenIron;
 import abo.proxy.ABOProxy;
 import abo.triggers.ABOTriggerProvider;
@@ -94,6 +95,9 @@ public class ABO {
 	public static int pipeItemsCrossoverID = 10305;
 	public static Item pipeItemsCrossover = null;
 
+	public static int pipeItemsStripesID = 4071;
+	public static Item pipeItemsStripes = null;
+
 	// public static int pipePowerSwitchID = 10400;
 	// public static Item pipePowerSwitch = null;
 
@@ -114,7 +118,7 @@ public class ABO {
 
 		aboLog.setParent(FMLLog.getLogger());
 		aboLog.info("Starting Additional-Buildcraft-Objects #@BUILD_NUMBER@ " + VERSION + " for Buildcraft @BUILDCRAFT_VERSION@ and Forge @FORGE_VERSION@");
-		aboLog.info("Copyright (c) Flow86, 2012");
+		aboLog.info("Copyright (c) Flow86, 2011-2012");
 
 		aboConfiguration = new ABOConfiguration(new File(evt.getModConfigurationDirectory(), "abo/main.conf"));
 		try {
@@ -159,6 +163,9 @@ public class ABO {
 			pipeItemsCrossover = createPipe(pipeItemsCrossoverID, PipeItemsCrossover.class, "Crossover Transport Pipe", 1, BuildCraftTransport.pipeItemsStone,
 					BuildCraftTransport.pipeItemsIron, null);
 
+			pipeItemsStripes = createPipe(pipeItemsStripesID, PipeItemsStripes.class, "Stripes Transport Pipe", 8, new ItemStack(Item.dyePowder, 1, 0),
+					Block.glass, new ItemStack(Item.dyePowder, 1, 11));
+
 			// pipePowerSwitch = createPipe(pipePowerSwitchID,
 			// PipePowerSwitch.class, "Power Switch Pipe", 1,
 			// BuildCraftTransport.pipePowerGold, Block.lever, null);
@@ -185,11 +192,13 @@ public class ABO {
 
 		Localization.addLocalization("/lang/abo/", "en_US");
 
-		ABOProxy.proxy.registerTileEntities();
-		ABOProxy.proxy.registerRenderers();
+		ABOProxy.proxy.preloadTextures();
+
+		loadRecipes();
 	}
 
 	private static class PipeRecipe {
+		int itemID;
 		boolean isShapeless = false;
 		ItemStack result;
 		Object[] input;
@@ -210,6 +219,8 @@ public class ABO {
 
 		// Add appropriate recipe to temporary list
 		PipeRecipe recipe = new PipeRecipe();
+
+		recipe.itemID = res.shiftedIndex;
 
 		if (ingredient1 != null && ingredient2 != null && ingredient3 != null) {
 			recipe.result = new ItemStack(res, count);
@@ -235,6 +246,8 @@ public class ABO {
 			} else {
 				GameRegistry.addRecipe(pipe.result, pipe.input);
 			}
+
+			ABOProxy.proxy.registerPipe(pipe.itemID);
 		}
 	}
 }

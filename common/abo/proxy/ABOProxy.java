@@ -19,9 +19,9 @@ public class ABOProxy {
 	@SidedProxy(clientSide = "abo.proxy.ABOProxyClient", serverSide = "abo.proxy.ABOProxy")
 	public static ABOProxy proxy;
 
-	public void registerTileEntities() {
+	public void preloadTextures() {
 	}
 
-	public void registerRenderers() {
+	public void registerPipe(int itemID) {
 	}
 }
