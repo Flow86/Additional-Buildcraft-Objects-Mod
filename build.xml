@@ -38,6 +38,41 @@
 		</exec>
 	</target>
 
+	<target name="copy-src-eclipse">
+		<echo message="Installing ABO source for Eclipse"/>
+
+		<!-- Copy ABO source -->
+		<copy todir="${mcpsrc.dir}">
+			<fileset dir="${abo.dir}/common">
+				<exclude name="**/*.bak"/>
+			</fileset>
+		</copy>
+
+		<!-- Copy buildcraft resources to debug it -->
+		<copy todir="${mcpsrc.dir}">
+			<fileset dir="${src.dir}/buildcraft_resources">
+				<exclude name="build.xml"/>
+				<exclude name="build.number"/>
+			</fileset>
+		</copy>
+
+		<!-- Copy buildcraft localizations to debug it -->
+		<copy todir="${mcpsrc.dir}">
+			<fileset dir="${lang.dir}">
+				<exclude name="README.md"/>
+			</fileset>
+		</copy>
+		
+		<!-- Copy abo resources to debug it -->
+		<copy todir="${mcpsrc.dir}">
+			<fileset dir="${abo.dir}/resources">
+				<exclude name="**/*.psd"/>
+				<exclude name="build.xml"/>
+				<exclude name="build.number"/>
+			</fileset>
+		</copy>
+	</target>
+
 	<target name="copy-src">
 		<echo message="Installing ABO source"/>
 
@@ -52,15 +87,6 @@
 				<filter token="BUILDCRAFT_VERSION" value="${bc.version}" />
 				<filter token="FORGE_VERSION" value="${forge.version}" />
 			</filterset>
-		</copy>
-
-		<!-- Copy resources to debug it -->
-		<copy todir="${mcpsrc.dir}">
-			<fileset dir="${abo.dir}/resources">
-				<exclude name="**/*.psd"/>
-				<exclude name="build.xml"/>
-				<exclude name="build.number"/>
-			</fileset>
 		</copy>
 	</target>
 	
