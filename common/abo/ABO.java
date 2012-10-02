@@ -151,11 +151,11 @@ public class ABO {
 			// BuildCraftTransport.pipeItemsStone,
 			// Block.pistonBase, null);
 
-			pipeItemsInsertion = createPipe(pipeItemsInsertionID, PipeItemsInsertion.class, "Insertion Pipe", 1, BuildCraftTransport.pipeItemsStone,
+			pipeItemsInsertion = createPipe(pipeItemsInsertionID, PipeItemsInsertion.class, "Insertion Pipe", 1, BuildCraftTransport.pipeItemsWood,
 					Item.redstone, null);
 
 			pipeItemsExtraction = createPipe(pipeItemsExtractionID, PipeItemsExtraction.class, "Extraction Transport Pipe", 1,
-					BuildCraftTransport.pipeItemsStone, Block.planks, null);
+					BuildCraftTransport.pipeItemsWood, Block.planks, null);
 
 			pipeItemsBounce = createPipe(pipeItemsBounceID, PipeItemsBounce.class, "Bounce Transport Pipe", 1, BuildCraftTransport.pipeItemsStone,
 					Block.cobblestone, null);

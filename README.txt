@@ -30,7 +30,7 @@ Insertion Transport Pipe
   to the last machine if it can.
 
 Recipe:
-  StoneTransportPipe Redstone
+  WoodTransportPipe Redstone
 
 
 ---------------------------------------------------------------------------------
@@ -45,7 +45,7 @@ Extraction Transport Pipe
   accidentally fill a chest or machine. 
 
 Recipe:
-  StoneTransportPipe Planks
+  WoodTransportPipe Planks
 
 ---------------------------------------------------------------------------------
 
