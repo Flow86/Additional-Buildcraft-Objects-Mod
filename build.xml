@@ -12,9 +12,9 @@
 		<echo message="Building ${ant.project.name} ${abo.version.full} with Forge ${forge.version} and BuildCraft ${bc.version}"/>
 		
 		<propertyfile file="jenkins.properties">
-			<entry key="abo.version.full" value="${abo.version.full}" />
-			<entry key="bc.version" value="${bc.version}" />
-			<entry key="forge.version" value="${forge.version}" />
+			<entry key="ABO_VERSION_FULL" value="${abo.version.full}" />
+			<entry key="BC_VERSION" value="${bc.version}" />
+			<entry key="FORGE_VERSION" value="${forge.version}" />
 		</propertyfile>
 	</target>
 
