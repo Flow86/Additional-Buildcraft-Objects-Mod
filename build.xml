@@ -10,6 +10,12 @@
 	<target name="initialize-version" depends="BuildCraft.initialize-version,version-provided,version-not-provided">
 		<property name="abo.version.full"     value="${abo.version}.${build.number}"/>
 		<echo message="Building ${ant.project.name} ${abo.version.full} with Forge ${forge.version} and BuildCraft ${bc.version}"/>
+		
+		<propertyfile file="jenkins.properties">
+			<entry key="abo.version.full" value="${abo.version.full}" />
+			<entry key="bc.version" value="${bc.version}" />
+			<entry key="forge.version" value="${forge.version}" />
+		</propertyfile>
 	</target>
 
 	<target name="version-not-provided" unless="env.BUILD_NUMBER">
