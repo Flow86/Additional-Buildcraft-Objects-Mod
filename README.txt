@@ -30,7 +30,7 @@ Insertion Transport Pipe
   to the last machine if it can.
 
 Recipe:
-  WoodTransportPipe Redstone
+  CobblestoneTransportPipe Redstone
 
 
 ---------------------------------------------------------------------------------
