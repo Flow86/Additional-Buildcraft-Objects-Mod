@@ -30,7 +30,7 @@
 	<target name="clean" depends="BuildCraft.clean">
 	</target>
 
-	<target name="setup" depends="initialize-version,BuildCraft.download-files,clean,BuildCraft.setup">
+	<target name="setup" depends="initialize-version,BuildCraft.download-files,clean,BuildCraft.setup,BuildCraft.copy-src">
 		
 		<!-- Update MD5 otherwise we get all the buildcraft classes too :/ -->
 		<exec dir="${mcp.dir}" executable="cmd" osfamily="windows" failonerror="true">
@@ -80,7 +80,7 @@
 		</copy>
 	</target>
 
-	<target name="copy-src" depends="BuildCraft.copy-src">
+	<target name="copy-src">
 		<echo message="Installing ABO source"/>
 
 		<!-- Copy ABO source -->
