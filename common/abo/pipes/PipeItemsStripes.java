@@ -73,7 +73,7 @@ public class PipeItemsStripes extends ABOPipe implements IItemTravelingHook, IPo
 
 	@Override
 	public void drop(PipeTransportItems pipe, EntityData data) {
-		Position p = new Position(xCoord, yCoord, zCoord, data.orientation);
+		Position p = new Position(xCoord, yCoord, zCoord, data.output);
 		p.moveForwards(1.0);
 
 		/*

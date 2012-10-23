@@ -43,7 +43,7 @@ public class PipeTransportItemsRoundRobin extends PipeTransportItems {
 
 	@Override
 	public Orientations resolveDestination(EntityData data) {
-		LinkedList<Orientations> listOfPossibleMovements = getPossibleMovements(new Position(xCoord, yCoord, zCoord, data.orientation), data.item);
+		LinkedList<Orientations> listOfPossibleMovements = getPossibleMovements(data);
 
 		if (listOfPossibleMovements.size() == 0) {
 			return Orientations.Unknown;
