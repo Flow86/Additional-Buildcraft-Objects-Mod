@@ -80,7 +80,7 @@
 		</copy>
 	</target>
 
-	<target name="copy-src">
+	<target name="copy-src" depends="BuildCraft.copy-src">
 		<echo message="Installing ABO source"/>
 
 		<!-- Copy ABO source -->
