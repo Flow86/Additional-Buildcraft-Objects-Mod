@@ -19,6 +19,7 @@ import buildcraft.api.core.Orientations;
 import buildcraft.api.core.Position;
 import buildcraft.api.transport.IPipeEntry;
 import buildcraft.api.transport.IPipedItem;
+import buildcraft.transport.EntityData;
 import buildcraft.transport.PipeTransportItems;
 
 /**
@@ -30,13 +31,15 @@ import buildcraft.transport.PipeTransportItems;
 public class PipeTransportItemsInsertion extends PipeTransportItems {
 
 	@Override
-	public LinkedList<Orientations> getPossibleMovements(Position pos, IPipedItem item) {
+	public LinkedList<Orientations> getPossibleMovements(EntityData data) {
 		LinkedList<Orientations> nonPipesList = new LinkedList<Orientations>();
 		LinkedList<Orientations> pipesList = new LinkedList<Orientations>();
 
+		data.blacklist.add(data.input.reverse());
+		
 		for (Orientations o : Orientations.dirs()) {
-			if (o != pos.orientation.reverse() && container.pipe.outputOpen(o)) {
-				if (canReceivePipeObjects(o, item)) {
+			if (!data.blacklist.contains(o) && container.pipe.outputOpen(o)) {
+				if (canReceivePipeObjects(o, data.item)) {
 
 					TileEntity entity = container.getTile(o);
 					if (entity instanceof IPipeEntry)

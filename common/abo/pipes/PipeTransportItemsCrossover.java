@@ -17,6 +17,7 @@ import java.util.LinkedList;
 import buildcraft.api.core.Orientations;
 import buildcraft.api.core.Position;
 import buildcraft.api.transport.IPipedItem;
+import buildcraft.transport.EntityData;
 import buildcraft.transport.PipeTransportItems;
 
 /**
@@ -28,15 +29,15 @@ import buildcraft.transport.PipeTransportItems;
 public class PipeTransportItemsCrossover extends PipeTransportItems {
 
 	@Override
-	public LinkedList<Orientations> getPossibleMovements(Position pos, IPipedItem item) {
+	public LinkedList<Orientations> getPossibleMovements(EntityData data) {
 		LinkedList<Orientations> list = new LinkedList<Orientations>();
 
-		Position newPos = new Position(pos);
+		Position newPos = new Position(xCoord, yCoord, zCoord, data.input);
 		newPos.moveForwards(1.0);
-		if (canReceivePipeObjects(newPos.orientation, item))
+		if (canReceivePipeObjects(newPos.orientation, data.item))
 			list.add(newPos.orientation);
 		else
-			list = super.getPossibleMovements(pos, item);
+			list = super.getPossibleMovements(data);
 
 		return list;
 	}
