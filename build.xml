@@ -1,7 +1,7 @@
 <project name="Additional-Buildcraft-Objects" basedir="../" default="main">
 	<property environment="env" />
 
-	<property name="abo.version"            value="0.9.2"/>
+	<property name="abo.version"            value="0.9.3"/>
 	<property name="abo.dir"                value="Additional-Buildcraft-Objects"/>
 	
 	<import file="../BuildCraft/build.xml" as="BuildCraft"/>
@@ -45,7 +45,7 @@
 		</exec>
 	</target>
 
-	<target name="copy-src-eclipse">
+	<target name="copy-src-eclipse" depends="BuildCraft.copy-src">
 		<echo message="Installing ABO source for Eclipse"/>
 
 		<!-- Copy ABO source -->
