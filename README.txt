@@ -125,6 +125,12 @@ Safe-Engine Trigger
 
 Changelog:
 
+0.9.3:
+ - mc 1.4.2 compatible
+
+0.9.2:
+ - bc 3.2.0pre compatible
+
 0.9.1:
  - mc 1.3.2 compatible
  - bc 3.1.8 compatible
