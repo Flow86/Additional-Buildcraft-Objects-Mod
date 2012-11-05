@@ -26,14 +26,7 @@ public class ABOConfiguration extends Configuration {
 	public void save() {
 		Property versionProp = null;
 
-		if (!categories.get(CATEGORY_GENERAL).containsKey("version")) {
-			versionProp = new Property();
-			versionProp.setName("version");
-			categories.get(CATEGORY_GENERAL).put("version", versionProp);
-		} else
-			versionProp = categories.get(CATEGORY_GENERAL).get("version");
-
-		versionProp.value = ABO.VERSION;
+		get(CATEGORY_GENERAL, "version", ABO.VERSION);
 
 		super.save();
 	}
