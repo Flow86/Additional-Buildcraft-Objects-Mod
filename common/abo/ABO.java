@@ -210,7 +210,7 @@ public class ABO {
 			Object ingredient3) {
 		String name = Character.toLowerCase(clas.getSimpleName().charAt(0)) + clas.getSimpleName().substring(1);
 
-		Property prop = aboConfiguration.getOrCreateIntProperty(name + ".id", Configuration.CATEGORY_ITEM, defaultID);
+		Property prop = aboConfiguration.getItem(name + ".id", defaultID);
 
 		int id = prop.getInt(defaultID);
 		ItemPipe res = BlockGenericPipe.registerPipe(id, clas);
