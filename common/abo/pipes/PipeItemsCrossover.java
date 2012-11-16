@@ -12,8 +12,8 @@
 
 package abo.pipes;
 
-import buildcraft.api.core.Orientations;
 import buildcraft.transport.pipes.PipeLogicStone;
+import net.minecraftforge.common.ForgeDirection;
 
 /**
  * This pipe will always prefer to use the opposite direction, so items will go
@@ -28,7 +28,7 @@ public class PipeItemsCrossover extends ABOPipe {
 	}
 
 	@Override
-	public int getTextureIndex(Orientations direction) {
+	public int getTextureIndex(ForgeDirection direction) {
 		return 11 * 16 + 0;
 	}
 }

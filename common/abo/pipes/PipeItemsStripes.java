@@ -12,7 +12,6 @@ import java.util.ArrayList;
 
 import net.minecraft.src.ItemStack;
 import net.minecraft.src.TileEntity;
-import buildcraft.api.core.Orientations;
 import buildcraft.api.core.Position;
 import buildcraft.api.power.IPowerProvider;
 import buildcraft.api.power.IPowerReceptor;
@@ -25,6 +24,7 @@ import buildcraft.core.utils.Utils;
 import buildcraft.transport.EntityData;
 import buildcraft.transport.IItemTravelingHook;
 import buildcraft.transport.PipeTransportItems;
+import net.minecraftforge.common.ForgeDirection;
 
 public class PipeItemsStripes extends ABOPipe implements IItemTravelingHook, IPowerReceptor {
 
@@ -42,16 +42,16 @@ public class PipeItemsStripes extends ABOPipe implements IItemTravelingHook, IPo
 	}
 
 	@Override
-	public int getTextureIndex(Orientations direction) {
+	public int getTextureIndex(ForgeDirection direction) {
 		return 14 * 16 + 0;
 	}
 
 	@Override
 	public void doWork() {
 		if (powerProvider.useEnergy(powerToBreakABlock, powerToBreakABlock, true) == powerToBreakABlock) {
-			Orientations o = getOpenOrientation();
+			ForgeDirection o = getOpenOrientation();
 
-			if (o != Orientations.Unknown) {
+			if (o != ForgeDirection.UNKNOWN) {
 				Position p = new Position(xCoord, yCoord, zCoord, o);
 				p.moveForwards(1.0);
 
@@ -62,7 +62,7 @@ public class PipeItemsStripes extends ABOPipe implements IItemTravelingHook, IPo
 						if (s != null) {
 							IPipedItem newItem = new EntityPassiveItem(worldObj, xCoord + 0.5, yCoord + Utils.getPipeFloorOf(s), zCoord + 0.5, s);
 
-							this.container.entityEntering(newItem, o.reverse());
+							this.container.entityEntering(newItem, o.getOpposite());
 						}
 
 				worldObj.setBlock((int) p.x, (int) p.y, (int) p.z, 0);

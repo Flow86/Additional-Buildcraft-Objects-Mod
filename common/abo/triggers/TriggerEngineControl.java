@@ -13,13 +13,13 @@
 package abo.triggers;
 
 import net.minecraft.src.TileEntity;
-import buildcraft.api.core.Orientations;
 import buildcraft.api.gates.ITriggerParameter;
 import buildcraft.energy.Engine;
 import buildcraft.energy.Engine.EnergyStage;
 import buildcraft.energy.TileEngine;
 import buildcraft.transport.ITriggerPipe;
 import buildcraft.transport.Pipe;
+import net.minecraftforge.common.ForgeDirection;
 
 /**
  * @author Flow86
@@ -54,7 +54,7 @@ public class TriggerEngineControl extends ABOTrigger implements ITriggerPipe {
 	public boolean isTriggerActive(Pipe pipe, ITriggerParameter parameter) {
 		boolean result = true;
 
-		for (Orientations o : Orientations.dirs()) {
+		for (ForgeDirection o : ForgeDirection.VALID_DIRECTIONS) {
 
 			TileEntity entity = pipe.container.getTile(o);
 			if (entity instanceof TileEngine) {

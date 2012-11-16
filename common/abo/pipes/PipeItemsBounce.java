@@ -14,12 +14,12 @@ package abo.pipes;
 
 import java.util.LinkedList;
 
-import buildcraft.api.core.Orientations;
 import buildcraft.api.core.Position;
 import buildcraft.api.transport.IPipedItem;
 import buildcraft.transport.IPipeTransportItemsHook;
 import buildcraft.transport.PipeTransportItems;
 import buildcraft.transport.pipes.PipeLogicStone;
+import net.minecraftforge.common.ForgeDirection;
 
 /**
  * This pipe will bounce the items back if not powered.
@@ -35,7 +35,7 @@ public class PipeItemsBounce extends ABOPipe implements IPipeTransportItemsHook 
 	}
 
 	@Override
-	public int getTextureIndex(Orientations direction) {
+	public int getTextureIndex(ForgeDirection direction) {
 
 		return (worldObj.isBlockIndirectlyGettingPowered(xCoord, yCoord, zCoord) ? openTexture : closedTexture);
 	}
@@ -46,18 +46,18 @@ public class PipeItemsBounce extends ABOPipe implements IPipeTransportItemsHook 
 	}
 
 	@Override
-	public LinkedList<Orientations> filterPossibleMovements(
-			LinkedList<Orientations> possibleOrientations, Position pos,
+	public LinkedList<ForgeDirection> filterPossibleMovements(
+			LinkedList<ForgeDirection> possibleOrientations, Position pos,
 			IPipedItem item) {
 		
 		if(worldObj.isBlockIndirectlyGettingPowered(xCoord, yCoord, zCoord))
 			return possibleOrientations;
 		
-		return new LinkedList<Orientations>();
+		return new LinkedList<ForgeDirection>();
 	}
 
 	@Override
-	public void entityEntered(IPipedItem item, Orientations orientation) {
+	public void entityEntered(IPipedItem item, ForgeDirection orientation) {
 	}
 
 	@Override

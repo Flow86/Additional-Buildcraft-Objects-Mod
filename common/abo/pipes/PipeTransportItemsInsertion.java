@@ -15,12 +15,10 @@ package abo.pipes;
 import java.util.LinkedList;
 
 import net.minecraft.src.TileEntity;
-import buildcraft.api.core.Orientations;
-import buildcraft.api.core.Position;
 import buildcraft.api.transport.IPipeEntry;
-import buildcraft.api.transport.IPipedItem;
 import buildcraft.transport.EntityData;
 import buildcraft.transport.PipeTransportItems;
+import net.minecraftforge.common.ForgeDirection;
 
 /**
  * This pipe will always prefer to insert it's objects into a tile that is not a
@@ -31,13 +29,13 @@ import buildcraft.transport.PipeTransportItems;
 public class PipeTransportItemsInsertion extends PipeTransportItems {
 
 	@Override
-	public LinkedList<Orientations> getPossibleMovements(EntityData data) {
-		LinkedList<Orientations> nonPipesList = new LinkedList<Orientations>();
-		LinkedList<Orientations> pipesList = new LinkedList<Orientations>();
+	public LinkedList<ForgeDirection> getPossibleMovements(EntityData data) {
+		LinkedList<ForgeDirection> nonPipesList = new LinkedList<ForgeDirection>();
+		LinkedList<ForgeDirection> pipesList = new LinkedList<ForgeDirection>();
 
-		data.blacklist.add(data.input.reverse());
+		data.blacklist.add(data.input.getOpposite());
 		
-		for (Orientations o : Orientations.dirs()) {
+		for (ForgeDirection o : ForgeDirection.VALID_DIRECTIONS) {
 			if (!data.blacklist.contains(o) && container.pipe.outputOpen(o)) {
 				if (canReceivePipeObjects(o, data.item)) {
 
