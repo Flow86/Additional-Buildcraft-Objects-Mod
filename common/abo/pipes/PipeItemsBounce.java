@@ -53,7 +53,12 @@ public class PipeItemsBounce extends ABOPipe implements IPipeTransportItemsHook 
 		if(worldObj.isBlockIndirectlyGettingPowered(xCoord, yCoord, zCoord))
 			return possibleOrientations;
 		
-		return new LinkedList<Orientations>();
+		// if unpowered - reverse all items
+		LinkedList<Orientations> reverse = new LinkedList<Orientations>();
+		
+		reverse.add(pos.orientation.reverse());
+		
+		return reverse;
 	}
 
 	@Override
