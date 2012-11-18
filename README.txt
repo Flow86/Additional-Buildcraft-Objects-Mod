@@ -125,6 +125,11 @@ Safe-Engine Trigger
 
 Changelog:
 
+0.9.4:
+ - updated/readded power switch pipe
+ - updated/readded switch on pipe action
+ - fixed bounce pipe
+
 0.9.3:
  - mc 1.4.2 compatible
 

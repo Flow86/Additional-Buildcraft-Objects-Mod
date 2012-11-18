@@ -19,8 +19,8 @@ import java.util.logging.Logger;
 import net.minecraft.src.Block;
 import net.minecraft.src.Item;
 import net.minecraft.src.ItemStack;
-import net.minecraftforge.common.Configuration;
 import net.minecraftforge.common.Property;
+import abo.actions.ActionSwitchOnPipe;
 import abo.pipes.PipeItemsBounce;
 import abo.pipes.PipeItemsCrossover;
 import abo.pipes.PipeItemsExtraction;
@@ -28,11 +28,13 @@ import abo.pipes.PipeItemsInsertion;
 import abo.pipes.PipeItemsRoundRobin;
 import abo.pipes.PipeItemsStripes;
 import abo.pipes.PipeLiquidsGoldenIron;
+import abo.pipes.PipePowerSwitch;
 import abo.proxy.ABOProxy;
 import abo.triggers.ABOTriggerProvider;
 import abo.triggers.TriggerEngineControl;
 import buildcraft.BuildCraftCore;
 import buildcraft.BuildCraftTransport;
+import buildcraft.api.gates.Action;
 import buildcraft.api.gates.ActionManager;
 import buildcraft.api.gates.Trigger;
 import buildcraft.core.utils.Localization;
@@ -98,17 +100,14 @@ public class ABO {
 	public static int pipeItemsStripesID = 4071;
 	public static Item pipeItemsStripes = null;
 
-	// public static int pipePowerSwitchID = 10400;
-	// public static Item pipePowerSwitch = null;
-
-	// public static int triggerEngineControlID = 128;
-	// public static Trigger triggerEngineControl = null;
-	//
-	// public static int actionSwitchOnPipeID = 128;
-	// public static Action actionSwitchOnPipe = null;
+	public static int pipePowerSwitchID = 10400;
+	public static Item pipePowerSwitch = null;
 
 	public static int triggerEngineControlID = 128;
 	public static Trigger triggerEngineControl = null;
+
+	public static int actionSwitchOnPipeID = 128;
+	public static Action actionSwitchOnPipe = null;
 
 	@Instance("Additional-Buildcraft-Objects")
 	public static ABO instance;
@@ -166,13 +165,10 @@ public class ABO {
 			pipeItemsStripes = createPipe(pipeItemsStripesID, PipeItemsStripes.class, "Stripes Transport Pipe", 8, new ItemStack(Item.dyePowder, 1, 0),
 					Block.glass, new ItemStack(Item.dyePowder, 1, 11));
 
-			// pipePowerSwitch = createPipe(pipePowerSwitchID,
-			// PipePowerSwitch.class, "Power Switch Pipe", 1,
-			// BuildCraftTransport.pipePowerGold, Block.lever, null);
+			pipePowerSwitch = createPipe(pipePowerSwitchID, PipePowerSwitch.class, "Power Switch Pipe", 1, BuildCraftTransport.pipePowerGold, Block.lever, null);
 
 			triggerEngineControl = new TriggerEngineControl(triggerEngineControlID);
-			// actionSwitchOnPipe = new
-			// ActionSwitchOnPipe(actionSwitchOnPipeID);
+			actionSwitchOnPipe = new ActionSwitchOnPipe(actionSwitchOnPipeID);
 
 			ActionManager.registerTriggerProvider(new ABOTriggerProvider());
 
