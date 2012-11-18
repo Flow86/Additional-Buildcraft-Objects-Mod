@@ -14,6 +14,7 @@
 		<delete file="jenkins.properties" failonerror="false" />
 		<propertyfile file="jenkins.properties">
 			<entry key="ABO_VERSION_FULL" value="${abo.version.full}" />
+			<entry key="MCP_VERSION" value="${mcp.version}" />
 			<entry key="BC_VERSION" value="${bc.version}" />
 			<entry key="FORGE_VERSION" value="${forge.version}" />
 		</propertyfile>

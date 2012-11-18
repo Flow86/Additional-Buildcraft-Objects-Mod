@@ -126,6 +126,9 @@ Safe-Engine Trigger
 Changelog:
 
 0.9.4:
+ - updated/readded balance pipe
+
+0.9.4@56:
  - updated/readded power switch pipe
  - updated/readded switch on pipe action
  - fixed bounce pipe
@@ -140,7 +143,6 @@ Changelog:
  - mc 1.3.2 compatible
  - bc 3.1.8 compatible
  - not everything is implemented again for 1.3.2
-
 
 0.9:
  - removed engine control pipe (unnecessary now, buildcraft has a trigger api now)

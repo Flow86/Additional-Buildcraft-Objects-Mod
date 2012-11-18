@@ -2,12 +2,19 @@
 
 set CYGWIN=nontsec
 
-rsync -arv --existing ../build/mcp/src/minecraft/ client/
-rsync -arv --existing ../build/mcp/src/minecraft/ common/
+IF EXIST ..\build\mcp\src\minecraft (
+	echo Syncing Client
+	rsync -arv --existing ../build/mcp/src/minecraft/ client/
+	rsync -arv --existing ../build/mcp/src/minecraft/ common/
+	rsync -arv --existing ../build/mcp/src/minecraft/lang/ resources/lang/
+)
 
-PAUSE
+IF EXIST ..\build\mcp\src\minecraft_server (
+	PAUSE
 
-rsync -arv --existing ../build/mcp/src/minecraft_server/ server/
-rsync -arv --existing ../build/mcp/src/minecraft_server/ common/
+	echo Syncing Server
+	rsync -arv --existing ../build/mcp/src/minecraft_server/ server/
+	rsync -arv --existing ../build/mcp/src/minecraft_server/ common/
+)
 
 PAUSE
