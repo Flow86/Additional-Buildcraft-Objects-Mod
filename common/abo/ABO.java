@@ -27,12 +27,14 @@ import abo.pipes.PipeItemsExtraction;
 import abo.pipes.PipeItemsInsertion;
 import abo.pipes.PipeItemsRoundRobin;
 import abo.pipes.PipeItemsStripes;
+import abo.pipes.PipeLiquidsBalance;
 import abo.pipes.PipeLiquidsGoldenIron;
 import abo.pipes.PipePowerSwitch;
 import abo.proxy.ABOProxy;
 import abo.triggers.ABOTriggerProvider;
 import abo.triggers.TriggerEngineControl;
 import buildcraft.BuildCraftCore;
+import buildcraft.BuildCraftEnergy;
 import buildcraft.BuildCraftTransport;
 import buildcraft.api.gates.Action;
 import buildcraft.api.gates.ActionManager;
@@ -57,7 +59,7 @@ import cpw.mods.fml.common.registry.LanguageRegistry;
  * @author Flow86
  * 
  */
-@Mod(modid = "Additional-Buildcraft-Objects", name = "Additional-Buildcraft-Objects", version = "@ABO_VERSION@", dependencies = "required-after:BuildCraft|Transport")
+@Mod(modid = "Additional-Buildcraft-Objects", name = "Additional-Buildcraft-Objects", version = "@ABO_VERSION@", dependencies = "required-after:BuildCraft|Transport;required-after:BuildCraft|Energy")
 public class ABO {
 	public static final String VERSION = "@ABO_VERSION@";
 
@@ -73,8 +75,8 @@ public class ABO {
 	public static int pipeLiquidsGoldenIronID = 10201;
 	public static Item pipeLiquidsGoldenIron = null;
 
-	// public static int pipeLiquidsBalanceID = 10203;
-	// public static Item pipeLiquidsBalance = null;
+	public static int pipeLiquidsBalanceID = 10203;
+	public static Item pipeLiquidsBalance = null;
 
 	// public static int pipeLiquidsDiamondID = 10204;
 	// public static Item pipeLiquidsDiamond = null;
@@ -131,11 +133,8 @@ public class ABO {
 			pipeLiquidsGoldenIron = createPipe(pipeLiquidsGoldenIronID, PipeLiquidsGoldenIron.class, "Golden Iron Waterproof Pipe", 1,
 					BuildCraftTransport.pipeLiquidsGold, BuildCraftTransport.pipeLiquidsIron, null);
 
-			// pipeLiquidsBalance = createPipe(pipeLiquidsBalanceID,
-			// PipeLiquidsBalance.class, "Balance Pipe", 1,
-			// BuildCraftTransport.pipeLiquidsWood,
-			// new ItemStack(BuildCraftEnergy.engineBlock, 1, 0),
-			// BuildCraftTransport.pipeLiquidsWood);
+			pipeLiquidsBalance = createPipe(pipeLiquidsBalanceID, PipeLiquidsBalance.class, "Balancing Waterproof Pipe", 1,
+					BuildCraftTransport.pipeLiquidsWood, new ItemStack(BuildCraftEnergy.engineBlock, 1, 0), BuildCraftTransport.pipeLiquidsWood);
 
 			// pipeLiquidsDiamond = createPipe(pipeLiquidsDiamondID,
 			// PipeLiquidsDiamond.class, "Diamond Liquids Pipe", 1,
