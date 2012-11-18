@@ -119,7 +119,7 @@ public class PipeLiquidsBalance extends ABOPipe {
 
 		for (Orientations o : Orientations.dirs()) {
 			TileEntity tile = container.tileBuffer[o.ordinal()].getTile();
-			if (tile == null || !(tile instanceof ITankContainer))
+			if (tile == null || tile instanceof TileGenericPipe || !(tile instanceof ITankContainer))
 				continue;
 
 			Neighbor neighbor = new Neighbor((ITankContainer) tile, o);
