@@ -1,6 +1,15 @@
 
-Additional Buildcraft Objects:
+Additional Buildcraft Objects
+---------------------------------------------------------------------------------
 
+Minecraft Forum: http://www.minecraftforum.net/topic/682821-142bc3x094-additional-buildcraft-objects/page__p__8920844
+Download Links:  http://www.siedler25.org/uploads/minecraft/AdditionalBuildcraftObjects/
+
+Please report any bugs to GitHUB: https://github.com/Flow86/Additional-Buildcraft-Objects-Mod
+
+---------------------------------------------------------------------------------
+
+Pipes
 ---------------------------------------------------------------------------------
 
 Round Robin Transport Pipe
@@ -8,7 +17,7 @@ Round Robin Transport Pipe
 
 Recipe:
   StoneTransportPipe Gravel
-
+  
 ---------------------------------------------------------------------------------
 
 Compactor Pipe
@@ -19,6 +28,9 @@ Compactor Pipe
 Recipe:
   StoneTransportPipe Piston
 
+Versions:
+  only in pre buildcraft 3.1.8
+  
 ---------------------------------------------------------------------------------
 
 Insertion Transport Pipe
@@ -31,7 +43,6 @@ Insertion Transport Pipe
 
 Recipe:
   CobblestoneTransportPipe Redstone
-
 
 ---------------------------------------------------------------------------------
 
@@ -72,10 +83,12 @@ Valve Pipe
   acts like a wooden pipe (without need of wooden engine)
   also acts like a, yes ..., valve ;-)
 
-
 Recipe:
   WoodenWaterproofPipe Lever WoodenWaterproofPipe 
 
+Versions:
+  only in pre buildcraft 3.1.8
+ 
 ---------------------------------------------------------------------------------
 
 Golden Iron Waterproof Pipe
@@ -104,6 +117,9 @@ Diamond Waterproof Pipe
 Recipe:
   DiamondTransportPipe PipeWaterproof
 
+Versions:
+  only in pre buildcraft 3.1.8
+ 
 ---------------------------------------------------------------------------------
 
 Power Switch Pipe
