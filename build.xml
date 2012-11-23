@@ -118,6 +118,11 @@
 			<arg line="/c"/>
 			<arg line="reobfuscate.bat"/>
 		</exec>
+		
+		<!-- remove empty server.md5 -->
+		<exec dir="${mcp.dir}" executable="find" osfamily="unix" failonerror="false">
+			<arg value="temp -empty -exec rm {} \;" />
+		</exec>
 
 		<exec dir="${mcp.dir}" executable="sh" osfamily="unix" failonerror="true">
 			<arg value="reobfuscate.sh" />
