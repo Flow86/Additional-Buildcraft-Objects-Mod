@@ -12,13 +12,13 @@
 
 package abo.pipes;
 
+import net.minecraftforge.common.ForgeDirection;
 import abo.ABO;
 import buildcraft.api.power.IPowerReceptor;
 import buildcraft.transport.Pipe;
 import buildcraft.transport.PipeTransportItems;
 import buildcraft.transport.pipes.PipeItemsWood;
 import cpw.mods.fml.relauncher.ReflectionHelper;
-import net.minecraftforge.common.ForgeDirection;
 
 /**
  * This pipe will always prefer to insert it's objects into another pipe over
@@ -61,7 +61,7 @@ public class PipeItemsExtraction extends PipeItemsWood implements IPowerReceptor
 			if (metadata == direction.ordinal())
 				return sideTexture;
 
-			return sideTexture;
+			return baseTexture;
 		}
 	}
 }

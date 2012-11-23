@@ -19,9 +19,9 @@ import java.util.LinkedList;
 
 import net.minecraft.src.NBTTagCompound;
 import net.minecraft.src.TileEntity;
+import net.minecraftforge.common.ForgeDirection;
 import abo.ABO;
 import abo.actions.ActionSwitchOnPipe;
-import buildcraft.api.core.Orientations;
 import buildcraft.api.core.Position;
 import buildcraft.api.gates.ActionManager;
 import buildcraft.api.gates.IAction;
@@ -44,11 +44,11 @@ public class PipePowerSwitch extends ABOPipe {
 	public PipePowerSwitch(int itemID) {
 		super(new PipeTransportPower(), new PipeLogicGold(), itemID);
 
-		((PipeTransportPower) transport).powerResitance = 0.001;
+		((PipeTransportPower) transport).powerResistance = 0.001;
 	}
 
 	@Override
-	public int getTextureIndex(Orientations direction) {
+	public int getTextureIndex(ForgeDirection direction) {
 
 		return isPowered() ? poweredTexture : unpoweredTexture;
 	}
@@ -105,7 +105,7 @@ public class PipePowerSwitch extends ABOPipe {
 		neighbours.add(this.container);
 
 		powered = false;
-		for (Orientations o : Orientations.dirs()) {
+		for (ForgeDirection o : ForgeDirection.VALID_DIRECTIONS) {
 			Position pos = new Position(xCoord, yCoord, zCoord, o);
 			pos.moveForwards(1.0);
 

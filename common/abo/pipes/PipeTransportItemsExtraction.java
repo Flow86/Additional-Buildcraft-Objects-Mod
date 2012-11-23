@@ -15,10 +15,10 @@ package abo.pipes;
 import java.util.LinkedList;
 
 import net.minecraft.src.TileEntity;
+import net.minecraftforge.common.ForgeDirection;
 import buildcraft.api.transport.IPipeEntry;
 import buildcraft.transport.EntityData;
 import buildcraft.transport.PipeTransportItems;
-import net.minecraftforge.common.ForgeDirection;
 
 /**
  * This pipe will always prefer to insert it's objects into another pipe over
@@ -33,7 +33,7 @@ public class PipeTransportItemsExtraction extends PipeTransportItems {
 		LinkedList<ForgeDirection> pipesList = new LinkedList<ForgeDirection>();
 
 		data.blacklist.add(data.input.getOpposite());
-		
+
 		for (ForgeDirection o : ForgeDirection.VALID_DIRECTIONS) {
 			if (!data.blacklist.contains(o) && container.pipe.outputOpen(o)) {
 				if (canReceivePipeObjects(o, data.item)) {

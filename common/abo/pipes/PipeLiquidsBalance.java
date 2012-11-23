@@ -15,10 +15,10 @@ package abo.pipes;
 import java.util.LinkedList;
 
 import net.minecraft.src.TileEntity;
-import buildcraft.api.core.Orientations;
-import buildcraft.api.liquids.ILiquidTank;
-import buildcraft.api.liquids.ITankContainer;
-import buildcraft.api.liquids.LiquidStack;
+import net.minecraftforge.common.ForgeDirection;
+import net.minecraftforge.liquids.ILiquidTank;
+import net.minecraftforge.liquids.ITankContainer;
+import net.minecraftforge.liquids.LiquidStack;
 import buildcraft.transport.PipeTransportLiquids;
 import buildcraft.transport.TileGenericPipe;
 import buildcraft.transport.pipes.PipeLogicStone;
@@ -28,7 +28,7 @@ import buildcraft.transport.pipes.PipeLogicStone;
  * 
  */
 class Neighbor {
-	public Neighbor(ITankContainer container, Orientations orientation) {
+	public Neighbor(ITankContainer container, ForgeDirection orientation) {
 		c = container;
 		o = orientation;
 	}
@@ -49,10 +49,10 @@ class Neighbor {
 
 	public ILiquidTank getTank() {
 		try {
-			return c.getTanks()[o.reverse().ordinal()];
+			return c.getTanks(o.getOpposite())[0];
 		} catch (ArrayIndexOutOfBoundsException e) {
 			try {
-				return c.getTanks()[0];
+				return c.getTanks(ForgeDirection.UNKNOWN)[0];
 			} catch (ArrayIndexOutOfBoundsException f) {
 				return null;
 			}
@@ -63,12 +63,12 @@ class Neighbor {
 		return c;
 	}
 
-	public Orientations getOrientation() {
+	public ForgeDirection getOrientation() {
 		return o;
 	}
 
 	private final ITankContainer c;
-	private final Orientations o;
+	private final ForgeDirection o;
 }
 
 /**
@@ -89,7 +89,7 @@ public class PipeLiquidsBalance extends ABOPipe {
 	}
 
 	@Override
-	public int getTextureIndex(Orientations direction) {
+	public int getTextureIndex(ForgeDirection direction) {
 		return blockTexture;
 	}
 
@@ -117,7 +117,7 @@ public class PipeLiquidsBalance extends ABOPipe {
 
 		LinkedList<Neighbor> neighbors = new LinkedList<Neighbor>();
 
-		for (Orientations o : Orientations.dirs()) {
+		for (ForgeDirection o : ForgeDirection.VALID_DIRECTIONS) {
 			TileEntity tile = container.tileBuffer[o.ordinal()].getTile();
 			if (tile == null || tile instanceof TileGenericPipe || !(tile instanceof ITankContainer))
 				continue;
@@ -134,13 +134,13 @@ public class PipeLiquidsBalance extends ABOPipe {
 		int liquidCapacity = 0;
 		int liquidNeighbors = 0;
 
-		for (ILiquidTank tank : ltransport.getTanks()) {
+		for (ILiquidTank tank : ltransport.getTanks(ForgeDirection.UNKNOWN)) {
 			LiquidStack liquid = tank.getLiquid();
 			if (liquid != null)
 				liquidAmount += liquid.amount;
 		}
 
-		LiquidStack liquid = ltransport.getTanks()[Orientations.Unknown.ordinal()].getLiquid();
+		LiquidStack liquid = ltransport.getTanks(ForgeDirection.UNKNOWN)[ForgeDirection.UNKNOWN.ordinal()].getLiquid();
 		if (liquid != null && liquid.amount > 0)
 			liquidID = liquid.itemID;
 
@@ -190,14 +190,14 @@ public class PipeLiquidsBalance extends ABOPipe {
 
 			} else if (liquidToExtract < 1) {
 				// drain pipe (read available liquid)
-				LiquidStack liquidExtracted = ltransport.drain(neighbor.getOrientation().reverse(), liquidToExtract > ltransport.flowRate ? ltransport.flowRate
-						: liquidToExtract, false);
+				LiquidStack liquidExtracted = ltransport.drain(neighbor.getOrientation().getOpposite(),
+						liquidToExtract > ltransport.flowRate ? ltransport.flowRate : liquidToExtract, false);
 				if (liquidExtracted != null) {
 					// fill tank
-					int filled = neighbor.getTankEntity().fill(neighbor.getOrientation().reverse(), liquidExtracted, true);
+					int filled = neighbor.getTankEntity().fill(neighbor.getOrientation().getOpposite(), liquidExtracted, true);
 					if (filled != 0) {
 						// really drain pipe
-						liquidExtracted = ltransport.drain(neighbor.getOrientation().reverse(), filled, true);
+						liquidExtracted = ltransport.drain(neighbor.getOrientation().getOpposite(), filled, true);
 					}
 				}
 			}

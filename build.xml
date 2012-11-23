@@ -14,6 +14,7 @@
 		<delete file="jenkins.properties" failonerror="false" />
 		<propertyfile file="jenkins.properties">
 			<entry key="ABO_VERSION_FULL" value="${abo.version.full}" />
+			<entry key="MC_VERSION" value="${mc.version}" />
 			<entry key="MCP_VERSION" value="${mcp.version}" />
 			<entry key="BC_VERSION" value="${bc.version}" />
 			<entry key="FORGE_VERSION" value="${forge.version}" />
@@ -92,6 +93,7 @@
 			<filterset>
 				<filter token="ABO_VERSION" value="${abo.version}" />
 				<filter token="BUILD_NUMBER" value="${build.number}" />
+				<filter token="MINECRAFT_VERSION" value="${mc.version}" />
 				<filter token="BUILDCRAFT_VERSION" value="${bc.version}" />
 				<filter token="FORGE_VERSION" value="${forge.version}" />
 			</filterset>

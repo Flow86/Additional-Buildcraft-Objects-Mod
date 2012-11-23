@@ -12,9 +12,9 @@
 
 package abo.pipes;
 
+import net.minecraftforge.common.ForgeDirection;
 import buildcraft.transport.PipeTransportLiquids;
 import buildcraft.transport.pipes.PipeLogicIron;
-import net.minecraftforge.common.ForgeDirection;
 
 /**
  * @author Flow86

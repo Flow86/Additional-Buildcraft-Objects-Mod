@@ -14,11 +14,10 @@ package abo.pipes;
 
 import java.util.LinkedList;
 
+import net.minecraftforge.common.ForgeDirection;
 import buildcraft.api.core.Position;
-import buildcraft.api.transport.IPipedItem;
 import buildcraft.transport.EntityData;
 import buildcraft.transport.PipeTransportItems;
-import net.minecraftforge.common.ForgeDirection;
 
 /**
  * This pipe will always prefer to use the opposite direction, so items will go

@@ -15,9 +15,9 @@ package abo.pipes;
 import java.util.LinkedList;
 
 import net.minecraft.src.NBTTagCompound;
+import net.minecraftforge.common.ForgeDirection;
 import buildcraft.transport.EntityData;
 import buildcraft.transport.PipeTransportItems;
-import net.minecraftforge.common.ForgeDirection;
 
 /**
  * @author Flow86

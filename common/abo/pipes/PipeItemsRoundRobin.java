@@ -12,8 +12,8 @@
 
 package abo.pipes;
 
-import buildcraft.transport.pipes.PipeLogicStone;
 import net.minecraftforge.common.ForgeDirection;
+import buildcraft.transport.pipes.PipeLogicStone;
 
 /**
  * @author Flow86

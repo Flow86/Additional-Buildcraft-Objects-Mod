@@ -8,10 +8,11 @@
 
 package abo.pipes;
 
-import java.util.ArrayList;
+import java.util.List;
 
 import net.minecraft.src.ItemStack;
 import net.minecraft.src.TileEntity;
+import net.minecraftforge.common.ForgeDirection;
 import buildcraft.api.core.Position;
 import buildcraft.api.power.IPowerProvider;
 import buildcraft.api.power.IPowerReceptor;
@@ -24,7 +25,6 @@ import buildcraft.core.utils.Utils;
 import buildcraft.transport.EntityData;
 import buildcraft.transport.IItemTravelingHook;
 import buildcraft.transport.PipeTransportItems;
-import net.minecraftforge.common.ForgeDirection;
 
 public class PipeItemsStripes extends ABOPipe implements IItemTravelingHook, IPowerReceptor {
 
@@ -55,7 +55,7 @@ public class PipeItemsStripes extends ABOPipe implements IItemTravelingHook, IPo
 				Position p = new Position(xCoord, yCoord, zCoord, o);
 				p.moveForwards(1.0);
 
-				ArrayList<ItemStack> stacks = BlockUtil.getItemStackFromBlock(worldObj, (int) p.x, (int) p.y, (int) p.z);
+				List<ItemStack> stacks = BlockUtil.getItemStackFromBlock(worldObj, (int) p.x, (int) p.y, (int) p.z);
 
 				if (stacks != null)
 					for (ItemStack s : stacks)
@@ -88,14 +88,14 @@ public class PipeItemsStripes extends ABOPipe implements IItemTravelingHook, IPo
 			data.item
 					.getItemStack()
 					.getItem()
-					.onItemUse(data.item.getItemStack(), CoreProxy.proxy.getBuildCraftPlayer(worldObj), worldObj, (int) p.x, (int) p.y - 1, (int) p.z,
-							1, 0.0f, 0.0f, 0.0f);
+					.onItemUse(data.item.getItemStack(), CoreProxy.proxy.getBuildCraftPlayer(worldObj), worldObj, (int) p.x, (int) p.y - 1, (int) p.z, 1, 0.0f,
+							0.0f, 0.0f);
 		else
 			data.item
 					.getItemStack()
 					.getItem()
-					.onItemUse(data.item.getItemStack(), CoreProxy.proxy.getBuildCraftPlayer(worldObj), worldObj, (int) p.x, (int) p.y, (int) p.z, 1,
-							0.0f, 0.0f, 0.0f);
+					.onItemUse(data.item.getItemStack(), CoreProxy.proxy.getBuildCraftPlayer(worldObj), worldObj, (int) p.x, (int) p.y, (int) p.z, 1, 0.0f,
+							0.0f, 0.0f);
 	}
 
 	@Override

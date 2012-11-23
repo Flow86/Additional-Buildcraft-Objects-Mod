@@ -12,9 +12,9 @@
 
 package abo.pipes;
 
+import net.minecraftforge.common.ForgeDirection;
 import buildcraft.transport.PipeTransportItems;
 import buildcraft.transport.pipes.PipeLogicStone;
-import net.minecraftforge.common.ForgeDirection;
 
 /**
  * This pipe will always prefer to insert it's objects into a tile that is not a

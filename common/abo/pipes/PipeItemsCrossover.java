@@ -12,8 +12,8 @@
 
 package abo.pipes;
 
-import buildcraft.transport.pipes.PipeLogicStone;
 import net.minecraftforge.common.ForgeDirection;
+import buildcraft.transport.pipes.PipeLogicStone;
 
 /**
  * This pipe will always prefer to use the opposite direction, so items will go
