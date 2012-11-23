@@ -119,9 +119,14 @@
 			<arg line="reobfuscate.bat"/>
 		</exec>
 		
-		<!-- remove empty server.md5 -->
+		<!-- remove empty server.md5 or simply every empty file in temp! -->
 		<exec dir="${mcp.dir}" executable="find" osfamily="unix" failonerror="false">
-			<arg value="temp -empty -exec rm {} \;" />
+			<arg value="temp" />
+			<arg value="-empty" />
+			<arg value="-exec" />
+			<arg value="rm" />
+			<arg value="{}" />
+			<arg value=";" />
 		</exec>
 
 		<exec dir="${mcp.dir}" executable="sh" osfamily="unix" failonerror="true">
