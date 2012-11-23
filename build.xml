@@ -5,11 +5,11 @@
 	<property name="abo.dir"                value="Additional-Buildcraft-Objects"/>
 	
 	<import file="../BuildCraft/build.xml" as="BuildCraft"/>
-
+	
 	<!-- Targets -->
 	<target name="initialize-version" depends="BuildCraft.initialize-version,version-provided,version-not-provided">
 		<property name="abo.version.full"     value="${abo.version}.${build.number}"/>
-		<echo message="Building ${ant.project.name} ${abo.version.full} with Forge ${forge.version} and BuildCraft ${bc.version} in ${build.dir}"/>
+		<echo message="Building ${ant.project.name} ${abo.version.full} with Forge ${forge.version} and BuildCraft ${bc.version}"/>
 		
 		<delete file="jenkins.properties" failonerror="false" />
 		<propertyfile file="jenkins.properties">
