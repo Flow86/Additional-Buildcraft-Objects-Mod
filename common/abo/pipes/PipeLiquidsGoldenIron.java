@@ -12,9 +12,9 @@
 
 package abo.pipes;
 
-import buildcraft.api.core.Orientations;
 import buildcraft.transport.PipeTransportLiquids;
 import buildcraft.transport.pipes.PipeLogicIron;
+import net.minecraftforge.common.ForgeDirection;
 
 /**
  * @author Flow86
@@ -33,8 +33,8 @@ public class PipeLiquidsGoldenIron extends ABOPipe {
 	}
 
 	@Override
-	public int getTextureIndex(Orientations direction) {
-		if (direction == Orientations.Unknown)
+	public int getTextureIndex(ForgeDirection direction) {
+		if (direction == ForgeDirection.UNKNOWN)
 			return baseTexture;
 		else {
 			int metadata = worldObj.getBlockMetadata(xCoord, yCoord, zCoord);

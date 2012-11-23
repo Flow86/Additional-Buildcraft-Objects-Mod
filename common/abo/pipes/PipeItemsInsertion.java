@@ -12,9 +12,9 @@
 
 package abo.pipes;
 
-import buildcraft.api.core.Orientations;
 import buildcraft.transport.PipeTransportItems;
 import buildcraft.transport.pipes.PipeLogicStone;
+import net.minecraftforge.common.ForgeDirection;
 
 /**
  * This pipe will always prefer to insert it's objects into a tile that is not a
@@ -31,7 +31,7 @@ public class PipeItemsInsertion extends ABOPipe {
 	}
 
 	@Override
-	public int getTextureIndex(Orientations direction) {
+	public int getTextureIndex(ForgeDirection direction) {
 		return 8 * 16 + 0;
 	}
 }

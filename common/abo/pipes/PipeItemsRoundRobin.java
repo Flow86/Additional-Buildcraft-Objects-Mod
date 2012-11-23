@@ -12,8 +12,8 @@
 
 package abo.pipes;
 
-import buildcraft.api.core.Orientations;
 import buildcraft.transport.pipes.PipeLogicStone;
+import net.minecraftforge.common.ForgeDirection;
 
 /**
  * @author Flow86
@@ -26,7 +26,7 @@ public class PipeItemsRoundRobin extends ABOPipe {
 	}
 
 	@Override
-	public int getTextureIndex(Orientations direction) {
+	public int getTextureIndex(ForgeDirection direction) {
 		return 1 * 16 + 0;
 	}
 }

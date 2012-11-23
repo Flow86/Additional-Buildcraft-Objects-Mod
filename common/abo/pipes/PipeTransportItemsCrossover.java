@@ -14,11 +14,11 @@ package abo.pipes;
 
 import java.util.LinkedList;
 
-import buildcraft.api.core.Orientations;
 import buildcraft.api.core.Position;
 import buildcraft.api.transport.IPipedItem;
 import buildcraft.transport.EntityData;
 import buildcraft.transport.PipeTransportItems;
+import net.minecraftforge.common.ForgeDirection;
 
 /**
  * This pipe will always prefer to use the opposite direction, so items will go
@@ -29,8 +29,8 @@ import buildcraft.transport.PipeTransportItems;
 public class PipeTransportItemsCrossover extends PipeTransportItems {
 
 	@Override
-	public LinkedList<Orientations> getPossibleMovements(EntityData data) {
-		LinkedList<Orientations> list = new LinkedList<Orientations>();
+	public LinkedList<ForgeDirection> getPossibleMovements(EntityData data) {
+		LinkedList<ForgeDirection> list = new LinkedList<ForgeDirection>();
 
 		Position newPos = new Position(xCoord, yCoord, zCoord, data.input);
 		newPos.moveForwards(1.0);

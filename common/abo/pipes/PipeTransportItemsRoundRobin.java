@@ -15,10 +15,9 @@ package abo.pipes;
 import java.util.LinkedList;
 
 import net.minecraft.src.NBTTagCompound;
-import buildcraft.api.core.Orientations;
-import buildcraft.api.core.Position;
 import buildcraft.transport.EntityData;
 import buildcraft.transport.PipeTransportItems;
+import net.minecraftforge.common.ForgeDirection;
 
 /**
  * @author Flow86
@@ -42,11 +41,11 @@ public class PipeTransportItemsRoundRobin extends PipeTransportItems {
 	}
 
 	@Override
-	public Orientations resolveDestination(EntityData data) {
-		LinkedList<Orientations> listOfPossibleMovements = getPossibleMovements(data);
+	public ForgeDirection resolveDestination(EntityData data) {
+		LinkedList<ForgeDirection> listOfPossibleMovements = getPossibleMovements(data);
 
 		if (listOfPossibleMovements.size() == 0) {
-			return Orientations.Unknown;
+			return ForgeDirection.UNKNOWN;
 		} else {
 			lastOrientation = (lastOrientation + 1) % listOfPossibleMovements.size();
 
