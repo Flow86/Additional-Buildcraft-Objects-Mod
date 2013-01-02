@@ -10,8 +10,8 @@ package abo.pipes;
 
 import java.util.List;
 
-import net.minecraft.src.ItemStack;
-import net.minecraft.src.TileEntity;
+import net.minecraft.item.ItemStack;
+import net.minecraft.tileentity.TileEntity;
 import net.minecraftforge.common.ForgeDirection;
 import buildcraft.api.core.Position;
 import buildcraft.api.power.IPowerProvider;

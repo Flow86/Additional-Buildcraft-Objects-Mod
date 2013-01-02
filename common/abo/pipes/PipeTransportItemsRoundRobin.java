@@ -1,5 +1,5 @@
 /** 
- * Copyright (C) 2011-2012 Flow86
+ * Copyright (C) 2011-2013 Flow86
  * 
  * AdditionalBuildcraftObjects is open-source.
  *
@@ -14,7 +14,7 @@ package abo.pipes;
 
 import java.util.LinkedList;
 
-import net.minecraft.src.NBTTagCompound;
+import net.minecraft.nbt.NBTTagCompound;
 import net.minecraftforge.common.ForgeDirection;
 import buildcraft.transport.EntityData;
 import buildcraft.transport.PipeTransportItems;

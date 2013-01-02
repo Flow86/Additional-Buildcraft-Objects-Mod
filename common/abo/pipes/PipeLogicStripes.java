@@ -9,7 +9,7 @@
 
 package abo.pipes;
 
-import net.minecraft.src.TileEntity;
+import net.minecraft.tileentity.TileEntity;
 import buildcraft.BuildCraftTransport;
 import buildcraft.transport.Pipe;
 import buildcraft.transport.TileGenericPipe;

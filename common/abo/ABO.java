@@ -1,5 +1,5 @@
 /** 
- * Copyright (C) 2011-2012 Flow86
+ * Copyright (C) 2011-2013 Flow86
  * 
  * AdditionalBuildcraftObjects is open-source.
  *
@@ -16,9 +16,9 @@ import java.io.File;
 import java.util.LinkedList;
 import java.util.logging.Logger;
 
-import net.minecraft.src.Block;
-import net.minecraft.src.Item;
-import net.minecraft.src.ItemStack;
+import net.minecraft.block.Block;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
 import net.minecraftforge.common.Property;
 import abo.actions.ActionSwitchOnPipe;
 import abo.pipes.PipeItemsBounce;

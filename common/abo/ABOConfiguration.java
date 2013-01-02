@@ -1,5 +1,5 @@
 /** 
- * Copyright (C) 2011-2012 Flow86
+ * Copyright (C) 2011-2013 Flow86
  * 
  * AdditionalBuildcraftObjects is open-source.
  *

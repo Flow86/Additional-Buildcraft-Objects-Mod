@@ -1,5 +1,5 @@
 /** 
- * Copyright (C) 2011-2012 Flow86
+ * Copyright (C) 2011-2013 Flow86
  * 
  * AdditionalBuildcraftObjects is open-source.
  *
@@ -12,7 +12,7 @@
 
 package abo.pipes;
 
-import net.minecraft.src.TileEntity;
+import net.minecraft.tileentity.TileEntity;
 import buildcraft.BuildCraftTransport;
 import buildcraft.transport.Pipe;
 import buildcraft.transport.TileGenericPipe;

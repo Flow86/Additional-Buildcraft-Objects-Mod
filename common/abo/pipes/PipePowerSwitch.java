@@ -17,8 +17,8 @@ import java.lang.reflect.Method;
 import java.util.HashMap;
 import java.util.LinkedList;
 
-import net.minecraft.src.NBTTagCompound;
-import net.minecraft.src.TileEntity;
+import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.tileentity.TileEntity;
 import net.minecraftforge.common.ForgeDirection;
 import abo.ABO;
 import abo.actions.ActionSwitchOnPipe;

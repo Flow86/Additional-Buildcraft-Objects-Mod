@@ -1,5 +1,5 @@
 /** 
- * Copyright (C) 2011-2012 Flow86
+ * Copyright (C) 2011-2013 Flow86
  * 
  * AdditionalBuildcraftObjects is open-source.
  *
@@ -14,8 +14,8 @@ package abo.triggers;
 
 import java.util.LinkedList;
 
-import net.minecraft.src.Block;
-import net.minecraft.src.TileEntity;
+import net.minecraft.block.Block;
+import net.minecraft.tileentity.TileEntity;
 import abo.ABO;
 import buildcraft.api.gates.ITrigger;
 import buildcraft.api.gates.ITriggerProvider;
