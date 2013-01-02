@@ -141,6 +141,9 @@ Safe-Engine Trigger
 
 Changelog:
 
+0.9.5:
+ - bc 3.3.0 / mc 1.4.6 compatible
+
 0.9.4:
  - updated/readded balance pipe
 

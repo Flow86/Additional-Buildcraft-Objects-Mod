@@ -1,7 +1,7 @@
 <project name="Additional-Buildcraft-Objects" basedir="../" default="main">
 	<property environment="env" />
 
-	<property name="abo.version"            value="0.9.4"/>
+	<property name="abo.version"            value="0.9.5"/>
 	<property name="abo.dir"                value="Additional-Buildcraft-Objects"/>
 	
 	<import file="../BuildCraft/build.xml" as="BuildCraft"/>
