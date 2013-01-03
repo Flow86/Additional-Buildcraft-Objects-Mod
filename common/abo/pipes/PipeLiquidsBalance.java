@@ -34,16 +34,28 @@ class Neighbor {
 	}
 
 	public int getLiquidId() {
-		LiquidStack liquid = getTank().getLiquid();
+		ILiquidTank tank = getTank();
+		if (tank == null)
+			return 0;
+
+		LiquidStack liquid = tank.getLiquid();
 		return liquid != null ? liquid.itemID : 0;
 	}
 
 	public int getLiquidCapacity() {
-		return getTank().getCapacity();
+		ILiquidTank tank = getTank();
+		if (tank == null)
+			return 0;
+
+		return tank.getCapacity();
 	}
 
 	public int getLiquidAmount() {
-		LiquidStack liquid = getTank().getLiquid();
+		ILiquidTank tank = getTank();
+		if (tank == null)
+			return 0;
+
+		LiquidStack liquid = tank.getLiquid();
 		return liquid != null ? liquid.amount : 0;
 	}
 
@@ -135,12 +147,20 @@ public class PipeLiquidsBalance extends ABOPipe {
 		int liquidNeighbors = 0;
 
 		for (ILiquidTank tank : ltransport.getTanks(ForgeDirection.UNKNOWN)) {
+			if (tank == null)
+				continue;
+
 			LiquidStack liquid = tank.getLiquid();
 			if (liquid != null)
 				liquidAmount += liquid.amount;
 		}
 
-		LiquidStack liquid = ltransport.getTanks(ForgeDirection.UNKNOWN)[ForgeDirection.UNKNOWN.ordinal()].getLiquid();
+		ILiquidTank tank = ltransport.getTanks(ForgeDirection.UNKNOWN)[ForgeDirection.UNKNOWN.ordinal()];
+		LiquidStack liquid = null;
+
+		if (tank != null)
+			liquid = tank.getLiquid();
+
 		if (liquid != null && liquid.amount > 0)
 			liquidID = liquid.itemID;
 
@@ -158,7 +178,7 @@ public class PipeLiquidsBalance extends ABOPipe {
 			if (neighbor == null)
 				continue;
 
-			if (liquidID == neighbor.getLiquidId() || neighbor.getLiquidId() == 0) {
+			if (neighbor.getLiquidCapacity() > 0 && (liquidID == neighbor.getLiquidId() || neighbor.getLiquidId() == 0)) {
 
 				liquidAmount += neighbor.getLiquidAmount();
 				liquidCapacity += neighbor.getLiquidCapacity();

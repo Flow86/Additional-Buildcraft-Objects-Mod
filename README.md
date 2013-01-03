@@ -1,7 +1,7 @@
 
 # Additional Buildcraft Objects
 
-  ![alt text](http://ma.ra-doersch.de/abo-logo.png "Additional Buildcraft Objects")
+  ![Additional Buildcraft Objects](http://ma.ra-doersch.de/abo-logo.png "Additional Buildcraft Objects")
 
   Minecraft Forum: http://www.minecraftforum.net/index.php?app=forums&module=forums&section=findpost&pid=8920844
 
@@ -23,8 +23,8 @@
   modifications in any form, binary or source, except if expressively
   granted by the copyright holder.
 
-  * Mod Packs:
-    You can include (**precompiled**) ABO-packages in your modpacks as long you're not making money out of it (**so no adfly or something like that!**).
+  * **Mod Packs:**
+    You can include ( **precompiled** ) ABO-packages in your modpacks as long you're not making money out of it ( **so no adfly or something like that!** ).
 
     **AND: you have to send me a pm in which you post a link to your modpack.**
 
@@ -58,7 +58,7 @@
 
   * Versions:
 
-    only in pre buildcraft 3.1.8
+    **only in pre buildcraft 3.1.8**
 
 
 
@@ -122,7 +122,7 @@
 
   * Versions:
 
-    only in pre buildcraft 3.1.8
+    **only in pre buildcraft 3.1.8**
 
 
 
@@ -136,8 +136,7 @@
 
 
 #### Balance Pipe
-  balances liquid of connected tanks when powered
-  with redstone
+  balances liquid of connected tanks
 
   Thanks to Oxygene13 for his idea :-)
 
@@ -157,7 +156,7 @@
 
   * Versions:
 
-    only in pre buildcraft 3.1.8
+    **only in pre buildcraft 3.1.8**
 
 
 
