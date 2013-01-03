@@ -7,7 +7,7 @@
  * http://www.mod-buildcraft.com/MMPL-1.0.txt
  */
 
-package abo.pipes;
+package abo.pipes.items;
 
 import net.minecraft.tileentity.TileEntity;
 import buildcraft.BuildCraftTransport;

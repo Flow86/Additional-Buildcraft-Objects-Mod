@@ -10,7 +10,7 @@
  * granted by the copyright holder.
  */
 
-package abo.pipes;
+package abo.pipes.items;
 
 import java.util.LinkedList;
 
@@ -21,13 +21,12 @@ import buildcraft.transport.EntityData;
 import buildcraft.transport.PipeTransportItems;
 
 /**
- * This pipe will always prefer to insert it's objects into a tile that is not a
- * pipe over another pipe.
+ * This pipe will always prefer to insert it's objects into another pipe over
+ * one that is not a pipe.
  * 
  * @author Scott Chamberlain (Leftler) ported to BC > 2.2 by Flow86
  */
-public class PipeTransportItemsInsertion extends PipeTransportItems {
-
+public class PipeTransportItemsExtraction extends PipeTransportItems {
 	@Override
 	public LinkedList<ForgeDirection> getPossibleMovements(EntityData data) {
 		LinkedList<ForgeDirection> nonPipesList = new LinkedList<ForgeDirection>();
@@ -48,9 +47,9 @@ public class PipeTransportItemsInsertion extends PipeTransportItems {
 			}
 		}
 
-		if (!nonPipesList.isEmpty())
+		if (!pipesList.isEmpty())
+			return pipesList;
+		else
 			return nonPipesList;
-
-		return pipesList;
 	}
 }

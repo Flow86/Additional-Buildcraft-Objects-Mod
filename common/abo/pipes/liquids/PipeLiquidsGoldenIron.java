@@ -10,9 +10,10 @@
  * granted by the copyright holder.
  */
 
-package abo.pipes;
+package abo.pipes.liquids;
 
 import net.minecraftforge.common.ForgeDirection;
+import abo.pipes.ABOPipe;
 import buildcraft.transport.PipeTransportLiquids;
 import buildcraft.transport.pipes.PipeLogicIron;
 

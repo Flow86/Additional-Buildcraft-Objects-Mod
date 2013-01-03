@@ -10,23 +10,26 @@
  * granted by the copyright holder.
  */
 
-package abo.pipes;
+package abo.pipes.items;
 
 import net.minecraftforge.common.ForgeDirection;
+import abo.pipes.ABOPipe;
 import buildcraft.transport.pipes.PipeLogicStone;
 
 /**
- * @author Flow86
+ * This pipe will always prefer to use the opposite direction, so items will go
+ * "straight through"
  * 
+ * @author blakmajik ported to BC > 2.2 by Flow86
  */
-public class PipeItemsRoundRobin extends ABOPipe {
+public class PipeItemsCrossover extends ABOPipe {
 
-	public PipeItemsRoundRobin(int itemID) {
-		super(new PipeTransportItemsRoundRobin(), new PipeLogicStone(), itemID);
+	public PipeItemsCrossover(int itemID) {
+		super(new PipeTransportItemsCrossover(), new PipeLogicStone(), itemID);
 	}
 
 	@Override
 	public int getTextureIndex(ForgeDirection direction) {
-		return 1 * 16 + 0;
+		return 11 * 16 + 0;
 	}
 }

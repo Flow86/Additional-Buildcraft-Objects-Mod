@@ -10,7 +10,7 @@
  * granted by the copyright holder.
  */
 
-package abo.pipes;
+package abo.pipes.items;
 
 import net.minecraft.tileentity.TileEntity;
 import buildcraft.BuildCraftTransport;

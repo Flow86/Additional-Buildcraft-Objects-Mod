@@ -10,28 +10,24 @@
  * granted by the copyright holder.
  */
 
-package abo.pipes;
+package abo.pipes.items;
 
 import net.minecraftforge.common.ForgeDirection;
-import buildcraft.transport.PipeTransportItems;
+import abo.pipes.ABOPipe;
 import buildcraft.transport.pipes.PipeLogicStone;
 
 /**
- * This pipe will always prefer to insert it's objects into a tile that is not a
- * pipe over another pipe.
+ * @author Flow86
  * 
- * @author Scott Chamberlain (Leftler) ported to BC > 2.2 by Flow86
  */
-public class PipeItemsInsertion extends ABOPipe {
+public class PipeItemsRoundRobin extends ABOPipe {
 
-	public PipeItemsInsertion(int itemID) {
-		super(new PipeTransportItemsInsertion(), new PipeLogicStone(), itemID);
-
-		((PipeTransportItems) transport).allowBouncing = true;
+	public PipeItemsRoundRobin(int itemID) {
+		super(new PipeTransportItemsRoundRobin(), new PipeLogicStone(), itemID);
 	}
 
 	@Override
 	public int getTextureIndex(ForgeDirection direction) {
-		return 8 * 16 + 0;
+		return 1 * 16 + 0;
 	}
 }

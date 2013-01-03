@@ -10,11 +10,12 @@
  * granted by the copyright holder.
  */
 
-package abo.pipes;
+package abo.pipes.items;
 
 import java.util.LinkedList;
 
 import net.minecraftforge.common.ForgeDirection;
+import abo.pipes.ABOPipe;
 import buildcraft.api.core.Position;
 import buildcraft.api.transport.IPipedItem;
 import buildcraft.transport.IPipeTransportItemsHook;

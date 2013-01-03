@@ -10,7 +10,7 @@
  * granted by the copyright holder.
  */
 
-package abo.pipes;
+package abo.pipes.liquids;
 
 import java.util.LinkedList;
 
@@ -19,6 +19,7 @@ import net.minecraftforge.common.ForgeDirection;
 import net.minecraftforge.liquids.ILiquidTank;
 import net.minecraftforge.liquids.ITankContainer;
 import net.minecraftforge.liquids.LiquidStack;
+import abo.pipes.ABOPipe;
 import buildcraft.transport.PipeTransportLiquids;
 import buildcraft.transport.TileGenericPipe;
 import buildcraft.transport.pipes.PipeLogicStone;

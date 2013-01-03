@@ -21,15 +21,16 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.common.Property;
 import abo.actions.ActionSwitchOnPipe;
-import abo.pipes.PipeItemsBounce;
-import abo.pipes.PipeItemsCrossover;
-import abo.pipes.PipeItemsExtraction;
-import abo.pipes.PipeItemsInsertion;
-import abo.pipes.PipeItemsRoundRobin;
-import abo.pipes.PipeItemsStripes;
-import abo.pipes.PipeLiquidsBalance;
-import abo.pipes.PipeLiquidsGoldenIron;
-import abo.pipes.PipePowerSwitch;
+import abo.pipes.items.PipeItemsBounce;
+import abo.pipes.items.PipeItemsCrossover;
+import abo.pipes.items.PipeItemsExtraction;
+import abo.pipes.items.PipeItemsInsertion;
+import abo.pipes.items.PipeItemsRoundRobin;
+import abo.pipes.items.PipeItemsStripes;
+import abo.pipes.liquids.PipeLiquidsBalance;
+import abo.pipes.liquids.PipeLiquidsGoldenIron;
+import abo.pipes.liquids.PipeLiquidsValve;
+import abo.pipes.power.PipePowerSwitch;
 import abo.proxy.ABOProxy;
 import abo.triggers.ABOTriggerProvider;
 import abo.triggers.TriggerEngineControl;
@@ -69,8 +70,8 @@ public class ABO {
 	public static String texturePipes = "/gfx/abo/pipes.png";;
 	public static String textureTriggers = "/gfx/abo/triggers.png";;
 
-	// public static int pipeLiquidsValveID = 10200;
-	// public static Item pipeLiquidsValve = null;
+	public static int pipeLiquidsValveID = 10200;
+	public static Item pipeLiquidsValve = null;
 
 	public static int pipeLiquidsGoldenIronID = 10201;
 	public static Item pipeLiquidsGoldenIron = null;
@@ -125,10 +126,8 @@ public class ABO {
 		try {
 			aboConfiguration.load();
 
-			// pipeLiquidsValve = createPipe(pipeLiquidsValveID,
-			// PipeLiquidsValve.class, "Valve Pipe", 1,
-			// BuildCraftTransport.pipeLiquidsWood, Block.lever,
-			// BuildCraftTransport.pipeLiquidsWood);
+			pipeLiquidsValve = createPipe(pipeLiquidsValveID, PipeLiquidsValve.class, "Valve Pipe", 1, BuildCraftTransport.pipeLiquidsWood,
+					BuildCraftTransport.pipeGateAutarchic, null);
 
 			pipeLiquidsGoldenIron = createPipe(pipeLiquidsGoldenIronID, PipeLiquidsGoldenIron.class, "Golden Iron Waterproof Pipe", 1,
 					BuildCraftTransport.pipeLiquidsGold, BuildCraftTransport.pipeLiquidsIron, null);
@@ -172,8 +171,7 @@ public class ABO {
 			ActionManager.registerTriggerProvider(new ABOTriggerProvider());
 
 			BuildCraftCore.itemBptProps[pipeItemsExtraction.shiftedIndex] = new BptItemPipeWooden();
-			// BuildCraftCore.itemBptProps[pipeLiquidsValve.shiftedIndex] = new
-			// BptItemPipeIron();
+			BuildCraftCore.itemBptProps[pipeLiquidsValve.shiftedIndex] = new BptItemPipeIron();
 			BuildCraftCore.itemBptProps[pipeLiquidsGoldenIron.shiftedIndex] = new BptItemPipeIron();
 			// BuildCraftCore.itemBptProps[pipeLiquidsDiamond.shiftedIndex] =
 			// new BptItemPipeDiamond();

@@ -10,7 +10,7 @@
  * granted by the copyright holder.
  */
 
-package abo.pipes;
+package abo.pipes.power;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -22,6 +22,7 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraftforge.common.ForgeDirection;
 import abo.ABO;
 import abo.actions.ActionSwitchOnPipe;
+import abo.pipes.ABOPipe;
 import buildcraft.api.core.Position;
 import buildcraft.api.gates.ActionManager;
 import buildcraft.api.gates.IAction;
