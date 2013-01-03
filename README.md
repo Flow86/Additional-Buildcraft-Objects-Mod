@@ -34,7 +34,7 @@
 
 
 
-### Round Robin Transport Pipe
+#### Round Robin Transport Pipe
   will change output per item(stack)
 
   * Recipe:
@@ -43,7 +43,7 @@
 
 
 
-### Compactor Pipe
+#### Compactor Pipe
   will merge same items to larger itemstacks
 
   has to be powered with redstone
@@ -60,7 +60,7 @@
 
 
 
-### Insertion Transport Pipe
+#### Insertion Transport Pipe
   Insertion Pipes given the choice between putting a item in the pipe in to an
   inventory (A chest or a furnace) and passing it along to another pipe, the
   Insertion Pipe will always try to add the item to the inventory.
@@ -74,7 +74,7 @@
 
 
 
-### Extraction Transport Pipe
+#### Extraction Transport Pipe
   Extraction Pipe is the opposite of the Insertion Pipe. If the pipe can choose
   between an inventory and another pipe the pipe will always go with the next
   pipe. Also this pipe behaves the same as a wood pipe where it will pull items
@@ -89,7 +89,7 @@
 
 
 
-### Bounce Transport Pipe
+#### Bounce Transport Pipe
   This pipe will cause whatever enters the pipe to come back out the way it came
   unless the pipe is powered by redstone, then it behaves as a normal pipe.
 
@@ -99,7 +99,7 @@
 
 
 
-### Crossover Transport Pipe
+#### Crossover Transport Pipe
   This pipe will direct material entering it to the pipe
   (or something accepting material, like chests) directly across from it.
   If no such pipe exists, a random direction is chosen.
@@ -110,7 +110,7 @@
 
 
 
-### Valve Pipe
+#### Valve Pipe
   acts like a wooden pipe (without need of wooden engine)
   also acts like a, yes ..., valve ;-)
 
@@ -124,7 +124,7 @@
 
 
 
-### Golden Iron Waterproof Pipe
+#### Golden Iron Waterproof Pipe
   acts like a iron pipe with speed of a golden pipe
 
   * Recipe:
@@ -133,7 +133,7 @@
 
 
 
-### Balance Pipe
+#### Balance Pipe
   balances liquid of connected tanks when powered
   with redstone
 
@@ -145,7 +145,7 @@
 
 
 
-### Diamond Waterproof Pipe
+#### Diamond Waterproof Pipe
   acts like a diamond pipe but for liquids.
   every filter item not being a bucket or liquid gets ignored.
 
@@ -159,7 +159,7 @@
 
 
 
-### Power Switch Pipe
+#### Power Switch Pipe
   acts as lever for power pipes
 
   * Recipe:
@@ -167,8 +167,10 @@
     GoldenConductivePipe Lever
 
 
+## Triggers
+	
 
-### Safe-Engine Trigger
+#### Safe-Engine Trigger
   acts like the blue & green state trigger, so it will be active as long the
   engines are "blue" or "green"
 
