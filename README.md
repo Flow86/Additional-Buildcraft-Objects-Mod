@@ -1,4 +1,3 @@
-
 # Additional Buildcraft Objects
 
   ![Additional Buildcraft Objects](http://ma.ra-doersch.de/abo-logo.png "Additional Buildcraft Objects")
@@ -114,6 +113,7 @@
 
 #### Valve Pipe
   acts like a (golden) wooden pipe (without need of wooden engine)
+  
   **can empty a full tank with enough (=full) pressure for two golden pipes in seconds!**
 
   * Recipe:
