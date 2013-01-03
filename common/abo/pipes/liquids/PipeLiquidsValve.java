@@ -35,7 +35,7 @@ public class PipeLiquidsValve extends PipeLiquidsWood {
 	public PipeLiquidsValve(int itemID) {
 		super(itemID);
 
-		((PipeTransportLiquids) transport).flowRate = 80;
+		((PipeTransportLiquids) transport).flowRate = 160;
 		((PipeTransportLiquids) transport).travelDelay = 2;
 
 		pulser = new ABOEnergyPulser(this);
@@ -53,6 +53,11 @@ public class PipeLiquidsValve extends PipeLiquidsWood {
 			else
 				return baseTexture + (isPowered() ? 1 : 0);
 		}
+	}
+
+	@Override
+	public int getTextureIndexForItem() {
+		return baseTexture;
 	}
 
 	@Override

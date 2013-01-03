@@ -114,6 +114,7 @@
 
 #### Valve Pipe
   acts like a (golden) wooden pipe (without need of wooden engine)
+  **can empty a full tank with enough (=full) pressure for two golden pipes in seconds!**
 
   * Recipe:
 
@@ -181,7 +182,7 @@
   - fixed various bugs (balance pipe and redstone engine ...)
   - updated/readded valve pipe
 
-
+  
 * 0.9.5:
   - bc 3.3.0 / mc 1.4.6 compatible
 

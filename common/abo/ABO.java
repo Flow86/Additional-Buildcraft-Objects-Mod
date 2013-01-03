@@ -187,6 +187,16 @@ public class ABO {
 
 		ABOProxy.proxy.preloadTextures();
 
+		// fix problem with autarchic gate initialization sequence
+		PipeRecipe recipe = new PipeRecipe();
+
+		recipe.itemID = pipeLiquidsValve.shiftedIndex;
+		recipe.isShapeless = true;
+		recipe.result = new ItemStack(pipeLiquidsValve, 1);
+		recipe.input = new Object[] { BuildCraftTransport.pipeLiquidsWood, BuildCraftTransport.pipeGateAutarchic };
+
+		pipeRecipes.add(recipe);
+
 		loadRecipes();
 	}
 
