@@ -113,16 +113,11 @@
 
 
 #### Valve Pipe
-  acts like a wooden pipe (without need of wooden engine)
-  also acts like a, yes ..., valve ;-)
+  acts like a (golden) wooden pipe (without need of wooden engine)
 
   * Recipe:
 
-    WoodenWaterproofPipe Lever WoodenWaterproofPipe
-
-  * Versions:
-
-    **only in pre buildcraft 3.1.8**
+    WoodenWaterproofPipe AutarchicGate
 
 
 
@@ -181,6 +176,11 @@
 ---------------------------------------------------------------------------------
 
 ## Changelog:
+
+* 0.9.6:
+  - fixed various bugs (balance pipe and redstone engine ...)
+  - updated/readded valve pipe
+
 
 * 0.9.5:
   - bc 3.3.0 / mc 1.4.6 compatible
