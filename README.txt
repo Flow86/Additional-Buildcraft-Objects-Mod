@@ -1,5 +1,5 @@
 
-Additional Buildcraft Objects
+# Additional Buildcraft Objects
 ---------------------------------------------------------------------------------
 
 Minecraft Forum: http://www.minecraftforum.net/topic/682821-142bc3x094-additional-buildcraft-objects/page__p__8920844
@@ -9,31 +9,50 @@ Please report any bugs to GitHUB: https://github.com/Flow86/Additional-Buildcraf
 
 ---------------------------------------------------------------------------------
 
-Pipes
+## License
 ---------------------------------------------------------------------------------
 
-Round Robin Transport Pipe
+**AdditionalBuildcraftObjects is open-source.**
+
+It is distributed under the terms of my Open Source License.
+It grants rights to read, modify, compile or run the code.
+It does *NOT* grant the right to redistribute this software or its
+modifications in any form, binary or source, except if expressively
+granted by the copyright holder.
+
+* Mod Packs:
+  You can include (precompiled) ABO-packages in your modpacks as long you're not making money out of it (so no adfly or something like that!).
+  **AND: you have to send me a pm in which you post a link to your modpack.**
+
+**If you want to distribute a custom/modified abo build, you have to ask for permission first! **
+
+---------------------------------------------------------------------------------
+
+## Pipes
+---------------------------------------------------------------------------------
+
+### Round Robin Transport Pipe
   will change output per item(stack)
 
-Recipe:
+* Recipe:
   StoneTransportPipe Gravel
   
 ---------------------------------------------------------------------------------
 
-Compactor Pipe
+### Compactor Pipe
   will merge same items to larger itemstacks
   has to be powered with redstone
   ignores itemstacks larger than 16 items (only compacts smaller ones)
 
-Recipe:
+* Recipe:
   StoneTransportPipe Piston
 
-Versions:
+* Versions:
   only in pre buildcraft 3.1.8
   
 ---------------------------------------------------------------------------------
 
-Insertion Transport Pipe
+### Insertion Transport Pipe
   Insertion Pipes given the choice between putting a item in the pipe in to an 
   inventory (A chest or a furnace) and passing it along to another pipe, the
   Insertion Pipe will always try to add the item to the inventory. 
@@ -41,12 +60,12 @@ Insertion Transport Pipe
   This pipe is very useful for feedback loops as it forces the item to go in 
   to the last machine if it can.
 
-Recipe:
+* Recipe:
   CobblestoneTransportPipe Redstone
 
 ---------------------------------------------------------------------------------
 
-Extraction Transport Pipe
+### Extraction Transport Pipe
   Extraction Pipe is the opposite of the Insertion Pipe. If the pipe can choose 
   between an inventory and another pipe the pipe will always go with the next 
   pipe. Also this pipe behaves the same as a wood pipe where it will pull items
@@ -55,82 +74,82 @@ Extraction Transport Pipe
   This pipe is useful for tight spaces where you do not want a pipe to 
   accidentally fill a chest or machine. 
 
-Recipe:
+* Recipe:
   WoodTransportPipe Planks
 
 ---------------------------------------------------------------------------------
 
-Bounce Transport Pipe
+### Bounce Transport Pipe
   This pipe will cause whatever enters the pipe to come back out the way it came 
   unless the pipe is powered by redstone, then it behaves as a normal pipe.
 
-Recipe:
+* Recipe:
   StoneTransportPipe Cobblestone
 
 ---------------------------------------------------------------------------------
 
-Crossover Transport Pipe
+### Crossover Transport Pipe
   This pipe will direct material entering it to the pipe 
   (or something accepting material, like chests) directly across from it. 
   If no such pipe exists, a random direction is chosen.
 
-Recipe:
+* Recipe:
   StoneTransportPipe IronTransportPipe
 
 ---------------------------------------------------------------------------------
 
-Valve Pipe
+### Valve Pipe
   acts like a wooden pipe (without need of wooden engine)
   also acts like a, yes ..., valve ;-)
 
-Recipe:
+* Recipe:
   WoodenWaterproofPipe Lever WoodenWaterproofPipe 
 
-Versions:
+* Versions:
   only in pre buildcraft 3.1.8
  
 ---------------------------------------------------------------------------------
 
-Golden Iron Waterproof Pipe
+### Golden Iron Waterproof Pipe
   acts like a iron pipe with speed of a golden pipe
 
-Recipe:
+* Recipe:
   GoldenWaterproofPipe IronWaterproofPipe 
 
 ---------------------------------------------------------------------------------
 
-Balance Pipe
+### Balance Pipe
   balances liquid of connected tanks when powered 
   with redstone
 
   Thanks to Oxygene13 for his idea :-)
 
-Recipe:
+* Recipe:
   WoodenWaterproofPipe IronORGate WoodenWaterproofPipe
 
 ---------------------------------------------------------------------------------
 
-Diamond Waterproof Pipe
+### Diamond Waterproof Pipe
   acts like a diamond pipe but for liquids.
   every filter item not being a bucket or liquid gets ignored.
 
-Recipe:
+* Recipe:
   DiamondTransportPipe PipeWaterproof
 
-Versions:
+* Versions:
   only in pre buildcraft 3.1.8
  
 ---------------------------------------------------------------------------------
 
-Power Switch Pipe
+### Power Switch Pipe
   acts as lever for power pipes
 
-Recipe:
+* Recipe:
   GoldenConductivePipe Lever
 
 ---------------------------------------------------------------------------------
 
-Safe-Engine Trigger
+### Safe-Engine Trigger
   acts like the blue & green state trigger, so it will be active as long the 
   engines are "blue" or "green"
 
@@ -139,100 +158,100 @@ Safe-Engine Trigger
 
 ---------------------------------------------------------------------------------
 
-Changelog:
+## Changelog:
 
-0.9.5:
+* 0.9.5:
  - bc 3.3.0 / mc 1.4.6 compatible
 
-0.9.4:
+* 0.9.4:
  - updated/readded balance pipe
 
-0.9.4@56:
+* 0.9.4@56:
  - updated/readded power switch pipe
  - updated/readded switch on pipe action
  - fixed bounce pipe
 
-0.9.3:
+* 0.9.3:
  - mc 1.4.2 compatible
 
-0.9.2:
+* 0.9.2:
  - bc 3.2.0pre compatible
 
-0.9.1:
+* 0.9.1:
  - mc 1.3.2 compatible
  - bc 3.1.8 compatible
  - not everything is implemented again for 1.3.2
 
-0.9:
+* 0.9:
  - removed engine control pipe (unnecessary now, buildcraft has a trigger api now)
  - mc 1.1 compatible
  - bc 3.1.2/2.2.12 compatible
 
-0.8.2:
+* 0.8.2:
  - added diamond liquid pipe
 
 
-0.8.1:
+* 0.8.1:
  - added engine control pipe
 
-0.8:
+* 0.8:
  - added pipes from old "ExtraBuildcraftPipes"-Mod by leftler/blakmajik
-   ° Insertion Transport Pipe
-   ° Extraction Transport Pipe
-   ° Bounce Transport Pipe
-   ° Crossover Transport Pipe
+   + Insertion Transport Pipe
+   + Extraction Transport Pipe
+   + Bounce Transport Pipe
+   + Crossover Transport Pipe
    
    see: http://www.minecraftforum.net/topic/474348-173-2012-extrabuildcraftpipes/
 
    oh and YES - they gave me the permission (before someones shouting about copyright...)
 
-0.7:
+* 0.7:
  - bc 3.0.4 compat
  - removed obsolete Redstone Power Converter
  - removed "Invalid Pipe" (buildcraft now reacts correctly on unknown pipe ids)
 
-0.6f:
+* 0.6f:
  - fix missing class file (damn packaging script ...)
 
-0.6e:
+* 0.6e:
  - fix valve crash 2 (sorry again!!)
 
-0.6d:
+* 0.6d:
  - fix valve crash (sorry!!)
 
-0.6c:
+* 0.6c:
  - bc 3.0.3 compat
  - mc 1.0.0 compat
 
-0.6b:
+* 0.6b:
  - bc 3.0.2 compat
  - fixed power switch pipe
 
-0.6:
+* 0.6:
  - bc 3.0.1 compat
  - removed flowmeter (obsolete)
 
 
-0.5b:
+* 0.5b:
  - fixed bc > 2.2.2 compat
 
-0.5:
+* 0.5:
  - added Redstone Power Converter
  - added Compactor Pipe
 
-0.4:
+* 0.4:
  - added Balance Pipe
 
-0.3:
+* 0.3:
  - added Flow Meter Liquids Pipe
  - changed recipes
 
-0.2:
+* 0.2:
  - fixed Valve Liquids Pipe
  - added Power Switch Pipe
  - added Golden Iron  Liquids Pipe
 
-0.1:
+* 0.1:
  - added Round Robin Transport Pipe
  - added Valve Liquids Pipe
 
