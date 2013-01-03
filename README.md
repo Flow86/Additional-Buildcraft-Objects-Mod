@@ -1,7 +1,9 @@
 
 # Additional Buildcraft Objects
 
-  Minecraft Forum: http://www.minecraftforum.net/topic/682821-142bc3x094-additional-buildcraft-objects/page__p__8920844
+  ![alt text](http://ma.ra-doersch.de/abo-logo.png "Additional Buildcraft Objects")
+
+  Minecraft Forum: http://www.minecraftforum.net/index.php?app=forums&module=forums&section=findpost&pid=8920844
 
   Download Links:  http://www.siedler25.org/uploads/minecraft/AdditionalBuildcraftObjects/
 
