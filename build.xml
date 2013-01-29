@@ -1,7 +1,7 @@
 <project name="Additional-Buildcraft-Objects" basedir="../" default="main">
 	<property environment="env" />
 
-	<property name="abo.version"            value="0.9.7"/>
+	<property name="abo.version"            value="0.9.8"/>
 	<property name="abo.dir"                value="Additional-Buildcraft-Objects"/>
 	
 	<import file="../BuildCraft/build.xml" as="BuildCraft"/>
@@ -185,6 +185,7 @@
 		<delete dir="${mcpsrc.dir}/minecraft/buildcraft"/>
 		<delete dir="${mcpsrc.dir}/minecraft/lang/abo"/>
 		<delete dir="${mcpsrc.dir}/minecraft/lang/buildcraft"/>
+		<delete dir="${mcpsrc.dir}/minecraft/changelog"/>
 	</target>
 	
 	<target name="main" depends="clean,setup,copy-src,compile,copy,package">
