@@ -178,14 +178,19 @@
 
 ## Changelog:
 
+* 0.9.8:
+  - bc 3.4.2 compatible
+
+
 * 0.9.7:
   - bc 3.4.0 / mc 1.4.7 compatible
+
 
 * 0.9.6:
   - fixed various bugs (balance pipe and redstone engine ...)
   - updated/readded valve pipe
 
-  
+
 * 0.9.5:
   - bc 3.3.0 / mc 1.4.6 compatible
 
