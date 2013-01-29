@@ -65,8 +65,8 @@
 
 		<!-- Copy buildcraft resources to debug it -->
 		<copy todir="${mcpsrc.dir}/minecraft">
-			<fileset dir="${src.dir}/${resources.dir}">
-				<exclude name="changelog/*"/>
+			<fileset dir="${resources.dir}">
+				<exclude name="changelog"/>
 				<exclude name="build.xml"/>
 				<exclude name="build.number"/>
 				<exclude name="LICENSE.txt"/>
