@@ -170,9 +170,9 @@ public class ABO {
 
 			ActionManager.registerTriggerProvider(new ABOTriggerProvider());
 
-			BuildCraftCore.itemBptProps[pipeItemsExtraction.shiftedIndex] = new BptItemPipeWooden();
-			BuildCraftCore.itemBptProps[pipeLiquidsValve.shiftedIndex] = new BptItemPipeIron();
-			BuildCraftCore.itemBptProps[pipeLiquidsGoldenIron.shiftedIndex] = new BptItemPipeIron();
+			BuildCraftCore.itemBptProps[pipeItemsExtraction.itemID] = new BptItemPipeWooden();
+			BuildCraftCore.itemBptProps[pipeLiquidsValve.itemID] = new BptItemPipeIron();
+			BuildCraftCore.itemBptProps[pipeLiquidsGoldenIron.itemID] = new BptItemPipeIron();
 			// BuildCraftCore.itemBptProps[pipeLiquidsDiamond.shiftedIndex] =
 			// new BptItemPipeDiamond();
 		} finally {
@@ -190,7 +190,7 @@ public class ABO {
 		// fix problem with autarchic gate initialization sequence
 		PipeRecipe recipe = new PipeRecipe();
 
-		recipe.itemID = pipeLiquidsValve.shiftedIndex;
+		recipe.itemID = pipeLiquidsValve.itemID;
 		recipe.isShapeless = true;
 		recipe.result = new ItemStack(pipeLiquidsValve, 1);
 		recipe.input = new Object[] { BuildCraftTransport.pipeLiquidsWood, BuildCraftTransport.pipeGateAutarchic };
@@ -223,7 +223,7 @@ public class ABO {
 		// Add appropriate recipe to temporary list
 		PipeRecipe recipe = new PipeRecipe();
 
-		recipe.itemID = res.shiftedIndex;
+		recipe.itemID = res.itemID;
 
 		if (ingredient1 != null && ingredient2 != null && ingredient3 != null) {
 			recipe.result = new ItemStack(res, count);

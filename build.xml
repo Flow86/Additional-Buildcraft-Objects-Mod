@@ -1,12 +1,12 @@
 <project name="Additional-Buildcraft-Objects" basedir="../" default="main">
 	<property environment="env" />
 
-	<property name="abo.version"            value="0.9.6"/>
+	<property name="abo.version"            value="0.9.7"/>
 	<property name="abo.dir"                value="Additional-Buildcraft-Objects"/>
 	
 	<import file="../BuildCraft/build.xml" as="BuildCraft"/>
 	
-	<!-- Targets -->
+	<!-- Set full version -->
 	<target name="initialize-version" depends="BuildCraft.initialize-version,version-provided,version-not-provided">
 		<property name="abo.version.full"     value="${abo.version}.${build.number}"/>
 		<echo message="Building ${ant.project.name} ${abo.version.full} with Forge ${forge.version} and BuildCraft ${bc.version}"/>
@@ -21,18 +21,23 @@
 		</propertyfile>
 	</target>
 
+	<!-- Set unknown build number -->
 	<target name="version-not-provided" unless="env.BUILD_NUMBER">
-		<buildnumber/>
+		<property name="build.number" value="custom"/>
 	</target>
 
+	<!-- Set build number from environment -->
 	<target name="version-provided" if="env.BUILD_NUMBER">
 		<property name="build.number" value="${env.BUILD_NUMBER}"/>
 	</target>
-	
+
+	<!-- Clean -->
 	<target name="clean" depends="BuildCraft.clean">
+		<delete file="jenkins.properties" failonerror="false" />
 	</target>
 
-	<target name="setup" depends="initialize-version,BuildCraft.download-files,clean,BuildCraft.setup,BuildCraft.copy-src">
+	<!-- Setup -->
+	<target name="setup" depends="initialize-version,BuildCraft.setup,BuildCraft.copy-src">
 		
 		<!-- Update MD5 otherwise we get all the buildcraft classes too :/ -->
 		<exec dir="${mcp.dir}" executable="cmd" osfamily="windows" failonerror="true">
@@ -47,46 +52,52 @@
 		</exec>
 	</target>
 
+	<!-- Copy source for use in eclipse to debug -->
 	<target name="copy-src-eclipse" depends="BuildCraft.copy-src">
 		<echo message="Installing ABO source for Eclipse"/>
 
 		<!-- Copy ABO source -->
-		<copy todir="${mcpsrc.dir}">
+		<copy todir="${mcpsrc.dir}/minecraft">
 			<fileset dir="${abo.dir}/common">
 				<exclude name="**/*.bak"/>
 			</fileset>
 		</copy>
 
 		<!-- Copy buildcraft resources to debug it -->
-		<copy todir="${mcpsrc.dir}">
-			<fileset dir="${src.dir}/buildcraft_resources">
+		<copy todir="${mcpsrc.dir}/minecraft">
+			<fileset dir="${src.dir}/${resources.dir}">
+				<exclude name="changelog/*"/>
 				<exclude name="build.xml"/>
 				<exclude name="build.number"/>
+				<exclude name="LICENSE.txt"/>
+				<exclude name="mcmod.info"/>
 			</fileset>
 		</copy>
 
 		<!-- Copy buildcraft localizations to debug it -->
-		<copy todir="${mcpsrc.dir}">
+		<copy todir="${mcpsrc.dir}/minecraft">
 			<fileset dir="${lang.dir}">
 				<exclude name="README.md"/>
 			</fileset>
 		</copy>
 		
 		<!-- Copy abo resources to debug it -->
-		<copy todir="${mcpsrc.dir}">
+		<copy todir="${mcpsrc.dir}/minecraft">
 			<fileset dir="${abo.dir}/resources">
 				<exclude name="**/*.psd"/>
 				<exclude name="build.xml"/>
 				<exclude name="build.number"/>
+				<exclude name="mcmod.info"/>
 			</fileset>
 		</copy>
 	</target>
 
+	<!-- Copy source for packaging -->
 	<target name="copy-src">
 		<echo message="Installing ABO source"/>
 
 		<!-- Copy ABO source -->
-		<copy todir="${mcpsrc.dir}">
+		<copy todir="${mcpsrc.dir}/minecraft">
 			<fileset dir="${abo.dir}/common">
 				<exclude name="**/*.bak"/>
 			</fileset>
@@ -100,6 +111,7 @@
 		</copy>
 	</target>
 	
+	<!-- compile abo -->
 	<target name="compile">
 		<echo message="Compiling ABO"/>
 
@@ -112,6 +124,13 @@
 		<exec dir="${mcp.dir}" executable="sh" osfamily="unix" failonerror="true">
 			<arg value="recompile.sh" />
 		</exec>
+
+		<!-- Check for failure -->
+		<fail message="MCP failed to build">
+			<condition>
+				<resourcecontains resource="${mcp.dir}/logs/client_compile.log" substring="error:"/>
+			</condition>
+		</fail>		
 
 		<!-- Reobf -->
 		<exec dir="${mcp.dir}" executable="cmd" osfamily="windows" failonerror="true">
@@ -134,6 +153,7 @@
 		</exec>
 	</target>
 	
+	<!-- copy build results -->
 	<target name="copy">
 		<echo message="Copying build results"/>
 
@@ -152,11 +172,19 @@
 		</copy>
 	</target>
 	
+	<!-- create abo package -->
 	<target name="package">
-		
 		<echo message="Creating JAR"/>
 		
 		<jar destfile="${jar.dir}/buildcraft-Z-additional-buildcraft-objects-${abo.version.full}.jar" basedir="${classes.dir}"/>
+
+		<!-- Reset src dir to post-forge-install state -->
+		<delete dir="${mcpsrc.dir}/minecraft/gfx/abo"/>
+		<delete dir="${mcpsrc.dir}/minecraft/gfx/buildcraft"/>
+		<delete dir="${mcpsrc.dir}/minecraft/abo"/>
+		<delete dir="${mcpsrc.dir}/minecraft/buildcraft"/>
+		<delete dir="${mcpsrc.dir}/minecraft/lang/abo"/>
+		<delete dir="${mcpsrc.dir}/minecraft/lang/buildcraft"/>
 	</target>
 	
 	<target name="main" depends="clean,setup,copy-src,compile,copy,package">
