@@ -156,6 +156,9 @@
 
 ## Changelog:
 
+* 0.9.9@81
+    - fixed valve to stop output immediately
+
 * 0.9.9
     - updated/readded diamond liquids pipe
 

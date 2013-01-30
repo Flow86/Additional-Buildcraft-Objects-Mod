@@ -130,14 +130,17 @@ public class PipeLiquidsValve extends PipeLiquidsWood {
 
 	@Override
 	public void updateEntity() {
-		super.updateEntity();
 		updateRedstoneCurrent();
 
 		if (powered)
 			pulser.enablePulse();
-		else
+		else {
 			pulser.disablePulse();
+			liquidToExtract = 0;
+		}
 
 		pulser.update();
+
+		super.updateEntity();
 	}
 }

@@ -40,6 +40,8 @@ public class ABOEnergyPulser {
 
 	public void disablePulse() {
 		isActive = false;
+		if (powerReceptor != null)
+			powerReceptor.getPowerProvider().useEnergy(powerReceptor.getPowerProvider().getEnergyStored(), powerReceptor.getPowerProvider().getEnergyStored(), true);
 	}
 
 	public boolean isActive() {
