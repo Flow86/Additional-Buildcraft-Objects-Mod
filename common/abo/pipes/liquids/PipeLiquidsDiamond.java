@@ -12,12 +12,19 @@
 
 package abo.pipes.liquids;
 
+import java.io.DataInputStream;
+import java.io.DataOutputStream;
+import java.io.IOException;
+
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTBase;
+import net.minecraft.nbt.NBTTagCompound;
 import net.minecraftforge.common.ForgeDirection;
 import net.minecraftforge.liquids.ILiquidTank;
 import net.minecraftforge.liquids.LiquidContainerRegistry;
 import net.minecraftforge.liquids.LiquidStack;
 import abo.pipes.ABOPipe;
+import buildcraft.core.network.IClientState;
 import buildcraft.transport.PipeTransportLiquids;
 import buildcraft.transport.pipes.PipeLogicDiamond;
 
@@ -25,7 +32,7 @@ import buildcraft.transport.pipes.PipeLogicDiamond;
  * @author Flow86
  * 
  */
-public class PipeLiquidsDiamond extends ABOPipe {
+public class PipeLiquidsDiamond extends ABOPipe implements IClientState {
 
 	public PipeLiquidsDiamond(int itemID) {
 		super(new PipeTransportLiquids(), new PipeLogicDiamond(), itemID);
@@ -79,4 +86,19 @@ public class PipeLiquidsDiamond extends ABOPipe {
 		return (filtered ? open : true);
 	}
 
+	// ICLIENTSTATE
+	@Override
+	public void writeData(DataOutputStream data) throws IOException {
+		NBTTagCompound nbt = new NBTTagCompound();
+		((PipeLogicDiamond) logic).writeToNBT(nbt);
+		NBTBase.writeNamedTag(nbt, data);
+	}
+
+	@Override
+	public void readData(DataInputStream data) throws IOException {
+		NBTBase nbt = NBTBase.readNamedTag(data);
+		if (nbt instanceof NBTTagCompound) {
+			logic.readFromNBT((NBTTagCompound) nbt);
+		}
+	}
 }
