@@ -26,6 +26,7 @@
       You can include ( **precompiled** ) ABO-packages in your modpacks as long you're not making money out of it ( **so no adfly or something like that!** ).
 
       **AND: you have to send me a pm in which you post a link to your modpack.**
+      <br />(If you want to use it in a private modpack, only pm me that you'll use it)
 
    **If you want to distribute a custom/modified abo build, you have to ask for permission first!**
 
@@ -219,14 +220,10 @@
 
 * 0.8:
    - added pipes from old "ExtraBuildcraftPipes"-Mod by leftler/blakmajik
-      
-	  \- Insertion Transport Pipe
-      
-	  \- Extraction Transport Pipe
-      
-	  \- Bounce Transport Pipe
-      
-	  \- Crossover Transport Pipe
+      <br />\- Insertion Transport Pipe
+      <br />\- Extraction Transport Pipe
+      <br />\- Bounce Transport Pipe
+      <br />\- Crossover Transport Pipe
 
       see: http://www.minecraftforum.net/topic/474348-173-2012-extrabuildcraftpipes/
 
