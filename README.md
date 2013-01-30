@@ -157,11 +157,15 @@
 
 ## Changelog:
 
+* 0.9.9@83
+   - fixed diamond liqudis pipe loosing its filter on load/unload
+   
+
 * 0.9.9@81
-    - fixed valve to stop output immediately
+   - fixed valve to stop output immediately
 
 * 0.9.9
-    - updated/readded diamond liquids pipe
+   - updated/readded diamond liquids pipe
 
 * 0.9.8:
    - bc 3.4.2 compatible
@@ -178,7 +182,7 @@
 
 * 0.9.5:
    - bc 3.3.0 / mc 1.4.6 compatible
-
+   
 
 * 0.9.4:
    - updated/readded balance pipe
