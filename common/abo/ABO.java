@@ -28,6 +28,7 @@ import abo.pipes.items.PipeItemsInsertion;
 import abo.pipes.items.PipeItemsRoundRobin;
 import abo.pipes.items.PipeItemsStripes;
 import abo.pipes.liquids.PipeLiquidsBalance;
+import abo.pipes.liquids.PipeLiquidsDiamond;
 import abo.pipes.liquids.PipeLiquidsGoldenIron;
 import abo.pipes.liquids.PipeLiquidsValve;
 import abo.pipes.power.PipePowerSwitch;
@@ -44,6 +45,7 @@ import buildcraft.core.utils.Localization;
 import buildcraft.transport.BlockGenericPipe;
 import buildcraft.transport.ItemPipe;
 import buildcraft.transport.Pipe;
+import buildcraft.transport.blueprints.BptItemPipeDiamond;
 import buildcraft.transport.blueprints.BptItemPipeIron;
 import buildcraft.transport.blueprints.BptItemPipeWooden;
 import cpw.mods.fml.common.FMLLog;
@@ -79,8 +81,8 @@ public class ABO {
 	public static int pipeLiquidsBalanceID = 10203;
 	public static Item pipeLiquidsBalance = null;
 
-	// public static int pipeLiquidsDiamondID = 10204;
-	// public static Item pipeLiquidsDiamond = null;
+	public static int pipeLiquidsDiamondID = 10204;
+	public static Item pipeLiquidsDiamond = null;
 
 	public static int pipeItemsRoundRobinID = 10300;
 	public static Item pipeItemsRoundRobin = null;
@@ -126,42 +128,34 @@ public class ABO {
 		try {
 			aboConfiguration.load();
 
-			pipeLiquidsValve = createPipe(pipeLiquidsValveID, PipeLiquidsValve.class, "Valve Pipe", 1, BuildCraftTransport.pipeLiquidsWood,
-					BuildCraftTransport.pipeGateAutarchic, null);
+			pipeLiquidsValve = createPipe(pipeLiquidsValveID, PipeLiquidsValve.class, "Valve Pipe", 1, BuildCraftTransport.pipeLiquidsWood, BuildCraftTransport.pipeGateAutarchic, null);
 
-			pipeLiquidsGoldenIron = createPipe(pipeLiquidsGoldenIronID, PipeLiquidsGoldenIron.class, "Golden Iron Waterproof Pipe", 1,
-					BuildCraftTransport.pipeLiquidsGold, BuildCraftTransport.pipeLiquidsIron, null);
+			pipeLiquidsGoldenIron = createPipe(pipeLiquidsGoldenIronID, PipeLiquidsGoldenIron.class, "Golden Iron Waterproof Pipe", 1, BuildCraftTransport.pipeLiquidsGold,
+					BuildCraftTransport.pipeLiquidsIron, null);
 
-			pipeLiquidsBalance = createPipe(pipeLiquidsBalanceID, PipeLiquidsBalance.class, "Balancing Waterproof Pipe", 1,
-					BuildCraftTransport.pipeLiquidsWood, new ItemStack(BuildCraftEnergy.engineBlock, 1, 0), BuildCraftTransport.pipeLiquidsWood);
+			pipeLiquidsBalance = createPipe(pipeLiquidsBalanceID, PipeLiquidsBalance.class, "Balancing Waterproof Pipe", 1, BuildCraftTransport.pipeLiquidsWood, new ItemStack(
+					BuildCraftEnergy.engineBlock, 1, 0), BuildCraftTransport.pipeLiquidsWood);
 
-			// pipeLiquidsDiamond = createPipe(pipeLiquidsDiamondID,
-			// PipeLiquidsDiamond.class, "Diamond Liquids Pipe", 1,
-			// BuildCraftTransport.pipeItemsDiamond,
-			// BuildCraftTransport.pipeWaterproof, null);
+			pipeLiquidsDiamond = createPipe(pipeLiquidsDiamondID, PipeLiquidsDiamond.class, "Diamond Waterproof Pipe", 1, BuildCraftTransport.pipeItemsDiamond, BuildCraftTransport.pipeWaterproof,
+					null);
 
-			pipeItemsRoundRobin = createPipe(pipeItemsRoundRobinID, PipeItemsRoundRobin.class, "RoundRobin Transport Pipe", 1,
-					BuildCraftTransport.pipeItemsStone, Block.gravel, null);
+			pipeItemsRoundRobin = createPipe(pipeItemsRoundRobinID, PipeItemsRoundRobin.class, "RoundRobin Transport Pipe", 1, BuildCraftTransport.pipeItemsStone, Block.gravel, null);
 
 			// pipeItemsCompactor = createPipe(pipeItemsCompactorID,
 			// PipeItemsCompactor.class, "Compactor Pipe", 1,
 			// BuildCraftTransport.pipeItemsStone,
 			// Block.pistonBase, null);
 
-			pipeItemsInsertion = createPipe(pipeItemsInsertionID, PipeItemsInsertion.class, "Insertion Pipe", 1, BuildCraftTransport.pipeItemsCobblestone,
-					Item.redstone, null);
+			pipeItemsInsertion = createPipe(pipeItemsInsertionID, PipeItemsInsertion.class, "Insertion Pipe", 1, BuildCraftTransport.pipeItemsCobblestone, Item.redstone, null);
 
-			pipeItemsExtraction = createPipe(pipeItemsExtractionID, PipeItemsExtraction.class, "Extraction Transport Pipe", 1,
-					BuildCraftTransport.pipeItemsWood, Block.planks, null);
+			pipeItemsExtraction = createPipe(pipeItemsExtractionID, PipeItemsExtraction.class, "Extraction Transport Pipe", 1, BuildCraftTransport.pipeItemsWood, Block.planks, null);
 
-			pipeItemsBounce = createPipe(pipeItemsBounceID, PipeItemsBounce.class, "Bounce Transport Pipe", 1, BuildCraftTransport.pipeItemsStone,
-					Block.cobblestone, null);
+			pipeItemsBounce = createPipe(pipeItemsBounceID, PipeItemsBounce.class, "Bounce Transport Pipe", 1, BuildCraftTransport.pipeItemsStone, Block.cobblestone, null);
 
-			pipeItemsCrossover = createPipe(pipeItemsCrossoverID, PipeItemsCrossover.class, "Crossover Transport Pipe", 1, BuildCraftTransport.pipeItemsStone,
-					BuildCraftTransport.pipeItemsIron, null);
+			pipeItemsCrossover = createPipe(pipeItemsCrossoverID, PipeItemsCrossover.class, "Crossover Transport Pipe", 1, BuildCraftTransport.pipeItemsStone, BuildCraftTransport.pipeItemsIron, null);
 
-			pipeItemsStripes = createPipe(pipeItemsStripesID, PipeItemsStripes.class, "Stripes Transport Pipe", 8, new ItemStack(Item.dyePowder, 1, 0),
-					Block.glass, new ItemStack(Item.dyePowder, 1, 11));
+			pipeItemsStripes = createPipe(pipeItemsStripesID, PipeItemsStripes.class, "Stripes Transport Pipe", 8, new ItemStack(Item.dyePowder, 1, 0), Block.glass, new ItemStack(Item.dyePowder, 1,
+					11));
 
 			pipePowerSwitch = createPipe(pipePowerSwitchID, PipePowerSwitch.class, "Power Switch Pipe", 1, BuildCraftTransport.pipePowerGold, Block.lever, null);
 
@@ -173,8 +167,7 @@ public class ABO {
 			BuildCraftCore.itemBptProps[pipeItemsExtraction.itemID] = new BptItemPipeWooden();
 			BuildCraftCore.itemBptProps[pipeLiquidsValve.itemID] = new BptItemPipeIron();
 			BuildCraftCore.itemBptProps[pipeLiquidsGoldenIron.itemID] = new BptItemPipeIron();
-			// BuildCraftCore.itemBptProps[pipeLiquidsDiamond.shiftedIndex] =
-			// new BptItemPipeDiamond();
+			BuildCraftCore.itemBptProps[pipeLiquidsDiamond.itemID] = new BptItemPipeDiamond();
 		} finally {
 			aboConfiguration.save();
 		}
@@ -209,8 +202,7 @@ public class ABO {
 
 	private static LinkedList<PipeRecipe> pipeRecipes = new LinkedList<PipeRecipe>();
 
-	private static Item createPipe(int defaultID, Class<? extends Pipe> clas, String descr, int count, Object ingredient1, Object ingredient2,
-			Object ingredient3) {
+	private static Item createPipe(int defaultID, Class<? extends Pipe> clas, String descr, int count, Object ingredient1, Object ingredient2, Object ingredient3) {
 		String name = Character.toLowerCase(clas.getSimpleName().charAt(0)) + clas.getSimpleName().substring(1);
 
 		Property prop = aboConfiguration.getItem(name + ".id", defaultID);
