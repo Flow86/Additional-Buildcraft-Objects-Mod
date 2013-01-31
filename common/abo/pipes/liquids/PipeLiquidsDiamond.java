@@ -25,6 +25,7 @@ import net.minecraftforge.liquids.LiquidContainerRegistry;
 import net.minecraftforge.liquids.LiquidStack;
 import abo.pipes.ABOPipe;
 import buildcraft.core.network.IClientState;
+import buildcraft.core.utils.Utils;
 import buildcraft.transport.PipeTransportLiquids;
 import buildcraft.transport.pipes.PipeLogicDiamond;
 
@@ -69,21 +70,43 @@ public class PipeLiquidsDiamond extends ABOPipe implements IClientState {
 
 		PipeLogicDiamond logicDiamond = (PipeLogicDiamond) logic;
 
-		boolean filtered = false;
-		boolean open = false;
-		for (int slot = 0; slot < 9; ++slot) {
-			ItemStack stack = logicDiamond.getStackInSlot(to.ordinal() * 9 + slot);
+		boolean[] validDirections = new boolean[ForgeDirection.values().length];
+		boolean[] filteredDirections = new boolean[ForgeDirection.values().length];
+		boolean filterForLiquid = false;
 
-			LiquidStack liquidStack = LiquidContainerRegistry.getLiquidForFilledItem(stack);
-			if (liquidStack != null) {
-				filtered = true;
+		// check every direction
+		// perhaps we should/can cache this?
+		for (ForgeDirection dir : ForgeDirection.VALID_DIRECTIONS) {
+			validDirections[dir.ordinal()] = false;
+			filteredDirections[dir.ordinal()] = false;
 
-				if (liquid.isLiquidEqual(liquidStack))
-					open = true;
+			if (Utils.checkPipesConnections(container.getTile(dir), container)) {
+				for (int slot = 0; slot < 9; ++slot) {
+					ItemStack stack = logicDiamond.getStackInSlot(dir.ordinal() * 9 + slot);
+					LiquidStack liquidStack = LiquidContainerRegistry.getLiquidForFilledItem(stack);
+
+					if (liquidStack != null) {
+						filteredDirections[dir.ordinal()] = true;
+
+						if (liquid.isLiquidEqual(liquidStack)) {
+							validDirections[dir.ordinal()] = true;
+							filterForLiquid = true;
+						}
+					}
+				}
 			}
 		}
 
-		return (filtered ? open : true);
+		// the direction is filtered and liquids match
+		if (filteredDirections[to.ordinal()] && validDirections[to.ordinal()])
+			return true;
+
+		// we havent found a filter for this liquid and the direction is free
+		if (!filterForLiquid && !filteredDirections[to.ordinal()])
+			return true;
+
+		// we have a filter for the liquid, but not a valid Direction :/
+		return false;
 	}
 
 	// ICLIENTSTATE
