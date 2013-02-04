@@ -144,6 +144,7 @@ public class PipePowerSwitch extends ABOPipe {
 		super.writeToNBT(nbttagcompound);
 
 		nbttagcompound.setBoolean("powered", powered);
+		nbttagcompound.setBoolean("switched", switched);
 	}
 
 	@Override
@@ -151,6 +152,7 @@ public class PipePowerSwitch extends ABOPipe {
 		super.readFromNBT(nbttagcompound);
 
 		powered = nbttagcompound.getBoolean("powered");
+		switched = nbttagcompound.getBoolean("switched");
 	}
 
 	/*
@@ -188,6 +190,8 @@ public class PipePowerSwitch extends ABOPipe {
 		}
 		if (lastSwitched != switched) {
 			computeConnections();
+			container.scheduleRenderUpdate();
+			updateNeighbors(true);
 		}
 	}
 
