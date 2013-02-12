@@ -142,6 +142,13 @@
 
       GoldenConductivePipe Lever
 
+#### Iron Power Pipe
+   acts as a diode/iron pipe for power pipes
+
+   * Recipe:
+
+      IronTransportPipe Redstone
+
 
 ## Triggers
    
@@ -156,6 +163,9 @@
 ---------------------------------------------------------------------------------
 
 ## Changelog:
+
+* 1.0.0
+   - added iron power pipe
 
 * 0.9.9@83
    - fixed diamond liqudis pipe loosing its filter on load/unload
