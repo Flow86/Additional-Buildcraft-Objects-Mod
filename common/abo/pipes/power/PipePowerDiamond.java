@@ -38,7 +38,7 @@ public class PipePowerDiamond extends ABOPipe implements IPipeTransportPowerHook
 	
 	@Override
 	public int getTextureIndex(ForgeDirection direction) {
-		int baseTexture = 13 * 16 + 0;
+		int baseTexture = 15 * 16 + 2;
 
 		if (direction == ForgeDirection.UNKNOWN)
 			return baseTexture;
