@@ -178,6 +178,11 @@
 
 ## Changelog:
 
+* 1.0.1
+   - added diamond power pipe
+   - fixed iron power pipe logic,
+     failed to switch "output" to other power distributors like RedStoneCell
+
 * 1.0.0
    - added iron power pipe
 
