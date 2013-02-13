@@ -31,6 +31,7 @@ import abo.pipes.liquids.PipeLiquidsBalance;
 import abo.pipes.liquids.PipeLiquidsDiamond;
 import abo.pipes.liquids.PipeLiquidsGoldenIron;
 import abo.pipes.liquids.PipeLiquidsValve;
+import abo.pipes.power.PipePowerDiamond;
 import abo.pipes.power.PipePowerIron;
 import abo.pipes.power.PipePowerSwitch;
 import abo.proxy.ABOProxy;
@@ -111,6 +112,9 @@ public class ABO {
 
 	public static int pipePowerIronID = 10401;
 	public static Item pipePowerIron = null;
+
+	public static int pipePowerDiamondID = 10402;
+	public static Item pipePowerDiamond = null;
 	
 	public static int triggerEngineControlID = 128;
 	public static Trigger triggerEngineControl = null;
@@ -165,6 +169,8 @@ public class ABO {
 
 			pipePowerIron = createPipe(pipePowerIronID, PipePowerIron.class, "Iron Power Pipe", 1, Item.redstone, BuildCraftTransport.pipeItemsIron, null);
 
+			pipePowerDiamond = createPipe(pipePowerDiamondID, PipePowerDiamond.class, "Diamond Power Pipe", 1, Item.redstone, BuildCraftTransport.pipeItemsDiamond, null);
+			
 			triggerEngineControl = new TriggerEngineControl(triggerEngineControlID);
 			actionSwitchOnPipe = new ActionSwitchOnPipe(actionSwitchOnPipeID);
 

@@ -133,6 +133,9 @@
 
       DiamondTransportPipe PipeWaterproof
 
+   * TODO:
+
+      Create custom GUI
 
 
 #### Power Switch Pipe
@@ -149,6 +152,17 @@
 
       IronTransportPipe Redstone
 
+#### Diamond Power Pipe
+   acts as a power distributor - every filter line which has an item in it is 
+   "open" to receive power
+
+   * Recipe:
+
+      IronTransportPipe Redstone
+
+   * TODO:
+
+      Create custom GUI
 
 ## Triggers
    
