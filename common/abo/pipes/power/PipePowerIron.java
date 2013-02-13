@@ -27,7 +27,7 @@ public class PipePowerIron extends ABOPipe implements IPipeTransportPowerHook {
 	private int plainTexture = 15 * 16 + 1;
 	
 	public PipePowerIron(int itemID) {
-		super(new PipeTransportPower(), new PipeLogicIron(), itemID);
+		super(new PipeTransportPower(), new PipeLogicPowerIron(), itemID);
 	}
 
 	@Override
