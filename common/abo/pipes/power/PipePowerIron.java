@@ -48,8 +48,8 @@ public class PipePowerIron extends ABOPipe implements IPipeTransportPowerHook {
 	public void receiveEnergy(ForgeDirection from, double val) {
 		int metadata = worldObj.getBlockMetadata(xCoord, yCoord, zCoord);
 		PipeTransportPower ptransport = (PipeTransportPower) transport;
-		
-		if (metadata != from.ordinal())
+
+		if (metadata != from.ordinal() && val > 0.0)
 		{
 			if (BuildCraftTransport.usePipeLoss) {
 				ptransport.internalNextPower[from.ordinal()] += val * (1 - ptransport.powerResistance);
@@ -57,10 +57,10 @@ public class PipePowerIron extends ABOPipe implements IPipeTransportPowerHook {
 				ptransport.internalNextPower[from.ordinal()] += val;
 			}
 
-			/*if (ptransport.internalNextPower[from.ordinal()] >= ptransport.MAX_POWER_INTERNAL) {
+			if (ptransport.internalNextPower[from.ordinal()] >= 10000) {
 				worldObj.createExplosion(null, xCoord, yCoord, zCoord, 3, false);
 				worldObj.setBlockWithNotify(xCoord, yCoord, zCoord, 0);
-			}*/
+			}
 		}
 	}
 

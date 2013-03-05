@@ -51,6 +51,9 @@ public class PipePowerDiamond extends ABOPipe implements IPipeTransportPowerHook
 		PipeTransportPower ptransport = (PipeTransportPower) transport;
 		PipeLogicDiamond logicDiamond = (PipeLogicDiamond) logic;
 
+		if(val <= 0.0)
+			return;
+
 		if (Utils.checkPipesConnections(container.getTile(from), container)) {
 			boolean filter = false;
 			for (int slot = 0; slot < 9; ++slot) {
@@ -67,10 +70,10 @@ public class PipePowerDiamond extends ABOPipe implements IPipeTransportPowerHook
 					ptransport.internalNextPower[from.ordinal()] += val;
 				}
 
-				/*if (ptransport.internalNextPower[from.ordinal()] >= ptransport.MAX_POWER_INTERNAL) {
+				if (ptransport.internalNextPower[from.ordinal()] >= 10000) {
 					worldObj.createExplosion(null, xCoord, yCoord, zCoord, 3, false);
 					worldObj.setBlockWithNotify(xCoord, yCoord, zCoord, 0);
-				}*/
+				}
 			}
 		}
 	}
