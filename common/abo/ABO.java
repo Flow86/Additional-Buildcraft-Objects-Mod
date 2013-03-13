@@ -31,6 +31,8 @@ import abo.pipes.liquids.PipeLiquidsBalance;
 import abo.pipes.liquids.PipeLiquidsDiamond;
 import abo.pipes.liquids.PipeLiquidsGoldenIron;
 import abo.pipes.liquids.PipeLiquidsValve;
+import abo.pipes.power.PipePowerDiamond;
+import abo.pipes.power.PipePowerIron;
 import abo.pipes.power.PipePowerSwitch;
 import abo.proxy.ABOProxy;
 import abo.triggers.ABOTriggerProvider;
@@ -108,6 +110,12 @@ public class ABO {
 	public static int pipePowerSwitchID = 10400;
 	public static Item pipePowerSwitch = null;
 
+	public static int pipePowerIronID = 10401;
+	public static Item pipePowerIron = null;
+
+	public static int pipePowerDiamondID = 10402;
+	public static Item pipePowerDiamond = null;
+	
 	public static int triggerEngineControlID = 128;
 	public static Trigger triggerEngineControl = null;
 
@@ -159,6 +167,10 @@ public class ABO {
 
 			pipePowerSwitch = createPipe(pipePowerSwitchID, PipePowerSwitch.class, "Power Switch Pipe", 1, BuildCraftTransport.pipePowerGold, Block.lever, null);
 
+			pipePowerIron = createPipe(pipePowerIronID, PipePowerIron.class, "Iron Power Pipe", 1, Item.redstone, BuildCraftTransport.pipeItemsIron, null);
+
+			pipePowerDiamond = createPipe(pipePowerDiamondID, PipePowerDiamond.class, "Diamond Power Pipe", 1, Item.redstone, BuildCraftTransport.pipeItemsDiamond, null);
+			
 			triggerEngineControl = new TriggerEngineControl(triggerEngineControlID);
 			actionSwitchOnPipe = new ActionSwitchOnPipe(actionSwitchOnPipeID);
 
@@ -168,6 +180,7 @@ public class ABO {
 			BuildCraftCore.itemBptProps[pipeLiquidsValve.itemID] = new BptItemPipeIron();
 			BuildCraftCore.itemBptProps[pipeLiquidsGoldenIron.itemID] = new BptItemPipeIron();
 			BuildCraftCore.itemBptProps[pipeLiquidsDiamond.itemID] = new BptItemPipeDiamond();
+			BuildCraftCore.itemBptProps[pipePowerIron.itemID] = new BptItemPipeIron();
 		} finally {
 			aboConfiguration.save();
 		}

@@ -133,6 +133,9 @@
 
       DiamondTransportPipe PipeWaterproof
 
+   * TODO:
+
+      Create custom GUI
 
 
 #### Power Switch Pipe
@@ -142,6 +145,24 @@
 
       GoldenConductivePipe Lever
 
+#### Iron Power Pipe
+   acts as a diode/iron pipe for power pipes
+
+   * Recipe:
+
+      IronTransportPipe Redstone
+
+#### Diamond Power Pipe
+   acts as a power distributor - every filter line which has an item in it is 
+   "open" to receive power
+
+   * Recipe:
+
+      IronTransportPipe Redstone
+
+   * TODO:
+
+      Create custom GUI
 
 ## Triggers
    
@@ -156,6 +177,14 @@
 ---------------------------------------------------------------------------------
 
 ## Changelog:
+
+* 1.0.1
+   - added diamond power pipe
+   - fixed iron power pipe logic,
+     failed to switch "output" to other power distributors like RedStoneCell
+
+* 1.0.0
+   - added iron power pipe
 
 * 0.9.9@83
    - fixed diamond liqudis pipe loosing its filter on load/unload
