@@ -20,13 +20,18 @@ public class IconTerrainConstants {
 
 	public static final int PipeItemsBounceClosed = 0;
 	public static final int PipeItemsBounce = 1;
+
 	public static final int PipeItemsCrossover = 2;
+
 	public static final int PipeItemsExtraction = 3;
 	public static final int PipeItemsExtractionSide = 4;
+
 	public static final int PipeItemsInsertion = 5;
 	public static final int PipeItemsRoundRobin = 6;
 	public static final int PipeItemsStripes = 7;
+
 	public static final int PipeLiquidsBalance = 8;
+
 	public static final int PipeLiquidsDiamondCenter = 9;
 	public static final int PipeLiquidsDiamondDown = 10;
 	public static final int PipeLiquidsDiamondUp = 11;
@@ -34,14 +39,28 @@ public class IconTerrainConstants {
 	public static final int PipeLiquidsDiamondSouth = 13;
 	public static final int PipeLiquidsDiamondWest = 14;
 	public static final int PipeLiquidsDiamondEast = 15;
+
 	public static final int PipeLiquidsGoldenIron = 16;
 	public static final int PipeLiquidsGoldenIronSide = 17;
+
 	public static final int PipeLiquidsValveClosed = 18;
 	public static final int PipeLiquidsValveClosedSide = 19;
 	public static final int PipeLiquidsValveOpen = 20;
 	public static final int PipeLiquidsValveOpenSide = 21;
+
 	public static final int PipePowerSwitchPowered = 22;
 	public static final int PipePowerSwitchUnpowered = 23;
 
-	public static final int MAX = 24;
+	public static final int PipePowerDiamondCenter = 24;
+	public static final int PipePowerDiamondDown = 25;
+	public static final int PipePowerDiamondUp = 26;
+	public static final int PipePowerDiamondNorth = 27;
+	public static final int PipePowerDiamondSouth = 28;
+	public static final int PipePowerDiamondWest = 29;
+	public static final int PipePowerDiamondEast = 30;
+
+	public static final int PipePowerIron = 31;
+	public static final int PipePowerIronSide = 32;
+
+	public static final int MAX = 33;
 }

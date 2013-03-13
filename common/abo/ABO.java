@@ -122,8 +122,8 @@ public class ABO {
 	public static int pipePowerDiamondID = 10402;
 	public static Item pipePowerDiamond = null;
 	
-	public static int triggerEngineControlID = 128;
-	public static Trigger triggerEngineControl = null;
+	public static int triggerEngineSafeID = 128;
+	public static Trigger triggerEngineSafe = null;
 
 	public static int actionSwitchOnPipeID = 128;
 	public static Action actionSwitchOnPipe = null;
@@ -177,7 +177,7 @@ public class ABO {
 
 			pipePowerDiamond = createPipe(pipePowerDiamondID, PipePowerDiamond.class, "Diamond Power Pipe", 1, Item.redstone, BuildCraftTransport.pipeItemsDiamond, null);
 			
-			triggerEngineControl = new TriggerEngineSafe(triggerEngineControlID);
+			triggerEngineSafe = new TriggerEngineSafe(triggerEngineSafeID);
 			actionSwitchOnPipe = new ActionSwitchOnPipe(actionSwitchOnPipeID);
 
 			ActionManager.registerTriggerProvider(new ABOTriggerProvider());

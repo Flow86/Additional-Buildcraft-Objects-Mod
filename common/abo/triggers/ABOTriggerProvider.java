@@ -38,7 +38,7 @@ public class ABOTriggerProvider implements ITriggerProvider {
 		LinkedList<ITrigger> result = new LinkedList<ITrigger>();
 
 		if (tile instanceof TileEngine) {
-			result.add(ABO.triggerEngineControl);
+			result.add(ABO.triggerEngineSafe);
 		}
 
 		return result;

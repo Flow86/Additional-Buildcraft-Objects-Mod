@@ -16,18 +16,18 @@ import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 
-import buildcraft.BuildCraftTransport;
-import buildcraft.core.network.IClientState;
-import buildcraft.core.utils.Utils;
-import buildcraft.transport.IPipeTransportPowerHook;
-import buildcraft.transport.PipeTransportLiquids;
-import buildcraft.transport.PipeTransportPower;
-import buildcraft.transport.pipes.PipeLogicDiamond;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTBase;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraftforge.common.ForgeDirection;
+import abo.IconTerrainConstants;
 import abo.pipes.ABOPipe;
+import buildcraft.BuildCraftTransport;
+import buildcraft.core.network.IClientState;
+import buildcraft.core.utils.Utils;
+import buildcraft.transport.IPipeTransportPowerHook;
+import buildcraft.transport.PipeTransportPower;
+import buildcraft.transport.pipes.PipeLogicDiamond;
 
 public class PipePowerDiamond extends ABOPipe implements IPipeTransportPowerHook, IClientState {
 
@@ -35,15 +35,27 @@ public class PipePowerDiamond extends ABOPipe implements IPipeTransportPowerHook
 		super(new PipeTransportPower(), new PipeLogicDiamond(), itemID);
 
 	}
-	
+
 	@Override
-	public int getTextureIndex(ForgeDirection direction) {
-		int baseTexture = 15 * 16 + 2;
-
-		if (direction == ForgeDirection.UNKNOWN)
-			return baseTexture;
-
-		return baseTexture + 1 + direction.ordinal();
+	public int getIconIndex(ForgeDirection direction) {
+		switch (direction) {
+		case UNKNOWN:
+			return IconTerrainConstants.PipePowerDiamondCenter;
+		case DOWN:
+			return IconTerrainConstants.PipePowerDiamondDown;
+		case UP:
+			return IconTerrainConstants.PipePowerDiamondUp;
+		case NORTH:
+			return IconTerrainConstants.PipePowerDiamondNorth;
+		case SOUTH:
+			return IconTerrainConstants.PipePowerDiamondSouth;
+		case WEST:
+			return IconTerrainConstants.PipePowerDiamondWest;
+		case EAST:
+			return IconTerrainConstants.PipePowerDiamondEast;
+		default:
+			throw new IllegalArgumentException("direction out of bounds");
+		}
 	}
 
 	@Override
@@ -51,19 +63,18 @@ public class PipePowerDiamond extends ABOPipe implements IPipeTransportPowerHook
 		PipeTransportPower ptransport = (PipeTransportPower) transport;
 		PipeLogicDiamond logicDiamond = (PipeLogicDiamond) logic;
 
-		if(val <= 0.0)
+		if (val <= 0.0)
 			return;
 
 		if (Utils.checkPipesConnections(container.getTile(from), container)) {
 			boolean filter = false;
 			for (int slot = 0; slot < 9; ++slot) {
 				ItemStack stack = logicDiamond.getStackInSlot(from.ordinal() * 9 + slot);
-				if(stack != null)
+				if (stack != null)
 					filter = true;
 			}
-			
-			if(!filter)
-			{
+
+			if (!filter) {
 				if (BuildCraftTransport.usePipeLoss) {
 					ptransport.internalNextPower[from.ordinal()] += val * (1 - ptransport.powerResistance);
 				} else {
@@ -82,17 +93,16 @@ public class PipePowerDiamond extends ABOPipe implements IPipeTransportPowerHook
 	public void requestEnergy(ForgeDirection from, int i) {
 		PipeTransportPower ptransport = (PipeTransportPower) transport;
 		PipeLogicDiamond logicDiamond = (PipeLogicDiamond) logic;
-		
+
 		if (Utils.checkPipesConnections(container.getTile(from), container)) {
 			boolean filter = false;
 			for (int slot = 0; slot < 9; ++slot) {
 				ItemStack stack = logicDiamond.getStackInSlot(from.ordinal() * 9 + slot);
-				if(stack != null)
+				if (stack != null)
 					filter = true;
 			}
 
-			if(filter)
-			{
+			if (filter) {
 				ptransport.step();
 				ptransport.nextPowerQuery[from.ordinal()] += i;
 			}
@@ -113,5 +123,5 @@ public class PipePowerDiamond extends ABOPipe implements IPipeTransportPowerHook
 		if (nbt instanceof NBTTagCompound) {
 			logic.readFromNBT((NBTTagCompound) nbt);
 		}
-	}	
+	}
 }
