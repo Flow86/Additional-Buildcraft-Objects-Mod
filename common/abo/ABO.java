@@ -121,7 +121,7 @@ public class ABO {
 
 	public static int pipePowerDiamondID = 10402;
 	public static Item pipePowerDiamond = null;
-	
+
 	public static int triggerEngineSafeID = 128;
 	public static Trigger triggerEngineSafe = null;
 
@@ -137,6 +137,9 @@ public class ABO {
 		aboLog.setParent(FMLLog.getLogger());
 		aboLog.info("Starting Additional-Buildcraft-Objects #@BUILD_NUMBER@ " + VERSION + " (Built for Minecraft @MINECRAFT_VERSION@ with Buildcraft @BUILDCRAFT_VERSION@ and Forge @FORGE_VERSION@");
 		aboLog.info("Copyright (c) Flow86, 2011-2013");
+
+		ABOProxy.proxy.loadTerrainIcons(this);
+		ABOProxy.proxy.loadItemIcons(this);
 
 		aboConfiguration = new ABOConfiguration(new File(evt.getModConfigurationDirectory(), "abo/main.conf"));
 		try {
@@ -176,7 +179,7 @@ public class ABO {
 			pipePowerIron = createPipe(pipePowerIronID, PipePowerIron.class, "Iron Power Pipe", 1, Item.redstone, BuildCraftTransport.pipeItemsIron, null);
 
 			pipePowerDiamond = createPipe(pipePowerDiamondID, PipePowerDiamond.class, "Diamond Power Pipe", 1, Item.redstone, BuildCraftTransport.pipeItemsDiamond, null);
-			
+
 			triggerEngineSafe = new TriggerEngineSafe(triggerEngineSafeID);
 			actionSwitchOnPipe = new ActionSwitchOnPipe(actionSwitchOnPipeID);
 
@@ -196,9 +199,6 @@ public class ABO {
 	public void load(FMLInitializationEvent evt) {
 
 		Localization.addLocalization("/lang/abo/", "en_US");
-
-		ABOProxy.proxy.loadTerrainIcons(this);
-		ABOProxy.proxy.loadItemIcons(this);
 
 		// fix problem with autarchic gate initialization sequence
 		PipeRecipe recipe = new PipeRecipe();
