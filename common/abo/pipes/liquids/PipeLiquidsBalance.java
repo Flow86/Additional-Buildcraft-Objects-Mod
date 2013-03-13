@@ -19,6 +19,7 @@ import net.minecraftforge.common.ForgeDirection;
 import net.minecraftforge.liquids.ILiquidTank;
 import net.minecraftforge.liquids.ITankContainer;
 import net.minecraftforge.liquids.LiquidStack;
+import abo.IconTerrainConstants;
 import abo.pipes.ABOPipe;
 import buildcraft.transport.PipeTransportLiquids;
 import buildcraft.transport.TileGenericPipe;
@@ -102,13 +103,8 @@ public class PipeLiquidsBalance extends ABOPipe {
 	}
 
 	@Override
-	public int getTextureIndex(ForgeDirection direction) {
-		return blockTexture;
-	}
-
-	@Override
-	public int getTextureIndexForItem() {
-		return blockTexture;
+	public int getIconIndex(ForgeDirection direction) {
+		return IconTerrainConstants.PipeLiquidsBalance;
 	}
 
 	@Override
@@ -198,8 +194,7 @@ public class PipeLiquidsBalance extends ABOPipe {
 
 			if (liquidToExtract > 1) {
 				// drain tank (read available liquid)
-				LiquidStack liquidExtracted = neighbor.getTankEntity().drain(neighbor.getOrientation(),
-						liquidToExtract > ltransport.flowRate ? ltransport.flowRate : liquidToExtract, false);
+				LiquidStack liquidExtracted = neighbor.getTankEntity().drain(neighbor.getOrientation(), liquidToExtract > ltransport.flowRate ? ltransport.flowRate : liquidToExtract, false);
 				if (liquidExtracted != null) {
 					// fill pipe
 					int filled = ltransport.fill(neighbor.getOrientation(), liquidExtracted, true);
@@ -211,8 +206,7 @@ public class PipeLiquidsBalance extends ABOPipe {
 
 			} else if (liquidToExtract < 1) {
 				// drain pipe (read available liquid)
-				LiquidStack liquidExtracted = ltransport.drain(neighbor.getOrientation().getOpposite(),
-						liquidToExtract > ltransport.flowRate ? ltransport.flowRate : liquidToExtract, false);
+				LiquidStack liquidExtracted = ltransport.drain(neighbor.getOrientation().getOpposite(), liquidToExtract > ltransport.flowRate ? ltransport.flowRate : liquidToExtract, false);
 				if (liquidExtracted != null) {
 					// fill tank
 					int filled = neighbor.getTankEntity().fill(neighbor.getOrientation().getOpposite(), liquidExtracted, true);

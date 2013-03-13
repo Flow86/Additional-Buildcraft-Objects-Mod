@@ -18,6 +18,10 @@ import buildcraft.api.gates.Trigger;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
+/**
+ * @author Flow86
+ * 
+ */
 public abstract class ABOTrigger extends Trigger {
 
 	public ABOTrigger(int id) {

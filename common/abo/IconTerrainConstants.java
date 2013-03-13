@@ -12,14 +12,18 @@
 
 package abo;
 
+/**
+ * @author Flow86
+ * 
+ */
 public class IconTerrainConstants {
 
 	public static final int PipeItemsBounceClosed = 0;
 	public static final int PipeItemsBounce = 1;
 	public static final int PipeItemsCrossover = 2;
-	public static final int PipeItemsExtract = 3;
-	public static final int PipeItemsExtractSide = 4;
-	public static final int PipeItemsInsert = 5;
+	public static final int PipeItemsExtraction = 3;
+	public static final int PipeItemsExtractionSide = 4;
+	public static final int PipeItemsInsertion = 5;
 	public static final int PipeItemsRoundRobin = 6;
 	public static final int PipeItemsStripes = 7;
 	public static final int PipeLiquidsBalance = 8;

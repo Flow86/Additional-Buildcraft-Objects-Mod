@@ -12,9 +12,14 @@
 
 package abo;
 
+/**
+ * @author Flow86
+ * 
+ */
 public class IconItemConstants {
 
-	public static final int ActionEngineSafe = 0;
+	public static final int TriggerEngineSafe = 0;
+	public static final int ActionSwitchOnPipe = 1;
 
-	public static final int MAX = 1;
+	public static final int MAX = 2;
 }

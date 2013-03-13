@@ -29,9 +29,9 @@ import cpw.mods.fml.relauncher.SideOnly;
  * @author Flow86
  * 
  */
-public class TriggerEngineControl extends ABOTrigger implements ITriggerPipe {
+public class TriggerEngineSafe extends ABOTrigger implements ITriggerPipe {
 
-	public TriggerEngineControl(int id) {
+	public TriggerEngineSafe(int id) {
 		super(id);
 	}
 
@@ -47,7 +47,7 @@ public class TriggerEngineControl extends ABOTrigger implements ITriggerPipe {
 	@Override
 	@SideOnly(Side.CLIENT)
 	public Icon getTextureIcon() {
-		return getTextureIcons(IconItemConstants.ActionEngineSafe);
+		return getTextureIcons(IconItemConstants.TriggerEngineSafe);
 	}
 
 	@Override

@@ -13,6 +13,7 @@ import java.util.List;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraftforge.common.ForgeDirection;
+import abo.IconTerrainConstants;
 import abo.pipes.ABOPipe;
 import buildcraft.api.core.Position;
 import buildcraft.api.power.IPowerProvider;
@@ -43,8 +44,8 @@ public class PipeItemsStripes extends ABOPipe implements IItemTravelingHook, IPo
 	}
 
 	@Override
-	public int getTextureIndex(ForgeDirection direction) {
-		return 14 * 16 + 0;
+	public int getIconIndex(ForgeDirection direction) {
+		return IconTerrainConstants.PipeItemsStripes;
 	}
 
 	@Override
@@ -66,7 +67,7 @@ public class PipeItemsStripes extends ABOPipe implements IItemTravelingHook, IPo
 							this.container.entityEntering(newItem, o.getOpposite());
 						}
 
-				worldObj.setBlock((int) p.x, (int) p.y, (int) p.z, 0);
+				worldObj.func_96440_m((int) p.x, (int) p.y, (int) p.z, 0);
 			}
 		}
 
@@ -86,17 +87,9 @@ public class PipeItemsStripes extends ABOPipe implements IItemTravelingHook, IPo
 		 * (int) p.y - 1, (int) p.z, 1); else
 		 */
 		if (worldObj.getBlockId((int) p.x, (int) p.y, (int) p.z) == 0)
-			data.item
-					.getItemStack()
-					.getItem()
-					.onItemUse(data.item.getItemStack(), CoreProxy.proxy.getBuildCraftPlayer(worldObj), worldObj, (int) p.x, (int) p.y - 1, (int) p.z, 1, 0.0f,
-							0.0f, 0.0f);
+			data.item.getItemStack().getItem().onItemUse(data.item.getItemStack(), CoreProxy.proxy.getBuildCraftPlayer(worldObj), worldObj, (int) p.x, (int) p.y - 1, (int) p.z, 1, 0.0f, 0.0f, 0.0f);
 		else
-			data.item
-					.getItemStack()
-					.getItem()
-					.onItemUse(data.item.getItemStack(), CoreProxy.proxy.getBuildCraftPlayer(worldObj), worldObj, (int) p.x, (int) p.y, (int) p.z, 1, 0.0f,
-							0.0f, 0.0f);
+			data.item.getItemStack().getItem().onItemUse(data.item.getItemStack(), CoreProxy.proxy.getBuildCraftPlayer(worldObj), worldObj, (int) p.x, (int) p.y, (int) p.z, 1, 0.0f, 0.0f, 0.0f);
 	}
 
 	@Override

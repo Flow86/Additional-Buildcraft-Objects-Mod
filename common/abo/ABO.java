@@ -35,7 +35,7 @@ import abo.pipes.liquids.PipeLiquidsValve;
 import abo.pipes.power.PipePowerSwitch;
 import abo.proxy.ABOProxy;
 import abo.triggers.ABOTriggerProvider;
-import abo.triggers.TriggerEngineControl;
+import abo.triggers.TriggerEngineSafe;
 import buildcraft.BuildCraftCore;
 import buildcraft.BuildCraftEnergy;
 import buildcraft.BuildCraftTransport;
@@ -165,7 +165,7 @@ public class ABO {
 
 			pipePowerSwitch = createPipe(pipePowerSwitchID, PipePowerSwitch.class, "Power Switch Pipe", 1, BuildCraftTransport.pipePowerGold, Block.lever, null);
 
-			triggerEngineControl = new TriggerEngineControl(triggerEngineControlID);
+			triggerEngineControl = new TriggerEngineSafe(triggerEngineControlID);
 			actionSwitchOnPipe = new ActionSwitchOnPipe(actionSwitchOnPipeID);
 
 			ActionManager.registerTriggerProvider(new ABOTriggerProvider());

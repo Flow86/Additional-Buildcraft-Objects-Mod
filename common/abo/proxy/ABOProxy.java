@@ -15,6 +15,10 @@ package abo.proxy;
 import abo.ABO;
 import cpw.mods.fml.common.SidedProxy;
 
+/**
+ * @author Flow86
+ * 
+ */
 public class ABOProxy {
 
 	@SidedProxy(clientSide = "abo.proxy.ABOProxyClient", serverSide = "abo.proxy.ABOProxy")

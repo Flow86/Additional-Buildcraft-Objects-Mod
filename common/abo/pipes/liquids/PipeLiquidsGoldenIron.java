@@ -13,6 +13,7 @@
 package abo.pipes.liquids;
 
 import net.minecraftforge.common.ForgeDirection;
+import abo.IconTerrainConstants;
 import abo.pipes.ABOPipe;
 import buildcraft.transport.PipeTransportLiquids;
 import buildcraft.transport.pipes.PipeLogicIron;
@@ -23,8 +24,8 @@ import buildcraft.transport.pipes.PipeLogicIron;
  */
 public class PipeLiquidsGoldenIron extends ABOPipe {
 
-	private final int baseTexture = 3 * 16 + 0;
-	private final int sideTexture = baseTexture + 1;
+	private final int baseTexture = IconTerrainConstants.PipeLiquidsGoldenIron;
+	private final int sideTexture = IconTerrainConstants.PipeLiquidsGoldenIronSide;
 
 	public PipeLiquidsGoldenIron(int itemID) {
 		super(new PipeTransportLiquids(), new PipeLogicIron(), itemID);
@@ -34,7 +35,7 @@ public class PipeLiquidsGoldenIron extends ABOPipe {
 	}
 
 	@Override
-	public int getTextureIndex(ForgeDirection direction) {
+	public int getIconIndex(ForgeDirection direction) {
 		if (direction == ForgeDirection.UNKNOWN)
 			return baseTexture;
 		else {

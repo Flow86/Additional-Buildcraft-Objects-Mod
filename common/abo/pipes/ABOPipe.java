@@ -20,6 +20,10 @@ import buildcraft.transport.pipes.PipeLogic;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
+/**
+ * @author Flow86
+ * 
+ */
 public abstract class ABOPipe extends Pipe {
 	public ABOPipe(PipeTransport transport, PipeLogic logic, int itemID) {
 		super(transport, logic, itemID);

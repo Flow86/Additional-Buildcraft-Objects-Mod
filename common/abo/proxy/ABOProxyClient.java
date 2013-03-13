@@ -21,6 +21,10 @@ import abo.IconItemConstants;
 import abo.IconTerrainConstants;
 import buildcraft.transport.TransportProxyClient;
 
+/**
+ * @author Flow86
+ * 
+ */
 public class ABOProxyClient extends ABOProxy {
 	@Override
 	public void registerPipe(int itemID) {
@@ -39,10 +43,10 @@ public class ABOProxyClient extends ABOProxy {
 
 		instance.terrainIcons[IconTerrainConstants.PipeItemsCrossover] = terrainTextures.func_94245_a("abo:PipeItemsCrossover");
 
-		instance.terrainIcons[IconTerrainConstants.PipeItemsExtract] = terrainTextures.func_94245_a("abo:PipeItemsExtract");
-		instance.terrainIcons[IconTerrainConstants.PipeItemsExtractSide] = terrainTextures.func_94245_a("abo:PipeItemsExtractSide");
+		instance.terrainIcons[IconTerrainConstants.PipeItemsExtraction] = terrainTextures.func_94245_a("abo:PipeItemsExtract");
+		instance.terrainIcons[IconTerrainConstants.PipeItemsExtractionSide] = terrainTextures.func_94245_a("abo:PipeItemsExtractSide");
 
-		instance.terrainIcons[IconTerrainConstants.PipeItemsInsert] = terrainTextures.func_94245_a("abo:PipeItemsInsert");
+		instance.terrainIcons[IconTerrainConstants.PipeItemsInsertion] = terrainTextures.func_94245_a("abo:PipeItemsInsert");
 		instance.terrainIcons[IconTerrainConstants.PipeItemsRoundRobin] = terrainTextures.func_94245_a("abo:PipeItemsRoundRobin");
 		instance.terrainIcons[IconTerrainConstants.PipeItemsStripes] = terrainTextures.func_94245_a("abo:PipeItemsStripes");
 
@@ -73,6 +77,7 @@ public class ABOProxyClient extends ABOProxy {
 		instance.itemIcons = new Icon[IconItemConstants.MAX];
 		TextureMap itemTextures = Minecraft.getMinecraft().renderEngine.field_94155_m;
 
-		instance.itemIcons[IconItemConstants.ActionEngineSafe] = itemTextures.func_94245_a("abo:actions/ActionEngineSafe");
+		instance.itemIcons[IconItemConstants.TriggerEngineSafe] = itemTextures.func_94245_a("abo:triggers/TriggerEngineSafe");
+		instance.itemIcons[IconItemConstants.ActionSwitchOnPipe] = itemTextures.func_94245_a("abo:actions/ActionSwitchOnPipe");
 	}
 }

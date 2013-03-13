@@ -16,6 +16,10 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraftforge.common.ForgeDirection;
 import buildcraft.api.power.IPowerReceptor;
 
+/**
+ * @author Flow86
+ * 
+ */
 public class ABOEnergyPulser {
 
 	private final IPowerReceptor powerReceptor;

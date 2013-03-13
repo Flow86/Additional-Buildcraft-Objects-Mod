@@ -15,6 +15,7 @@ package abo.pipes.items;
 import java.util.LinkedList;
 
 import net.minecraftforge.common.ForgeDirection;
+import abo.IconTerrainConstants;
 import abo.pipes.ABOPipe;
 import buildcraft.api.core.Position;
 import buildcraft.api.transport.IPipedItem;
@@ -28,22 +29,16 @@ import buildcraft.transport.pipes.PipeLogicStone;
  * @author Scott Chamberlain (Leftler) ported to BC > 2.2 by Flow86
  */
 public class PipeItemsBounce extends ABOPipe implements IPipeTransportItemsHook {
-	private final int openTexture = 10 * 16 + 0;
-	private final int closedTexture = openTexture + 1;
+	private final int openTexture = IconTerrainConstants.PipeItemsBounce;
+	private final int closedTexture = IconTerrainConstants.PipeItemsBounceClosed;
 
 	public PipeItemsBounce(int itemID) {
 		super(new PipeTransportItems(), new PipeLogicStone(), itemID);
 	}
 
 	@Override
-	public int getTextureIndex(ForgeDirection direction) {
-
+	public int getIconIndex(ForgeDirection direction) {
 		return (worldObj.isBlockIndirectlyGettingPowered(xCoord, yCoord, zCoord) ? openTexture : closedTexture);
-	}
-
-	@Override
-	public int getTextureIndexForItem() {
-		return openTexture;
 	}
 
 	@Override
