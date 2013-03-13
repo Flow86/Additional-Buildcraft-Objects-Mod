@@ -13,13 +13,17 @@
 package abo.triggers;
 
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.Icon;
 import net.minecraftforge.common.ForgeDirection;
+import abo.IconItemConstants;
 import buildcraft.api.gates.ITriggerParameter;
 import buildcraft.energy.Engine;
 import buildcraft.energy.Engine.EnergyStage;
 import buildcraft.energy.TileEngine;
 import buildcraft.transport.ITriggerPipe;
 import buildcraft.transport.Pipe;
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 
 /**
  * @author Flow86
@@ -41,8 +45,9 @@ public class TriggerEngineControl extends ABOTrigger implements ITriggerPipe {
 	}
 
 	@Override
-	public int getIndexInTexture() {
-		return 0 * 16 + 0;
+	@SideOnly(Side.CLIENT)
+	public Icon getTextureIcon() {
+		return getTextureIcons(IconItemConstants.ActionEngineSafe);
 	}
 
 	@Override

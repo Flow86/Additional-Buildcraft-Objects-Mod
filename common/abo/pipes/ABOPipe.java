@@ -12,10 +12,13 @@
 
 package abo.pipes;
 
+import net.minecraft.util.Icon;
 import abo.ABO;
 import buildcraft.transport.Pipe;
 import buildcraft.transport.PipeTransport;
 import buildcraft.transport.pipes.PipeLogic;
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 
 public abstract class ABOPipe extends Pipe {
 	public ABOPipe(PipeTransport transport, PipeLogic logic, int itemID) {
@@ -23,7 +26,8 @@ public abstract class ABOPipe extends Pipe {
 	}
 
 	@Override
-	public String getTextureFile() {
-		return ABO.texturePipes;
+	@SideOnly(Side.CLIENT)
+	public Icon[] getTextureIcons() {
+		return ABO.instance.terrainIcons;
 	}
 }
