@@ -67,7 +67,7 @@ public class PipeItemsStripes extends ABOPipe implements IItemTravelingHook, IPo
 							this.container.entityEntering(newItem, o.getOpposite());
 						}
 
-				worldObj.setBlock((int) p.x, (int) p.y, (int) p.z, 0);
+				worldObj.func_94575_c((int) p.x, (int) p.y, (int) p.z, 0);
 			}
 		}
 

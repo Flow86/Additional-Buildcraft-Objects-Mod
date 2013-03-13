@@ -83,7 +83,7 @@ public class PipePowerDiamond extends ABOPipe implements IPipeTransportPowerHook
 
 				if (ptransport.internalNextPower[from.ordinal()] >= 10000) {
 					worldObj.createExplosion(null, xCoord, yCoord, zCoord, 3, false);
-					worldObj.setBlockWithNotify(xCoord, yCoord, zCoord, 0);
+					worldObj.func_94575_c(xCoord, yCoord, zCoord, 0);
 				}
 			}
 		}

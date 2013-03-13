@@ -14,14 +14,15 @@ package abo.pipes.power;
 
 import net.minecraft.tileentity.TileEntity;
 import net.minecraftforge.common.ForgeDirection;
+import buildcraft.api.power.IPowerReceptor;
 import buildcraft.transport.Pipe;
 import buildcraft.transport.TileGenericPipe;
-import buildcraft.api.power.IPowerReceptor;
 import buildcraft.transport.pipes.PipeLogicIron;
 import buildcraft.transport.pipes.PipeLogicWood;
 import buildcraft.transport.pipes.PipeStructureCobblestone;
 
 public class PipeLogicPowerIron extends PipeLogicIron {
+	@Override
 	public void switchPosition() {
 		int metadata = worldObj.getBlockMetadata(xCoord, yCoord, zCoord);
 
@@ -45,7 +46,7 @@ public class PipeLogicPowerIron extends PipeLogicIron {
 
 			if (tile instanceof IPowerReceptor) {
 
-				worldObj.setBlockMetadata(xCoord, yCoord, zCoord, nextMetadata);
+				worldObj.setBlockMetadataWithNotify(xCoord, yCoord, zCoord, nextMetadata, 0);
 				container.scheduleRenderUpdate();
 				return;
 			}
