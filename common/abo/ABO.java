@@ -13,6 +13,7 @@
 package abo;
 
 import java.io.File;
+import java.lang.reflect.InvocationTargetException;
 import java.util.LinkedList;
 import java.util.logging.Logger;
 
@@ -21,6 +22,9 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.common.Property;
 import abo.actions.ActionSwitchOnPipe;
+import abo.items.ABOItem;
+import abo.items.ItemGateSettingsDuplicator;
+import abo.pipes.ABOPipe;
 import abo.pipes.items.PipeItemsBounce;
 import abo.pipes.items.PipeItemsCrossover;
 import abo.pipes.items.PipeItemsExtraction;
@@ -43,6 +47,8 @@ import buildcraft.BuildCraftTransport;
 import buildcraft.api.gates.Action;
 import buildcraft.api.gates.ActionManager;
 import buildcraft.api.gates.Trigger;
+import buildcraft.core.DefaultProps;
+import buildcraft.core.ItemWrench;
 import buildcraft.core.utils.Localization;
 import buildcraft.transport.BlockGenericPipe;
 import buildcraft.transport.ItemPipe;
@@ -73,6 +79,10 @@ public class ABO {
 
 	public static String texturePipes = "/gfx/abo/pipes.png";;
 	public static String textureTriggers = "/gfx/abo/triggers.png";;
+	public static String textureItems = "/gfx/abo/items.png";
+	
+	public static int itemGateSettingsDuplicatorID = 10100;
+	public static Item itemGateSettingsDuplicator = null;
 
 	public static int pipeLiquidsValveID = 10200;
 	public static Item pipeLiquidsValve = null;
@@ -135,7 +145,9 @@ public class ABO {
 		aboConfiguration = new ABOConfiguration(new File(evt.getModConfigurationDirectory(), "abo/main.conf"));
 		try {
 			aboConfiguration.load();
-
+			
+			itemGateSettingsDuplicator = createItem(itemGateSettingsDuplicatorID, ItemGateSettingsDuplicator.class, "Gate Settings Duplicator", BuildCraftCore.wrenchItem, BuildCraftTransport.pipeGateAutarchic, null);
+					
 			pipeLiquidsValve = createPipe(pipeLiquidsValveID, PipeLiquidsValve.class, "Valve Pipe", 1, BuildCraftTransport.pipeLiquidsWood, BuildCraftTransport.pipeGateAutarchic, null);
 
 			pipeLiquidsGoldenIron = createPipe(pipeLiquidsGoldenIronID, PipeLiquidsGoldenIron.class, "Golden Iron Waterproof Pipe", 1, BuildCraftTransport.pipeLiquidsGold,
@@ -194,68 +206,101 @@ public class ABO {
 		ABOProxy.proxy.preloadTextures();
 
 		// fix problem with autarchic gate initialization sequence
-		PipeRecipe recipe = new PipeRecipe();
+		ABORecipe recipe = new ABORecipe();
 
 		recipe.itemID = pipeLiquidsValve.itemID;
 		recipe.isShapeless = true;
 		recipe.result = new ItemStack(pipeLiquidsValve, 1);
 		recipe.input = new Object[] { BuildCraftTransport.pipeLiquidsWood, BuildCraftTransport.pipeGateAutarchic };
 
-		pipeRecipes.add(recipe);
+		aboRecipes.add(recipe);
 
 		loadRecipes();
 	}
 
-	private static class PipeRecipe {
+	private static class ABORecipe {
 		int itemID;
+		boolean isPipe = false;
 		boolean isShapeless = false;
 		ItemStack result;
 		Object[] input;
 	}
 
-	private static LinkedList<PipeRecipe> pipeRecipes = new LinkedList<PipeRecipe>();
-
-	private static Item createPipe(int defaultID, Class<? extends Pipe> clas, String descr, int count, Object ingredient1, Object ingredient2, Object ingredient3) {
-		String name = Character.toLowerCase(clas.getSimpleName().charAt(0)) + clas.getSimpleName().substring(1);
+	private static LinkedList<ABORecipe> aboRecipes = new LinkedList<ABORecipe>();
+	
+	private static Item createItem(int defaultID, Class<? extends ABOItem> clazz, String descr, Object ingredient1, Object ingredient2, Object ingredient3) {
+		String name = Character.toLowerCase(clazz.getSimpleName().charAt(0)) + clazz.getSimpleName().substring(1);
 
 		Property prop = aboConfiguration.getItem(name + ".id", defaultID);
 
 		int id = prop.getInt(defaultID);
-		ItemPipe res = BlockGenericPipe.registerPipe(id, clas);
-		res.setItemName(clas.getSimpleName());
-		LanguageRegistry.addName(res, descr);
-
+		
+		Item item = null;
+		try {
+			item = clazz.getConstructor(int.class).newInstance(id);
+		} catch (Throwable t) {
+			t.printStackTrace();
+		}
+		
+		if(item == null)
+			return item;
+		
+		item.setItemName(clazz.getSimpleName());
+		LanguageRegistry.addName(item, descr);
+		
+		addReceipe(item, 1, ingredient1, ingredient2, ingredient3);
+		
+		return item;
+	}
+	
+	private static void addReceipe(Item item, int count, Object ingredient1, Object ingredient2, Object ingredient3) {
 		// Add appropriate recipe to temporary list
-		PipeRecipe recipe = new PipeRecipe();
-
-		recipe.itemID = res.itemID;
+		ABORecipe recipe = new ABORecipe();
+		
+		recipe.isPipe = (item instanceof ItemPipe);
+		recipe.itemID = item.itemID;
 
 		if (ingredient1 != null && ingredient2 != null && ingredient3 != null) {
-			recipe.result = new ItemStack(res, count);
+			recipe.result = new ItemStack(item, count);
 			recipe.input = new Object[] { "ABC", Character.valueOf('A'), ingredient1, Character.valueOf('B'), ingredient2, Character.valueOf('C'), ingredient3 };
 
-			pipeRecipes.add(recipe);
+			aboRecipes.add(recipe);
 		} else if (ingredient1 != null && ingredient2 != null) {
 			recipe.isShapeless = true;
-			recipe.result = new ItemStack(res, count);
+			recipe.result = new ItemStack(item, count);
 			recipe.input = new Object[] { ingredient1, ingredient2 };
 
-			pipeRecipes.add(recipe);
+			aboRecipes.add(recipe);
 		}
+	
+	}
 
-		return res;
+	private static Item createPipe(int defaultID, Class<? extends Pipe> clazz, String descr, int count, Object ingredient1, Object ingredient2, Object ingredient3) {
+		String name = Character.toLowerCase(clazz.getSimpleName().charAt(0)) + clazz.getSimpleName().substring(1);
+
+		Property prop = aboConfiguration.getItem(name + ".id", defaultID);
+
+		int id = prop.getInt(defaultID);
+		ItemPipe pipe = BlockGenericPipe.registerPipe(id, clazz);
+		pipe.setItemName(clazz.getSimpleName());
+		LanguageRegistry.addName(pipe, descr);
+
+		addReceipe(pipe, count, ingredient1, ingredient2, ingredient3);
+		
+		return pipe;
 	}
 
 	public void loadRecipes() {
 		// Add pipe recipes
-		for (PipeRecipe pipe : pipeRecipes) {
-			if (pipe.isShapeless) {
-				GameRegistry.addShapelessRecipe(pipe.result, pipe.input);
+		for (ABORecipe recipe : aboRecipes) {
+			if (recipe.isShapeless) {
+				GameRegistry.addShapelessRecipe(recipe.result, recipe.input);
 			} else {
-				GameRegistry.addRecipe(pipe.result, pipe.input);
+				GameRegistry.addRecipe(recipe.result, recipe.input);
 			}
 
-			ABOProxy.proxy.registerPipe(pipe.itemID);
+			if(recipe.isPipe)
+				ABOProxy.proxy.registerPipe(recipe.itemID);
 		}
 	}
 }
