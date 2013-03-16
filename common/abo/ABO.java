@@ -19,6 +19,7 @@ import java.util.logging.Logger;
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.Icon;
 import net.minecraftforge.common.Property;
 import abo.actions.ActionSwitchOnPipe;
 import abo.items.ABOItem;
@@ -38,7 +39,7 @@ import abo.pipes.power.PipePowerIron;
 import abo.pipes.power.PipePowerSwitch;
 import abo.proxy.ABOProxy;
 import abo.triggers.ABOTriggerProvider;
-import abo.triggers.TriggerEngineControl;
+import abo.triggers.TriggerEngineSafe;
 import buildcraft.BuildCraftCore;
 import buildcraft.BuildCraftEnergy;
 import buildcraft.BuildCraftTransport;
@@ -61,6 +62,8 @@ import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.common.registry.GameRegistry;
 import cpw.mods.fml.common.registry.LanguageRegistry;
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 
 /**
  * @author Flow86
@@ -70,12 +73,14 @@ import cpw.mods.fml.common.registry.LanguageRegistry;
 public class ABO {
 	public static final String VERSION = "@ABO_VERSION@";
 
+	@SideOnly(Side.CLIENT)
+	public Icon[] terrainIcons;
+
+	@SideOnly(Side.CLIENT)
+	public Icon[] itemIcons;
+
 	public static ABOConfiguration aboConfiguration;
 	public static Logger aboLog = Logger.getLogger("Additional-Buildcraft-Objects");
-
-	public static String texturePipes = "/gfx/abo/pipes.png";;
-	public static String textureTriggers = "/gfx/abo/triggers.png";;
-	public static String textureItems = "/gfx/abo/items.png";
 
 	public static int itemGateSettingsDuplicatorID = 10100;
 	public static Item itemGateSettingsDuplicator = null;
@@ -122,8 +127,8 @@ public class ABO {
 	public static int pipePowerDiamondID = 10402;
 	public static Item pipePowerDiamond = null;
 
-	public static int triggerEngineControlID = 128;
-	public static Trigger triggerEngineControl = null;
+	public static int triggerEngineSafeID = 128;
+	public static Trigger triggerEngineSafe = null;
 
 	public static int actionSwitchOnPipeID = 128;
 	public static Action actionSwitchOnPipe = null;
@@ -137,7 +142,10 @@ public class ABO {
 		aboLog.setParent(FMLLog.getLogger());
 		aboLog.info("Starting Additional-Buildcraft-Objects #@BUILD_NUMBER@ " + VERSION
 				+ " (Built for Minecraft @MINECRAFT_VERSION@ with Buildcraft @BUILDCRAFT_VERSION@ and Forge @FORGE_VERSION@");
-		aboLog.info("Copyright (c) Flow86, 2011-2012");
+		aboLog.info("Copyright (c) Flow86, 2011-2013");
+
+		ABOProxy.proxy.loadTerrainIcons(this);
+		ABOProxy.proxy.loadItemIcons(this);
 
 		aboConfiguration = new ABOConfiguration(new File(evt.getModConfigurationDirectory(), "abo/main.conf"));
 		try {
@@ -185,10 +193,9 @@ public class ABO {
 
 			pipePowerIron = createPipe(pipePowerIronID, PipePowerIron.class, "Iron Power Pipe", 1, Item.redstone, BuildCraftTransport.pipeItemsIron, null);
 
-			pipePowerDiamond = createPipe(pipePowerDiamondID, PipePowerDiamond.class, "Diamond Power Pipe", 1, Item.redstone,
-					BuildCraftTransport.pipeItemsDiamond, null);
+			pipePowerDiamond = createPipe(pipePowerDiamondID, PipePowerDiamond.class, "Diamond Power Pipe", 1, Item.redstone, BuildCraftTransport.pipeItemsDiamond, null);
 
-			triggerEngineControl = new TriggerEngineControl(triggerEngineControlID);
+			triggerEngineSafe = new TriggerEngineSafe(triggerEngineSafeID);
 			actionSwitchOnPipe = new ActionSwitchOnPipe(actionSwitchOnPipeID);
 
 			ActionManager.registerTriggerProvider(new ABOTriggerProvider());
@@ -207,8 +214,6 @@ public class ABO {
 	public void load(FMLInitializationEvent evt) {
 
 		Localization.addLocalization("/lang/abo/", "en_US");
-
-		ABOProxy.proxy.preloadTextures();
 
 		// fix problem with autarchic gate initialization sequence
 		ABORecipe recipe = new ABORecipe();
@@ -250,7 +255,7 @@ public class ABO {
 		if (item == null)
 			return item;
 
-		item.setItemName(clazz.getSimpleName());
+		item.setUnlocalizedName(clazz.getSimpleName());
 		LanguageRegistry.addName(item, descr);
 
 		addReceipe(item, 1, ingredient1, ingredient2, ingredient3);

@@ -16,21 +16,27 @@ import java.util.LinkedList;
 
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.Icon;
 import net.minecraftforge.common.ForgeDirection;
 import abo.ABO;
+import abo.IconTerrainConstants;
 import abo.actions.ABOEnergyPulser;
 import buildcraft.api.core.Position;
 import buildcraft.transport.BlockGenericPipe;
 import buildcraft.transport.PipeTransportLiquids;
 import buildcraft.transport.TileGenericPipe;
 import buildcraft.transport.pipes.PipeLiquidsWood;
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 
 public class PipeLiquidsValve extends PipeLiquidsWood {
 
 	private final ABOEnergyPulser pulser;
 	private boolean powered;
-	private final int baseTexture = 0 * 16 + 0;
-	private final int plainTexture = 0 * 16 + 2;
+	private final int closedTexture = IconTerrainConstants.PipeLiquidsValveClosed;
+	private final int closedTextureSide = IconTerrainConstants.PipeLiquidsValveClosedSide;
+	private final int openTexture = IconTerrainConstants.PipeLiquidsValveOpen;
+	private final int openTextureSide = IconTerrainConstants.PipeLiquidsValveOpenSide;
 
 	public PipeLiquidsValve(int itemID) {
 		super(itemID);
@@ -42,27 +48,23 @@ public class PipeLiquidsValve extends PipeLiquidsWood {
 	}
 
 	@Override
-	public int getTextureIndex(ForgeDirection direction) {
+	@SideOnly(Side.CLIENT)
+	public Icon[] getTextureIcons() {
+		return ABO.instance.terrainIcons;
+	}
+
+	@Override
+	public int getIconIndex(ForgeDirection direction) {
 		if (direction == ForgeDirection.UNKNOWN)
-			return baseTexture + (isPowered() ? 1 : 0);
+			return isPowered() ? openTexture : closedTexture;
 		else {
 			int metadata = worldObj.getBlockMetadata(xCoord, yCoord, zCoord);
 
 			if (metadata == direction.ordinal())
-				return plainTexture + (isPowered() ? 1 : 0);
+				return isPowered() ? openTextureSide : closedTextureSide;
 			else
-				return baseTexture + (isPowered() ? 1 : 0);
+				return isPowered() ? openTexture : closedTexture;
 		}
-	}
-
-	@Override
-	public int getTextureIndexForItem() {
-		return baseTexture;
-	}
-
-	@Override
-	public String getTextureFile() {
-		return ABO.texturePipes;
 	}
 
 	public boolean isPowered() {

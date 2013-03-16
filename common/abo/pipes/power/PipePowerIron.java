@@ -13,25 +13,23 @@
 package abo.pipes.power;
 
 import net.minecraftforge.common.ForgeDirection;
+import abo.IconTerrainConstants;
+import abo.pipes.ABOPipe;
 import buildcraft.BuildCraftTransport;
 import buildcraft.transport.IPipeTransportPowerHook;
-import buildcraft.transport.PipeTransport;
 import buildcraft.transport.PipeTransportPower;
-import buildcraft.transport.pipes.PipeLogic;
-import buildcraft.transport.pipes.PipeLogicIron;
-import abo.pipes.ABOPipe;
 
 public class PipePowerIron extends ABOPipe implements IPipeTransportPowerHook {
 
-	private int baseTexture = 15 * 16 + 0;
-	private int plainTexture = 15 * 16 + 1;
-	
+	private final int baseTexture = IconTerrainConstants.PipePowerIron;
+	private final int sideTexture = IconTerrainConstants.PipePowerIronSide;
+
 	public PipePowerIron(int itemID) {
 		super(new PipeTransportPower(), new PipeLogicPowerIron(), itemID);
 	}
 
 	@Override
-	public int getTextureIndex(ForgeDirection direction) {
+	public int getIconIndex(ForgeDirection direction) {
 		if (direction == ForgeDirection.UNKNOWN)
 			return baseTexture;
 		else {
@@ -40,7 +38,7 @@ public class PipePowerIron extends ABOPipe implements IPipeTransportPowerHook {
 			if (metadata == direction.ordinal())
 				return baseTexture;
 			else
-				return plainTexture;
+				return sideTexture;
 		}
 	}
 
@@ -49,8 +47,7 @@ public class PipePowerIron extends ABOPipe implements IPipeTransportPowerHook {
 		int metadata = worldObj.getBlockMetadata(xCoord, yCoord, zCoord);
 		PipeTransportPower ptransport = (PipeTransportPower) transport;
 
-		if (metadata != from.ordinal() && val > 0.0)
-		{
+		if (metadata != from.ordinal() && val > 0.0) {
 			if (BuildCraftTransport.usePipeLoss) {
 				ptransport.internalNextPower[from.ordinal()] += val * (1 - ptransport.powerResistance);
 			} else {
@@ -59,7 +56,7 @@ public class PipePowerIron extends ABOPipe implements IPipeTransportPowerHook {
 
 			if (ptransport.internalNextPower[from.ordinal()] >= 10000) {
 				worldObj.createExplosion(null, xCoord, yCoord, zCoord, 3, false);
-				worldObj.setBlockWithNotify(xCoord, yCoord, zCoord, 0);
+				worldObj.func_94575_c(xCoord, yCoord, zCoord, 0);
 			}
 		}
 	}
@@ -69,8 +66,7 @@ public class PipePowerIron extends ABOPipe implements IPipeTransportPowerHook {
 		int metadata = worldObj.getBlockMetadata(xCoord, yCoord, zCoord);
 		PipeTransportPower ptransport = (PipeTransportPower) transport;
 
-		if (metadata == from.ordinal())
-		{
+		if (metadata == from.ordinal()) {
 			ptransport.step();
 			ptransport.nextPowerQuery[from.ordinal()] += i;
 		}

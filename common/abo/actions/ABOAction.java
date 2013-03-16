@@ -12,17 +12,29 @@
 
 package abo.actions;
 
+import net.minecraft.util.Icon;
 import abo.ABO;
 import buildcraft.api.gates.Action;
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 
-public class ABOAction extends Action {
+/**
+ * @author Flow86
+ * 
+ */
+public abstract class ABOAction extends Action {
 
 	public ABOAction(int id) {
 		super(id);
 	}
 
+	@SideOnly(Side.CLIENT)
+	public abstract int getIconIndex();
+
 	@Override
-	public String getTexture() {
-		return ABO.textureTriggers;
+	@SideOnly(Side.CLIENT)
+	public Icon getTexture() {
+		// TODO Auto-generated method stub
+		return ABO.instance.itemIcons[getIconIndex()];
 	}
 }

@@ -12,10 +12,13 @@
 
 package abo.actions;
 
+import abo.IconItemConstants;
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
+
 /**
- * 
- * 
  * @author mistaqur
+ * 
  */
 public class ActionSwitchOnPipe extends ABOAction {
 
@@ -24,12 +27,13 @@ public class ActionSwitchOnPipe extends ABOAction {
 	}
 
 	@Override
-	public int getIndexInTexture() {
-		return 0 * 16 + 0;
+	public String getDescription() {
+		return "Switch On Pipe";
 	}
 
 	@Override
-	public String getDescription() {
-		return "Switch On Pipe";
+	@SideOnly(Side.CLIENT)
+	public int getIconIndex() {
+		return IconItemConstants.ActionSwitchOnPipe;
 	}
 }

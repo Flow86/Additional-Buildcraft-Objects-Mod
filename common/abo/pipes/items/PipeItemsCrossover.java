@@ -13,6 +13,7 @@
 package abo.pipes.items;
 
 import net.minecraftforge.common.ForgeDirection;
+import abo.IconTerrainConstants;
 import abo.pipes.ABOPipe;
 import buildcraft.transport.pipes.PipeLogicStone;
 
@@ -29,7 +30,7 @@ public class PipeItemsCrossover extends ABOPipe {
 	}
 
 	@Override
-	public int getTextureIndex(ForgeDirection direction) {
-		return 11 * 16 + 0;
+	public int getIconIndex(ForgeDirection direction) {
+		return IconTerrainConstants.PipeItemsCrossover;
 	}
 }

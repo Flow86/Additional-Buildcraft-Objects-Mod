@@ -12,16 +12,24 @@
 
 package abo.proxy;
 
+import abo.ABO;
 import cpw.mods.fml.common.SidedProxy;
 
+/**
+ * @author Flow86
+ * 
+ */
 public class ABOProxy {
 
 	@SidedProxy(clientSide = "abo.proxy.ABOProxyClient", serverSide = "abo.proxy.ABOProxy")
 	public static ABOProxy proxy;
 
-	public void preloadTextures() {
+	public void registerPipe(int itemID) {
 	}
 
-	public void registerPipe(int itemID) {
+	public void loadTerrainIcons(ABO instance) {
+	}
+
+	public void loadItemIcons(ABO instance) {
 	}
 }

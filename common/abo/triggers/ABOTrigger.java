@@ -12,18 +12,24 @@
 
 package abo.triggers;
 
+import net.minecraft.util.Icon;
 import abo.ABO;
 import buildcraft.api.gates.Trigger;
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 
+/**
+ * @author Flow86
+ * 
+ */
 public abstract class ABOTrigger extends Trigger {
 
 	public ABOTrigger(int id) {
 		super(id);
 	}
 
-	@Override
-	public String getTextureFile() {
-		return ABO.textureTriggers;
+	@SideOnly(Side.CLIENT)
+	public Icon getTextureIcons(int index) {
+		return ABO.instance.itemIcons[index];
 	}
-
 }

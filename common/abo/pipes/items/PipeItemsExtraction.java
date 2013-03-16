@@ -12,13 +12,17 @@
 
 package abo.pipes.items;
 
+import net.minecraft.util.Icon;
 import net.minecraftforge.common.ForgeDirection;
 import abo.ABO;
+import abo.IconTerrainConstants;
 import buildcraft.api.power.IPowerReceptor;
 import buildcraft.transport.Pipe;
 import buildcraft.transport.PipeTransportItems;
 import buildcraft.transport.pipes.PipeItemsWood;
 import cpw.mods.fml.relauncher.ReflectionHelper;
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 
 /**
  * This pipe will always prefer to insert it's objects into another pipe over
@@ -27,8 +31,8 @@ import cpw.mods.fml.relauncher.ReflectionHelper;
  * @author Scott Chamberlain (Leftler) ported to BC > 2.2 by Flow86
  */
 public class PipeItemsExtraction extends PipeItemsWood implements IPowerReceptor {
-	private final int baseTexture = 9 * 16 + 0;
-	private final int sideTexture = baseTexture + 1;
+	private final int baseTexture = IconTerrainConstants.PipeItemsExtraction;
+	private final int sideTexture = IconTerrainConstants.PipeItemsExtractionSide;
 
 	public PipeItemsExtraction(int itemID) {
 		super(itemID, new PipeTransportItemsExtraction());
@@ -47,12 +51,13 @@ public class PipeItemsExtraction extends PipeItemsWood implements IPowerReceptor
 	}
 
 	@Override
-	public String getTextureFile() {
-		return ABO.texturePipes;
+	@SideOnly(Side.CLIENT)
+	public Icon[] getTextureIcons() {
+		return ABO.instance.terrainIcons;
 	}
 
 	@Override
-	public int getTextureIndex(ForgeDirection direction) {
+	public int getIconIndex(ForgeDirection direction) {
 		if (direction == ForgeDirection.UNKNOWN)
 			return baseTexture;
 		else {

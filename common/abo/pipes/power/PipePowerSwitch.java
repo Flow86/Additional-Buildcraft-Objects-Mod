@@ -1,5 +1,5 @@
 /** 
- * Copyright (C) 2011 Flow86
+ * Copyright (C) 2011-2013 Flow86
  * 
  * AdditionalBuildcraftObjects is open-source.
  *
@@ -21,6 +21,7 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraftforge.common.ForgeDirection;
 import abo.ABO;
+import abo.IconTerrainConstants;
 import abo.actions.ActionSwitchOnPipe;
 import abo.pipes.ABOPipe;
 import buildcraft.api.core.Position;
@@ -37,8 +38,8 @@ import buildcraft.transport.pipes.PipeLogicGold;
  * 
  */
 public class PipePowerSwitch extends ABOPipe {
-	private final int unpoweredTexture = 2 * 16 + 0;
-	private final int poweredTexture = 2 * 16 + 1;
+	private final int unpoweredTexture = IconTerrainConstants.PipePowerSwitchUnpowered;
+	private final int poweredTexture = IconTerrainConstants.PipePowerSwitchPowered;
 	private boolean powered;
 	private boolean switched;
 
@@ -49,14 +50,8 @@ public class PipePowerSwitch extends ABOPipe {
 	}
 
 	@Override
-	public int getTextureIndex(ForgeDirection direction) {
-
+	public int getIconIndex(ForgeDirection direction) {
 		return isPowered() ? poweredTexture : unpoweredTexture;
-	}
-
-	@Override
-	public int getTextureIndexForItem() {
-		return poweredTexture;
 	}
 
 	@Override
