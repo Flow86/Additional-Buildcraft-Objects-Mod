@@ -13,7 +13,6 @@
 package abo;
 
 import java.io.File;
-import java.lang.reflect.InvocationTargetException;
 import java.util.LinkedList;
 import java.util.logging.Logger;
 
@@ -24,7 +23,6 @@ import net.minecraftforge.common.Property;
 import abo.actions.ActionSwitchOnPipe;
 import abo.items.ABOItem;
 import abo.items.ItemGateSettingsDuplicator;
-import abo.pipes.ABOPipe;
 import abo.pipes.items.PipeItemsBounce;
 import abo.pipes.items.PipeItemsCrossover;
 import abo.pipes.items.PipeItemsExtraction;
@@ -47,8 +45,6 @@ import buildcraft.BuildCraftTransport;
 import buildcraft.api.gates.Action;
 import buildcraft.api.gates.ActionManager;
 import buildcraft.api.gates.Trigger;
-import buildcraft.core.DefaultProps;
-import buildcraft.core.ItemWrench;
 import buildcraft.core.utils.Localization;
 import buildcraft.transport.BlockGenericPipe;
 import buildcraft.transport.ItemPipe;
@@ -80,7 +76,7 @@ public class ABO {
 	public static String texturePipes = "/gfx/abo/pipes.png";;
 	public static String textureTriggers = "/gfx/abo/triggers.png";;
 	public static String textureItems = "/gfx/abo/items.png";
-	
+
 	public static int itemGateSettingsDuplicatorID = 10100;
 	public static Item itemGateSettingsDuplicator = null;
 
@@ -125,7 +121,7 @@ public class ABO {
 
 	public static int pipePowerDiamondID = 10402;
 	public static Item pipePowerDiamond = null;
-	
+
 	public static int triggerEngineControlID = 128;
 	public static Trigger triggerEngineControl = null;
 
@@ -139,50 +135,59 @@ public class ABO {
 	public void preInitialize(FMLPreInitializationEvent evt) {
 
 		aboLog.setParent(FMLLog.getLogger());
-		aboLog.info("Starting Additional-Buildcraft-Objects #@BUILD_NUMBER@ " + VERSION + " (Built for Minecraft @MINECRAFT_VERSION@ with Buildcraft @BUILDCRAFT_VERSION@ and Forge @FORGE_VERSION@");
+		aboLog.info("Starting Additional-Buildcraft-Objects #@BUILD_NUMBER@ " + VERSION
+				+ " (Built for Minecraft @MINECRAFT_VERSION@ with Buildcraft @BUILDCRAFT_VERSION@ and Forge @FORGE_VERSION@");
 		aboLog.info("Copyright (c) Flow86, 2011-2012");
 
 		aboConfiguration = new ABOConfiguration(new File(evt.getModConfigurationDirectory(), "abo/main.conf"));
 		try {
 			aboConfiguration.load();
-			
-			itemGateSettingsDuplicator = createItem(itemGateSettingsDuplicatorID, ItemGateSettingsDuplicator.class, "Gate Settings Duplicator", BuildCraftCore.wrenchItem, BuildCraftTransport.pipeGateAutarchic, null);
-					
-			pipeLiquidsValve = createPipe(pipeLiquidsValveID, PipeLiquidsValve.class, "Valve Pipe", 1, BuildCraftTransport.pipeLiquidsWood, BuildCraftTransport.pipeGateAutarchic, null);
 
-			pipeLiquidsGoldenIron = createPipe(pipeLiquidsGoldenIronID, PipeLiquidsGoldenIron.class, "Golden Iron Waterproof Pipe", 1, BuildCraftTransport.pipeLiquidsGold,
-					BuildCraftTransport.pipeLiquidsIron, null);
+			itemGateSettingsDuplicator = createItem(itemGateSettingsDuplicatorID, ItemGateSettingsDuplicator.class, "Gate Settings Duplicator",
+					BuildCraftCore.wrenchItem, BuildCraftTransport.pipeGateAutarchic, null);
 
-			pipeLiquidsBalance = createPipe(pipeLiquidsBalanceID, PipeLiquidsBalance.class, "Balancing Waterproof Pipe", 1, BuildCraftTransport.pipeLiquidsWood, new ItemStack(
-					BuildCraftEnergy.engineBlock, 1, 0), BuildCraftTransport.pipeLiquidsWood);
+			pipeLiquidsValve = createPipe(pipeLiquidsValveID, PipeLiquidsValve.class, "Valve Pipe", 1, BuildCraftTransport.pipeLiquidsWood,
+					BuildCraftTransport.pipeGateAutarchic, null);
 
-			pipeLiquidsDiamond = createPipe(pipeLiquidsDiamondID, PipeLiquidsDiamond.class, "Diamond Waterproof Pipe", 1, BuildCraftTransport.pipeItemsDiamond, BuildCraftTransport.pipeWaterproof,
-					null);
+			pipeLiquidsGoldenIron = createPipe(pipeLiquidsGoldenIronID, PipeLiquidsGoldenIron.class, "Golden Iron Waterproof Pipe", 1,
+					BuildCraftTransport.pipeLiquidsGold, BuildCraftTransport.pipeLiquidsIron, null);
 
-			pipeItemsRoundRobin = createPipe(pipeItemsRoundRobinID, PipeItemsRoundRobin.class, "RoundRobin Transport Pipe", 1, BuildCraftTransport.pipeItemsStone, Block.gravel, null);
+			pipeLiquidsBalance = createPipe(pipeLiquidsBalanceID, PipeLiquidsBalance.class, "Balancing Waterproof Pipe", 1,
+					BuildCraftTransport.pipeLiquidsWood, new ItemStack(BuildCraftEnergy.engineBlock, 1, 0), BuildCraftTransport.pipeLiquidsWood);
+
+			pipeLiquidsDiamond = createPipe(pipeLiquidsDiamondID, PipeLiquidsDiamond.class, "Diamond Waterproof Pipe", 1, BuildCraftTransport.pipeItemsDiamond,
+					BuildCraftTransport.pipeWaterproof, null);
+
+			pipeItemsRoundRobin = createPipe(pipeItemsRoundRobinID, PipeItemsRoundRobin.class, "RoundRobin Transport Pipe", 1,
+					BuildCraftTransport.pipeItemsStone, Block.gravel, null);
 
 			// pipeItemsCompactor = createPipe(pipeItemsCompactorID,
 			// PipeItemsCompactor.class, "Compactor Pipe", 1,
 			// BuildCraftTransport.pipeItemsStone,
 			// Block.pistonBase, null);
 
-			pipeItemsInsertion = createPipe(pipeItemsInsertionID, PipeItemsInsertion.class, "Insertion Pipe", 1, BuildCraftTransport.pipeItemsCobblestone, Item.redstone, null);
+			pipeItemsInsertion = createPipe(pipeItemsInsertionID, PipeItemsInsertion.class, "Insertion Pipe", 1, BuildCraftTransport.pipeItemsCobblestone,
+					Item.redstone, null);
 
-			pipeItemsExtraction = createPipe(pipeItemsExtractionID, PipeItemsExtraction.class, "Extraction Transport Pipe", 1, BuildCraftTransport.pipeItemsWood, Block.planks, null);
+			pipeItemsExtraction = createPipe(pipeItemsExtractionID, PipeItemsExtraction.class, "Extraction Transport Pipe", 1,
+					BuildCraftTransport.pipeItemsWood, Block.planks, null);
 
-			pipeItemsBounce = createPipe(pipeItemsBounceID, PipeItemsBounce.class, "Bounce Transport Pipe", 1, BuildCraftTransport.pipeItemsStone, Block.cobblestone, null);
+			pipeItemsBounce = createPipe(pipeItemsBounceID, PipeItemsBounce.class, "Bounce Transport Pipe", 1, BuildCraftTransport.pipeItemsStone,
+					Block.cobblestone, null);
 
-			pipeItemsCrossover = createPipe(pipeItemsCrossoverID, PipeItemsCrossover.class, "Crossover Transport Pipe", 1, BuildCraftTransport.pipeItemsStone, BuildCraftTransport.pipeItemsIron, null);
+			pipeItemsCrossover = createPipe(pipeItemsCrossoverID, PipeItemsCrossover.class, "Crossover Transport Pipe", 1, BuildCraftTransport.pipeItemsStone,
+					BuildCraftTransport.pipeItemsIron, null);
 
-			pipeItemsStripes = createPipe(pipeItemsStripesID, PipeItemsStripes.class, "Stripes Transport Pipe", 8, new ItemStack(Item.dyePowder, 1, 0), Block.glass, new ItemStack(Item.dyePowder, 1,
-					11));
+			pipeItemsStripes = createPipe(pipeItemsStripesID, PipeItemsStripes.class, "Stripes Transport Pipe", 8, new ItemStack(Item.dyePowder, 1, 0),
+					Block.glass, new ItemStack(Item.dyePowder, 1, 11));
 
 			pipePowerSwitch = createPipe(pipePowerSwitchID, PipePowerSwitch.class, "Power Switch Pipe", 1, BuildCraftTransport.pipePowerGold, Block.lever, null);
 
 			pipePowerIron = createPipe(pipePowerIronID, PipePowerIron.class, "Iron Power Pipe", 1, Item.redstone, BuildCraftTransport.pipeItemsIron, null);
 
-			pipePowerDiamond = createPipe(pipePowerDiamondID, PipePowerDiamond.class, "Diamond Power Pipe", 1, Item.redstone, BuildCraftTransport.pipeItemsDiamond, null);
-			
+			pipePowerDiamond = createPipe(pipePowerDiamondID, PipePowerDiamond.class, "Diamond Power Pipe", 1, Item.redstone,
+					BuildCraftTransport.pipeItemsDiamond, null);
+
 			triggerEngineControl = new TriggerEngineControl(triggerEngineControlID);
 			actionSwitchOnPipe = new ActionSwitchOnPipe(actionSwitchOnPipeID);
 
@@ -227,36 +232,36 @@ public class ABO {
 	}
 
 	private static LinkedList<ABORecipe> aboRecipes = new LinkedList<ABORecipe>();
-	
+
 	private static Item createItem(int defaultID, Class<? extends ABOItem> clazz, String descr, Object ingredient1, Object ingredient2, Object ingredient3) {
 		String name = Character.toLowerCase(clazz.getSimpleName().charAt(0)) + clazz.getSimpleName().substring(1);
 
 		Property prop = aboConfiguration.getItem(name + ".id", defaultID);
 
 		int id = prop.getInt(defaultID);
-		
+
 		Item item = null;
 		try {
 			item = clazz.getConstructor(int.class).newInstance(id);
 		} catch (Throwable t) {
 			t.printStackTrace();
 		}
-		
-		if(item == null)
+
+		if (item == null)
 			return item;
-		
+
 		item.setItemName(clazz.getSimpleName());
 		LanguageRegistry.addName(item, descr);
-		
+
 		addReceipe(item, 1, ingredient1, ingredient2, ingredient3);
-		
+
 		return item;
 	}
-	
+
 	private static void addReceipe(Item item, int count, Object ingredient1, Object ingredient2, Object ingredient3) {
 		// Add appropriate recipe to temporary list
 		ABORecipe recipe = new ABORecipe();
-		
+
 		recipe.isPipe = (item instanceof ItemPipe);
 		recipe.itemID = item.itemID;
 
@@ -272,10 +277,11 @@ public class ABO {
 
 			aboRecipes.add(recipe);
 		}
-	
+
 	}
 
-	private static Item createPipe(int defaultID, Class<? extends Pipe> clazz, String descr, int count, Object ingredient1, Object ingredient2, Object ingredient3) {
+	private static Item createPipe(int defaultID, Class<? extends Pipe> clazz, String descr, int count, Object ingredient1, Object ingredient2,
+			Object ingredient3) {
 		String name = Character.toLowerCase(clazz.getSimpleName().charAt(0)) + clazz.getSimpleName().substring(1);
 
 		Property prop = aboConfiguration.getItem(name + ".id", defaultID);
@@ -286,7 +292,7 @@ public class ABO {
 		LanguageRegistry.addName(pipe, descr);
 
 		addReceipe(pipe, count, ingredient1, ingredient2, ingredient3);
-		
+
 		return pipe;
 	}
 
@@ -299,7 +305,7 @@ public class ABO {
 				GameRegistry.addRecipe(recipe.result, recipe.input);
 			}
 
-			if(recipe.isPipe)
+			if (recipe.isPipe)
 				ABOProxy.proxy.registerPipe(recipe.itemID);
 		}
 	}

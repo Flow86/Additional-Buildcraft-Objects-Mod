@@ -12,13 +12,13 @@
 
 package abo.items;
 
-import buildcraft.core.CreativeTabBuildCraft;
-import abo.ABO;
 import net.minecraft.item.Item;
+import abo.ABO;
+import buildcraft.core.CreativeTabBuildCraft;
 
 /**
  * @author Flow86
- *
+ * 
  */
 public class ABOItem extends Item {
 

@@ -12,51 +12,36 @@
 
 package abo.items;
 
-import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.Map;
-
-import thermalexpansion.core.utils.Utils;
-import thermalexpansion.transport.tileentity.TileConduitEnergy;
-import thermalexpansion.transport.tileentity.TileConduitLiquid;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.world.World;
 import buildcraft.api.gates.ActionManager;
 import buildcraft.api.gates.TriggerParameter;
-import buildcraft.api.power.IPowerProvider;
-import buildcraft.api.power.IPowerReceptor;
 import buildcraft.transport.BlockGenericPipe;
 import buildcraft.transport.Gate.GateKind;
 import buildcraft.transport.GateVanilla;
 import buildcraft.transport.Pipe;
-import cofh.core.CoreUtils;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.tileentity.TileEntity;
-import net.minecraft.world.World;
-
 
 /**
  * @author Flow86
- *
+ * 
  */
 public class ItemGateSettingsDuplicator extends ABOItem {
-	static class GateSlot
-	{
-		public GateSlot()
-		{
+	static class GateSlot {
+		public GateSlot() {
 			trigger = 0;
 			triggerParameter = null;
 			action = 0;
 		}
-		
+
 		int trigger;
 		ItemStack triggerParameter;
 		int action;
 
 		public void writeToNBT(NBTTagCompound nbt) {
 			nbt.setInteger("trigger", trigger);
-			if(triggerParameter != null)
+			if (triggerParameter != null)
 				triggerParameter.writeToNBT(nbt.getCompoundTag("triggerParameter"));
 			nbt.setInteger("action", action);
 		}
@@ -68,21 +53,19 @@ public class ItemGateSettingsDuplicator extends ABOItem {
 		}
 	};
 
-	protected static class GateSettings
-	{
-		public GateSettings(GateKind kind)
-		{
+	protected static class GateSettings {
+		public GateSettings(GateKind kind) {
 			this.kind = kind;
 			slots = new GateSlot[8];
 			for (int i = 0; i < 8; ++i) {
 				slots[i] = new GateSlot();
 			}
 		}
-		
-		private GateKind kind;
+
+		private final GateKind kind;
 		private boolean isAutarchic;
-		private GateSlot[] slots;
-		
+		private final GateSlot[] slots;
+
 		public void writeToNBT(NBTTagCompound stackTagCompound) {
 			NBTTagCompound nbt = new NBTTagCompound();
 
@@ -94,26 +77,26 @@ public class ItemGateSettingsDuplicator extends ABOItem {
 				slots[i].writeToNBT(nbtslot);
 				nbt.setCompoundTag("Slot" + i, nbtslot);
 			}
-			
+
 			stackTagCompound.setCompoundTag("GateSettings", nbt);
 		}
-		
+
 		public static GateSettings createFromNBT(NBTTagCompound stackTagCompound) {
-			if(!stackTagCompound.hasKey("GateSettings"))
+			if (!stackTagCompound.hasKey("GateSettings"))
 				return null;
-			
+
 			NBTTagCompound nbt = stackTagCompound.getCompoundTag("GateSettings");
-		
+
 			GateSettings gS = new GateSettings(GateKind.values()[nbt.getInteger("gate")]);
 			gS.isAutarchic = nbt.getBoolean("hasPulser");
 			for (int i = 0; i < 8; ++i) {
 				gS.slots[i].readFromNBT(nbt.getCompoundTag("Slot" + i));
 			}
-			
+
 			return gS;
 		}
 	};
-	
+
 	public ItemGateSettingsDuplicator(int itemID) {
 		super(itemID);
 		setMaxStackSize(1);
@@ -122,50 +105,46 @@ public class ItemGateSettingsDuplicator extends ABOItem {
 		setFull3D();
 	}
 
-    public boolean onItemUseFirst(ItemStack itemStack, EntityPlayer entityPlayer, World worldObj, int x, int y, int z, int side, float var8, float var9, float var10)
-    {
-        if (worldObj.isRemote)
-            return super.onItemUseFirst(itemStack, entityPlayer, worldObj, x, y, z, side, var8, var9, var10);
-        
+	@Override
+	public boolean onItemUseFirst(ItemStack itemStack, EntityPlayer entityPlayer, World worldObj, int x, int y, int z, int side, float var8, float var9,
+			float var10) {
+		if (worldObj.isRemote)
+			return super.onItemUseFirst(itemStack, entityPlayer, worldObj, x, y, z, side, var8, var9, var10);
+
 		Pipe pipe = BlockGenericPipe.getPipe(worldObj, x, y, z);
 
 		if (BlockGenericPipe.isValid(pipe)) {
-			if(pipe.hasGate())
-			{
-				if(itemStack.stackTagCompound == null)
+			if (pipe.hasGate()) {
+				if (itemStack.stackTagCompound == null)
 					itemStack.stackTagCompound = new NBTTagCompound();
-				if(entityPlayer.isSneaking() && itemStack.stackTagCompound.hasKey("GateSettings"))
-				{
+				if (entityPlayer.isSneaking() && itemStack.stackTagCompound.hasKey("GateSettings")) {
 					GateSettings gS = GateSettings.createFromNBT(itemStack.stackTagCompound);
-					if(gS.kind == pipe.gate.kind && gS.isAutarchic == (pipe.gate instanceof GateVanilla && ((GateVanilla) pipe.gate).hasPulser()))
-					{
+					if (gS.kind == pipe.gate.kind && gS.isAutarchic == (pipe.gate instanceof GateVanilla && ((GateVanilla) pipe.gate).hasPulser())) {
 						for (int i = 0; i < 8; ++i) {
 							pipe.activatedActions[i] = ActionManager.actions[gS.slots[i].action];
 							pipe.activatedTriggers[i] = ActionManager.triggers[gS.slots[i].trigger];
 							pipe.triggerParameters[i] = new TriggerParameter();
 							pipe.triggerParameters[i].set(gS.slots[i].triggerParameter);
 						}
-						
+
 						entityPlayer.sendChatToPlayer("Gate settings pasted");
 					}
-				}
-				else
-				{
+				} else {
 					GateSettings gS = new GateSettings(pipe.gate.kind);
-					
+
 					if (pipe.gate instanceof GateVanilla) {
 						gS.isAutarchic = ((GateVanilla) pipe.gate).hasPulser();
 					}
-	
+
 					for (int i = 0; i < 8; ++i) {
 						if (pipe.activatedTriggers[i] != null) {
 							gS.slots[i].trigger = pipe.activatedTriggers[i].getId();
 						}
-	
+
 						if (pipe.triggerParameters[i] != null) {
 							gS.slots[i].triggerParameter = pipe.triggerParameters[i].getItemStack();
 						}
-	
+
 						if (pipe.activatedActions[i] != null) {
 							gS.slots[i].action = pipe.activatedActions[i].getId();
 						}
@@ -179,7 +158,7 @@ public class ItemGateSettingsDuplicator extends ABOItem {
 			}
 		}
 
-        return super.onItemUseFirst(itemStack, entityPlayer, worldObj, x, y, z, side, var8, var9, var10);
+		return super.onItemUseFirst(itemStack, entityPlayer, worldObj, x, y, z, side, var8, var9, var10);
 
-    }
+	}
 }
