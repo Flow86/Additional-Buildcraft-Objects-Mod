@@ -191,6 +191,9 @@
 
 ## Changelog:
 
+* 1.0.1@99
+   - added gate settings duplicator
+
 * 1.0.1
    - added diamond power pipe
    - fixed iron power pipe logic,
