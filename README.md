@@ -31,6 +31,19 @@
    **If you want to distribute a custom/modified abo build, you have to ask for permission first!**
 
 
+## Items
+
+#### Gate Settings Duplicator
+   With the Gate Settings Duplicator you can simply copy and paste Gate Settings.
+   <br />
+   Right-Click on gate will copy the settings.
+   <br />
+   Sneak+Right-Click will paste it.
+   
+   * Recipe:
+   
+      Wrench AutarchicGate
+
 
 ## Pipes
 
