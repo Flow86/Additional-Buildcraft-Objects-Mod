@@ -32,6 +32,6 @@ public abstract class ABOPipe extends Pipe {
 	@Override
 	@SideOnly(Side.CLIENT)
 	public IIconProvider getIconProvider() {
-		return ABO.instance.itemIconProvider;
+		return ABO.instance.pipeIconProvider;
 	}
 }

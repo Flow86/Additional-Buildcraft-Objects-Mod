@@ -46,7 +46,7 @@ public class ABOItem extends Item {
 
 	@Override
 	@SideOnly(Side.CLIENT)
-	public void func_94581_a(IconRegister par1IconRegister) {
-		this.iconIndex = par1IconRegister.func_94245_a("abo:" + iconName);
+	public void func_94581_a(IconRegister iconRegister) {
+		this.iconIndex = iconRegister.func_94245_a("abo:" + iconName);
 	}
 }

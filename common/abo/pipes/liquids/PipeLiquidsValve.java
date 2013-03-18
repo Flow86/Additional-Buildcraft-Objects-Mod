@@ -50,7 +50,7 @@ public class PipeLiquidsValve extends PipeLiquidsWood {
 	@Override
 	@SideOnly(Side.CLIENT)
 	public IIconProvider getIconProvider() {
-		return ABO.instance.itemIconProvider;
+		return ABO.instance.pipeIconProvider;
 	}
 
 	@Override

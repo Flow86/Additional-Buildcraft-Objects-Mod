@@ -277,6 +277,7 @@ public class ABO {
 
 		int id = prop.getInt(defaultID);
 		ItemPipe pipe = BlockGenericPipe.registerPipe(id, clazz);
+		pipe.setPipesIcons(instance.pipeIconProvider);
 		pipe.setUnlocalizedName(clazz.getSimpleName());
 		LanguageRegistry.addName(pipe, descr);
 

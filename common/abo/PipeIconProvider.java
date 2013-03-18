@@ -12,11 +12,17 @@
 
 package abo;
 
+import net.minecraft.client.renderer.texture.IconRegister;
+import net.minecraft.util.Icon;
+import buildcraft.api.core.IIconProvider;
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
+
 /**
  * @author Flow86
  * 
  */
-public class IconTerrainConstants {
+public class PipeIconProvider implements IIconProvider {
 
 	public static final int PipeItemsBounceClosed = 0;
 	public static final int PipeItemsBounce = 1;
@@ -63,4 +69,69 @@ public class IconTerrainConstants {
 	public static final int PipePowerIronSide = 32;
 
 	public static final int MAX = 33;
+
+	private boolean registered = false;
+
+	@SideOnly(Side.CLIENT)
+	private Icon[] _icons;
+
+	@Override
+	@SideOnly(Side.CLIENT)
+	public Icon getIcon(int iconIndex) {
+		return _icons[iconIndex];
+	}
+
+	@Override
+	@SideOnly(Side.CLIENT)
+	public void RegisterIcons(IconRegister iconRegister) {
+		if (registered)
+			return;
+		registered = true;
+
+		_icons = new Icon[MAX];
+
+		_icons[PipeItemsBounceClosed] = iconRegister.func_94245_a("abo:PipeItemsBounceClosed");
+		_icons[PipeItemsBounce] = iconRegister.func_94245_a("abo:PipeItemsBounce");
+
+		_icons[PipeItemsCrossover] = iconRegister.func_94245_a("abo:PipeItemsCrossover");
+
+		_icons[PipeItemsExtraction] = iconRegister.func_94245_a("abo:PipeItemsExtract");
+		_icons[PipeItemsExtractionSide] = iconRegister.func_94245_a("abo:PipeItemsExtractSide");
+
+		_icons[PipeItemsInsertion] = iconRegister.func_94245_a("abo:PipeItemsInsert");
+		_icons[PipeItemsRoundRobin] = iconRegister.func_94245_a("abo:PipeItemsRoundRobin");
+		_icons[PipeItemsStripes] = iconRegister.func_94245_a("abo:PipeItemsStripes");
+
+		_icons[PipeLiquidsBalance] = iconRegister.func_94245_a("abo:PipeLiquidsBalance");
+
+		_icons[PipeLiquidsDiamondCenter] = iconRegister.func_94245_a("abo:PipeLiquidsDiamondCenter");
+		_icons[PipeLiquidsDiamondDown] = iconRegister.func_94245_a("abo:PipeLiquidsDiamondDown");
+		_icons[PipeLiquidsDiamondUp] = iconRegister.func_94245_a("abo:PipeLiquidsDiamondUp");
+		_icons[PipeLiquidsDiamondNorth] = iconRegister.func_94245_a("abo:PipeLiquidsDiamondNorth");
+		_icons[PipeLiquidsDiamondSouth] = iconRegister.func_94245_a("abo:PipeLiquidsDiamondSouth");
+		_icons[PipeLiquidsDiamondWest] = iconRegister.func_94245_a("abo:PipeLiquidsDiamondWest");
+		_icons[PipeLiquidsDiamondEast] = iconRegister.func_94245_a("abo:PipeLiquidsDiamondEast");
+
+		_icons[PipeLiquidsGoldenIron] = iconRegister.func_94245_a("abo:PipeLiquidsGoldenIron");
+		_icons[PipeLiquidsGoldenIronSide] = iconRegister.func_94245_a("abo:PipeLiquidsGoldenIronSide");
+
+		_icons[PipeLiquidsValveClosed] = iconRegister.func_94245_a("abo:PipeLiquidsValveClosed");
+		_icons[PipeLiquidsValveClosedSide] = iconRegister.func_94245_a("abo:PipeLiquidsValveClosedSide");
+		_icons[PipeLiquidsValveOpen] = iconRegister.func_94245_a("abo:PipeLiquidsValveOpen");
+		_icons[PipeLiquidsValveOpenSide] = iconRegister.func_94245_a("abo:PipeLiquidsValveOpenSide");
+
+		_icons[PipePowerSwitchPowered] = iconRegister.func_94245_a("abo:PipePowerSwitchPowered");
+		_icons[PipePowerSwitchUnpowered] = iconRegister.func_94245_a("abo:PipePowerSwitchUnpowered");
+
+		_icons[PipePowerDiamondCenter] = iconRegister.func_94245_a("abo:PipePowerDiamondCenter");
+		_icons[PipePowerDiamondDown] = iconRegister.func_94245_a("abo:PipePowerDiamondDown");
+		_icons[PipePowerDiamondUp] = iconRegister.func_94245_a("abo:PipePowerDiamondUp");
+		_icons[PipePowerDiamondNorth] = iconRegister.func_94245_a("abo:PipePowerDiamondNorth");
+		_icons[PipePowerDiamondSouth] = iconRegister.func_94245_a("abo:PipePowerDiamondSouth");
+		_icons[PipePowerDiamondWest] = iconRegister.func_94245_a("abo:PipePowerDiamondWest");
+		_icons[PipePowerDiamondEast] = iconRegister.func_94245_a("abo:PipePowerDiamondEast");
+
+		_icons[PipePowerIron] = iconRegister.func_94245_a("abo:PipePowerIron");
+		_icons[PipePowerIronSide] = iconRegister.func_94245_a("abo:PipePowerIronSide");
+	}
 }
