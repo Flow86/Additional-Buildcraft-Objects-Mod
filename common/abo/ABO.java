@@ -19,7 +19,6 @@ import java.util.logging.Logger;
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.Icon;
 import net.minecraftforge.common.Property;
 import abo.actions.ActionSwitchOnPipe;
 import abo.items.ABOItem;
@@ -43,9 +42,10 @@ import abo.triggers.TriggerEngineSafe;
 import buildcraft.BuildCraftCore;
 import buildcraft.BuildCraftEnergy;
 import buildcraft.BuildCraftTransport;
-import buildcraft.api.gates.Action;
+import buildcraft.api.core.IIconProvider;
 import buildcraft.api.gates.ActionManager;
-import buildcraft.api.gates.Trigger;
+import buildcraft.core.triggers.BCAction;
+import buildcraft.core.triggers.BCTrigger;
 import buildcraft.core.utils.Localization;
 import buildcraft.transport.BlockGenericPipe;
 import buildcraft.transport.ItemPipe;
@@ -62,22 +62,17 @@ import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.common.registry.GameRegistry;
 import cpw.mods.fml.common.registry.LanguageRegistry;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 
 /**
  * @author Flow86
  * 
  */
-@Mod(modid = "Additional-Buildcraft-Objects", name = "Additional-Buildcraft-Objects", version = "@ABO_VERSION@", dependencies = "required-after:BuildCraft|Transport;required-after:BuildCraft|Energy")
+@Mod(modid = "Additional-Buildcraft-Objects", name = "Additional-Buildcraft-Objects", version = "1.0.1", dependencies = "required-after:BuildCraft|Transport;required-after:BuildCraft|Energy")
 public class ABO {
-	public static final String VERSION = "@ABO_VERSION@";
+	public static final String VERSION = "1.0.1";
 
-	@SideOnly(Side.CLIENT)
-	public Icon[] terrainIcons;
-
-	@SideOnly(Side.CLIENT)
-	public Icon[] itemIcons;
+	public IIconProvider itemIconProvider = new ItemIconProvider();
+	public IIconProvider pipeIconProvider = new PipeIconProvider();
 
 	public static ABOConfiguration aboConfiguration;
 	public static Logger aboLog = Logger.getLogger("Additional-Buildcraft-Objects");
@@ -128,10 +123,10 @@ public class ABO {
 	public static Item pipePowerDiamond = null;
 
 	public static int triggerEngineSafeID = 128;
-	public static Trigger triggerEngineSafe = null;
+	public static BCTrigger triggerEngineSafe = null;
 
 	public static int actionSwitchOnPipeID = 128;
-	public static Action actionSwitchOnPipe = null;
+	public static BCAction actionSwitchOnPipe = null;
 
 	@Instance("Additional-Buildcraft-Objects")
 	public static ABO instance;
@@ -140,54 +135,44 @@ public class ABO {
 	public void preInitialize(FMLPreInitializationEvent evt) {
 
 		aboLog.setParent(FMLLog.getLogger());
-		aboLog.info("Starting Additional-Buildcraft-Objects #@BUILD_NUMBER@ " + VERSION
-				+ " (Built for Minecraft @MINECRAFT_VERSION@ with Buildcraft @BUILDCRAFT_VERSION@ and Forge @FORGE_VERSION@");
+		aboLog.info("Starting Additional-Buildcraft-Objects #custom " + VERSION + " (Built for Minecraft 1.5 with Buildcraft 3.4.4fc and Forge 7.7.0.575");
 		aboLog.info("Copyright (c) Flow86, 2011-2013");
-
-		ABOProxy.proxy.loadTerrainIcons(this);
-		ABOProxy.proxy.loadItemIcons(this);
 
 		aboConfiguration = new ABOConfiguration(new File(evt.getModConfigurationDirectory(), "abo/main.conf"));
 		try {
 			aboConfiguration.load();
 
-			itemGateSettingsDuplicator = createItem(itemGateSettingsDuplicatorID, ItemGateSettingsDuplicator.class, "Gate Settings Duplicator",
-					BuildCraftCore.wrenchItem, BuildCraftTransport.pipeGateAutarchic, null);
-
-			pipeLiquidsValve = createPipe(pipeLiquidsValveID, PipeLiquidsValve.class, "Valve Pipe", 1, BuildCraftTransport.pipeLiquidsWood,
+			itemGateSettingsDuplicator = createItem(itemGateSettingsDuplicatorID, ItemGateSettingsDuplicator.class, "Gate Settings Duplicator", BuildCraftCore.wrenchItem,
 					BuildCraftTransport.pipeGateAutarchic, null);
 
-			pipeLiquidsGoldenIron = createPipe(pipeLiquidsGoldenIronID, PipeLiquidsGoldenIron.class, "Golden Iron Waterproof Pipe", 1,
-					BuildCraftTransport.pipeLiquidsGold, BuildCraftTransport.pipeLiquidsIron, null);
+			pipeLiquidsValve = createPipe(pipeLiquidsValveID, PipeLiquidsValve.class, "Valve Pipe", 1, BuildCraftTransport.pipeLiquidsWood, BuildCraftTransport.pipeGateAutarchic, null);
 
-			pipeLiquidsBalance = createPipe(pipeLiquidsBalanceID, PipeLiquidsBalance.class, "Balancing Waterproof Pipe", 1,
-					BuildCraftTransport.pipeLiquidsWood, new ItemStack(BuildCraftEnergy.engineBlock, 1, 0), BuildCraftTransport.pipeLiquidsWood);
+			pipeLiquidsGoldenIron = createPipe(pipeLiquidsGoldenIronID, PipeLiquidsGoldenIron.class, "Golden Iron Waterproof Pipe", 1, BuildCraftTransport.pipeLiquidsGold,
+					BuildCraftTransport.pipeLiquidsIron, null);
 
-			pipeLiquidsDiamond = createPipe(pipeLiquidsDiamondID, PipeLiquidsDiamond.class, "Diamond Waterproof Pipe", 1, BuildCraftTransport.pipeItemsDiamond,
-					BuildCraftTransport.pipeWaterproof, null);
+			pipeLiquidsBalance = createPipe(pipeLiquidsBalanceID, PipeLiquidsBalance.class, "Balancing Waterproof Pipe", 1, BuildCraftTransport.pipeLiquidsWood, new ItemStack(
+					BuildCraftEnergy.engineBlock, 1, 0), BuildCraftTransport.pipeLiquidsWood);
 
-			pipeItemsRoundRobin = createPipe(pipeItemsRoundRobinID, PipeItemsRoundRobin.class, "RoundRobin Transport Pipe", 1,
-					BuildCraftTransport.pipeItemsStone, Block.gravel, null);
+			pipeLiquidsDiamond = createPipe(pipeLiquidsDiamondID, PipeLiquidsDiamond.class, "Diamond Waterproof Pipe", 1, BuildCraftTransport.pipeItemsDiamond, BuildCraftTransport.pipeWaterproof,
+					null);
+
+			pipeItemsRoundRobin = createPipe(pipeItemsRoundRobinID, PipeItemsRoundRobin.class, "RoundRobin Transport Pipe", 1, BuildCraftTransport.pipeItemsStone, Block.gravel, null);
 
 			// pipeItemsCompactor = createPipe(pipeItemsCompactorID,
 			// PipeItemsCompactor.class, "Compactor Pipe", 1,
 			// BuildCraftTransport.pipeItemsStone,
 			// Block.pistonBase, null);
 
-			pipeItemsInsertion = createPipe(pipeItemsInsertionID, PipeItemsInsertion.class, "Insertion Pipe", 1, BuildCraftTransport.pipeItemsCobblestone,
-					Item.redstone, null);
+			pipeItemsInsertion = createPipe(pipeItemsInsertionID, PipeItemsInsertion.class, "Insertion Pipe", 1, BuildCraftTransport.pipeItemsCobblestone, Item.redstone, null);
 
-			pipeItemsExtraction = createPipe(pipeItemsExtractionID, PipeItemsExtraction.class, "Extraction Transport Pipe", 1,
-					BuildCraftTransport.pipeItemsWood, Block.planks, null);
+			pipeItemsExtraction = createPipe(pipeItemsExtractionID, PipeItemsExtraction.class, "Extraction Transport Pipe", 1, BuildCraftTransport.pipeItemsWood, Block.planks, null);
 
-			pipeItemsBounce = createPipe(pipeItemsBounceID, PipeItemsBounce.class, "Bounce Transport Pipe", 1, BuildCraftTransport.pipeItemsStone,
-					Block.cobblestone, null);
+			pipeItemsBounce = createPipe(pipeItemsBounceID, PipeItemsBounce.class, "Bounce Transport Pipe", 1, BuildCraftTransport.pipeItemsStone, Block.cobblestone, null);
 
-			pipeItemsCrossover = createPipe(pipeItemsCrossoverID, PipeItemsCrossover.class, "Crossover Transport Pipe", 1, BuildCraftTransport.pipeItemsStone,
-					BuildCraftTransport.pipeItemsIron, null);
+			pipeItemsCrossover = createPipe(pipeItemsCrossoverID, PipeItemsCrossover.class, "Crossover Transport Pipe", 1, BuildCraftTransport.pipeItemsStone, BuildCraftTransport.pipeItemsIron, null);
 
-			pipeItemsStripes = createPipe(pipeItemsStripesID, PipeItemsStripes.class, "Stripes Transport Pipe", 8, new ItemStack(Item.dyePowder, 1, 0),
-					Block.glass, new ItemStack(Item.dyePowder, 1, 11));
+			pipeItemsStripes = createPipe(pipeItemsStripesID, PipeItemsStripes.class, "Stripes Transport Pipe", 8, new ItemStack(Item.dyePowder, 1, 0), Block.glass, new ItemStack(Item.dyePowder, 1,
+					11));
 
 			pipePowerSwitch = createPipe(pipePowerSwitchID, PipePowerSwitch.class, "Power Switch Pipe", 1, BuildCraftTransport.pipePowerGold, Block.lever, null);
 
@@ -285,15 +270,14 @@ public class ABO {
 
 	}
 
-	private static Item createPipe(int defaultID, Class<? extends Pipe> clazz, String descr, int count, Object ingredient1, Object ingredient2,
-			Object ingredient3) {
+	private static Item createPipe(int defaultID, Class<? extends Pipe> clazz, String descr, int count, Object ingredient1, Object ingredient2, Object ingredient3) {
 		String name = Character.toLowerCase(clazz.getSimpleName().charAt(0)) + clazz.getSimpleName().substring(1);
 
 		Property prop = aboConfiguration.getItem(name + ".id", defaultID);
 
 		int id = prop.getInt(defaultID);
 		ItemPipe pipe = BlockGenericPipe.registerPipe(id, clazz);
-		pipe.setItemName(clazz.getSimpleName());
+		pipe.setUnlocalizedName(clazz.getSimpleName());
 		LanguageRegistry.addName(pipe, descr);
 
 		addReceipe(pipe, count, ingredient1, ingredient2, ingredient3);

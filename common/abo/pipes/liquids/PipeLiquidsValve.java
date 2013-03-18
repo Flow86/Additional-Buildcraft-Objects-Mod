@@ -16,11 +16,11 @@ import java.util.LinkedList;
 
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.Icon;
 import net.minecraftforge.common.ForgeDirection;
 import abo.ABO;
-import abo.IconTerrainConstants;
+import abo.PipeIconProvider;
 import abo.actions.ABOEnergyPulser;
+import buildcraft.api.core.IIconProvider;
 import buildcraft.api.core.Position;
 import buildcraft.transport.BlockGenericPipe;
 import buildcraft.transport.PipeTransportLiquids;
@@ -33,10 +33,10 @@ public class PipeLiquidsValve extends PipeLiquidsWood {
 
 	private final ABOEnergyPulser pulser;
 	private boolean powered;
-	private final int closedTexture = IconTerrainConstants.PipeLiquidsValveClosed;
-	private final int closedTextureSide = IconTerrainConstants.PipeLiquidsValveClosedSide;
-	private final int openTexture = IconTerrainConstants.PipeLiquidsValveOpen;
-	private final int openTextureSide = IconTerrainConstants.PipeLiquidsValveOpenSide;
+	private final int closedTexture = PipeIconProvider.PipeLiquidsValveClosed;
+	private final int closedTextureSide = PipeIconProvider.PipeLiquidsValveClosedSide;
+	private final int openTexture = PipeIconProvider.PipeLiquidsValveOpen;
+	private final int openTextureSide = PipeIconProvider.PipeLiquidsValveOpenSide;
 
 	public PipeLiquidsValve(int itemID) {
 		super(itemID);
@@ -49,8 +49,8 @@ public class PipeLiquidsValve extends PipeLiquidsWood {
 
 	@Override
 	@SideOnly(Side.CLIENT)
-	public Icon[] getTextureIcons() {
-		return ABO.instance.terrainIcons;
+	public IIconProvider getIconProvider() {
+		return ABO.instance.itemIconProvider;
 	}
 
 	@Override

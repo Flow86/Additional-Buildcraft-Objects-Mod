@@ -101,13 +101,11 @@ public class ItemGateSettingsDuplicator extends ABOItem {
 		super(itemID);
 		setMaxStackSize(1);
 		setNoRepair();
-		setIconIndex(0 * 16 + 0);
 		setFull3D();
 	}
 
 	@Override
-	public boolean onItemUseFirst(ItemStack itemStack, EntityPlayer entityPlayer, World worldObj, int x, int y, int z, int side, float var8, float var9,
-			float var10) {
+	public boolean onItemUseFirst(ItemStack itemStack, EntityPlayer entityPlayer, World worldObj, int x, int y, int z, int side, float var8, float var9, float var10) {
 		if (worldObj.isRemote)
 			return super.onItemUseFirst(itemStack, entityPlayer, worldObj, x, y, z, side, var8, var9, var10);
 

@@ -12,8 +12,8 @@
 
 package abo.pipes;
 
-import net.minecraft.util.Icon;
 import abo.ABO;
+import buildcraft.api.core.IIconProvider;
 import buildcraft.transport.Pipe;
 import buildcraft.transport.PipeTransport;
 import buildcraft.transport.pipes.PipeLogic;
@@ -31,7 +31,7 @@ public abstract class ABOPipe extends Pipe {
 
 	@Override
 	@SideOnly(Side.CLIENT)
-	public Icon[] getTextureIcons() {
-		return ABO.instance.terrainIcons;
+	public IIconProvider getIconProvider() {
+		return ABO.instance.itemIconProvider;
 	}
 }

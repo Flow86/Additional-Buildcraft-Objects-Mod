@@ -21,7 +21,7 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraftforge.common.ForgeDirection;
 import abo.ABO;
-import abo.IconTerrainConstants;
+import abo.PipeIconProvider;
 import abo.actions.ActionSwitchOnPipe;
 import abo.pipes.ABOPipe;
 import buildcraft.api.core.Position;
@@ -38,8 +38,8 @@ import buildcraft.transport.pipes.PipeLogicGold;
  * 
  */
 public class PipePowerSwitch extends ABOPipe {
-	private final int unpoweredTexture = IconTerrainConstants.PipePowerSwitchUnpowered;
-	private final int poweredTexture = IconTerrainConstants.PipePowerSwitchPowered;
+	private final int unpoweredTexture = PipeIconProvider.PipePowerSwitchUnpowered;
+	private final int poweredTexture = PipeIconProvider.PipePowerSwitchPowered;
 	private boolean powered;
 	private boolean switched;
 

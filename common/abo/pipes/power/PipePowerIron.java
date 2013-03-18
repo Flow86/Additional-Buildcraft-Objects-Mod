@@ -13,7 +13,7 @@
 package abo.pipes.power;
 
 import net.minecraftforge.common.ForgeDirection;
-import abo.IconTerrainConstants;
+import abo.PipeIconProvider;
 import abo.pipes.ABOPipe;
 import buildcraft.BuildCraftTransport;
 import buildcraft.transport.IPipeTransportPowerHook;
@@ -21,8 +21,8 @@ import buildcraft.transport.PipeTransportPower;
 
 public class PipePowerIron extends ABOPipe implements IPipeTransportPowerHook {
 
-	private final int baseTexture = IconTerrainConstants.PipePowerIron;
-	private final int sideTexture = IconTerrainConstants.PipePowerIronSide;
+	private final int baseTexture = PipeIconProvider.PipePowerIron;
+	private final int sideTexture = PipeIconProvider.PipePowerIronSide;
 
 	public PipePowerIron(int itemID) {
 		super(new PipeTransportPower(), new PipeLogicPowerIron(), itemID);

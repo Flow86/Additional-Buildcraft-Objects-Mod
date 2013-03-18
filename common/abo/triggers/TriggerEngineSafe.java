@@ -13,9 +13,8 @@
 package abo.triggers;
 
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.Icon;
 import net.minecraftforge.common.ForgeDirection;
-import abo.IconItemConstants;
+import abo.ItemIconProvider;
 import buildcraft.api.gates.ITriggerParameter;
 import buildcraft.energy.Engine;
 import buildcraft.energy.Engine.EnergyStage;
@@ -45,12 +44,6 @@ public class TriggerEngineSafe extends ABOTrigger implements ITriggerPipe {
 	}
 
 	@Override
-	@SideOnly(Side.CLIENT)
-	public Icon getTextureIcon() {
-		return getTextureIcons(IconItemConstants.TriggerEngineSafe);
-	}
-
-	@Override
 	public String getDescription() {
 		return "Engine Safe";
 	}
@@ -69,5 +62,11 @@ public class TriggerEngineSafe extends ABOTrigger implements ITriggerPipe {
 		}
 
 		return result;
+	}
+
+	@Override
+	@SideOnly(Side.CLIENT)
+	public int getIconIndex() {
+		return ItemIconProvider.TriggerEngineSafe;
 	}
 }

@@ -13,7 +13,7 @@
 package abo.pipes.liquids;
 
 import net.minecraftforge.common.ForgeDirection;
-import abo.IconTerrainConstants;
+import abo.PipeIconProvider;
 import abo.pipes.ABOPipe;
 import buildcraft.transport.PipeTransportLiquids;
 import buildcraft.transport.pipes.PipeLogicIron;
@@ -24,8 +24,8 @@ import buildcraft.transport.pipes.PipeLogicIron;
  */
 public class PipeLiquidsGoldenIron extends ABOPipe {
 
-	private final int baseTexture = IconTerrainConstants.PipeLiquidsGoldenIron;
-	private final int sideTexture = IconTerrainConstants.PipeLiquidsGoldenIronSide;
+	private final int baseTexture = PipeIconProvider.PipeLiquidsGoldenIron;
+	private final int sideTexture = PipeIconProvider.PipeLiquidsGoldenIronSide;
 
 	public PipeLiquidsGoldenIron(int itemID) {
 		super(new PipeTransportLiquids(), new PipeLogicIron(), itemID);

@@ -14,7 +14,8 @@ package abo.actions;
 
 import net.minecraft.util.Icon;
 import abo.ABO;
-import buildcraft.api.gates.Action;
+import buildcraft.api.core.IIconProvider;
+import buildcraft.core.triggers.BCAction;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
@@ -22,10 +23,16 @@ import cpw.mods.fml.relauncher.SideOnly;
  * @author Flow86
  * 
  */
-public abstract class ABOAction extends Action {
+public abstract class ABOAction extends BCAction {
 
 	public ABOAction(int id) {
 		super(id);
+	}
+
+	@Override
+	@SideOnly(Side.CLIENT)
+	public IIconProvider getIconProvider() {
+		return ABO.instance.itemIconProvider;
 	}
 
 	@SideOnly(Side.CLIENT)
@@ -34,7 +41,6 @@ public abstract class ABOAction extends Action {
 	@Override
 	@SideOnly(Side.CLIENT)
 	public Icon getTexture() {
-		// TODO Auto-generated method stub
-		return ABO.instance.itemIcons[getIconIndex()];
+		return getIconProvider().getIcon(getIconIndex());
 	}
 }

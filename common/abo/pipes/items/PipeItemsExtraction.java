@@ -12,10 +12,10 @@
 
 package abo.pipes.items;
 
-import net.minecraft.util.Icon;
 import net.minecraftforge.common.ForgeDirection;
 import abo.ABO;
-import abo.IconTerrainConstants;
+import abo.PipeIconProvider;
+import buildcraft.api.core.IIconProvider;
 import buildcraft.api.power.IPowerReceptor;
 import buildcraft.transport.Pipe;
 import buildcraft.transport.PipeTransportItems;
@@ -31,8 +31,8 @@ import cpw.mods.fml.relauncher.SideOnly;
  * @author Scott Chamberlain (Leftler) ported to BC > 2.2 by Flow86
  */
 public class PipeItemsExtraction extends PipeItemsWood implements IPowerReceptor {
-	private final int baseTexture = IconTerrainConstants.PipeItemsExtraction;
-	private final int sideTexture = IconTerrainConstants.PipeItemsExtractionSide;
+	private final int baseTexture = PipeIconProvider.PipeItemsExtraction;
+	private final int sideTexture = PipeIconProvider.PipeItemsExtractionSide;
 
 	public PipeItemsExtraction(int itemID) {
 		super(itemID, new PipeTransportItemsExtraction());
@@ -52,8 +52,8 @@ public class PipeItemsExtraction extends PipeItemsWood implements IPowerReceptor
 
 	@Override
 	@SideOnly(Side.CLIENT)
-	public Icon[] getTextureIcons() {
-		return ABO.instance.terrainIcons;
+	public IIconProvider getIconProvider() {
+		return ABO.instance.itemIconProvider;
 	}
 
 	@Override

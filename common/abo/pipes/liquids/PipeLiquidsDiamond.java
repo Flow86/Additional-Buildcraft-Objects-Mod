@@ -23,7 +23,7 @@ import net.minecraftforge.common.ForgeDirection;
 import net.minecraftforge.liquids.ILiquidTank;
 import net.minecraftforge.liquids.LiquidContainerRegistry;
 import net.minecraftforge.liquids.LiquidStack;
-import abo.IconTerrainConstants;
+import abo.PipeIconProvider;
 import abo.pipes.ABOPipe;
 import buildcraft.core.network.IClientState;
 import buildcraft.core.utils.Utils;
@@ -47,19 +47,19 @@ public class PipeLiquidsDiamond extends ABOPipe implements IClientState {
 	public int getIconIndex(ForgeDirection direction) {
 		switch (direction) {
 		case UNKNOWN:
-			return IconTerrainConstants.PipeLiquidsDiamondCenter;
+			return PipeIconProvider.PipeLiquidsDiamondCenter;
 		case DOWN:
-			return IconTerrainConstants.PipeLiquidsDiamondDown;
+			return PipeIconProvider.PipeLiquidsDiamondDown;
 		case UP:
-			return IconTerrainConstants.PipeLiquidsDiamondUp;
+			return PipeIconProvider.PipeLiquidsDiamondUp;
 		case NORTH:
-			return IconTerrainConstants.PipeLiquidsDiamondNorth;
+			return PipeIconProvider.PipeLiquidsDiamondNorth;
 		case SOUTH:
-			return IconTerrainConstants.PipeLiquidsDiamondSouth;
+			return PipeIconProvider.PipeLiquidsDiamondSouth;
 		case WEST:
-			return IconTerrainConstants.PipeLiquidsDiamondWest;
+			return PipeIconProvider.PipeLiquidsDiamondWest;
 		case EAST:
-			return IconTerrainConstants.PipeLiquidsDiamondEast;
+			return PipeIconProvider.PipeLiquidsDiamondEast;
 		default:
 			throw new IllegalArgumentException("direction out of bounds");
 		}

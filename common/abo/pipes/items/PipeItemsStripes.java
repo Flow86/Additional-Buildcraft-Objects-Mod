@@ -13,7 +13,7 @@ import java.util.List;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraftforge.common.ForgeDirection;
-import abo.IconTerrainConstants;
+import abo.PipeIconProvider;
 import abo.pipes.ABOPipe;
 import buildcraft.api.core.Position;
 import buildcraft.api.power.IPowerProvider;
@@ -45,7 +45,7 @@ public class PipeItemsStripes extends ABOPipe implements IItemTravelingHook, IPo
 
 	@Override
 	public int getIconIndex(ForgeDirection direction) {
-		return IconTerrainConstants.PipeItemsStripes;
+		return PipeIconProvider.PipeItemsStripes;
 	}
 
 	@Override

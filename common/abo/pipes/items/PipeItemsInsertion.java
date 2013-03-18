@@ -13,7 +13,7 @@
 package abo.pipes.items;
 
 import net.minecraftforge.common.ForgeDirection;
-import abo.IconTerrainConstants;
+import abo.PipeIconProvider;
 import abo.pipes.ABOPipe;
 import buildcraft.transport.PipeTransportItems;
 import buildcraft.transport.pipes.PipeLogicStone;
@@ -34,6 +34,6 @@ public class PipeItemsInsertion extends ABOPipe {
 
 	@Override
 	public int getIconIndex(ForgeDirection direction) {
-		return IconTerrainConstants.PipeItemsInsertion;
+		return PipeIconProvider.PipeItemsInsertion;
 	}
 }

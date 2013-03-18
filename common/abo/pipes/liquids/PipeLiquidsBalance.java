@@ -19,7 +19,7 @@ import net.minecraftforge.common.ForgeDirection;
 import net.minecraftforge.liquids.ILiquidTank;
 import net.minecraftforge.liquids.ITankContainer;
 import net.minecraftforge.liquids.LiquidStack;
-import abo.IconTerrainConstants;
+import abo.PipeIconProvider;
 import abo.pipes.ABOPipe;
 import buildcraft.transport.PipeTransportLiquids;
 import buildcraft.transport.TileGenericPipe;
@@ -104,7 +104,7 @@ public class PipeLiquidsBalance extends ABOPipe {
 
 	@Override
 	public int getIconIndex(ForgeDirection direction) {
-		return IconTerrainConstants.PipeLiquidsBalance;
+		return PipeIconProvider.PipeLiquidsBalance;
 	}
 
 	@Override

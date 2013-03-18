@@ -13,8 +13,7 @@
 package abo.triggers;
 
 import net.minecraft.util.Icon;
-import abo.ABO;
-import buildcraft.api.gates.Trigger;
+import buildcraft.core.triggers.BCTrigger;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
@@ -22,14 +21,18 @@ import cpw.mods.fml.relauncher.SideOnly;
  * @author Flow86
  * 
  */
-public abstract class ABOTrigger extends Trigger {
+public abstract class ABOTrigger extends BCTrigger {
 
 	public ABOTrigger(int id) {
 		super(id);
 	}
 
 	@SideOnly(Side.CLIENT)
-	public Icon getTextureIcons(int index) {
-		return ABO.instance.itemIcons[index];
+	public abstract int getIconIndex();
+
+	@Override
+	@SideOnly(Side.CLIENT)
+	public Icon getTextureIcon() {
+		return getIconProvider().getIcon(getIconIndex());
 	}
 }

@@ -12,7 +12,7 @@
 
 package abo.actions;
 
-import abo.IconItemConstants;
+import abo.ItemIconProvider;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
@@ -34,6 +34,6 @@ public class ActionSwitchOnPipe extends ABOAction {
 	@Override
 	@SideOnly(Side.CLIENT)
 	public int getIconIndex() {
-		return IconItemConstants.ActionSwitchOnPipe;
+		return ItemIconProvider.ActionSwitchOnPipe;
 	}
 }

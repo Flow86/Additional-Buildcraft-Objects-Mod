@@ -20,7 +20,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTBase;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraftforge.common.ForgeDirection;
-import abo.IconTerrainConstants;
+import abo.PipeIconProvider;
 import abo.pipes.ABOPipe;
 import buildcraft.BuildCraftTransport;
 import buildcraft.core.network.IClientState;
@@ -40,19 +40,19 @@ public class PipePowerDiamond extends ABOPipe implements IPipeTransportPowerHook
 	public int getIconIndex(ForgeDirection direction) {
 		switch (direction) {
 		case UNKNOWN:
-			return IconTerrainConstants.PipePowerDiamondCenter;
+			return PipeIconProvider.PipePowerDiamondCenter;
 		case DOWN:
-			return IconTerrainConstants.PipePowerDiamondDown;
+			return PipeIconProvider.PipePowerDiamondDown;
 		case UP:
-			return IconTerrainConstants.PipePowerDiamondUp;
+			return PipeIconProvider.PipePowerDiamondUp;
 		case NORTH:
-			return IconTerrainConstants.PipePowerDiamondNorth;
+			return PipeIconProvider.PipePowerDiamondNorth;
 		case SOUTH:
-			return IconTerrainConstants.PipePowerDiamondSouth;
+			return PipeIconProvider.PipePowerDiamondSouth;
 		case WEST:
-			return IconTerrainConstants.PipePowerDiamondWest;
+			return PipeIconProvider.PipePowerDiamondWest;
 		case EAST:
-			return IconTerrainConstants.PipePowerDiamondEast;
+			return PipeIconProvider.PipePowerDiamondEast;
 		default:
 			throw new IllegalArgumentException("direction out of bounds");
 		}

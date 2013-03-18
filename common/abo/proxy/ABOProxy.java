@@ -12,7 +12,6 @@
 
 package abo.proxy;
 
-import abo.ABO;
 import cpw.mods.fml.common.SidedProxy;
 
 /**
@@ -25,11 +24,5 @@ public class ABOProxy {
 	public static ABOProxy proxy;
 
 	public void registerPipe(int itemID) {
-	}
-
-	public void loadTerrainIcons(ABO instance) {
-	}
-
-	public void loadItemIcons(ABO instance) {
 	}
 }
