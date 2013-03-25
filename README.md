@@ -191,6 +191,9 @@
 
 ## Changelog:
 
+* 1.0.2
+   - ported to 1.5.1
+
 * 1.0.1@99
    - added gate settings duplicator
 
