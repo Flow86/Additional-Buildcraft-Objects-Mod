@@ -90,48 +90,48 @@ public class PipeIconProvider implements IIconProvider {
 
 		_icons = new Icon[MAX];
 
-		_icons[PipeItemsBounceClosed] = iconRegister.func_94245_a("abo:PipeItemsBounceClosed");
-		_icons[PipeItemsBounce] = iconRegister.func_94245_a("abo:PipeItemsBounce");
+		_icons[PipeItemsBounceClosed] = iconRegister.registerIcon("abo:PipeItemsBounceClosed");
+		_icons[PipeItemsBounce] = iconRegister.registerIcon("abo:PipeItemsBounce");
 
-		_icons[PipeItemsCrossover] = iconRegister.func_94245_a("abo:PipeItemsCrossover");
+		_icons[PipeItemsCrossover] = iconRegister.registerIcon("abo:PipeItemsCrossover");
 
-		_icons[PipeItemsExtraction] = iconRegister.func_94245_a("abo:PipeItemsExtract");
-		_icons[PipeItemsExtractionSide] = iconRegister.func_94245_a("abo:PipeItemsExtractSide");
+		_icons[PipeItemsExtraction] = iconRegister.registerIcon("abo:PipeItemsExtract");
+		_icons[PipeItemsExtractionSide] = iconRegister.registerIcon("abo:PipeItemsExtractSide");
 
-		_icons[PipeItemsInsertion] = iconRegister.func_94245_a("abo:PipeItemsInsert");
-		_icons[PipeItemsRoundRobin] = iconRegister.func_94245_a("abo:PipeItemsRoundRobin");
-		_icons[PipeItemsStripes] = iconRegister.func_94245_a("abo:PipeItemsStripes");
+		_icons[PipeItemsInsertion] = iconRegister.registerIcon("abo:PipeItemsInsert");
+		_icons[PipeItemsRoundRobin] = iconRegister.registerIcon("abo:PipeItemsRoundRobin");
+		_icons[PipeItemsStripes] = iconRegister.registerIcon("abo:PipeItemsStripes");
 
-		_icons[PipeLiquidsBalance] = iconRegister.func_94245_a("abo:PipeLiquidsBalance");
+		_icons[PipeLiquidsBalance] = iconRegister.registerIcon("abo:PipeLiquidsBalance");
 
-		_icons[PipeLiquidsDiamondCenter] = iconRegister.func_94245_a("abo:PipeLiquidsDiamondCenter");
-		_icons[PipeLiquidsDiamondDown] = iconRegister.func_94245_a("abo:PipeLiquidsDiamondDown");
-		_icons[PipeLiquidsDiamondUp] = iconRegister.func_94245_a("abo:PipeLiquidsDiamondUp");
-		_icons[PipeLiquidsDiamondNorth] = iconRegister.func_94245_a("abo:PipeLiquidsDiamondNorth");
-		_icons[PipeLiquidsDiamondSouth] = iconRegister.func_94245_a("abo:PipeLiquidsDiamondSouth");
-		_icons[PipeLiquidsDiamondWest] = iconRegister.func_94245_a("abo:PipeLiquidsDiamondWest");
-		_icons[PipeLiquidsDiamondEast] = iconRegister.func_94245_a("abo:PipeLiquidsDiamondEast");
+		_icons[PipeLiquidsDiamondCenter] = iconRegister.registerIcon("abo:PipeLiquidsDiamondCenter");
+		_icons[PipeLiquidsDiamondDown] = iconRegister.registerIcon("abo:PipeLiquidsDiamondDown");
+		_icons[PipeLiquidsDiamondUp] = iconRegister.registerIcon("abo:PipeLiquidsDiamondUp");
+		_icons[PipeLiquidsDiamondNorth] = iconRegister.registerIcon("abo:PipeLiquidsDiamondNorth");
+		_icons[PipeLiquidsDiamondSouth] = iconRegister.registerIcon("abo:PipeLiquidsDiamondSouth");
+		_icons[PipeLiquidsDiamondWest] = iconRegister.registerIcon("abo:PipeLiquidsDiamondWest");
+		_icons[PipeLiquidsDiamondEast] = iconRegister.registerIcon("abo:PipeLiquidsDiamondEast");
 
-		_icons[PipeLiquidsGoldenIron] = iconRegister.func_94245_a("abo:PipeLiquidsGoldenIron");
-		_icons[PipeLiquidsGoldenIronSide] = iconRegister.func_94245_a("abo:PipeLiquidsGoldenIronSide");
+		_icons[PipeLiquidsGoldenIron] = iconRegister.registerIcon("abo:PipeLiquidsGoldenIron");
+		_icons[PipeLiquidsGoldenIronSide] = iconRegister.registerIcon("abo:PipeLiquidsGoldenIronSide");
 
-		_icons[PipeLiquidsValveClosed] = iconRegister.func_94245_a("abo:PipeLiquidsValveClosed");
-		_icons[PipeLiquidsValveClosedSide] = iconRegister.func_94245_a("abo:PipeLiquidsValveClosedSide");
-		_icons[PipeLiquidsValveOpen] = iconRegister.func_94245_a("abo:PipeLiquidsValveOpen");
-		_icons[PipeLiquidsValveOpenSide] = iconRegister.func_94245_a("abo:PipeLiquidsValveOpenSide");
+		_icons[PipeLiquidsValveClosed] = iconRegister.registerIcon("abo:PipeLiquidsValveClosed");
+		_icons[PipeLiquidsValveClosedSide] = iconRegister.registerIcon("abo:PipeLiquidsValveClosedSide");
+		_icons[PipeLiquidsValveOpen] = iconRegister.registerIcon("abo:PipeLiquidsValveOpen");
+		_icons[PipeLiquidsValveOpenSide] = iconRegister.registerIcon("abo:PipeLiquidsValveOpenSide");
 
-		_icons[PipePowerSwitchPowered] = iconRegister.func_94245_a("abo:PipePowerSwitchPowered");
-		_icons[PipePowerSwitchUnpowered] = iconRegister.func_94245_a("abo:PipePowerSwitchUnpowered");
+		_icons[PipePowerSwitchPowered] = iconRegister.registerIcon("abo:PipePowerSwitchPowered");
+		_icons[PipePowerSwitchUnpowered] = iconRegister.registerIcon("abo:PipePowerSwitchUnpowered");
 
-		_icons[PipePowerDiamondCenter] = iconRegister.func_94245_a("abo:PipePowerDiamondCenter");
-		_icons[PipePowerDiamondDown] = iconRegister.func_94245_a("abo:PipePowerDiamondDown");
-		_icons[PipePowerDiamondUp] = iconRegister.func_94245_a("abo:PipePowerDiamondUp");
-		_icons[PipePowerDiamondNorth] = iconRegister.func_94245_a("abo:PipePowerDiamondNorth");
-		_icons[PipePowerDiamondSouth] = iconRegister.func_94245_a("abo:PipePowerDiamondSouth");
-		_icons[PipePowerDiamondWest] = iconRegister.func_94245_a("abo:PipePowerDiamondWest");
-		_icons[PipePowerDiamondEast] = iconRegister.func_94245_a("abo:PipePowerDiamondEast");
+		_icons[PipePowerDiamondCenter] = iconRegister.registerIcon("abo:PipePowerDiamondCenter");
+		_icons[PipePowerDiamondDown] = iconRegister.registerIcon("abo:PipePowerDiamondDown");
+		_icons[PipePowerDiamondUp] = iconRegister.registerIcon("abo:PipePowerDiamondUp");
+		_icons[PipePowerDiamondNorth] = iconRegister.registerIcon("abo:PipePowerDiamondNorth");
+		_icons[PipePowerDiamondSouth] = iconRegister.registerIcon("abo:PipePowerDiamondSouth");
+		_icons[PipePowerDiamondWest] = iconRegister.registerIcon("abo:PipePowerDiamondWest");
+		_icons[PipePowerDiamondEast] = iconRegister.registerIcon("abo:PipePowerDiamondEast");
 
-		_icons[PipePowerIron] = iconRegister.func_94245_a("abo:PipePowerIron");
-		_icons[PipePowerIronSide] = iconRegister.func_94245_a("abo:PipePowerIronSide");
+		_icons[PipePowerIron] = iconRegister.registerIcon("abo:PipePowerIron");
+		_icons[PipePowerIronSide] = iconRegister.registerIcon("abo:PipePowerIronSide");
 	}
 }

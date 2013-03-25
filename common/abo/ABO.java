@@ -67,9 +67,9 @@ import cpw.mods.fml.common.registry.LanguageRegistry;
  * @author Flow86
  * 
  */
-@Mod(modid = "Additional-Buildcraft-Objects", name = "Additional-Buildcraft-Objects", version = "@ABO_VERSION@", dependencies = "required-after:BuildCraft|Transport;required-after:BuildCraft|Energy")
+@Mod(modid = "Additional-Buildcraft-Objects", name = "Additional-Buildcraft-Objects", version = "1.0.1", dependencies = "required-after:BuildCraft|Transport;required-after:BuildCraft|Energy")
 public class ABO {
-	public static final String VERSION = "@ABO_VERSION@";
+	public static final String VERSION = "1.0.1";
 
 	public IIconProvider itemIconProvider = new ItemIconProvider();
 	public IIconProvider pipeIconProvider = new PipeIconProvider();
@@ -135,7 +135,7 @@ public class ABO {
 	public void preInitialize(FMLPreInitializationEvent evt) {
 
 		aboLog.setParent(FMLLog.getLogger());
-		aboLog.info("Starting Additional-Buildcraft-Objects #@BUILD_NUMBER@ " + VERSION + " (Built for Minecraft @MINECRAFT_VERSION@ with Buildcraft @BUILDCRAFT_VERSION@ and Forge @FORGE_VERSION@");
+		aboLog.info("Starting Additional-Buildcraft-Objects #custom " + VERSION + " (Built for Minecraft 1.5.1 with Buildcraft 0.0.0 and Forge 7.7.0.604");
 		aboLog.info("Copyright (c) Flow86, 2011-2013");
 
 		aboConfiguration = new ABOConfiguration(new File(evt.getModConfigurationDirectory(), "abo/main.conf"));

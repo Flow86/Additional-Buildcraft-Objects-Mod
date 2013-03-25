@@ -49,7 +49,7 @@ public class ItemIconProvider implements IIconProvider {
 
 		_icons = new Icon[MAX];
 
-		_icons[TriggerEngineSafe] = iconRegister.func_94245_a("abo:triggers/TriggerEngineSafe");
-		_icons[ActionSwitchOnPipe] = iconRegister.func_94245_a("abo:actions/ActionSwitchOnPipe");
+		_icons[TriggerEngineSafe] = iconRegister.registerIcon("abo:triggers/TriggerEngineSafe");
+		_icons[ActionSwitchOnPipe] = iconRegister.registerIcon("abo:actions/ActionSwitchOnPipe");
 	}
 }
