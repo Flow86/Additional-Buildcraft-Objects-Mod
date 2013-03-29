@@ -22,6 +22,8 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraftforge.common.ForgeDirection;
 import abo.ABO;
 import abo.actions.ActionSwitchOnPipe;
+import abo.actions.ActionToggleOffPipe;
+import abo.actions.ActionToggleOnPipe;
 import abo.pipes.ABOPipe;
 import buildcraft.api.core.Position;
 import buildcraft.api.gates.ActionManager;
@@ -41,6 +43,7 @@ public class PipePowerSwitch extends ABOPipe {
 	private final int poweredTexture = 2 * 16 + 1;
 	private boolean powered;
 	private boolean switched;
+	private boolean toggled;
 
 	public PipePowerSwitch(int itemID) {
 		super(new PipeTransportPower(), new PipeLogicGold(), itemID);
@@ -76,8 +79,7 @@ public class PipePowerSwitch extends ABOPipe {
 	 * @return
 	 */
 	public boolean isPowered() {
-		return powered || switched; // worldObj.isBlockIndirectlyGettingPowered(xCoord,
-									// yCoord, zCoord);
+		return powered || switched || toggled;
 	}
 
 	private void computeConnections() {
@@ -145,6 +147,7 @@ public class PipePowerSwitch extends ABOPipe {
 
 		nbttagcompound.setBoolean("powered", powered);
 		nbttagcompound.setBoolean("switched", switched);
+		nbttagcompound.setBoolean("toggled", toggled);
 	}
 
 	@Override
@@ -153,6 +156,7 @@ public class PipePowerSwitch extends ABOPipe {
 
 		powered = nbttagcompound.getBoolean("powered");
 		switched = nbttagcompound.getBoolean("switched");
+		toggled = nbttagcompound.getBoolean("toggled");
 	}
 
 	/*
@@ -170,12 +174,15 @@ public class PipePowerSwitch extends ABOPipe {
 	public LinkedList<IAction> getActions() {
 		LinkedList<IAction> actions = super.getActions();
 		actions.add(ABO.actionSwitchOnPipe);
+		actions.add(ABO.actionToggleOnPipe);
+		actions.add(ABO.actionToggleOffPipe);
 		return actions;
 	}
 
 	@Override
 	protected void actionsActivated(HashMap<Integer, Boolean> actions) {
 		boolean lastSwitched = switched;
+		boolean lastToggled = toggled;
 
 		super.actionsActivated(actions);
 
@@ -185,14 +192,19 @@ public class PipePowerSwitch extends ABOPipe {
 			if (actions.get(i)) {
 				if (ActionManager.actions[i] instanceof ActionSwitchOnPipe) {
 					switched = true;
+				} else if (ActionManager.actions[i] instanceof ActionToggleOnPipe) {
+					toggled = true;
+				} else if (ActionManager.actions[i] instanceof ActionToggleOffPipe) {
+					toggled = false;
 				}
 			}
 		}
-		if (lastSwitched != switched) {
+		if ((lastSwitched != switched) || (lastToggled != toggled)) {
+			if (lastSwitched != switched && !switched)
+				toggled = false;
 			computeConnections();
 			container.scheduleRenderUpdate();
 			updateNeighbors(true);
 		}
 	}
-
 }

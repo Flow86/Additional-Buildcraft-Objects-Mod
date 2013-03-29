@@ -12,24 +12,19 @@
 
 package abo.actions;
 
-/**
- * 
- * 
- * @author mistaqur
- */
-public class ActionSwitchOnPipe extends ABOAction {
+public class ActionToggleOffPipe extends ABOAction {
 
-	public ActionSwitchOnPipe(int id) {
+	public ActionToggleOffPipe(int id) {
 		super(id);
 	}
 
 	@Override
 	public int getIndexInTexture() {
-		return 2 * 16 + 0;
+		return 1 * 16 + 1;
 	}
 
 	@Override
 	public String getDescription() {
-		return "Switch On Pipe";
+		return "Toggle Pipe Off";
 	}
 }

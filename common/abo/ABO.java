@@ -21,6 +21,8 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.common.Property;
 import abo.actions.ActionSwitchOnPipe;
+import abo.actions.ActionToggleOffPipe;
+import abo.actions.ActionToggleOnPipe;
 import abo.items.ABOItem;
 import abo.items.ItemGateSettingsDuplicator;
 import abo.pipes.items.PipeItemsBounce;
@@ -42,8 +44,8 @@ import abo.triggers.TriggerEngineControl;
 import buildcraft.BuildCraftCore;
 import buildcraft.BuildCraftEnergy;
 import buildcraft.BuildCraftTransport;
-import buildcraft.api.gates.Action;
 import buildcraft.api.gates.ActionManager;
+import buildcraft.api.gates.IAction;
 import buildcraft.api.gates.Trigger;
 import buildcraft.core.utils.Localization;
 import buildcraft.transport.BlockGenericPipe;
@@ -126,7 +128,13 @@ public class ABO {
 	public static Trigger triggerEngineControl = null;
 
 	public static int actionSwitchOnPipeID = 128;
-	public static Action actionSwitchOnPipe = null;
+	public static IAction actionSwitchOnPipe = null;
+
+	public static int actionToggleOnPipeID = 129;
+	public static IAction actionToggleOnPipe = null;
+
+	public static int actionToggleOffPipeID = 130;
+	public static IAction actionToggleOffPipe = null;
 
 	@Instance("Additional-Buildcraft-Objects")
 	public static ABO instance;
@@ -190,6 +198,8 @@ public class ABO {
 
 			triggerEngineControl = new TriggerEngineControl(triggerEngineControlID);
 			actionSwitchOnPipe = new ActionSwitchOnPipe(actionSwitchOnPipeID);
+			actionToggleOnPipe = new ActionToggleOnPipe(actionToggleOnPipeID);
+			actionToggleOffPipe = new ActionToggleOffPipe(actionToggleOffPipeID);
 
 			ActionManager.registerTriggerProvider(new ABOTriggerProvider());
 
