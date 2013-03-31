@@ -109,6 +109,8 @@
 
 #### Valve Pipe
    acts like a (golden) wooden pipe (without need of wooden engine)
+   <br>
+   can be toggled/switched by ABO-Actions and Redstone
    
    **can empty a full tank with enough (=full) pressure for two golden pipes in seconds!**
 
@@ -153,6 +155,8 @@
 
 #### Power Switch Pipe
    acts as lever for power pipes
+   <br>
+   can be toggled/switched by ABO-Actions and Redstone
 
    * Recipe:
 
@@ -186,6 +190,23 @@
 
    i.e power them up via an AND gate and an external wire signal, but have an
    "emergency stop"
+   
+
+## Actions
+
+#### Switch On Pipe
+   activates the pipe as long as the action is active
+   (On/Off via Signal)
+   <br>
+   a pipe toggled "on" will be set to off if switch-on is deactivated 
+   
+#### Toggle On Pipe
+   activates the pipe and keeps it activated until a ToggleOff/SwitchOn occurs
+   (On via Signal)
+   
+#### Toggle Off Pipe
+   deactivates the pipe
+   (Off via Signal)
 
 ---------------------------------------------------------------------------------
 
@@ -193,6 +214,9 @@
 
 * 1.0.2
    - ported to 1.5.1
+   - added additional actions
+   - added correct textures for actions
+   - valve pipe and powerswitch pipe react on those actions.
 
 * 1.0.1@99
    - added gate settings duplicator

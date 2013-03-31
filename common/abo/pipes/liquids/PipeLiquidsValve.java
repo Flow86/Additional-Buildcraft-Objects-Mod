@@ -12,6 +12,7 @@
 
 package abo.pipes.liquids;
 
+import java.util.HashMap;
 import java.util.LinkedList;
 
 import net.minecraft.nbt.NBTTagCompound;
@@ -20,8 +21,13 @@ import net.minecraftforge.common.ForgeDirection;
 import abo.ABO;
 import abo.PipeIconProvider;
 import abo.actions.ABOEnergyPulser;
+import abo.actions.ActionSwitchOnPipe;
+import abo.actions.ActionToggleOffPipe;
+import abo.actions.ActionToggleOnPipe;
 import buildcraft.api.core.IIconProvider;
 import buildcraft.api.core.Position;
+import buildcraft.api.gates.ActionManager;
+import buildcraft.api.gates.IAction;
 import buildcraft.transport.BlockGenericPipe;
 import buildcraft.transport.PipeTransportLiquids;
 import buildcraft.transport.TileGenericPipe;
@@ -33,6 +39,9 @@ public class PipeLiquidsValve extends PipeLiquidsWood {
 
 	private final ABOEnergyPulser pulser;
 	private boolean powered;
+	private boolean switched;
+	private boolean toggled;
+
 	private final int closedTexture = PipeIconProvider.PipeLiquidsValveClosed;
 	private final int closedTextureSide = PipeIconProvider.PipeLiquidsValveClosedSide;
 	private final int openTexture = PipeIconProvider.PipeLiquidsValveOpen;
@@ -68,7 +77,7 @@ public class PipeLiquidsValve extends PipeLiquidsWood {
 	}
 
 	public boolean isPowered() {
-		return powered;
+		return powered || switched || toggled;
 	}
 
 	public void updateRedstoneCurrent() {
@@ -116,6 +125,9 @@ public class PipeLiquidsValve extends PipeLiquidsWood {
 		super.writeToNBT(nbttagcompound);
 
 		nbttagcompound.setBoolean("powered", powered);
+		nbttagcompound.setBoolean("switched", switched);
+		nbttagcompound.setBoolean("toggled", toggled);
+
 		NBTTagCompound nbttagcompoundC = new NBTTagCompound();
 		pulser.writeToNBT(nbttagcompoundC);
 		nbttagcompound.setTag("Pulser", nbttagcompoundC);
@@ -126,6 +138,9 @@ public class PipeLiquidsValve extends PipeLiquidsWood {
 		super.readFromNBT(nbttagcompound);
 
 		powered = nbttagcompound.getBoolean("powered");
+		switched = nbttagcompound.getBoolean("switched");
+		toggled = nbttagcompound.getBoolean("toggled");
+
 		NBTTagCompound nbttagcompoundP = nbttagcompound.getCompoundTag("Pulser");
 		pulser.readFromNBT(nbttagcompoundP);
 	}
@@ -134,7 +149,7 @@ public class PipeLiquidsValve extends PipeLiquidsWood {
 	public void updateEntity() {
 		updateRedstoneCurrent();
 
-		if (powered)
+		if (isPowered())
 			pulser.enablePulse();
 		else {
 			pulser.disablePulse();
@@ -144,5 +159,43 @@ public class PipeLiquidsValve extends PipeLiquidsWood {
 		pulser.update();
 
 		super.updateEntity();
+	}
+
+	@Override
+	public LinkedList<IAction> getActions() {
+		LinkedList<IAction> actions = super.getActions();
+		actions.add(ABO.actionSwitchOnPipe);
+		actions.add(ABO.actionToggleOnPipe);
+		actions.add(ABO.actionToggleOffPipe);
+		return actions;
+	}
+
+	@Override
+	protected void actionsActivated(HashMap<Integer, Boolean> actions) {
+		boolean lastSwitched = switched;
+		boolean lastToggled = toggled;
+
+		super.actionsActivated(actions);
+
+		switched = false;
+		// Activate the actions
+		for (Integer i : actions.keySet()) {
+			if (actions.get(i)) {
+				if (ActionManager.actions[i] instanceof ActionSwitchOnPipe) {
+					switched = true;
+				} else if (ActionManager.actions[i] instanceof ActionToggleOnPipe) {
+					toggled = true;
+				} else if (ActionManager.actions[i] instanceof ActionToggleOffPipe) {
+					toggled = false;
+				}
+			}
+		}
+		if ((lastSwitched != switched) || (lastToggled != toggled)) {
+			if (lastSwitched != switched && !switched)
+				toggled = false;
+
+			container.scheduleRenderUpdate();
+			updateNeighbors(true);
+		}
 	}
 }

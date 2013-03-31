@@ -26,8 +26,10 @@ public class ItemIconProvider implements IIconProvider {
 
 	public static final int TriggerEngineSafe = 0;
 	public static final int ActionSwitchOnPipe = 1;
+	public static final int ActionToggleOnPipe = 2;
+	public static final int ActionToggleOffPipe = 3;
 
-	public static final int MAX = 2;
+	public static final int MAX = 4;
 
 	private boolean registered = false;
 
@@ -51,5 +53,7 @@ public class ItemIconProvider implements IIconProvider {
 
 		_icons[TriggerEngineSafe] = iconRegister.registerIcon("abo:triggers/TriggerEngineSafe");
 		_icons[ActionSwitchOnPipe] = iconRegister.registerIcon("abo:actions/ActionSwitchOnPipe");
+		_icons[ActionToggleOnPipe] = iconRegister.registerIcon("abo:actions/ActionToggleOnPipe");
+		_icons[ActionToggleOffPipe] = iconRegister.registerIcon("abo:actions/ActionToggleOffPipe");
 	}
 }
