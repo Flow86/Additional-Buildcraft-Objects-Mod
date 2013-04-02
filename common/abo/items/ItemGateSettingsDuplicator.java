@@ -41,8 +41,11 @@ public class ItemGateSettingsDuplicator extends ABOItem {
 
 		public void writeToNBT(NBTTagCompound nbt) {
 			nbt.setInteger("trigger", trigger);
-			if (triggerParameter != null)
-				triggerParameter.writeToNBT(nbt.getCompoundTag("triggerParameter"));
+			if (triggerParameter != null) {
+				NBTTagCompound nbtparam = new NBTTagCompound();
+				triggerParameter.writeToNBT(nbtparam);
+				nbt.setCompoundTag("triggerParameter", nbtparam);
+			}
 			nbt.setInteger("action", action);
 		}
 
@@ -117,7 +120,9 @@ public class ItemGateSettingsDuplicator extends ABOItem {
 			if (pipe.hasGate()) {
 				if (itemStack.stackTagCompound == null)
 					itemStack.stackTagCompound = new NBTTagCompound();
+
 				if (entityPlayer.isSneaking() && itemStack.stackTagCompound.hasKey("GateSettings")) {
+					// apply settings to gate
 					GateSettings gS = GateSettings.createFromNBT(itemStack.stackTagCompound);
 					if (gS.kind == pipe.gate.kind && gS.isAutarchic == (pipe.gate instanceof GateVanilla && ((GateVanilla) pipe.gate).hasPulser())) {
 						for (int i = 0; i < 8; ++i) {
@@ -129,7 +134,9 @@ public class ItemGateSettingsDuplicator extends ABOItem {
 
 						entityPlayer.sendChatToPlayer("Gate settings pasted");
 					}
+
 				} else {
+					// get settings from gate
 					GateSettings gS = new GateSettings(pipe.gate.kind);
 
 					if (pipe.gate instanceof GateVanilla) {
@@ -159,6 +166,5 @@ public class ItemGateSettingsDuplicator extends ABOItem {
 		}
 
 		return super.onItemUseFirst(itemStack, entityPlayer, worldObj, x, y, z, side, var8, var9, var10);
-
 	}
 }
