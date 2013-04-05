@@ -135,7 +135,7 @@
 		<!-- Reobf -->
 		<exec dir="${mcp.dir}" executable="cmd" osfamily="windows" failonerror="true">
 			<arg line="/c"/>
-			<arg line="reobfuscate.bat"/>
+			<arg line="reobfuscate_srg.bat"/>
 		</exec>
 		
 		<!-- remove empty server.md5 or simply every empty file in temp! -->
@@ -149,7 +149,7 @@
 		</exec>
 
 		<exec dir="${mcp.dir}" executable="sh" osfamily="unix" failonerror="true">
-			<arg value="reobfuscate.sh" />
+			<arg value="reobfuscate_srg.sh" />
 		</exec>
 	</target>
 	
