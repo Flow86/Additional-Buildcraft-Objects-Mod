@@ -210,7 +210,8 @@ public class ABO {
 			BuildCraftCore.itemBptProps[pipeLiquidsDiamond.itemID] = new BptItemPipeDiamond();
 			BuildCraftCore.itemBptProps[pipePowerIron.itemID] = new BptItemPipeIron();
 		} finally {
-			aboConfiguration.save();
+			if (aboConfiguration.hasChanged())
+				aboConfiguration.save();
 		}
 	}
 
@@ -294,6 +295,13 @@ public class ABO {
 		Property prop = aboConfiguration.getItem(name + ".id", defaultID);
 
 		int id = prop.getInt(defaultID);
+
+		// search for free id
+		while (BlockGenericPipe.pipes.containsKey(id))
+			++id;
+
+		prop.set(id);
+
 		ItemPipe pipe = BlockGenericPipe.registerPipe(id, clazz);
 		pipe.setPipesIcons(instance.pipeIconProvider);
 		pipe.setUnlocalizedName(clazz.getSimpleName());
