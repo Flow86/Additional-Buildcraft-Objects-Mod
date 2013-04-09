@@ -47,8 +47,8 @@ public class PipeLiquidsPump extends ABOPipe {
 	@Override
 	public void updateEntity() {
 		super.updateEntity();
-		if (worldObj.isRemote && worldObj.getBlockId(xCoord, yCoord - 1, zCoord) == liquid.blockID) {
-			((PipeTransportLiquids) transport).fill(ForgeDirection.UNKNOWN, new LiquidStack(liquid, 100), true);
+		if (worldObj.getBlockId(xCoord, yCoord - 1, zCoord) == liquid.blockID) {
+			((PipeTransportLiquids) transport).fill(ForgeDirection.DOWN, new LiquidStack(liquid, 100), true);
 		}
 	}
 

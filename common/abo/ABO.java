@@ -14,6 +14,7 @@ package abo;
 
 import java.io.File;
 import java.util.LinkedList;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import net.minecraft.block.Block;
@@ -249,6 +250,16 @@ public class ABO {
 		Property prop = aboConfiguration.getItem(name + ".id", defaultID);
 
 		int id = prop.getInt(defaultID);
+
+		while (id < Item.itemsList.length && Item.itemsList[id] != null)
+			id++;
+
+		if (id >= Item.itemsList.length) {
+			aboLog.log(Level.SEVERE, "Cannot find free ID for Item + " + name + " starting from " + defaultID);
+			return null;
+		}
+
+		prop.set(id);
 
 		Item item = null;
 		try {
