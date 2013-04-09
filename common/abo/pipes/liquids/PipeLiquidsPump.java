@@ -21,7 +21,9 @@ import buildcraft.transport.PipeTransportLiquids;
 
 /**
  * a pump pipe like in AdditionalPipes, but possibility to enable it for
- * different liquids.
+ * different liquids (standard one is for water).
+ * 
+ * Original authors: Zeldo, DaStormBringer, Kyprus and/or tcooc
  * 
  * @author Flow86
  * 
@@ -45,7 +47,7 @@ public class PipeLiquidsPump extends ABOPipe {
 	@Override
 	public void updateEntity() {
 		super.updateEntity();
-		if ((worldObj.isRemote) && worldObj.getBlockId(xCoord, yCoord - 1, zCoord) == liquid.blockID) {
+		if (worldObj.isRemote && worldObj.getBlockId(xCoord, yCoord - 1, zCoord) == liquid.blockID) {
 			((PipeTransportLiquids) transport).fill(ForgeDirection.UNKNOWN, new LiquidStack(liquid, 100), true);
 		}
 	}
