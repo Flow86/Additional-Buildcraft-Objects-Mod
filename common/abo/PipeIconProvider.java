@@ -68,7 +68,9 @@ public class PipeIconProvider implements IIconProvider {
 	public static final int PipePowerIron = 31;
 	public static final int PipePowerIronSide = 32;
 
-	public static final int MAX = 33;
+	public static final int PipeLiquidsPump = 33;
+
+	public static final int MAX = 34;
 
 	private boolean registered = false;
 
@@ -133,5 +135,7 @@ public class PipeIconProvider implements IIconProvider {
 
 		_icons[PipePowerIron] = iconRegister.registerIcon("abo:PipePowerIron");
 		_icons[PipePowerIronSide] = iconRegister.registerIcon("abo:PipePowerIronSide");
+
+		_icons[PipeLiquidsPump] = iconRegister.registerIcon("abo:PipeLiquidsPump");
 	}
 }
