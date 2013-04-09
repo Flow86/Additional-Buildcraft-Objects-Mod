@@ -31,8 +31,6 @@ public class ItemIconProvider implements IIconProvider {
 
 	public static final int MAX = 4;
 
-	private boolean registered = false;
-
 	@SideOnly(Side.CLIENT)
 	private Icon[] _icons;
 
@@ -45,10 +43,6 @@ public class ItemIconProvider implements IIconProvider {
 	@Override
 	@SideOnly(Side.CLIENT)
 	public void registerIcons(IconRegister iconRegister) {
-		if (registered)
-			return;
-		registered = true;
-
 		_icons = new Icon[MAX];
 
 		_icons[TriggerEngineSafe] = iconRegister.registerIcon("abo:triggers/TriggerEngineSafe");
