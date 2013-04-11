@@ -21,6 +21,8 @@ import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
 /**
+ * base class for an abo item.
+ * 
  * @author Flow86
  * 
  */
@@ -46,7 +48,7 @@ public class ABOItem extends Item {
 
 	@Override
 	@SideOnly(Side.CLIENT)
-	public void updateIcons(IconRegister iconRegister) {
-		this.iconIndex = iconRegister.registerIcon("abo:" + iconName);
+	public void registerIcons(IconRegister iconRegister) {
+		this.itemIcon = iconRegister.registerIcon("abo:" + iconName);
 	}
 }
