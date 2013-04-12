@@ -12,7 +12,6 @@
 
 package abo.triggers;
 
-import net.minecraft.util.Icon;
 import abo.ABO;
 import buildcraft.api.core.IIconProvider;
 import buildcraft.core.triggers.BCTrigger;
@@ -33,14 +32,5 @@ public abstract class ABOTrigger extends BCTrigger {
 	@SideOnly(Side.CLIENT)
 	public IIconProvider getIconProvider() {
 		return ABO.instance.itemIconProvider;
-	}
-
-	@SideOnly(Side.CLIENT)
-	public abstract int getIconIndex();
-
-	@Override
-	@SideOnly(Side.CLIENT)
-	public Icon getTextureIcon() {
-		return getIconProvider().getIcon(getIconIndex());
 	}
 }

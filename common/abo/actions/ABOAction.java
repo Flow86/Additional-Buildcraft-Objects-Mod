@@ -12,7 +12,6 @@
 
 package abo.actions;
 
-import net.minecraft.util.Icon;
 import abo.ABO;
 import buildcraft.api.core.IIconProvider;
 import buildcraft.core.triggers.BCAction;
@@ -33,14 +32,5 @@ public abstract class ABOAction extends BCAction {
 	@SideOnly(Side.CLIENT)
 	public IIconProvider getIconProvider() {
 		return ABO.instance.itemIconProvider;
-	}
-
-	@SideOnly(Side.CLIENT)
-	public abstract int getIconIndex();
-
-	@Override
-	@SideOnly(Side.CLIENT)
-	public Icon getTexture() {
-		return getIconProvider().getIcon(getIconIndex());
 	}
 }
