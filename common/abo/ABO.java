@@ -314,7 +314,7 @@ public class ABO {
 		prop.set(id);
 
 		ItemPipe pipe = BlockGenericPipe.registerPipe(id, clazz);
-		pipe.setPipesIcons(instance.pipeIconProvider);
+		//pipe.setPipesIcons(instance.pipeIconProvider);
 		pipe.setUnlocalizedName(clazz.getSimpleName());
 		LanguageRegistry.addName(pipe, descr);
 
