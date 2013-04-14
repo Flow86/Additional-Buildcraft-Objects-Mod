@@ -178,8 +178,8 @@ public class ABO {
 
 			if (GameRegistry.findItem("APUnofficial", "item.PipeLiquidsWaterPump") == null) {
 				pipeLiquidsWaterPump = createPipe(pipeLiquidsWaterPumpID, PipeLiquidsPump.class, "Water Pump Pipe", 1, false, new Object[] { " L ", "rPr",
-						" W ", 'r', Item.redstone, 'P', BuildCraftCore.ironGearItem, 'L', BuildCraftTransport.pipeLiquidsGold, 'w',
-						BuildCraftTransport.pipeWaterproof, 'W', BuildCraftTransport.pipeLiquidsWood });
+						" W ", 'r', Item.redstone, 'P', BuildCraftCore.ironGearItem, 'L', BuildCraftTransport.pipeLiquidsGold, 'W',
+						BuildCraftTransport.pipeLiquidsWood });
 			}
 
 			pipeItemsRoundRobin = createPipe(pipeItemsRoundRobinID, PipeItemsRoundRobin.class, "RoundRobin Transport Pipe", 1,

@@ -148,9 +148,11 @@
 
       DiamondTransportPipe PipeWaterproof
 
-   * TODO:
+   * GUI:
 
-      Create custom GUI
+      - Left Click: Set next liquid on clicked slot
+      - Right Click: Set previous liquid on clicked slot
+      - Middle Click: Delete filter on clicked slot
 
 
 #### Power Switch Pipe
@@ -169,7 +171,7 @@
 
       IronTransportPipe Redstone
 
-#### Diamond Power Pipe
+#### Diamond Conductive Pipe
    acts as a power distributor - every filter line which has an item in it is 
    "open" to receive power
 
@@ -177,9 +179,24 @@
 
       IronTransportPipe Redstone
 
-   * TODO:
+   * GUI:
 
-      Create custom GUI
+      You can toggle each side on or off via GUI.
+
+#### Water Pump Pipe
+   soaks water from a source block below it
+   
+   * (Shaped) Recipe:
+      X GoldenWaterproofPipe X
+      RedstoneDust IronGear RedstoneDust
+      X WoodenWaterproofPipe X
+      
+   Original by AdditionalPipes (https://github.com/DaStormBringer/AdditionalPipesBC2)
+   
+   It will only show up if AdditionalPipes is not installed and tries to use the same Id.
+   
+   Since both pipe do the same (I even have copied the Recipe), you can load old maps 
+   where you only used the Water Pump Pipe.
 
 ## Triggers
    
@@ -211,6 +228,12 @@
 ---------------------------------------------------------------------------------
 
 ## Changelog:
+
+* 1.0.3
+   - added custom gui for diamond waterproof pipe
+   - added custom gui for diamond conductive pipe
+   - added water pump pipe like the one from AdditionalPipes
+   - renamed "Power" Pipes to "Conductive", unless Power Switch Pipe
 
 * 1.0.2
    - ported to 1.5.1
