@@ -24,8 +24,10 @@ import net.minecraftforge.common.Property;
 import abo.actions.ActionSwitchOnPipe;
 import abo.actions.ActionToggleOffPipe;
 import abo.actions.ActionToggleOnPipe;
+import abo.gui.ABOGuiHandler;
 import abo.items.ABOItem;
 import abo.items.ItemGateSettingsDuplicator;
+import abo.network.ABOPacketHandler;
 import abo.pipes.items.PipeItemsBounce;
 import abo.pipes.items.PipeItemsCrossover;
 import abo.pipes.items.PipeItemsExtraction;
@@ -37,7 +39,7 @@ import abo.pipes.liquids.PipeLiquidsDiamond;
 import abo.pipes.liquids.PipeLiquidsGoldenIron;
 import abo.pipes.liquids.PipeLiquidsPump;
 import abo.pipes.liquids.PipeLiquidsValve;
-import abo.pipes.power.PipeDiamondConductive;
+import abo.pipes.power.PipePowerDiamond;
 import abo.pipes.power.PipePowerIron;
 import abo.pipes.power.PipePowerSwitch;
 import abo.proxy.ABOProxy;
@@ -207,7 +209,7 @@ public class ABO {
 
 			pipePowerIron = createPipe(pipePowerIronID, PipePowerIron.class, "Iron Power Pipe", 1, Item.redstone, BuildCraftTransport.pipeItemsIron, null);
 
-			pipeDiamondConductive = createPipe(pipeDiamondConductiveID, PipeDiamondConductive.class, "Diamond Conductive Pipe", 1, Item.redstone,
+			pipeDiamondConductive = createPipe(pipeDiamondConductiveID, PipePowerDiamond.class, "Diamond Conductive Pipe", 1, Item.redstone,
 					BuildCraftTransport.pipeItemsDiamond, null);
 
 			triggerEngineSafe = new TriggerEngineSafe(triggerEngineSafeID);

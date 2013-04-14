@@ -10,9 +10,10 @@
  * granted by the copyright holder.
  */
 
-package abo.pipes.power.gui;
+package abo.gui;
 
-public interface IYesNoChange {
+public class ABOGuiIds {
+	public static final int PIPE_DIAMOND_LIQUIDS = 100;
 
-	public void update(int slot, boolean state);
+	public static final int PIPE_DIAMOND_POWER = 110;
 }

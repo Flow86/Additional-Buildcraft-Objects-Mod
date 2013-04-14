@@ -14,10 +14,10 @@ package abo.pipes.power;
 
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraftforge.common.ForgeDirection;
-import abo.pipes.power.gui.IYesNoChange;
+import abo.network.IYesNoChange;
 import buildcraft.transport.pipes.PipeLogic;
 
-public class PipeLogicDiamondConductive extends PipeLogic implements IYesNoChange {
+public class PipeLogicPowerDiamond extends PipeLogic implements IYesNoChange {
 	public final boolean[] connectionMatrix = { true, true, true, true, true, true };
 
 	public boolean hasConnectionToSide(ForgeDirection side) {
@@ -47,7 +47,7 @@ public class PipeLogicDiamondConductive extends PipeLogic implements IYesNoChang
 
 		if (connectionMatrix[slot] != state) {
 			connectionMatrix[slot] = state;
-			((PipeDiamondConductive) container.pipe).isDirty = true;
+			((PipePowerDiamond) container.pipe).isDirty = true;
 			container.pipe.updateEntity();
 		}
 	}

@@ -10,14 +10,15 @@
  * granted by the copyright holder.
  */
 
-package abo;
+package abo.gui;
 
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
-import abo.pipes.liquids.PipeLogicLiquidDiamond;
-import abo.pipes.power.gui.ContainerPipeDiamondConductive;
-import abo.pipes.power.gui.GuiPipeDiamondConductive;
+import abo.pipes.liquids.gui.ContainerPipeLiquidsDiamond;
+import abo.pipes.liquids.gui.GuiPipeLiquidsDiamond;
+import abo.pipes.power.gui.ContainerPipePowerDiamond;
+import abo.pipes.power.gui.GuiPipePowerDiamond;
 import buildcraft.transport.TileGenericPipe;
 import cpw.mods.fml.common.network.IGuiHandler;
 
@@ -39,10 +40,10 @@ public class ABOGuiHandler implements IGuiHandler {
 
 		switch (ID) {
 		case ABOGuiIds.PIPE_DIAMOND_LIQUIDS:
-			return new ContainerLiquidDiamondPipe(player.inventory, (PipeLogicLiquidDiamond) pipe.pipe.logic);
+			return new ContainerPipeLiquidsDiamond(player.inventory, pipe);
 
-		case ABOGuiIds.PIPE_DIAMOND_CONDUCTIVE:
-			return new ContainerPipeDiamondConductive(player.inventory, pipe);
+		case ABOGuiIds.PIPE_DIAMOND_POWER:
+			return new ContainerPipePowerDiamond(player.inventory, pipe);
 
 		default:
 			return null;
@@ -65,10 +66,10 @@ public class ABOGuiHandler implements IGuiHandler {
 
 		switch (ID) {
 		case ABOGuiIds.PIPE_DIAMOND_LIQUIDS:
-			return new GuiLiquidDiamondPipe(player.inventory, pipe);
+			return new GuiPipeLiquidsDiamond(player.inventory, pipe);
 
-		case ABOGuiIds.PIPE_DIAMOND_CONDUCTIVE:
-			return new GuiPipeDiamondConductive(player.inventory, pipe);
+		case ABOGuiIds.PIPE_DIAMOND_POWER:
+			return new GuiPipePowerDiamond(player.inventory, pipe);
 
 		default:
 			return null;

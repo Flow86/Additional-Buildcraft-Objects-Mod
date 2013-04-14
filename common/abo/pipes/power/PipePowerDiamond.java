@@ -24,19 +24,19 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 import net.minecraftforge.common.ForgeDirection;
 import abo.ABO;
-import abo.ABOGuiIds;
 import abo.PipeIconProvider;
+import abo.gui.ABOGuiIds;
 import abo.pipes.ABOPipe;
 import buildcraft.core.network.IClientState;
 import buildcraft.transport.BlockGenericPipe;
 import buildcraft.transport.PipeTransportPower;
 
-public class PipeDiamondConductive extends ABOPipe implements IClientState {
+public class PipePowerDiamond extends ABOPipe implements IClientState {
 
 	public boolean isDirty = true;
 
-	public PipeDiamondConductive(int itemID) {
-		super(new PipeTransportPower(), new PipeLogicDiamondConductive(), itemID);
+	public PipePowerDiamond(int itemID) {
+		super(new PipeTransportPower(), new PipeLogicPowerDiamond(), itemID);
 	}
 
 	@Override
@@ -50,7 +50,7 @@ public class PipeDiamondConductive extends ABOPipe implements IClientState {
 			return true;
 
 		if (!worldObj.isRemote)
-			entityplayer.openGui(ABO.instance, ABOGuiIds.PIPE_DIAMOND_CONDUCTIVE, worldObj, x, y, z);
+			entityplayer.openGui(ABO.instance, ABOGuiIds.PIPE_DIAMOND_POWER, worldObj, x, y, z);
 
 		return true;
 	}
@@ -96,7 +96,7 @@ public class PipeDiamondConductive extends ABOPipe implements IClientState {
 		if (container == tile)
 			side = side.getOpposite();
 
-		if (connected && ((PipeLogicDiamondConductive) logic).hasConnectionToSide(side))
+		if (connected && ((PipeLogicPowerDiamond) logic).hasConnectionToSide(side))
 			return true;
 		return false;
 	}

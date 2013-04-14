@@ -10,27 +10,22 @@
  * granted by the copyright holder.
  */
 
-package abo.pipes.power.gui;
+package abo.network;
 
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.tileentity.TileEntity;
-import net.minecraft.world.World;
-import abo.ABOPacketIds;
-import buildcraft.core.network.PacketCoordinates;
 import buildcraft.transport.TileGenericPipe;
 
-public class PacketYesNoChange extends PacketCoordinates {
+public class PacketYesNoChange extends ABOPacket {
 
 	private int slot;
 	private boolean state;
 
 	public PacketYesNoChange(int xCoord, int yCoord, int zCoord, int slot, boolean state) {
 		super(ABOPacketIds.YesNoChange, xCoord, yCoord, zCoord);
-		channel = "ABO";
 		this.slot = slot;
 		this.state = state;
 	}
@@ -53,17 +48,6 @@ public class PacketYesNoChange extends PacketCoordinates {
 
 		this.slot = data.readInt();
 		this.state = data.readBoolean();
-	}
-
-	private TileGenericPipe getPipe(World world, int x, int y, int z) {
-		if (!world.blockExists(x, y, z))
-			return null;
-
-		TileEntity tile = world.getBlockTileEntity(x, y, z);
-		if (!(tile instanceof TileGenericPipe))
-			return null;
-
-		return (TileGenericPipe) tile;
 	}
 
 	public void update(EntityPlayer player) {

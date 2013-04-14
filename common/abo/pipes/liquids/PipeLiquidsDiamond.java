@@ -16,19 +16,22 @@ import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 
-import net.minecraft.item.ItemStack;
+import net.minecraft.block.Block;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.nbt.NBTBase;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.world.World;
 import net.minecraftforge.common.ForgeDirection;
 import net.minecraftforge.liquids.ILiquidTank;
-import net.minecraftforge.liquids.LiquidContainerRegistry;
 import net.minecraftforge.liquids.LiquidStack;
+import abo.ABO;
 import abo.PipeIconProvider;
+import abo.gui.ABOGuiIds;
 import abo.pipes.ABOPipe;
 import buildcraft.core.network.IClientState;
 import buildcraft.core.utils.Utils;
+import buildcraft.transport.BlockGenericPipe;
 import buildcraft.transport.PipeTransportLiquids;
-import buildcraft.transport.pipes.PipeLogicDiamond;
 
 /**
  * @author Flow86
@@ -37,10 +40,26 @@ import buildcraft.transport.pipes.PipeLogicDiamond;
 public class PipeLiquidsDiamond extends ABOPipe implements IClientState {
 
 	public PipeLiquidsDiamond(int itemID) {
-		super(new PipeTransportLiquids(), new PipeLogicLiquidDiamond(), itemID);
+		super(new PipeTransportLiquids(), new PipeLogicLiquidsDiamond(), itemID);
 
 		((PipeTransportLiquids) transport).flowRate = 160;
 		((PipeTransportLiquids) transport).travelDelay = 2;
+	}
+
+	@Override
+	public boolean blockActivated(World world, int x, int y, int z, EntityPlayer entityplayer) {
+		if (entityplayer.getCurrentEquippedItem() != null && entityplayer.getCurrentEquippedItem().itemID < Block.blocksList.length) {
+			if (Block.blocksList[entityplayer.getCurrentEquippedItem().itemID] instanceof BlockGenericPipe)
+				return false;
+		}
+
+		if (super.blockActivated(worldObj, x, y, z, entityplayer))
+			return true;
+
+		if (!worldObj.isRemote)
+			entityplayer.openGui(ABO.instance, ABOGuiIds.PIPE_DIAMOND_LIQUIDS, worldObj, x, y, z);
+
+		return true;
 	}
 
 	@Override
@@ -81,7 +100,7 @@ public class PipeLiquidsDiamond extends ABOPipe implements IClientState {
 
 		LiquidStack liquid = tanks[ForgeDirection.UNKNOWN.ordinal()].getLiquid();
 
-		PipeLogicDiamond logicDiamond = (PipeLogicDiamond) logic;
+		PipeLogicLiquidsDiamond logicDiamond = (PipeLogicLiquidsDiamond) logic;
 
 		boolean[] validDirections = new boolean[ForgeDirection.values().length];
 		boolean[] filteredDirections = new boolean[ForgeDirection.values().length];
@@ -95,8 +114,7 @@ public class PipeLiquidsDiamond extends ABOPipe implements IClientState {
 
 			if (Utils.checkPipesConnections(container.getTile(dir), container)) {
 				for (int slot = 0; slot < 9; ++slot) {
-					ItemStack stack = logicDiamond.getStackInSlot(dir.ordinal() * 9 + slot);
-					LiquidStack liquidStack = LiquidContainerRegistry.getLiquidForFilledItem(stack);
+					LiquidStack liquidStack = logicDiamond.liquidStacks[dir.ordinal() * 9 + slot];
 
 					if (liquidStack != null) {
 						filteredDirections[dir.ordinal()] = true;
@@ -126,7 +144,7 @@ public class PipeLiquidsDiamond extends ABOPipe implements IClientState {
 	@Override
 	public void writeData(DataOutputStream data) throws IOException {
 		NBTTagCompound nbt = new NBTTagCompound();
-		((PipeLogicDiamond) logic).writeToNBT(nbt);
+		logic.writeToNBT(nbt);
 		NBTBase.writeNamedTag(nbt, data);
 	}
 

@@ -10,10 +10,9 @@
  * granted by the copyright holder.
  */
 
-package abo;
+package abo.network;
 
-public class ABOGuiIds {
-	public static final int PIPE_DIAMOND_LIQUIDS = 100;
+public interface IYesNoChange {
 
-	public static final int PIPE_DIAMOND_CONDUCTIVE = 110;
+	public void update(int slot, boolean state);
 }

@@ -17,23 +17,24 @@ import net.minecraft.entity.player.InventoryPlayer;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL12;
 
-import abo.pipes.power.PipeLogicDiamondConductive;
-import abo.pipes.power.PipeDiamondConductive;
+import abo.network.PacketYesNoChange;
+import abo.pipes.power.PipeLogicPowerDiamond;
+import abo.pipes.power.PipePowerDiamond;
 import abo.proxy.ABOProxy;
 import buildcraft.core.gui.GuiAdvancedInterface;
 import buildcraft.core.utils.StringUtil;
 import buildcraft.transport.TileGenericPipe;
 
-public class GuiPipeDiamondConductive extends GuiAdvancedInterface {
+public class GuiPipePowerDiamond extends GuiAdvancedInterface {
 
 	class YesNoSlot extends AdvancedSlot {
 
 		private final int nr;
-		private final PipeLogicDiamondConductive logic;
+		private final PipeLogicPowerDiamond logic;
 
 		public YesNoSlot(int nr, int x, int y, TileGenericPipe tile) {
 			super(x, y);
-			logic = (PipeLogicDiamondConductive) tile.pipe.logic;
+			logic = (PipeLogicPowerDiamond) tile.pipe.logic;
 			this.nr = nr;
 		}
 
@@ -46,12 +47,12 @@ public class GuiPipeDiamondConductive extends GuiAdvancedInterface {
 		}
 	}
 
-	private final ContainerPipeDiamondConductive container;
+	private final ContainerPipePowerDiamond container;
 
-	public GuiPipeDiamondConductive(InventoryPlayer player, TileGenericPipe tile) {
-		super(new ContainerPipeDiamondConductive(player, tile), null);
+	public GuiPipePowerDiamond(InventoryPlayer player, TileGenericPipe tile) {
+		super(new ContainerPipePowerDiamond(player, tile), null);
 
-		container = (ContainerPipeDiamondConductive) inventorySlots;
+		container = (ContainerPipePowerDiamond) inventorySlots;
 
 		slots = new AdvancedSlot[6];
 		for (int i = 0; i < 6; ++i) {
@@ -64,7 +65,7 @@ public class GuiPipeDiamondConductive extends GuiAdvancedInterface {
 
 	@Override
 	protected void drawGuiContainerForegroundLayer(int x, int y) {
-		String name = StringUtil.localize("item." + PipeDiamondConductive.class.getSimpleName());
+		String name = StringUtil.localize("item." + PipePowerDiamond.class.getSimpleName());
 
 		fontRenderer.drawString(name, getCenteredOffset(name), 6, 0x404040);
 
@@ -82,7 +83,7 @@ public class GuiPipeDiamondConductive extends GuiAdvancedInterface {
 
 		GL11.glEnable(GL12.GL_RESCALE_NORMAL);
 		GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
-		mc.renderEngine.bindTexture("/gfx/abo/gui/pipeDiamondConductive.png");
+		mc.renderEngine.bindTexture("/gfx/abo/gui/pipePowerDiamond.png");
 
 		int cornerX = (width - xSize) / 2;
 		int cornerY = (height - ySize) / 2;

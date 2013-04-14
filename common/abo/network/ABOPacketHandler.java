@@ -10,7 +10,7 @@
  * granted by the copyright holder.
  */
 
-package abo;
+package abo.network;
 
 import java.io.ByteArrayInputStream;
 import java.io.DataInputStream;
@@ -18,7 +18,7 @@ import java.io.DataInputStream;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.network.INetworkManager;
 import net.minecraft.network.packet.Packet250CustomPayload;
-import abo.pipes.power.gui.PacketYesNoChange;
+import abo.ABO;
 import cpw.mods.fml.common.network.IPacketHandler;
 import cpw.mods.fml.common.network.Player;
 
@@ -34,8 +34,13 @@ public class ABOPacketHandler implements IPacketHandler {
 			case ABOPacketIds.YesNoChange: {
 				PacketYesNoChange yesNoPacket = new PacketYesNoChange(data);
 				yesNoPacket.update((EntityPlayer) player);
-			}
 				break;
+			}
+			case ABOPacketIds.LiquidSlotChange: {
+				PacketLiquidSlotChange liquidSlotPacket = new PacketLiquidSlotChange(data);
+				liquidSlotPacket.update((EntityPlayer) player);
+				break;
+			}
 			default:
 				ABO.aboLog.info("Packet: " + packetID);
 			}

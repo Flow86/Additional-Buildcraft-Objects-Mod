@@ -15,21 +15,21 @@ package abo.pipes.power.gui;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.ICrafting;
-import abo.pipes.power.PipeLogicDiamondConductive;
-import abo.pipes.power.PipeDiamondConductive;
+import abo.pipes.power.PipeLogicPowerDiamond;
+import abo.pipes.power.PipePowerDiamond;
 import buildcraft.core.gui.BuildCraftContainer;
 import buildcraft.transport.TileGenericPipe;
 
-public class ContainerPipeDiamondConductive extends BuildCraftContainer {
+public class ContainerPipePowerDiamond extends BuildCraftContainer {
 
-	public final PipeDiamondConductive pipe;
+	public final PipePowerDiamond pipe;
 	private final boolean[] connectionMatrix = new boolean[6];
 
-	public ContainerPipeDiamondConductive(InventoryPlayer inventory, TileGenericPipe tile) {
+	public ContainerPipePowerDiamond(InventoryPlayer inventory, TileGenericPipe tile) {
 		super(0);
 
-		pipe = (PipeDiamondConductive) tile.pipe;
-		PipeLogicDiamondConductive logic = (PipeLogicDiamondConductive) pipe.logic;
+		pipe = (PipePowerDiamond) tile.pipe;
+		PipeLogicPowerDiamond logic = (PipeLogicPowerDiamond) pipe.logic;
 
 		for (int i = 0; i < 6; ++i)
 			connectionMatrix[i] = logic.connectionMatrix[i];
@@ -44,7 +44,7 @@ public class ContainerPipeDiamondConductive extends BuildCraftContainer {
 	public void detectAndSendChanges() {
 		super.detectAndSendChanges();
 
-		PipeLogicDiamondConductive logic = (PipeLogicDiamondConductive) pipe.logic;
+		PipeLogicPowerDiamond logic = (PipeLogicPowerDiamond) pipe.logic;
 
 		// send update to all connected crafters
 		for (Object crafter : crafters) {
@@ -60,7 +60,7 @@ public class ContainerPipeDiamondConductive extends BuildCraftContainer {
 
 	@Override
 	public void updateProgressBar(int id, int value) {
-		PipeLogicDiamondConductive logic = (PipeLogicDiamondConductive) pipe.logic;
+		PipeLogicPowerDiamond logic = (PipeLogicPowerDiamond) pipe.logic;
 
 		// System.out.println("updateProgress: " + id + " to " + (value == 1));
 		logic.update(id, (value == 1));

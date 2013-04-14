@@ -10,10 +10,10 @@
  * granted by the copyright holder.
  */
 
-package abo;
+package abo.network;
 
-public class ABOPacketIds {
+import net.minecraftforge.liquids.LiquidStack;
 
-	public static final int YesNoChange = 1;
-
+public interface ILiquidSlotChange {
+	public void update(int slot, LiquidStack stack);
 }
