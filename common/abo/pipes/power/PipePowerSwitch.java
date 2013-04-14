@@ -12,8 +12,6 @@
 
 package abo.pipes.power;
 
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
 import java.util.HashMap;
 import java.util.LinkedList;
 
@@ -75,25 +73,6 @@ public class PipePowerSwitch extends ABOPipe {
 	 */
 	public boolean isPowered() {
 		return powered || switched || toggled;
-	}
-
-	private void computeConnections() {
-		try {
-			Method computeConnections = TileGenericPipe.class.getDeclaredMethod("computeConnections");
-			computeConnections.setAccessible(true);
-
-			computeConnections.invoke(this.container);
-		} catch (SecurityException e) {
-			e.printStackTrace();
-		} catch (NoSuchMethodException e) {
-			e.printStackTrace();
-		} catch (IllegalArgumentException e) {
-			e.printStackTrace();
-		} catch (IllegalAccessException e) {
-			e.printStackTrace();
-		} catch (InvocationTargetException e) {
-			e.printStackTrace();
-		}
 	}
 
 	public void updateRedstoneCurrent() {
@@ -197,8 +176,7 @@ public class PipePowerSwitch extends ABOPipe {
 		if ((lastSwitched != switched) || (lastToggled != toggled)) {
 			if (lastSwitched != switched && !switched)
 				toggled = false;
-			computeConnections();
-			container.scheduleRenderUpdate();
+			container.scheduleNeighborChange();
 			updateNeighbors(true);
 		}
 	}

@@ -37,7 +37,7 @@ import buildcraft.transport.pipes.PipeLogicDiamond;
 public class PipeLiquidsDiamond extends ABOPipe implements IClientState {
 
 	public PipeLiquidsDiamond(int itemID) {
-		super(new PipeTransportLiquids(), new PipeLogicDiamond(), itemID);
+		super(new PipeTransportLiquids(), new PipeLogicLiquidDiamond(), itemID);
 
 		((PipeTransportLiquids) transport).flowRate = 160;
 		((PipeTransportLiquids) transport).travelDelay = 2;

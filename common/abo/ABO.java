@@ -37,7 +37,7 @@ import abo.pipes.liquids.PipeLiquidsDiamond;
 import abo.pipes.liquids.PipeLiquidsGoldenIron;
 import abo.pipes.liquids.PipeLiquidsPump;
 import abo.pipes.liquids.PipeLiquidsValve;
-import abo.pipes.power.PipePowerDiamond;
+import abo.pipes.power.PipeDiamondConductive;
 import abo.pipes.power.PipePowerIron;
 import abo.pipes.power.PipePowerSwitch;
 import abo.proxy.ABOProxy;
@@ -64,6 +64,8 @@ import cpw.mods.fml.common.Mod.Instance;
 import cpw.mods.fml.common.Mod.PreInit;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
+import cpw.mods.fml.common.network.NetworkMod;
+import cpw.mods.fml.common.network.NetworkRegistry;
 import cpw.mods.fml.common.registry.GameRegistry;
 import cpw.mods.fml.common.registry.LanguageRegistry;
 
@@ -72,6 +74,7 @@ import cpw.mods.fml.common.registry.LanguageRegistry;
  * 
  */
 @Mod(modid = "Additional-Buildcraft-Objects", name = "Additional-Buildcraft-Objects", version = "@ABO_VERSION@", dependencies = "required-after:BuildCraft|Transport;required-after:BuildCraft|Energy")
+@NetworkMod(channels = { "ABO" }, packetHandler = ABOPacketHandler.class)
 public class ABO {
 	public static final String VERSION = "@ABO_VERSION@";
 
@@ -126,8 +129,8 @@ public class ABO {
 	public static int pipePowerIronID = 10401;
 	public static Item pipePowerIron = null;
 
-	public static int pipePowerDiamondID = 10402;
-	public static Item pipePowerDiamond = null;
+	public static int pipeDiamondConductiveID = 10402;
+	public static Item pipeDiamondConductive = null;
 
 	public static int triggerEngineSafeID = 128;
 	public static ITrigger triggerEngineSafe = null;
@@ -148,55 +151,64 @@ public class ABO {
 	public void preInitialize(FMLPreInitializationEvent evt) {
 
 		aboLog.setParent(FMLLog.getLogger());
-		aboLog.info("Starting Additional-Buildcraft-Objects #@BUILD_NUMBER@ " + VERSION + " (Built for Minecraft @MINECRAFT_VERSION@ with Buildcraft @BUILDCRAFT_VERSION@ and Forge @FORGE_VERSION@");
+		aboLog.info("Starting Additional-Buildcraft-Objects #@BUILD_NUMBER@ " + VERSION
+				+ " (Built for Minecraft @MINECRAFT_VERSION@ with Buildcraft @BUILDCRAFT_VERSION@ and Forge @FORGE_VERSION@");
 		aboLog.info("Copyright (c) Flow86, 2011-2013");
 
 		aboConfiguration = new ABOConfiguration(new File(evt.getModConfigurationDirectory(), "abo/main.conf"));
 		try {
 			aboConfiguration.load();
 
-			itemGateSettingsDuplicator = createItem(itemGateSettingsDuplicatorID, ItemGateSettingsDuplicator.class, "Gate Settings Duplicator", BuildCraftCore.wrenchItem,
+			itemGateSettingsDuplicator = createItem(itemGateSettingsDuplicatorID, ItemGateSettingsDuplicator.class, "Gate Settings Duplicator",
+					BuildCraftCore.wrenchItem, BuildCraftTransport.pipeGateAutarchic, null);
+
+			pipeLiquidsValve = createPipe(pipeLiquidsValveID, PipeLiquidsValve.class, "Valve Pipe", 1, BuildCraftTransport.pipeLiquidsWood,
 					BuildCraftTransport.pipeGateAutarchic, null);
 
-			pipeLiquidsValve = createPipe(pipeLiquidsValveID, PipeLiquidsValve.class, "Valve Pipe", 1, BuildCraftTransport.pipeLiquidsWood, BuildCraftTransport.pipeGateAutarchic, null);
+			pipeLiquidsGoldenIron = createPipe(pipeLiquidsGoldenIronID, PipeLiquidsGoldenIron.class, "Golden Iron Waterproof Pipe", 1,
+					BuildCraftTransport.pipeLiquidsGold, BuildCraftTransport.pipeLiquidsIron, null);
 
-			pipeLiquidsGoldenIron = createPipe(pipeLiquidsGoldenIronID, PipeLiquidsGoldenIron.class, "Golden Iron Waterproof Pipe", 1, BuildCraftTransport.pipeLiquidsGold,
-					BuildCraftTransport.pipeLiquidsIron, null);
+			pipeLiquidsBalance = createPipe(pipeLiquidsBalanceID, PipeLiquidsBalance.class, "Balancing Waterproof Pipe", 1,
+					BuildCraftTransport.pipeLiquidsWood, new ItemStack(BuildCraftEnergy.engineBlock, 1, 0), BuildCraftTransport.pipeLiquidsWood);
 
-			pipeLiquidsBalance = createPipe(pipeLiquidsBalanceID, PipeLiquidsBalance.class, "Balancing Waterproof Pipe", 1, BuildCraftTransport.pipeLiquidsWood, new ItemStack(
-					BuildCraftEnergy.engineBlock, 1, 0), BuildCraftTransport.pipeLiquidsWood);
-
-			pipeLiquidsDiamond = createPipe(pipeLiquidsDiamondID, PipeLiquidsDiamond.class, "Diamond Waterproof Pipe", 1, BuildCraftTransport.pipeItemsDiamond, BuildCraftTransport.pipeWaterproof,
-					null);
+			pipeLiquidsDiamond = createPipe(pipeLiquidsDiamondID, PipeLiquidsDiamond.class, "Diamond Waterproof Pipe", 1, BuildCraftTransport.pipeItemsDiamond,
+					BuildCraftTransport.pipeWaterproof, null);
 
 			if (GameRegistry.findItem("APUnofficial", "item.PipeLiquidsWaterPump") == null) {
-				pipeLiquidsWaterPump = createPipe(pipeLiquidsWaterPumpID, PipeLiquidsPump.class, "Water Pump Pipe", 1, false, new Object[] { " L ", "rPr", " W ", 'r', Item.redstone, 'P',
-						BuildCraftCore.ironGearItem, 'L', BuildCraftTransport.pipeLiquidsGold, 'w', BuildCraftTransport.pipeWaterproof, 'W', BuildCraftTransport.pipeLiquidsWood });
+				pipeLiquidsWaterPump = createPipe(pipeLiquidsWaterPumpID, PipeLiquidsPump.class, "Water Pump Pipe", 1, false, new Object[] { " L ", "rPr",
+						" W ", 'r', Item.redstone, 'P', BuildCraftCore.ironGearItem, 'L', BuildCraftTransport.pipeLiquidsGold, 'w',
+						BuildCraftTransport.pipeWaterproof, 'W', BuildCraftTransport.pipeLiquidsWood });
 			}
 
-			pipeItemsRoundRobin = createPipe(pipeItemsRoundRobinID, PipeItemsRoundRobin.class, "RoundRobin Transport Pipe", 1, BuildCraftTransport.pipeItemsStone, Block.gravel, null);
+			pipeItemsRoundRobin = createPipe(pipeItemsRoundRobinID, PipeItemsRoundRobin.class, "RoundRobin Transport Pipe", 1,
+					BuildCraftTransport.pipeItemsStone, Block.gravel, null);
 
 			// pipeItemsCompactor = createPipe(pipeItemsCompactorID,
 			// PipeItemsCompactor.class, "Compactor Pipe", 1,
 			// BuildCraftTransport.pipeItemsStone,
 			// Block.pistonBase, null);
 
-			pipeItemsInsertion = createPipe(pipeItemsInsertionID, PipeItemsInsertion.class, "Insertion Pipe", 1, BuildCraftTransport.pipeItemsCobblestone, Item.redstone, null);
+			pipeItemsInsertion = createPipe(pipeItemsInsertionID, PipeItemsInsertion.class, "Insertion Pipe", 1, BuildCraftTransport.pipeItemsCobblestone,
+					Item.redstone, null);
 
-			pipeItemsExtraction = createPipe(pipeItemsExtractionID, PipeItemsExtraction.class, "Extraction Transport Pipe", 1, BuildCraftTransport.pipeItemsWood, Block.planks, null);
+			pipeItemsExtraction = createPipe(pipeItemsExtractionID, PipeItemsExtraction.class, "Extraction Transport Pipe", 1,
+					BuildCraftTransport.pipeItemsWood, Block.planks, null);
 
-			pipeItemsBounce = createPipe(pipeItemsBounceID, PipeItemsBounce.class, "Bounce Transport Pipe", 1, BuildCraftTransport.pipeItemsStone, Block.cobblestone, null);
+			pipeItemsBounce = createPipe(pipeItemsBounceID, PipeItemsBounce.class, "Bounce Transport Pipe", 1, BuildCraftTransport.pipeItemsStone,
+					Block.cobblestone, null);
 
-			pipeItemsCrossover = createPipe(pipeItemsCrossoverID, PipeItemsCrossover.class, "Crossover Transport Pipe", 1, BuildCraftTransport.pipeItemsStone, BuildCraftTransport.pipeItemsIron, null);
+			pipeItemsCrossover = createPipe(pipeItemsCrossoverID, PipeItemsCrossover.class, "Crossover Transport Pipe", 1, BuildCraftTransport.pipeItemsStone,
+					BuildCraftTransport.pipeItemsIron, null);
 
-			pipeItemsStripes = createPipe(pipeItemsStripesID, PipeItemsStripes.class, "Stripes Transport Pipe", 8, new ItemStack(Item.dyePowder, 1, 0), Block.glass, new ItemStack(Item.dyePowder, 1,
-					11));
+			pipeItemsStripes = createPipe(pipeItemsStripesID, PipeItemsStripes.class, "Stripes Transport Pipe", 8, new ItemStack(Item.dyePowder, 1, 0),
+					Block.glass, new ItemStack(Item.dyePowder, 1, 11));
 
 			pipePowerSwitch = createPipe(pipePowerSwitchID, PipePowerSwitch.class, "Power Switch Pipe", 1, BuildCraftTransport.pipePowerGold, Block.lever, null);
 
 			pipePowerIron = createPipe(pipePowerIronID, PipePowerIron.class, "Iron Power Pipe", 1, Item.redstone, BuildCraftTransport.pipeItemsIron, null);
 
-			pipePowerDiamond = createPipe(pipePowerDiamondID, PipePowerDiamond.class, "Diamond Power Pipe", 1, Item.redstone, BuildCraftTransport.pipeItemsDiamond, null);
+			pipeDiamondConductive = createPipe(pipeDiamondConductiveID, PipeDiamondConductive.class, "Diamond Conductive Pipe", 1, Item.redstone,
+					BuildCraftTransport.pipeItemsDiamond, null);
 
 			triggerEngineSafe = new TriggerEngineSafe(triggerEngineSafeID);
 			actionSwitchOnPipe = new ActionSwitchOnPipe(actionSwitchOnPipeID);
@@ -232,6 +244,8 @@ public class ABO {
 		aboRecipes.add(recipe);
 
 		loadRecipes();
+
+		NetworkRegistry.instance().registerGuiHandler(instance, new ABOGuiHandler());
 	}
 
 	private static class ABORecipe {
@@ -281,7 +295,8 @@ public class ABO {
 
 	private static void addReceipe(Item item, int count, Object ingredient1, Object ingredient2, Object ingredient3) {
 		if (ingredient1 != null && ingredient2 != null && ingredient3 != null) {
-			addReceipe(item, count, false, new Object[] { "ABC", Character.valueOf('A'), ingredient1, Character.valueOf('B'), ingredient2, Character.valueOf('C'), ingredient3 });
+			addReceipe(item, count, false,
+					new Object[] { "ABC", Character.valueOf('A'), ingredient1, Character.valueOf('B'), ingredient2, Character.valueOf('C'), ingredient3 });
 		} else if (ingredient1 != null && ingredient2 != null) {
 			addReceipe(item, count, true, new Object[] { ingredient1, ingredient2 });
 		}
@@ -314,7 +329,7 @@ public class ABO {
 		prop.set(id);
 
 		ItemPipe pipe = BlockGenericPipe.registerPipe(id, clazz);
-		//pipe.setPipesIcons(instance.pipeIconProvider);
+		// pipe.setPipesIcons(instance.pipeIconProvider);
 		pipe.setUnlocalizedName(clazz.getSimpleName());
 		LanguageRegistry.addName(pipe, descr);
 
@@ -329,7 +344,8 @@ public class ABO {
 		return pipe;
 	}
 
-	private static Item createPipe(int defaultID, Class<? extends Pipe> clazz, String descr, int count, Object ingredient1, Object ingredient2, Object ingredient3) {
+	private static Item createPipe(int defaultID, Class<? extends Pipe> clazz, String descr, int count, Object ingredient1, Object ingredient2,
+			Object ingredient3) {
 		ItemPipe pipe = createPipe(defaultID, clazz, descr);
 
 		addReceipe(pipe, count, ingredient1, ingredient2, ingredient3);

@@ -10,23 +10,10 @@
  * granted by the copyright holder.
  */
 
-package abo.proxy;
+package abo;
 
-import net.minecraft.network.packet.Packet;
-import cpw.mods.fml.common.SidedProxy;
+public class ABOPacketIds {
 
-/**
- * @author Flow86
- * 
- */
-public class ABOProxy {
+	public static final int YesNoChange = 1;
 
-	@SidedProxy(clientSide = "abo.proxy.ABOProxyClient", serverSide = "abo.proxy.ABOProxy")
-	public static ABOProxy proxy;
-
-	public void registerPipe(int itemID) {
-	}
-
-	public void sendToServer(Packet packet) {
-	}
 }
