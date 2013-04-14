@@ -187,9 +187,10 @@
    soaks water from a source block below it
    
    * (Shaped) Recipe:
-      X GoldenWaterproofPipe X
-      RedstoneDust IronGear RedstoneDust
-      X WoodenWaterproofPipe X
+
+      X GoldenWaterproofPipe X<br>
+      RedstoneDust IronGear RedstoneDust<br>
+      X WoodenWaterproofPipe X<br>
       
    Original by AdditionalPipes (https://github.com/DaStormBringer/AdditionalPipesBC2)
    
