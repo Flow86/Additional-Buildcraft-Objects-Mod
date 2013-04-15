@@ -58,7 +58,7 @@ public class PipePowerSwitch extends ABOPipe {
 	}
 
 	@Override
-	public boolean isPipeConnected(TileEntity tile, ForgeDirection side) {
+	public boolean canPipeConnect(TileEntity tile, ForgeDirection side) {
 		Pipe pipe2 = null;
 
 		if (tile instanceof TileGenericPipe)
@@ -67,7 +67,7 @@ public class PipePowerSwitch extends ABOPipe {
 		if (!isPowered())
 			return false;
 
-		return (pipe2 == null || !(pipe2 instanceof PipePowerSwitch)) && super.isPipeConnected(tile, side);
+		return (pipe2 == null || !(pipe2 instanceof PipePowerSwitch)) && super.canPipeConnect(tile, side);
 	}
 
 	/**

@@ -10,7 +10,7 @@
 package abo.pipes.items;
 
 import net.minecraft.tileentity.TileEntity;
-import buildcraft.BuildCraftTransport;
+import net.minecraftforge.common.ForgeDirection;
 import buildcraft.transport.Pipe;
 import buildcraft.transport.TileGenericPipe;
 import buildcraft.transport.pipes.PipeLogic;
@@ -19,16 +19,13 @@ import buildcraft.transport.pipes.PipeLogicObsidian;
 public class PipeLogicStripes extends PipeLogic {
 
 	@Override
-	public boolean isPipeConnected(TileEntity tile) {
+	public boolean canPipeConnect(TileEntity tile, ForgeDirection side) {
 		Pipe pipe2 = null;
 
 		if (tile instanceof TileGenericPipe)
 			pipe2 = ((TileGenericPipe) tile).pipe;
 
-		if (BuildCraftTransport.alwaysConnectPipes)
-			return super.isPipeConnected(tile);
-		else
-			return (pipe2 == null || !(pipe2.logic instanceof PipeLogicStripes) && !(pipe2.logic instanceof PipeLogicObsidian)) && super.isPipeConnected(tile);
+		return (pipe2 == null || !(pipe2.logic instanceof PipeLogicStripes) && !(pipe2.logic instanceof PipeLogicObsidian)) && super.canPipeConnect(tile, side);
 	}
 
 }

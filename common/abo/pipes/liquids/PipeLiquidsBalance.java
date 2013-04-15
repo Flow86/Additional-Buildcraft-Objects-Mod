@@ -115,11 +115,11 @@ public class PipeLiquidsBalance extends ABOPipe {
 	}
 
 	@Override
-	public boolean isPipeConnected(TileEntity tile, ForgeDirection side) {
+	public boolean canPipeConnect(TileEntity tile, ForgeDirection side) {
 		if (tile == null || !(tile instanceof ITankContainer) || tile instanceof TileGenericPipe)
 			return false;
 
-		return super.isPipeConnected(tile, side);
+		return super.canPipeConnect(tile, side);
 	}
 
 	public void doWork() {

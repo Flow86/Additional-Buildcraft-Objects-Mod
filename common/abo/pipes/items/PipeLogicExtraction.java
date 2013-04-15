@@ -13,7 +13,7 @@
 package abo.pipes.items;
 
 import net.minecraft.tileentity.TileEntity;
-import buildcraft.BuildCraftTransport;
+import net.minecraftforge.common.ForgeDirection;
 import buildcraft.transport.Pipe;
 import buildcraft.transport.TileGenericPipe;
 import buildcraft.transport.pipes.PipeLogicWood;
@@ -27,16 +27,13 @@ import buildcraft.transport.pipes.PipeLogicWood;
 public class PipeLogicExtraction extends PipeLogicWood {
 
 	@Override
-	public boolean isPipeConnected(TileEntity tile) {
+	public boolean canPipeConnect(TileEntity tile, ForgeDirection side) {
 		Pipe pipe2 = null;
 
 		if (tile instanceof TileGenericPipe) {
 			pipe2 = ((TileGenericPipe) tile).pipe;
 		}
 
-		if (BuildCraftTransport.alwaysConnectPipes)
-			return super.isPipeConnected(tile);
-
-		return (pipe2 == null || (pipe2.logic instanceof PipeLogicExtraction || !(pipe2.logic instanceof PipeLogicWood)));
+		return (pipe2 == null || (pipe2.logic instanceof PipeLogicExtraction || !(pipe2.logic instanceof PipeLogicWood))) && super.canPipeConnect(tile, side);
 	}
 }
