@@ -42,7 +42,7 @@
    
    * Recipe:
    
-      Wrench AutarchicGate
+      ![Wrench AutarchicGate](recipes/GateSettingsDuplicator.png)
 
 
 ## Pipes
@@ -54,7 +54,7 @@
 
    * Recipe:
 
-      StoneTransportPipe Gravel
+      ![StoneTransportPipe Gravel](recipes/RoundRobinTransportPipe.png)
 
 
 #### Insertion Transport Pipe
@@ -67,7 +67,7 @@
 
    * Recipe:
 
-      CobblestoneTransportPipe Redstone
+      ![CobblestoneTransportPipe Redstone](recipes/InsertionTransportPipe.png)
 
 
 
@@ -82,7 +82,7 @@
 
    * Recipe:
 
-      WoodTransportPipe Planks
+      ![WoodTransportPipe Planks](recipes/ExtractionTransportPipe.png)
 
 
 
@@ -92,7 +92,7 @@
 
    * Recipe:
 
-      StoneTransportPipe Cobblestone
+      ![StoneTransportPipe Cobblestone](recipes/BouncTransportPipe.png)
 
 
 
@@ -103,7 +103,7 @@
 
    * Recipe:
 
-      StoneTransportPipe IronTransportPipe
+      ![StoneTransportPipe IronTransportPipe](recipes/CrossoverTransportPipe.png)
 
 
 
@@ -116,7 +116,7 @@
 
    * Recipe:
 
-      WoodenWaterproofPipe AutarchicGate
+      ![WoodenWaterproofPipe AutarchicGate](recipes/ValvePipe.png)
 
 
 
@@ -125,18 +125,18 @@
 
    * Recipe:
 
-      GoldenWaterproofPipe IronWaterproofPipe
+      ![GoldenWaterproofPipe IronWaterproofPipe](recipes/GoldenIronWaterproofPipe.png)
 
 
 
-#### Balance Pipe
+#### Balancing Waterproof Pipe
    balances liquid of connected tanks
 
    Thanks to Oxygene13 for his idea :-)
 
    * Recipe:
 
-      WoodenWaterproofPipe IronORGate WoodenWaterproofPipe
+      ![WoodenWaterproofPipe IronORGate WoodenWaterproofPipe](recipes/BalancingWaterproofPipe.png)
 
 
 
@@ -146,7 +146,7 @@
 
    * Recipe:
 
-      DiamondTransportPipe PipeWaterproof
+      ![DiamondTransportPipe PipeWaterproof](recipes/DiamondWaterproofPipe.png)
 
    * GUI:
 
@@ -162,14 +162,14 @@
 
    * Recipe:
 
-      GoldenConductivePipe Lever
+      ![GoldenConductivePipe Lever](recipes/PowerSwitchPipe.png)
 
-#### Iron Power Pipe
+#### Iron Conductive Pipe
    acts as a diode/iron pipe for power pipes
 
    * Recipe:
 
-      IronTransportPipe Redstone
+      ![IronTransportPipe Redstone](recipes/IronConductivePipe.png)
 
 #### Diamond Conductive Pipe
    acts as a power distributor - every filter line which has an item in it is 
@@ -177,7 +177,7 @@
 
    * Recipe:
 
-      IronTransportPipe Redstone
+      ![IronTransportPipe Redstone](recipes/DiamondConductivePipe.png)
 
    * GUI:
 
@@ -188,9 +188,9 @@
    
    * (Shaped) Recipe:
 
-      X GoldenWaterproofPipe X<br>
+      ![X GoldenWaterproofPipe X<br>
       RedstoneDust IronGear RedstoneDust<br>
-      X WoodenWaterproofPipe X<br>
+      X WoodenWaterproofPipe X<br>](recipes/WaterPumpPipe.png)
       
    Original by AdditionalPipes (https://github.com/DaStormBringer/AdditionalPipesBC2)
    
