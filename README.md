@@ -92,7 +92,7 @@
 
    * Recipe:
 
-      ![StoneTransportPipe Cobblestone](recipes/BouncTransportPipe.png)
+      ![StoneTransportPipe Cobblestone](recipes/BounceTransportPipe.png)
 
 
 
@@ -164,20 +164,20 @@
 
       ![GoldenConductivePipe Lever](recipes/PowerSwitchPipe.png)
 
-#### Iron Conductive Pipe
+#### Iron Power Pipe
    acts as a diode/iron pipe for power pipes
 
    * Recipe:
 
-      ![IronTransportPipe Redstone](recipes/IronConductivePipe.png)
+      ![IronTransportPipe Redstone](recipes/IronPowerPipe.png)
 
-#### Diamond Conductive Pipe
+#### Diamond Power Pipe
    acts as a power distributor - every filter line which has an item in it is 
    "open" to receive power
 
    * Recipe:
 
-      ![IronTransportPipe Redstone](recipes/DiamondConductivePipe.png)
+      ![IronTransportPipe Redstone](recipes/DiamondPowerPipe.png)
 
    * GUI:
 
