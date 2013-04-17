@@ -164,26 +164,26 @@
 
       ![GoldenConductivePipe Lever](recipes/PowerSwitchPipe.png)
 
-#### Iron Power Pipe
-   acts as a diode/iron pipe for power pipes
+#### Iron Conductive Pipe
+   acts as a diode/iron pipe for conductive pipes
 
    * Recipe:
 
-      ![IronTransportPipe Redstone](recipes/IronPowerPipe.png)
+      ![IronTransportPipe Redstone](recipes/IronConductivePipe.png)
 
-#### Diamond Power Pipe
+#### Diamond Conductive Pipe
    acts as a power distributor - every filter line which has an item in it is 
    "open" to receive power
 
    * Recipe:
 
-      ![IronTransportPipe Redstone](recipes/DiamondPowerPipe.png)
+      ![DiamondTransportPipe Redstone](recipes/DiamondConductivePipe.png)
 
    * GUI:
 
       You can toggle each side on or off via GUI.
 	  
-	  ![Diamond Power Pipe GUI](recipes/DiamondPowerPipeGUI.png)
+	  ![Diamond Conductive Pipe GUI](recipes/DiamondConductivePipeGUI.png)
 
 #### Water Pump Pipe
    soaks water from a source block below it
