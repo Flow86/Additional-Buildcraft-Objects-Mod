@@ -289,6 +289,7 @@ public class ABO {
 
 		item.setUnlocalizedName(clazz.getSimpleName());
 		LanguageRegistry.addName(item, descr);
+		GameRegistry.registerItem(item, item.getUnlocalizedName().replace("item.", ""));
 
 		addReceipe(item, 1, ingredient1, ingredient2, ingredient3);
 
@@ -331,9 +332,9 @@ public class ABO {
 		prop.set(id);
 
 		ItemPipe pipe = BlockGenericPipe.registerPipe(id, clazz);
-		// pipe.setPipesIcons(instance.pipeIconProvider);
 		pipe.setUnlocalizedName(clazz.getSimpleName());
 		LanguageRegistry.addName(pipe, descr);
+		GameRegistry.registerItem(pipe, pipe.getUnlocalizedName().replace("item.", ""));
 
 		return pipe;
 	}
