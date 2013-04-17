@@ -13,6 +13,7 @@
 package abo.pipes.power;
 
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.tileentity.TileEntity;
 import net.minecraftforge.common.ForgeDirection;
 import abo.network.IYesNoChange;
 import buildcraft.transport.pipes.PipeLogic;
@@ -20,11 +21,9 @@ import buildcraft.transport.pipes.PipeLogic;
 public class PipeLogicPowerDiamond extends PipeLogic implements IYesNoChange {
 	public final boolean[] connectionMatrix = { true, true, true, true, true, true };
 
-	public boolean hasConnectionToSide(ForgeDirection side) {
-		if (side == ForgeDirection.UNKNOWN)
-			return false;
-
-		return connectionMatrix[side.ordinal()];
+	@Override
+	public boolean canPipeConnect(TileEntity tile, ForgeDirection side) {
+		return connectionMatrix[side.ordinal()] && super.canPipeConnect(tile, side);
 	}
 
 	@Override
@@ -43,8 +42,6 @@ public class PipeLogicPowerDiamond extends PipeLogic implements IYesNoChange {
 
 	@Override
 	public void update(int slot, boolean state) {
-		// System.out.println("update: " + slot + " from " + connectionMatrix[slot] + " to " + state);
-
 		if (connectionMatrix[slot] != state) {
 			connectionMatrix[slot] = state;
 			((PipePowerDiamond) container.pipe).isDirty = true;

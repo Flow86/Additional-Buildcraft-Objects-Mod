@@ -20,7 +20,6 @@ import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.nbt.NBTBase;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 import net.minecraftforge.common.ForgeDirection;
 import abo.ABO;
@@ -60,7 +59,8 @@ public class PipePowerDiamond extends ABOPipe implements IClientState {
 		super.updateEntity();
 
 		if (isDirty) {
-			// System.out.println("updateEntity: " + worldObj.isRemote + ": " + isDirty);
+			// System.out.println("updateEntity: " + worldObj.isRemote + ": " +
+			// isDirty);
 			container.scheduleNeighborChange();
 			updateNeighbors(true);
 			isDirty = false;
@@ -87,18 +87,6 @@ public class PipePowerDiamond extends ABOPipe implements IClientState {
 		default:
 			throw new IllegalArgumentException("direction out of bounds");
 		}
-	}
-
-	@Override
-	public boolean isPipeConnected(TileEntity tile, ForgeDirection side) {
-		boolean connected = super.isPipeConnected(tile, side);
-
-		if (container == tile)
-			side = side.getOpposite();
-
-		if (connected && ((PipeLogicPowerDiamond) logic).hasConnectionToSide(side))
-			return true;
-		return false;
 	}
 
 	// ICLIENTSTATE
