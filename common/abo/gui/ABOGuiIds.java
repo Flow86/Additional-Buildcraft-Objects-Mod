@@ -10,23 +10,10 @@
  * granted by the copyright holder.
  */
 
-package abo.proxy;
+package abo.gui;
 
-import net.minecraft.network.packet.Packet;
-import cpw.mods.fml.common.SidedProxy;
+public class ABOGuiIds {
+	public static final int PIPE_DIAMOND_LIQUIDS = 100;
 
-/**
- * @author Flow86
- * 
- */
-public class ABOProxy {
-
-	@SidedProxy(clientSide = "abo.proxy.ABOProxyClient", serverSide = "abo.proxy.ABOProxy")
-	public static ABOProxy proxy;
-
-	public void registerPipe(int itemID) {
-	}
-
-	public void sendToServer(Packet packet) {
-	}
+	public static final int PIPE_DIAMOND_POWER = 110;
 }

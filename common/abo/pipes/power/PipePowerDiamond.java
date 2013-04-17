@@ -16,24 +16,55 @@ import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 
-import net.minecraft.item.ItemStack;
+import net.minecraft.block.Block;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.nbt.NBTBase;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.tileentity.TileEntity;
+import net.minecraft.world.World;
 import net.minecraftforge.common.ForgeDirection;
+import abo.ABO;
 import abo.PipeIconProvider;
+import abo.gui.ABOGuiIds;
 import abo.pipes.ABOPipe;
-import buildcraft.BuildCraftTransport;
 import buildcraft.core.network.IClientState;
-import buildcraft.core.utils.Utils;
-import buildcraft.transport.IPipeTransportPowerHook;
+import buildcraft.transport.BlockGenericPipe;
 import buildcraft.transport.PipeTransportPower;
-import buildcraft.transport.pipes.PipeLogicDiamond;
 
-public class PipePowerDiamond extends ABOPipe implements IPipeTransportPowerHook, IClientState {
+public class PipePowerDiamond extends ABOPipe implements IClientState {
+
+	public boolean isDirty = true;
 
 	public PipePowerDiamond(int itemID) {
-		super(new PipeTransportPower(), new PipeLogicDiamond(), itemID);
+		super(new PipeTransportPower(), new PipeLogicPowerDiamond(), itemID);
+	}
 
+	@Override
+	public boolean blockActivated(World world, int x, int y, int z, EntityPlayer entityplayer) {
+		if (entityplayer.getCurrentEquippedItem() != null && entityplayer.getCurrentEquippedItem().itemID < Block.blocksList.length) {
+			if (Block.blocksList[entityplayer.getCurrentEquippedItem().itemID] instanceof BlockGenericPipe)
+				return false;
+		}
+
+		if (super.blockActivated(worldObj, x, y, z, entityplayer))
+			return true;
+
+		if (!worldObj.isRemote)
+			entityplayer.openGui(ABO.instance, ABOGuiIds.PIPE_DIAMOND_POWER, worldObj, x, y, z);
+
+		return true;
+	}
+
+	@Override
+	public void updateEntity() {
+		super.updateEntity();
+
+		if (isDirty) {
+			// System.out.println("updateEntity: " + worldObj.isRemote + ": " + isDirty);
+			container.scheduleNeighborChange();
+			updateNeighbors(true);
+			isDirty = false;
+		}
 	}
 
 	@Override
@@ -59,61 +90,22 @@ public class PipePowerDiamond extends ABOPipe implements IPipeTransportPowerHook
 	}
 
 	@Override
-	public void receiveEnergy(ForgeDirection from, double val) {
-		PipeTransportPower ptransport = (PipeTransportPower) transport;
-		PipeLogicDiamond logicDiamond = (PipeLogicDiamond) logic;
+	public boolean isPipeConnected(TileEntity tile, ForgeDirection side) {
+		boolean connected = super.isPipeConnected(tile, side);
 
-		if (val <= 0.0)
-			return;
+		if (container == tile)
+			side = side.getOpposite();
 
-		if (Utils.checkPipesConnections(container.getTile(from), container)) {
-			boolean filter = false;
-			for (int slot = 0; slot < 9; ++slot) {
-				ItemStack stack = logicDiamond.getStackInSlot(from.ordinal() * 9 + slot);
-				if (stack != null)
-					filter = true;
-			}
-
-			if (!filter) {
-				if (BuildCraftTransport.usePipeLoss) {
-					ptransport.internalNextPower[from.ordinal()] += val * (1 - ptransport.powerResistance);
-				} else {
-					ptransport.internalNextPower[from.ordinal()] += val;
-				}
-
-				if (ptransport.internalNextPower[from.ordinal()] >= 10000) {
-					worldObj.createExplosion(null, xCoord, yCoord, zCoord, 3, false);
-					worldObj.setBlock(xCoord, yCoord, zCoord, 0);
-				}
-			}
-		}
-	}
-
-	@Override
-	public void requestEnergy(ForgeDirection from, int i) {
-		PipeTransportPower ptransport = (PipeTransportPower) transport;
-		PipeLogicDiamond logicDiamond = (PipeLogicDiamond) logic;
-
-		if (Utils.checkPipesConnections(container.getTile(from), container)) {
-			boolean filter = false;
-			for (int slot = 0; slot < 9; ++slot) {
-				ItemStack stack = logicDiamond.getStackInSlot(from.ordinal() * 9 + slot);
-				if (stack != null)
-					filter = true;
-			}
-
-			if (filter) {
-				ptransport.step();
-				ptransport.nextPowerQuery[from.ordinal()] += i;
-			}
-		}
+		if (connected && ((PipeLogicPowerDiamond) logic).hasConnectionToSide(side))
+			return true;
+		return false;
 	}
 
 	// ICLIENTSTATE
 	@Override
 	public void writeData(DataOutputStream data) throws IOException {
 		NBTTagCompound nbt = new NBTTagCompound();
-		((PipeLogicDiamond) logic).writeToNBT(nbt);
+		logic.writeToNBT(nbt);
 		NBTBase.writeNamedTag(nbt, data);
 	}
 

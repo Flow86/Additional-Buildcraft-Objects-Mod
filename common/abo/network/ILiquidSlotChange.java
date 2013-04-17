@@ -10,23 +10,10 @@
  * granted by the copyright holder.
  */
 
-package abo.proxy;
+package abo.network;
 
-import net.minecraft.network.packet.Packet;
-import cpw.mods.fml.common.SidedProxy;
+import net.minecraftforge.liquids.LiquidStack;
 
-/**
- * @author Flow86
- * 
- */
-public class ABOProxy {
-
-	@SidedProxy(clientSide = "abo.proxy.ABOProxyClient", serverSide = "abo.proxy.ABOProxy")
-	public static ABOProxy proxy;
-
-	public void registerPipe(int itemID) {
-	}
-
-	public void sendToServer(Packet packet) {
-	}
+public interface ILiquidSlotChange {
+	public void update(int slot, LiquidStack stack);
 }

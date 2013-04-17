@@ -12,8 +12,10 @@
 
 package abo.proxy;
 
+import net.minecraft.network.packet.Packet;
 import net.minecraftforge.client.MinecraftForgeClient;
 import buildcraft.transport.TransportProxyClient;
+import cpw.mods.fml.client.FMLClientHandler;
 
 /**
  * @author Flow86
@@ -25,5 +27,10 @@ public class ABOProxyClient extends ABOProxy {
 		super.registerPipe(itemID);
 
 		MinecraftForgeClient.registerItemRenderer(itemID, TransportProxyClient.pipeItemRenderer);
+	}
+
+	@Override
+	public void sendToServer(Packet packet) {
+		FMLClientHandler.instance().getClient().getNetHandler().addToSendQueue(packet);
 	}
 }
