@@ -182,6 +182,8 @@
    * GUI:
 
       You can toggle each side on or off via GUI.
+	  
+	  ![Diamond Power Pipe GUI](recipes/DiamondPowerPipeGUI.png)
 
 #### Water Pump Pipe
    soaks water from a source block below it
