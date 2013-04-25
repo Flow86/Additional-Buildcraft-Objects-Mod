@@ -27,6 +27,7 @@ import abo.pipes.ABOPipe;
 import buildcraft.api.core.Position;
 import buildcraft.api.gates.ActionManager;
 import buildcraft.api.gates.IAction;
+import buildcraft.api.gates.IActionReceptor;
 import buildcraft.transport.BlockGenericPipe;
 import buildcraft.transport.Pipe;
 import buildcraft.transport.PipeTransportPower;
@@ -37,7 +38,7 @@ import buildcraft.transport.pipes.PipeLogicGold;
  * @author Flow86
  * 
  */
-public class PipePowerSwitch extends ABOPipe {
+public class PipePowerSwitch extends ABOPipe implements IActionReceptor {
 	private final int unpoweredTexture = PipeIconProvider.PipePowerSwitchUnpowered;
 	private final int poweredTexture = PipeIconProvider.PipePowerSwitchPowered;
 	private boolean powered;
@@ -173,6 +174,28 @@ public class PipePowerSwitch extends ABOPipe {
 				}
 			}
 		}
+		if ((lastSwitched != switched) || (lastToggled != toggled)) {
+			if (lastSwitched != switched && !switched)
+				toggled = false;
+			container.scheduleNeighborChange();
+			updateNeighbors(true);
+		}
+	}
+
+	@Override
+	public void actionActivated(IAction action) {
+		boolean lastSwitched = switched;
+		boolean lastToggled = toggled;
+
+		switched = false;
+
+		// Activate the actions
+		if (action instanceof ActionToggleOnPipe) {
+			toggled = true;
+		} else if (action instanceof ActionToggleOffPipe) {
+			toggled = false;
+		}
+
 		if ((lastSwitched != switched) || (lastToggled != toggled)) {
 			if (lastSwitched != switched && !switched)
 				toggled = false;

@@ -21,6 +21,7 @@ import net.minecraft.block.Block;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.common.Property;
+import abo.actions.ABOActionProvider;
 import abo.actions.ActionSwitchOnPipe;
 import abo.actions.ActionToggleOffPipe;
 import abo.actions.ActionToggleOnPipe;
@@ -217,6 +218,7 @@ public class ABO {
 			actionToggleOnPipe = new ActionToggleOnPipe(actionToggleOnPipeID);
 			actionToggleOffPipe = new ActionToggleOffPipe(actionToggleOffPipeID);
 
+			ActionManager.registerActionProvider(new ABOActionProvider());
 			ActionManager.registerTriggerProvider(new ABOTriggerProvider());
 
 			BuildCraftCore.itemBptProps[pipeItemsExtraction.itemID] = new BptItemPipeWooden();
