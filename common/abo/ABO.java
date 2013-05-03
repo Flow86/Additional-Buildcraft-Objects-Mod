@@ -76,7 +76,7 @@ import cpw.mods.fml.common.registry.LanguageRegistry;
  * @author Flow86
  * 
  */
-@Mod(modid = "Additional-Buildcraft-Objects", name = "Additional-Buildcraft-Objects", version = "@ABO_VERSION@", dependencies = "required-after:BuildCraft|Transport;required-after:BuildCraft|Energy")
+@Mod(modid = "Additional-Buildcraft-Objects", name = "Additional-Buildcraft-Objects", version = "@ABO_VERSION@", dependencies = "required-after:Forge@[@FORGE_VERSION@,);required-after:BuildCraft|Transport@[@BUILDCRAFT_VERSION@,);required-after:BuildCraft|Energy")
 @NetworkMod(channels = { "ABO" }, packetHandler = ABOPacketHandler.class)
 public class ABO {
 	public static final String VERSION = "@ABO_VERSION@";
