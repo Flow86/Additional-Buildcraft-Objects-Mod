@@ -69,8 +69,11 @@ public class GuiPipeLiquidsDiamond extends GuiAdvancedInterface {
 			if (liquid == null)
 				return;
 
-			mc.renderEngine.bindTexture(liquids.get(liquid).canonical().getTextureSheet());
-			drawTexturedModelRectFromIcon(cornerX + x + 1, cornerY + y + 1, getTexture(), 14, 14);
+			Icon icon = getTexture();
+			if (icon != null) {
+				mc.renderEngine.bindTexture(liquids.get(liquid).canonical().getTextureSheet());
+				drawTexturedModelRectFromIcon(cornerX + x + 1, cornerY + y + 1, icon, 14, 14);
+			}
 		}
 	}
 

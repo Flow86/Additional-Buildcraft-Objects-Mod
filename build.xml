@@ -102,7 +102,7 @@
 				<exclude name="**/*.bak"/>
 			</fileset>
 			<filterset>
-				<filter token="ABO_VERSION" value="${abo.version}" />
+				<filter token="ABO_VERSION" value="${abo.version.full}" />
 				<filter token="BUILD_NUMBER" value="${build.number}" />
 				<filter token="MINECRAFT_VERSION" value="${mc.version}" />
 				<filter token="BUILDCRAFT_VERSION" value="${bc.version}" />
