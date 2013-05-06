@@ -327,11 +327,15 @@ public class ABO {
 
 		int id = prop.getInt(defaultID);
 
-		// search for free id
-		/*while (BlockGenericPipe.pipes.containsKey(id))
-			++id;
-
-		prop.set(id);*/
+		try {
+			// search for free id
+			while (BlockGenericPipe.isPipeRegistered(id))
+				++id;
+	
+			prop.set(id);
+		} catch(NoSuchMethodError e) {
+			//e.printStackTrace();
+		}
 
 		ItemPipe pipe = BlockGenericPipe.registerPipe(id, clazz);
 		pipe.setUnlocalizedName(clazz.getSimpleName());
