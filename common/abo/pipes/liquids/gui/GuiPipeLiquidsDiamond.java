@@ -30,7 +30,7 @@ import abo.pipes.liquids.PipeLiquidsDiamond;
 import abo.pipes.liquids.PipeLogicLiquidsDiamond;
 import abo.proxy.ABOProxy;
 import buildcraft.core.gui.GuiAdvancedInterface;
-import buildcraft.core.utils.StringUtil;
+import buildcraft.core.utils.StringUtils;
 import buildcraft.transport.TileGenericPipe;
 
 public class GuiPipeLiquidsDiamond extends GuiAdvancedInterface {
@@ -106,7 +106,7 @@ public class GuiPipeLiquidsDiamond extends GuiAdvancedInterface {
 
 	@Override
 	protected void drawGuiContainerForegroundLayer(int x, int y) {
-		String name = StringUtil.localize("item." + PipeLiquidsDiamond.class.getSimpleName());
+		String name = StringUtils.localize("item." + PipeLiquidsDiamond.class.getSimpleName());
 
 		fontRenderer.drawString(name, getCenteredOffset(name), 6, 0x404040);
 
