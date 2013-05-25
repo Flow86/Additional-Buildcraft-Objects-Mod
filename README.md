@@ -106,6 +106,16 @@
       ![StoneTransportPipe IronTransportPipe](recipes/CrossoverTransportPipe.png)
 
 
+#### Compactor Transport Pipe
+   Combines items(tacks) to larger itemstacks (currently to itemstacks >= 16 items)
+   <br>
+   can be toggled/switched by ABO-Actions and Redstone
+
+   * Recipe:
+
+      ![StoneTransportPipe Piston](recipes/CompactorTransportPipe.png)
+
+
 
 #### Valve Pipe
    acts like a (golden) wooden pipe (without need of wooden engine)
