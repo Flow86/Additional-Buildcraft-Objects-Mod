@@ -70,9 +70,9 @@ public class PipeItemsCompactor extends ABOPipe implements IPipeTransportItemsHo
 		//System.out.println("in:  Stack " + stack.toString());
 
 		if (!receivedStacks.containsKey(orientation))
-			receivedStacks.put(orientation, new PipeItemsCompactorInventory(worldObj));
+			receivedStacks.put(orientation, new PipeItemsCompactorInventory());
 
-		receivedStacks.get(orientation).addItemStack(stack);
+		receivedStacks.get(orientation).addItemStack(worldObj, stack);
 	}
 
 	@Override
@@ -82,7 +82,7 @@ public class PipeItemsCompactor extends ABOPipe implements IPipeTransportItemsHo
 		switched = false;
 
 		for (Entry<ForgeDirection, PipeItemsCompactorInventory> receivedStack : receivedStacks.entrySet()) {
-			receivedStack.getValue().dropContents(xCoord, yCoord, zCoord);
+			receivedStack.getValue().dropContents(worldObj, xCoord, yCoord, zCoord);
 		}
 		receivedStacks.clear();
 
@@ -122,11 +122,11 @@ public class PipeItemsCompactor extends ABOPipe implements IPipeTransportItemsHo
 				ForgeDirection orientation = ForgeDirection.values()[nbtTreeMap.getInteger("orientation")];
 
 				if (!receivedStacks.containsKey(orientation))
-					receivedStacks.put(orientation, new PipeItemsCompactorInventory(worldObj));
+					receivedStacks.put(orientation, new PipeItemsCompactorInventory());
 
 				NBTTagCompound nbtItemStacks = (NBTTagCompound) nbtTreeMap.getTag("itemStacks");
 
-				receivedStacks.get(orientation).readFromNBT(nbtItemStacks);
+				receivedStacks.get(orientation).readFromNBT(worldObj, nbtItemStacks);
 			} catch (Throwable t) {
 				// It may be the case that entities cannot be reloaded between
 				// two versions - ignore these errors.
@@ -267,7 +267,7 @@ public class PipeItemsCompactor extends ABOPipe implements IPipeTransportItemsHo
 
 		if (isPowered() && timeTracker.markTimeIfDelay(worldObj, 25)) {
 			for (Entry<ForgeDirection, PipeItemsCompactorInventory> receivedStack : receivedStacks.entrySet()) {
-				ItemStack stack = receivedStack.getValue().findItemStackToRemove(16, 100);
+				ItemStack stack = receivedStack.getValue().findItemStackToRemove(worldObj, 16, 100);
 				if (stack != null) {
 					//System.out.println("out: Stack " + stack.toString());
 

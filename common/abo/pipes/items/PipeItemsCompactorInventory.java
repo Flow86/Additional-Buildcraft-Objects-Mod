@@ -20,11 +20,15 @@ public class PipeItemsCompactorInventory {
 		}
 
 		public void markModifed(World worldObj) {
-			timeTracker.markTime(worldObj);
+			if (worldObj != null)
+				timeTracker.markTime(worldObj);
 		}
 
 		public boolean isNotModifiedSince(World worldObj, int unchangedSince) {
-			return timeTracker.markTimeIfDelay(worldObj, unchangedSince);
+			if (worldObj != null)
+				return timeTracker.markTimeIfDelay(worldObj, unchangedSince);
+
+			return true;
 		}
 
 		public ItemStack getItemStack() {
@@ -56,15 +60,13 @@ public class PipeItemsCompactorInventory {
 	};
 
 	private final LinkedList<InventorySlot> inventoryContents = new LinkedList<InventorySlot>();
-	private final World worldObj;
 
 	/**
 	 * creates the inventory
 	 * 
 	 * @param world
 	 */
-	public PipeItemsCompactorInventory(World world) {
-		worldObj = world;
+	public PipeItemsCompactorInventory() {
 	}
 
 	/**
@@ -72,7 +74,7 @@ public class PipeItemsCompactorInventory {
 	 * 
 	 * @param stack
 	 */
-	public void addItemStack(ItemStack stack) {
+	public void addItemStack(World worldObj, ItemStack stack) {
 
 		// if isnt stackable or full stack, add directly as new
 		if (!stack.isStackable() || stack.stackSize == stack.getMaxStackSize()) {
@@ -97,7 +99,7 @@ public class PipeItemsCompactorInventory {
 	 * @param yCoord
 	 * @param zCoord
 	 */
-	public void dropContents(int xCoord, int yCoord, int zCoord) {
+	public void dropContents(World worldObj, int xCoord, int yCoord, int zCoord) {
 		for (InventorySlot inventorySlot : inventoryContents) {
 			Utils.dropItems(worldObj, inventorySlot.getItemStack(), xCoord, yCoord, zCoord);
 		}
@@ -114,7 +116,7 @@ public class PipeItemsCompactorInventory {
 	 * @param unchangedSince
 	 * @return
 	 */
-	public ItemStack findItemStackToRemove(int stackSize, int unchangedSince) {
+	public ItemStack findItemStackToRemove(World worldObj, int stackSize, int unchangedSince) {
 		for (Iterator<InventorySlot> inventorySlots = inventoryContents.iterator(); inventorySlots.hasNext();) {
 			InventorySlot inventorySlot = inventorySlots.next();
 
@@ -127,7 +129,7 @@ public class PipeItemsCompactorInventory {
 		return null;
 	}
 
-	public void readFromNBT(NBTTagCompound nbtItemStacks) {
+	public void readFromNBT(World worldObj, NBTTagCompound nbtItemStacks) {
 		int itemCount = nbtItemStacks.getInteger("itemCount");
 		for (int itemStackNr = 0; itemStackNr < itemCount; ++itemStackNr) {
 			try {
