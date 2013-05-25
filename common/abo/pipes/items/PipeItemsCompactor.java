@@ -67,7 +67,7 @@ public class PipeItemsCompactor extends ABOPipe implements IPipeTransportItemsHo
 	 * @param stackSize
 	 */
 	public void addItemToItemStack(ForgeDirection orientation, ItemStack stack) {
-		System.out.println("in:  Stack " + stack.toString());
+		//System.out.println("in:  Stack " + stack.toString());
 
 		if (!receivedStacks.containsKey(orientation))
 			receivedStacks.put(orientation, new PipeItemsCompactorInventory(worldObj));
@@ -269,7 +269,7 @@ public class PipeItemsCompactor extends ABOPipe implements IPipeTransportItemsHo
 			for (Entry<ForgeDirection, PipeItemsCompactorInventory> receivedStack : receivedStacks.entrySet()) {
 				ItemStack stack = receivedStack.getValue().findItemStackToRemove(16, 100);
 				if (stack != null) {
-					System.out.println("out: Stack " + stack.toString());
+					//System.out.println("out: Stack " + stack.toString());
 
 					if (!Utils.addToRandomPipeEntry(this.container, receivedStack.getKey(), stack)) {
 						Position destPos = new Position(xCoord, yCoord, zCoord, receivedStack.getKey());
