@@ -232,6 +232,10 @@
 
 ## Changelog:
 
+* 1.0.4
+  - readded compactor pipe and made it special item aware 
+    (simply saving/comparing the complete ItemStack)
+
 * 1.0.3
    - added custom gui for diamond waterproof pipe
    - added custom gui for diamond conductive pipe
