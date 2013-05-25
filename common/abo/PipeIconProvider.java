@@ -70,7 +70,10 @@ public class PipeIconProvider implements IIconProvider {
 
 	public static final int PipeLiquidsPump = 33;
 
-	public static final int MAX = 34;
+	public static int PipeItemsCompactorOn = 34;
+	public static int PipeItemsCompactorOff = 35;
+
+	public static final int MAX = 36;
 
 	@SideOnly(Side.CLIENT)
 	private Icon[] _icons;
@@ -131,5 +134,8 @@ public class PipeIconProvider implements IIconProvider {
 		_icons[PipePowerIronSide] = iconRegister.registerIcon("abo:PipePowerIronSide");
 
 		_icons[PipeLiquidsPump] = iconRegister.registerIcon("abo:PipeLiquidsPump");
+
+		_icons[PipeItemsCompactorOn] = iconRegister.registerIcon("abo:PipeItemsCompactorOn");
+		_icons[PipeItemsCompactorOff] = iconRegister.registerIcon("abo:PipeItemsCompactorOff");
 	}
 }

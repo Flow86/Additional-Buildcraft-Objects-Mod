@@ -30,6 +30,7 @@ import abo.items.ABOItem;
 import abo.items.ItemGateSettingsDuplicator;
 import abo.network.ABOPacketHandler;
 import abo.pipes.items.PipeItemsBounce;
+import abo.pipes.items.PipeItemsCompactor;
 import abo.pipes.items.PipeItemsCrossover;
 import abo.pipes.items.PipeItemsExtraction;
 import abo.pipes.items.PipeItemsInsertion;
@@ -108,8 +109,8 @@ public class ABO {
 	public static int pipeItemsRoundRobinID = 10300;
 	public static Item pipeItemsRoundRobin = null;
 
-	// public static int pipeItemsCompactorID = 10301;
-	// public static Item pipeItemsCompactor = null;
+	public static int pipeItemsCompactorID = 10301;
+	public static Item pipeItemsCompactor = null;
 
 	public static int pipeItemsInsertionID = 10302;
 	public static Item pipeItemsInsertion = null;
@@ -186,10 +187,8 @@ public class ABO {
 			pipeItemsRoundRobin = createPipe(pipeItemsRoundRobinID, PipeItemsRoundRobin.class, "RoundRobin Transport Pipe", 1,
 					BuildCraftTransport.pipeItemsStone, Block.gravel, null);
 
-			// pipeItemsCompactor = createPipe(pipeItemsCompactorID,
-			// PipeItemsCompactor.class, "Compactor Pipe", 1,
-			// BuildCraftTransport.pipeItemsStone,
-			// Block.pistonBase, null);
+			pipeItemsCompactor = createPipe(pipeItemsCompactorID, PipeItemsCompactor.class, "Compactor Pipe", 1, BuildCraftTransport.pipeItemsStone,
+					Block.pistonBase, null);
 
 			pipeItemsInsertion = createPipe(pipeItemsInsertionID, PipeItemsInsertion.class, "Insertion Pipe", 1, BuildCraftTransport.pipeItemsCobblestone,
 					Item.redstone, null);
@@ -331,10 +330,10 @@ public class ABO {
 			// search for free id
 			while (BlockGenericPipe.isPipeRegistered(id))
 				++id;
-	
+
 			prop.set(id);
-		} catch(NoSuchMethodError e) {
-			//e.printStackTrace();
+		} catch (NoSuchMethodError e) {
+			// e.printStackTrace();
 		}
 
 		ItemPipe pipe = BlockGenericPipe.registerPipe(id, clazz);

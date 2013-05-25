@@ -10,11 +10,9 @@ package abo.pipes.items;
 
 import java.util.List;
 
-import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraftforge.common.ForgeDirection;
-import abo.ABO;
 import abo.PipeIconProvider;
 import abo.pipes.ABOPipe;
 import buildcraft.api.core.Position;
@@ -26,11 +24,8 @@ import buildcraft.core.EntityPassiveItem;
 import buildcraft.core.proxy.CoreProxy;
 import buildcraft.core.utils.BlockUtil;
 import buildcraft.core.utils.Utils;
-import buildcraft.transport.BlockGenericPipe;
 import buildcraft.transport.EntityData;
 import buildcraft.transport.IItemTravelingHook;
-import buildcraft.transport.ItemPipe;
-import buildcraft.transport.Pipe;
 import buildcraft.transport.PipeTransportItems;
 
 public class PipeItemsStripes extends ABOPipe implements IItemTravelingHook, IPowerReceptor {
@@ -80,79 +75,70 @@ public class PipeItemsStripes extends ABOPipe implements IItemTravelingHook, IPo
 
 	@Override
 	public void drop(PipeTransportItems pipe, EntityData data) {
-		// if (worldObj.isRemote)
-		// return;
-
-		Position p = new Position(xCoord, yCoord, zCoord, data.input);
+		Position p = new Position(xCoord, yCoord, zCoord, data.output);
 		p.moveForwards(1.0);
 
-		int blockID = worldObj.getBlockId((int) p.x, (int) p.y, (int) p.z);
-
-		ItemStack travelItemStack = data.item.getItemStack();
-		ItemStack stripesItemStack = new ItemStack(ABO.pipeItemsStripes);
-		EntityPlayer buildcraftPlayer = CoreProxy.proxy.getBuildCraftPlayer(worldObj);
-
-		if (convertPipe(pipe, data)) {
-			worldObj.destroyBlock(xCoord, yCoord, zCoord, false);
-
-			if (blockID == 0)
-				stripesItemStack.getItem().onItemUse(stripesItemStack, buildcraftPlayer, worldObj, (int) p.x, (int) p.y - 1, (int) p.z, 1, 0.0f, 0.0f, 0.0f);
-			else
-				stripesItemStack.getItem().onItemUse(stripesItemStack, buildcraftPlayer, worldObj, xCoord, (int) p.y, zCoord, 1, 0.0f, 0.0f, 0.0f);
-
-			travelItemStack.getItem().onItemUse(travelItemStack, buildcraftPlayer, worldObj, xCoord, yCoord - 1, zCoord, 1, 0.0f, 0.0f, 0.0f);
-		} else {
-
-			if (blockID == 0)
-				travelItemStack.getItem().onItemUse(travelItemStack, buildcraftPlayer, worldObj, (int) p.x, (int) p.y - 1, (int) p.z, 1, 0.0f, 0.0f, 0.0f);
-			else
-				travelItemStack.getItem().onItemUse(travelItemStack, buildcraftPlayer, worldObj, xCoord, (int) p.y, zCoord, 1, 0.0f, 0.0f, 0.0f);
-		}
+		/*
+		 * if (convertPipe(pipe, data))
+		 * if(CoreProxy.proxy.isSimulating(worldObj))
+		 * BuildCraftTransport.pipeItemsStipes.onItemUseFirst(new
+		 * ItemStack(BuildCraftTransport.pipeItemsStipes),
+		 * CoreProxy.proxy.getBuildCraftPlayer(worldObj), worldObj, (int) p.x,
+		 * (int) p.y - 1, (int) p.z, 1); else
+		 */
+		if (worldObj.getBlockId((int) p.x, (int) p.y, (int) p.z) == 0)
+			data.item
+					.getItemStack()
+					.getItem()
+					.onItemUse(data.item.getItemStack(), CoreProxy.proxy.getBuildCraftPlayer(worldObj), worldObj, (int) p.x, (int) p.y - 1, (int) p.z, 1, 0.0f,
+							0.0f, 0.0f);
+		else
+			data.item
+					.getItemStack()
+					.getItem()
+					.onItemUse(data.item.getItemStack(), CoreProxy.proxy.getBuildCraftPlayer(worldObj), worldObj, (int) p.x, (int) p.y, (int) p.z, 1, 0.0f,
+							0.0f, 0.0f);
 	}
 
 	@Override
 	public void centerReached(PipeTransportItems pipe, EntityData data) {
-		// convertPipe(pipe, data);
+		// convertPipe(pipe, data); removed because it is buggy - it does not
+		// sync the pipe change
 	}
 
-	public boolean convertPipe(PipeTransportItems pipe, EntityData data) {
-
-		if (data.item.getItemStack().getItem() instanceof ItemPipe) {
-			if (data.item.getItemStack().itemID != itemID) {
-
-				Pipe newPipe = BlockGenericPipe.createPipe(data.item.getItemStack().itemID);
-				if (newPipe.transport instanceof PipeTransportItems) {
-					return true;
-
-				}
-				// newPipe.setTile(this.container); this.container.pipe =
-				// newPipe;
-				// ((PipeTransportItems) newPipe.transport).travelingEntities =
-				// (TreeMap<Integer, EntityData>) pipe.travelingEntities
-				// .clone();
-				//
-				//
-				//
-				// int blockID = BuildCraftTransport.genericPipeBlock.blockID;
-				// if
-				// (BlockGenericPipe.placePipe(newPipe, worldObj, xCoord,
-				// yCoord, zCoord,
-				// blockID, 0)) {
-				//
-				// //Block.blocksList[blockID].onBlockPlacedBy(worldObj, xCoord,
-				// yCoord, zCoord, entityplayer);
-				//
-				// data.item.getItemStack().stackSize--; } if
-				// (data.item.getItemStack().stackSize <= 0){
-				// ((PipeTransportItems)
-				// newPipe.transport).travelingEntities.remove(data.item.getEntityId());
-				//
-				// pipe.scheduleRemoval(data.item); }
-				//
-			}
-		}
-		return false;
-	}
+	/*
+	 * @SuppressWarnings("unchecked") public boolean
+	 * convertPipe(PipeTransportItems pipe, EntityData data) {
+	 * 
+	 * if (data.item.getItemStack().getItem() instanceof ItemPipe) { if
+	 * (!(data.item.getItemStack().itemID ==
+	 * BuildCraftTransport.pipeItemsStipes.shiftedIndex)) {
+	 * 
+	 * Pipe newPipe =
+	 * BlockGenericPipe.createPipe(data.item.getItemStack().itemID);
+	 * if(newPipe.transport instanceof PipeTransportItems) {
+	 * newPipe.setTile(this.container); this.container.pipe = newPipe;
+	 * ((PipeTransportItems) newPipe.transport).travelingEntities =
+	 * (TreeMap<Integer, EntityData>) pipe.travelingEntities .clone();
+	 * 
+	 * 
+	 * 
+	 * int blockID = BuildCraftTransport.genericPipeBlock.blockID; if
+	 * (BlockGenericPipe.placePipe(newPipe, worldObj, xCoord, yCoord, zCoord,
+	 * blockID, 0)) {
+	 * 
+	 * //Block.blocksList[blockID].onBlockPlacedBy(worldObj, xCoord, yCoord,
+	 * zCoord, entityplayer);
+	 * 
+	 * data.item.getItemStack().stackSize--; } if
+	 * (data.item.getItemStack().stackSize <= 0){ ((PipeTransportItems)
+	 * newPipe.transport).travelingEntities.remove(data.item.getEntityId());
+	 * 
+	 * pipe.scheduleRemoval(data.item); }
+	 * 
+	 * 
+	 * return true; } } } return false; }
+	 */
 
 	@Override
 	public void setPowerProvider(IPowerProvider provider) {
