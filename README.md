@@ -181,19 +181,19 @@
 
       ![IronTransportPipe Redstone](recipes/IronConductivePipe.png)
 
-#### Diamond Conductive Pipe
+#### Distribution Conductive Pipe
    acts as a power distributor - every filter line which has an item in it is 
    "open" to receive power
 
    * Recipe:
 
-      ![DiamondTransportPipe Redstone](recipes/DiamondConductivePipe.png)
+      ![DiamondTransportPipe IronConductivePipe](recipes/DistributionConductivePipe.png)
 
    * GUI:
 
       You can toggle each side on or off via GUI.
 	  
-	  ![Diamond Conductive Pipe GUI](recipes/DiamondConductivePipeGUI.png)
+	  ![Diamond Conductive Pipe GUI](recipes/DistributionConductivePipeGUI.png)
 
 #### Water Pump Pipe
    soaks water from a source block below it
@@ -241,6 +241,11 @@
 ---------------------------------------------------------------------------------
 
 ## Changelog:
+
+* 1.0.5
+  - renamed Diamond Conductive Pipe to Distribution Conductive Pipe due to the fact
+    that BC added "Diamond Conductive Pipe"
+  - buildcraft compatibility
 
 * 1.0.4
   - readded compactor pipe and made it special item aware 
