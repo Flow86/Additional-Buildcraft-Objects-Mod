@@ -18,8 +18,8 @@ import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL12;
 
 import abo.network.PacketYesNoChange;
-import abo.pipes.power.PipeLogicPowerDiamond;
-import abo.pipes.power.PipePowerDiamond;
+import abo.pipes.power.PipeLogicPowerDistribution;
+import abo.pipes.power.PipePowerDistribution;
 import abo.proxy.ABOProxy;
 import buildcraft.core.gui.GuiAdvancedInterface;
 import buildcraft.core.utils.StringUtils;
@@ -30,11 +30,11 @@ public class GuiPipePowerDiamond extends GuiAdvancedInterface {
 	class YesNoSlot extends AdvancedSlot {
 
 		private final int nr;
-		private final PipeLogicPowerDiamond logic;
+		private final PipeLogicPowerDistribution logic;
 
 		public YesNoSlot(int nr, int x, int y, TileGenericPipe tile) {
 			super(x, y);
-			logic = (PipeLogicPowerDiamond) tile.pipe.logic;
+			logic = (PipeLogicPowerDistribution) tile.pipe.logic;
 			this.nr = nr;
 		}
 
@@ -65,7 +65,7 @@ public class GuiPipePowerDiamond extends GuiAdvancedInterface {
 
 	@Override
 	protected void drawGuiContainerForegroundLayer(int x, int y) {
-		String name = StringUtils.localize("item." + PipePowerDiamond.class.getSimpleName());
+		String name = StringUtils.localize("item." + PipePowerDistribution.class.getSimpleName());
 
 		fontRenderer.drawString(name, getCenteredOffset(name), 6, 0x404040);
 

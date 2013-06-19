@@ -30,12 +30,12 @@ import buildcraft.core.network.IClientState;
 import buildcraft.transport.BlockGenericPipe;
 import buildcraft.transport.PipeTransportPower;
 
-public class PipePowerDiamond extends ABOPipe implements IClientState {
+public class PipePowerDistribution extends ABOPipe implements IClientState {
 
 	public boolean isDirty = true;
 
-	public PipePowerDiamond(int itemID) {
-		super(new PipeTransportPower(), new PipeLogicPowerDiamond(), itemID);
+	public PipePowerDistribution(int itemID) {
+		super(new PipeTransportPower(), new PipeLogicPowerDistribution(), itemID);
 
 		((PipeTransportPower) transport).maxPower = 256;
 	}

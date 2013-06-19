@@ -15,21 +15,21 @@ package abo.pipes.power.gui;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.ICrafting;
-import abo.pipes.power.PipeLogicPowerDiamond;
-import abo.pipes.power.PipePowerDiamond;
+import abo.pipes.power.PipeLogicPowerDistribution;
+import abo.pipes.power.PipePowerDistribution;
 import buildcraft.core.gui.BuildCraftContainer;
 import buildcraft.transport.TileGenericPipe;
 
 public class ContainerPipePowerDiamond extends BuildCraftContainer {
 
-	public final PipePowerDiamond pipe;
+	public final PipePowerDistribution pipe;
 	private final boolean[] connectionMatrix = new boolean[6];
 
 	public ContainerPipePowerDiamond(InventoryPlayer inventory, TileGenericPipe tile) {
 		super(0);
 
-		pipe = (PipePowerDiamond) tile.pipe;
-		PipeLogicPowerDiamond logic = (PipeLogicPowerDiamond) pipe.logic;
+		pipe = (PipePowerDistribution) tile.pipe;
+		PipeLogicPowerDistribution logic = (PipeLogicPowerDistribution) pipe.logic;
 
 		for (int i = 0; i < 6; ++i)
 			connectionMatrix[i] = logic.connectionMatrix[i];
@@ -44,7 +44,7 @@ public class ContainerPipePowerDiamond extends BuildCraftContainer {
 	public void detectAndSendChanges() {
 		super.detectAndSendChanges();
 
-		PipeLogicPowerDiamond logic = (PipeLogicPowerDiamond) pipe.logic;
+		PipeLogicPowerDistribution logic = (PipeLogicPowerDistribution) pipe.logic;
 
 		// send update to all connected crafters
 		for (Object crafter : crafters) {
@@ -60,7 +60,7 @@ public class ContainerPipePowerDiamond extends BuildCraftContainer {
 
 	@Override
 	public void updateProgressBar(int id, int value) {
-		PipeLogicPowerDiamond logic = (PipeLogicPowerDiamond) pipe.logic;
+		PipeLogicPowerDistribution logic = (PipeLogicPowerDistribution) pipe.logic;
 
 		// System.out.println("updateProgress: " + id + " to " + (value == 1));
 		logic.update(id, (value == 1));

@@ -18,7 +18,7 @@ import net.minecraftforge.common.ForgeDirection;
 import abo.network.IYesNoChange;
 import buildcraft.transport.pipes.PipeLogic;
 
-public class PipeLogicPowerDiamond extends PipeLogic implements IYesNoChange {
+public class PipeLogicPowerDistribution extends PipeLogic implements IYesNoChange {
 	public final boolean[] connectionMatrix = { true, true, true, true, true, true };
 
 	@Override
@@ -44,7 +44,7 @@ public class PipeLogicPowerDiamond extends PipeLogic implements IYesNoChange {
 	public void update(int slot, boolean state) {
 		if (connectionMatrix[slot] != state) {
 			connectionMatrix[slot] = state;
-			((PipePowerDiamond) container.pipe).isDirty = true;
+			((PipePowerDistribution) container.pipe).isDirty = true;
 			container.pipe.updateEntity();
 		}
 	}

@@ -41,7 +41,7 @@ import abo.pipes.liquids.PipeLiquidsDiamond;
 import abo.pipes.liquids.PipeLiquidsGoldenIron;
 import abo.pipes.liquids.PipeLiquidsPump;
 import abo.pipes.liquids.PipeLiquidsValve;
-import abo.pipes.power.PipePowerDiamond;
+import abo.pipes.power.PipePowerDistribution;
 import abo.pipes.power.PipePowerIron;
 import abo.pipes.power.PipePowerSwitch;
 import abo.proxy.ABOProxy;
@@ -133,8 +133,8 @@ public class ABO {
 	public static int pipePowerIronID = 10401;
 	public static Item pipePowerIron = null;
 
-	public static int pipeDiamondConductiveID = 10402;
-	public static Item pipeDiamondConductive = null;
+	public static int pipeDistributionConductiveID = 10402;
+	public static Item pipeDistributionConductive = null;
 
 	public static int triggerEngineSafeID = 128;
 	public static ITrigger triggerEngineSafe = null;
@@ -209,8 +209,8 @@ public class ABO {
 
 			pipePowerIron = createPipe(pipePowerIronID, PipePowerIron.class, "Iron Power Pipe", 1, Item.redstone, BuildCraftTransport.pipeItemsIron, null);
 
-			pipeDiamondConductive = createPipe(pipeDiamondConductiveID, PipePowerDiamond.class, "Diamond Conductive Pipe", 1, Item.redstone,
-					BuildCraftTransport.pipeItemsDiamond, null);
+			pipeDistributionConductive = createPipe(pipeDistributionConductiveID, PipePowerDistribution.class, "Distribution Conductive Pipe", 2, pipePowerIron,
+					BuildCraftTransport.pipeItemsDiamond, pipePowerIron);
 
 			triggerEngineSafe = new TriggerEngineSafe(triggerEngineSafeID);
 			actionSwitchOnPipe = new ActionSwitchOnPipe(actionSwitchOnPipeID);
