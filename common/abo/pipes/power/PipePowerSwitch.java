@@ -48,7 +48,7 @@ public class PipePowerSwitch extends ABOPipe implements IActionReceptor {
 	public PipePowerSwitch(int itemID) {
 		super(new PipeTransportPower(), new PipeLogicGold(), itemID);
 
-		((PipeTransportPower) transport).powerResistance = 0.001;
+		((PipeTransportPower) transport).maxPower = 256;
 	}
 
 	@Override

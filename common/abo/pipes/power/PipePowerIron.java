@@ -26,6 +26,8 @@ public class PipePowerIron extends ABOPipe implements IPipeTransportPowerHook {
 
 	public PipePowerIron(int itemID) {
 		super(new PipeTransportPower(), new PipeLogicPowerIron(), itemID);
+		
+		((PipeTransportPower) transport).maxPower = 256;
 	}
 
 	@Override
@@ -43,22 +45,19 @@ public class PipePowerIron extends ABOPipe implements IPipeTransportPowerHook {
 	}
 
 	@Override
-	public void receiveEnergy(ForgeDirection from, double val) {
+	public double receiveEnergy(ForgeDirection from, double val) {
 		int metadata = worldObj.getBlockMetadata(xCoord, yCoord, zCoord);
 		PipeTransportPower ptransport = (PipeTransportPower) transport;
 
 		if (metadata != from.ordinal() && val > 0.0) {
-			if (BuildCraftTransport.usePipeLoss) {
-				ptransport.internalNextPower[from.ordinal()] += val * (1 - ptransport.powerResistance);
-			} else {
-				ptransport.internalNextPower[from.ordinal()] += val;
-			}
+			ptransport.internalNextPower[from.ordinal()] += val;
 
-			if (ptransport.internalNextPower[from.ordinal()] >= 10000) {
-				worldObj.createExplosion(null, xCoord, yCoord, zCoord, 3, false);
-				worldObj.setBlock(xCoord, yCoord, zCoord, 0);
+			if (ptransport.internalNextPower[from.ordinal()] > ptransport.maxPower) {
+				val = ptransport.internalNextPower[from.ordinal()] - ptransport.maxPower;
+				ptransport.internalNextPower[from.ordinal()] = ptransport.maxPower;
 			}
 		}
+		return val;
 	}
 
 	@Override

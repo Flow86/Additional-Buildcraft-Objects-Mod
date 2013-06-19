@@ -36,6 +36,8 @@ public class PipePowerDiamond extends ABOPipe implements IClientState {
 
 	public PipePowerDiamond(int itemID) {
 		super(new PipeTransportPower(), new PipeLogicPowerDiamond(), itemID);
+
+		((PipeTransportPower) transport).maxPower = 256;
 	}
 
 	@Override
