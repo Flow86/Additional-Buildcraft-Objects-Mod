@@ -190,8 +190,8 @@ public class ABO {
 			pipeItemsCompactor = createPipe(pipeItemsCompactorID, PipeItemsCompactor.class, "Compactor Pipe", 1, BuildCraftTransport.pipeItemsStone,
 					Block.pistonBase, null);
 
-			pipeItemsInsertion = createPipe(pipeItemsInsertionID, PipeItemsInsertion.class, "Insertion Pipe", 1, BuildCraftTransport.pipeItemsCobblestone,
-					Item.redstone, null);
+			pipeItemsInsertion = createPipe(pipeItemsInsertionID, PipeItemsInsertion.class, "Insertion Pipe", 1, BuildCraftTransport.pipeItemsIron,
+					new ItemStack(Item.dyePowder, 1, 2), null);
 
 			pipeItemsExtraction = createPipe(pipeItemsExtractionID, PipeItemsExtraction.class, "Extraction Transport Pipe", 1,
 					BuildCraftTransport.pipeItemsWood, Block.planks, null);

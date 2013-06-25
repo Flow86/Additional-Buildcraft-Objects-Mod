@@ -67,7 +67,7 @@
 
    * Recipe:
 
-      ![CobblestoneTransportPipe Redstone](recipes/InsertionTransportPipe.png)
+      ![IronTransportPipe CactusGreen](recipes/InsertionTransportPipe.png)
 
 
 
@@ -241,6 +241,10 @@
 ---------------------------------------------------------------------------------
 
 ## Changelog:
+
+* 1.0.6
+  - fixed recipe conflict (Insertion Pipe)
+    new recipe for Insertion Pipe: Cactus Green + Iron Transport Pipe
 
 * 1.0.5
   - renamed Diamond Conductive Pipe to Distribution Conductive Pipe due to the fact
