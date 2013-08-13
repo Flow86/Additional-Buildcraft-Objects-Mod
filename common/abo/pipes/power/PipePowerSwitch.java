@@ -12,8 +12,8 @@
 
 package abo.pipes.power;
 
-import java.util.HashMap;
 import java.util.LinkedList;
+import java.util.Map;
 
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
@@ -32,13 +32,12 @@ import buildcraft.transport.BlockGenericPipe;
 import buildcraft.transport.Pipe;
 import buildcraft.transport.PipeTransportPower;
 import buildcraft.transport.TileGenericPipe;
-import buildcraft.transport.pipes.PipeLogicGold;
 
 /**
  * @author Flow86
  * 
  */
-public class PipePowerSwitch extends ABOPipe implements IActionReceptor {
+public class PipePowerSwitch extends ABOPipe<PipeTransportPower> implements IActionReceptor {
 	private final int unpoweredTexture = PipeIconProvider.PipePowerSwitchUnpowered;
 	private final int poweredTexture = PipeIconProvider.PipePowerSwitchPowered;
 	private boolean powered;
@@ -46,9 +45,9 @@ public class PipePowerSwitch extends ABOPipe implements IActionReceptor {
 	private boolean toggled;
 
 	public PipePowerSwitch(int itemID) {
-		super(new PipeTransportPower(), new PipeLogicGold(), itemID);
+		super(new PipeTransportPower(), itemID);
 
-		((PipeTransportPower) transport).maxPower = 256;
+		transport.maxPower = 256;
 	}
 
 	@Override
@@ -84,7 +83,7 @@ public class PipePowerSwitch extends ABOPipe implements IActionReceptor {
 
 		powered = false;
 		for (ForgeDirection o : ForgeDirection.VALID_DIRECTIONS) {
-			Position pos = new Position(xCoord, yCoord, zCoord, o);
+			Position pos = new Position(container.xCoord, container.yCoord, container.zCoord, o);
 			pos.moveForwards(1.0);
 
 			TileEntity tile = container.getTile(o);
@@ -93,14 +92,14 @@ public class PipePowerSwitch extends ABOPipe implements IActionReceptor {
 				TileGenericPipe pipe = (TileGenericPipe) tile;
 				if (BlockGenericPipe.isValid(pipe.pipe)) {
 					neighbours.add(pipe);
-					if (pipe.pipe.broadcastRedstone)
+					if (pipe.pipe.hasGate() && pipe.pipe.gate.isEmittingRedstone())
 						powered = true;
 				}
 			}
 		}
 
 		if (!powered)
-			powered = worldObj.isBlockIndirectlyGettingPowered(xCoord, yCoord, zCoord);
+			powered = container.worldObj.isBlockIndirectlyGettingPowered(container.xCoord, container.yCoord, container.zCoord);
 
 		if (lastPowered != powered) {
 			for (TileGenericPipe pipe : neighbours) {
@@ -155,7 +154,7 @@ public class PipePowerSwitch extends ABOPipe implements IActionReceptor {
 	}
 
 	@Override
-	protected void actionsActivated(HashMap<Integer, Boolean> actions) {
+	protected void actionsActivated(Map<Integer, Boolean> actions) {
 		boolean lastSwitched = switched;
 		boolean lastToggled = toggled;
 

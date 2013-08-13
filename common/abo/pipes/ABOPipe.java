@@ -16,7 +16,6 @@ import abo.ABO;
 import buildcraft.api.core.IIconProvider;
 import buildcraft.transport.Pipe;
 import buildcraft.transport.PipeTransport;
-import buildcraft.transport.pipes.PipeLogic;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
@@ -24,9 +23,9 @@ import cpw.mods.fml.relauncher.SideOnly;
  * @author Flow86
  * 
  */
-public abstract class ABOPipe extends Pipe {
-	public ABOPipe(PipeTransport transport, PipeLogic logic, int itemID) {
-		super(transport, logic, itemID);
+public abstract class ABOPipe<T extends PipeTransport> extends Pipe<T> {
+	public ABOPipe(T transport, int itemID) {
+		super(transport, itemID);
 	}
 
 	@Override

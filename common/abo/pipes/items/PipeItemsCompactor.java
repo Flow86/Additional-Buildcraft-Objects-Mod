@@ -12,8 +12,8 @@
 
 package abo.pipes.items;
 
-import java.util.HashMap;
 import java.util.LinkedList;
+import java.util.Map;
 import java.util.Map.Entry;
 import java.util.TreeMap;
 
@@ -30,22 +30,21 @@ import abo.actions.ActionToggleOnPipe;
 import abo.pipes.ABOPipe;
 import buildcraft.api.core.Position;
 import buildcraft.api.core.SafeTimeTracker;
-import buildcraft.api.gates.ActionManager;
 import buildcraft.api.gates.IAction;
 import buildcraft.api.gates.IActionReceptor;
-import buildcraft.api.transport.IPipedItem;
+import buildcraft.core.inventory.InvUtils;
 import buildcraft.core.utils.Utils;
 import buildcraft.transport.BlockGenericPipe;
 import buildcraft.transport.IPipeTransportItemsHook;
 import buildcraft.transport.PipeTransportItems;
 import buildcraft.transport.TileGenericPipe;
-import buildcraft.transport.pipes.PipeLogicStone;
+import buildcraft.transport.TravelingItem;
 
 /**
  * @author Flow86
  * 
  */
-public class PipeItemsCompactor extends ABOPipe implements IPipeTransportItemsHook, IActionReceptor {
+public class PipeItemsCompactor extends ABOPipe<PipeTransportItems> implements IPipeTransportItemsHook, IActionReceptor {
 	private final int onTexture = PipeIconProvider.PipeItemsCompactorOn;
 	private final int offTexture = PipeIconProvider.PipeItemsCompactorOff;
 	private boolean powered = false;
@@ -58,7 +57,7 @@ public class PipeItemsCompactor extends ABOPipe implements IPipeTransportItemsHo
 	 * @param itemID
 	 */
 	public PipeItemsCompactor(int itemID) {
-		super(new PipeTransportItems(), new PipeLogicStone(), itemID);
+		super(new PipeTransportItems(), itemID);
 	}
 
 	/**
@@ -67,12 +66,12 @@ public class PipeItemsCompactor extends ABOPipe implements IPipeTransportItemsHo
 	 * @param stackSize
 	 */
 	public void addItemToItemStack(ForgeDirection orientation, ItemStack stack) {
-		//System.out.println("in:  Stack " + stack.toString());
+		// System.out.println("in:  Stack " + stack.toString());
 
 		if (!receivedStacks.containsKey(orientation))
 			receivedStacks.put(orientation, new PipeItemsCompactorInventory());
 
-		receivedStacks.get(orientation).addItemStack(worldObj, stack);
+		receivedStacks.get(orientation).addItemStack(container.worldObj, stack);
 	}
 
 	@Override
@@ -82,7 +81,7 @@ public class PipeItemsCompactor extends ABOPipe implements IPipeTransportItemsHo
 		switched = false;
 
 		for (Entry<ForgeDirection, PipeItemsCompactorInventory> receivedStack : receivedStacks.entrySet()) {
-			receivedStack.getValue().dropContents(worldObj, xCoord, yCoord, zCoord);
+			receivedStack.getValue().dropContents(container.worldObj, container.xCoord, container.yCoord, container.zCoord);
 		}
 		receivedStacks.clear();
 
@@ -90,16 +89,16 @@ public class PipeItemsCompactor extends ABOPipe implements IPipeTransportItemsHo
 	}
 
 	@Override
-	public void entityEntered(IPipedItem item, ForgeDirection orientation) {
+	public void entityEntered(TravelingItem item, ForgeDirection orientation) {
 		if (isPowered() && item.getItemStack().isStackable()) {
 			addItemToItemStack(orientation, item.getItemStack());
-			((PipeTransportItems) transport).scheduleRemoval(item);
+			transport.items.scheduleRemoval(item);
 		} else
 			readjustSpeed(item);
 	}
 
 	@Override
-	public LinkedList<ForgeDirection> filterPossibleMovements(LinkedList<ForgeDirection> possibleOrientations, Position pos, IPipedItem item) {
+	public LinkedList<ForgeDirection> filterPossibleMovements(LinkedList<ForgeDirection> possibleOrientations, Position pos, TravelingItem item) {
 		return possibleOrientations;
 	}
 
@@ -126,7 +125,7 @@ public class PipeItemsCompactor extends ABOPipe implements IPipeTransportItemsHo
 
 				NBTTagCompound nbtItemStacks = (NBTTagCompound) nbtTreeMap.getTag("itemStacks");
 
-				receivedStacks.get(orientation).readFromNBT(worldObj, nbtItemStacks);
+				receivedStacks.get(orientation).readFromNBT(container.worldObj, nbtItemStacks);
 			} catch (Throwable t) {
 				// It may be the case that entities cannot be reloaded between
 				// two versions - ignore these errors.
@@ -173,7 +172,7 @@ public class PipeItemsCompactor extends ABOPipe implements IPipeTransportItemsHo
 
 		powered = false;
 		for (ForgeDirection o : ForgeDirection.VALID_DIRECTIONS) {
-			Position pos = new Position(xCoord, yCoord, zCoord, o);
+			Position pos = new Position(container.xCoord, container.yCoord, container.zCoord, o);
 			pos.moveForwards(1.0);
 
 			TileEntity tile = container.getTile(o);
@@ -182,14 +181,14 @@ public class PipeItemsCompactor extends ABOPipe implements IPipeTransportItemsHo
 				TileGenericPipe pipe = (TileGenericPipe) tile;
 				if (BlockGenericPipe.isValid(pipe.pipe)) {
 					neighbours.add(pipe);
-					if (pipe.pipe.broadcastRedstone)
+					if (pipe.pipe.hasGate() && pipe.pipe.gate.isEmittingRedstone())
 						powered = true;
 				}
 			}
 		}
 
 		if (!powered)
-			powered = worldObj.isBlockIndirectlyGettingPowered(xCoord, yCoord, zCoord);
+			powered = container.worldObj.isBlockIndirectlyGettingPowered(container.xCoord, container.yCoord, container.zCoord);
 
 		if (lastPowered != powered) {
 			for (TileGenericPipe pipe : neighbours) {
@@ -215,7 +214,7 @@ public class PipeItemsCompactor extends ABOPipe implements IPipeTransportItemsHo
 	}
 
 	@Override
-	protected void actionsActivated(HashMap<Integer, Boolean> actions) {
+	protected void actionsActivated(Map<IAction, Boolean> actions) {
 		boolean lastSwitched = switched;
 		boolean lastToggled = toggled;
 
@@ -223,13 +222,13 @@ public class PipeItemsCompactor extends ABOPipe implements IPipeTransportItemsHo
 
 		switched = false;
 		// Activate the actions
-		for (Integer i : actions.keySet()) {
+		for (IAction i : actions.keySet()) {
 			if (actions.get(i)) {
-				if (ActionManager.actions[i] instanceof ActionSwitchOnPipe) {
+				if (i instanceof ActionSwitchOnPipe) {
 					switched = true;
-				} else if (ActionManager.actions[i] instanceof ActionToggleOnPipe) {
+				} else if (i instanceof ActionToggleOnPipe) {
 					toggled = true;
-				} else if (ActionManager.actions[i] instanceof ActionToggleOffPipe) {
+				} else if (i instanceof ActionToggleOffPipe) {
 					toggled = false;
 				}
 			}
@@ -265,18 +264,19 @@ public class PipeItemsCompactor extends ABOPipe implements IPipeTransportItemsHo
 		super.updateEntity();
 		updateRedstoneCurrent();
 
-		if (isPowered() && timeTracker.markTimeIfDelay(worldObj, 25)) {
+		if (isPowered() && timeTracker.markTimeIfDelay(container.worldObj, 25)) {
 			for (Entry<ForgeDirection, PipeItemsCompactorInventory> receivedStack : receivedStacks.entrySet()) {
-				ItemStack stack = receivedStack.getValue().findItemStackToRemove(worldObj, 16, 100);
+				ItemStack stack = receivedStack.getValue().findItemStackToRemove(container.worldObj, 16, 100);
 				if (stack != null) {
-					//System.out.println("out: Stack " + stack.toString());
+					// System.out.println("out: Stack " + stack.toString());
 
-					if (!Utils.addToRandomPipeEntry(this.container, receivedStack.getKey(), stack)) {
-						Position destPos = new Position(xCoord, yCoord, zCoord, receivedStack.getKey());
+					stack.stackSize -= Utils.addToRandomPipeAround(container.worldObj, container.xCoord, container.yCoord, container.zCoord, receivedStack.getKey(), stack);
+					if (stack.stackSize > 0) {
+						Position destPos = new Position(container.xCoord, container.yCoord, container.zCoord, receivedStack.getKey());
 
 						destPos.moveForwards(0.3);
 
-						Utils.dropItems(worldObj, stack, (int) destPos.x, (int) destPos.y, (int) destPos.z);
+						InvUtils.dropItems(container.worldObj, stack, (int) destPos.x, (int) destPos.y, (int) destPos.z);
 					}
 
 				}
@@ -285,13 +285,13 @@ public class PipeItemsCompactor extends ABOPipe implements IPipeTransportItemsHo
 	}
 
 	@Override
-	public void readjustSpeed(IPipedItem item) {
+	public void readjustSpeed(TravelingItem item) {
 		item.setSpeed(Math.min(Math.max(Utils.pipeNormalSpeed, item.getSpeed()) * 2f, Utils.pipeNormalSpeed * 30F));
 	}
 
 	@Override
 	public int getIconIndex(ForgeDirection direction) {
-		if (worldObj != null)
+		if (container.worldObj != null)
 			return (isPowered() ? onTexture : offTexture);
 		return offTexture;
 	}

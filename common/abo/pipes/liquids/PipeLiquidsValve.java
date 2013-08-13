@@ -12,8 +12,8 @@
 
 package abo.pipes.liquids;
 
-import java.util.HashMap;
 import java.util.LinkedList;
+import java.util.Map;
 
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
@@ -26,16 +26,14 @@ import abo.actions.ActionToggleOffPipe;
 import abo.actions.ActionToggleOnPipe;
 import buildcraft.api.core.IIconProvider;
 import buildcraft.api.core.Position;
-import buildcraft.api.gates.ActionManager;
 import buildcraft.api.gates.IAction;
 import buildcraft.transport.BlockGenericPipe;
-import buildcraft.transport.PipeTransportLiquids;
 import buildcraft.transport.TileGenericPipe;
-import buildcraft.transport.pipes.PipeLiquidsWood;
+import buildcraft.transport.pipes.PipeFluidsWood;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
-public class PipeLiquidsValve extends PipeLiquidsWood {
+public class PipeLiquidsValve extends PipeFluidsWood {
 
 	private final ABOEnergyPulser pulser;
 	private boolean powered;
@@ -50,8 +48,8 @@ public class PipeLiquidsValve extends PipeLiquidsWood {
 	public PipeLiquidsValve(int itemID) {
 		super(itemID);
 
-		((PipeTransportLiquids) transport).flowRate = 160;
-		((PipeTransportLiquids) transport).travelDelay = 2;
+		transport.flowRate = 160;
+		transport.travelDelay = 2;
 
 		pulser = new ABOEnergyPulser(this);
 	}
@@ -67,7 +65,7 @@ public class PipeLiquidsValve extends PipeLiquidsWood {
 		if (direction == ForgeDirection.UNKNOWN)
 			return isPowered() ? openTexture : closedTexture;
 		else {
-			int metadata = worldObj.getBlockMetadata(xCoord, yCoord, zCoord);
+			int metadata = container.worldObj.getBlockMetadata(container.xCoord, container.yCoord, container.zCoord);
 
 			if (metadata == direction.ordinal())
 				return isPowered() ? openTextureSide : closedTextureSide;
@@ -88,7 +86,7 @@ public class PipeLiquidsValve extends PipeLiquidsWood {
 
 		powered = false;
 		for (ForgeDirection o : ForgeDirection.VALID_DIRECTIONS) {
-			Position pos = new Position(xCoord, yCoord, zCoord, o);
+			Position pos = new Position(container.xCoord, container.yCoord, container.zCoord, o);
 			pos.moveForwards(1.0);
 
 			TileEntity tile = container.getTile(o);
@@ -97,14 +95,14 @@ public class PipeLiquidsValve extends PipeLiquidsWood {
 				TileGenericPipe pipe = (TileGenericPipe) tile;
 				if (BlockGenericPipe.isValid(pipe.pipe)) {
 					neighbours.add(pipe);
-					if (pipe.pipe.broadcastRedstone)
+					if (pipe.pipe.hasGate() && pipe.pipe.gate.isEmittingRedstone())
 						powered = true;
 				}
 			}
 		}
 
 		if (!powered)
-			powered = worldObj.isBlockIndirectlyGettingPowered(xCoord, yCoord, zCoord);
+			powered = container.worldObj.isBlockIndirectlyGettingPowered(container.xCoord, container.yCoord, container.zCoord);
 
 		if (lastPowered != powered) {
 			for (TileGenericPipe pipe : neighbours) {
@@ -171,7 +169,7 @@ public class PipeLiquidsValve extends PipeLiquidsWood {
 	}
 
 	@Override
-	protected void actionsActivated(HashMap<Integer, Boolean> actions) {
+	protected void actionsActivated(Map<IAction, Boolean> actions) {
 		boolean lastSwitched = switched;
 		boolean lastToggled = toggled;
 
@@ -179,13 +177,13 @@ public class PipeLiquidsValve extends PipeLiquidsWood {
 
 		switched = false;
 		// Activate the actions
-		for (Integer i : actions.keySet()) {
+		for (IAction i : actions.keySet()) {
 			if (actions.get(i)) {
-				if (ActionManager.actions[i] instanceof ActionSwitchOnPipe) {
+				if (i instanceof ActionSwitchOnPipe) {
 					switched = true;
-				} else if (ActionManager.actions[i] instanceof ActionToggleOnPipe) {
+				} else if (i instanceof ActionToggleOnPipe) {
 					toggled = true;
-				} else if (ActionManager.actions[i] instanceof ActionToggleOffPipe) {
+				} else if (i instanceof ActionToggleOffPipe) {
 					toggled = false;
 				}
 			}

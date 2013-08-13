@@ -15,6 +15,7 @@ package abo.items;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.util.ChatMessageComponent;
 import net.minecraft.world.World;
 import buildcraft.api.gates.ActionManager;
 import buildcraft.api.gates.TriggerParameter;
@@ -30,29 +31,32 @@ import buildcraft.transport.Pipe;
 public class ItemGateSettingsDuplicator extends ABOItem {
 	static class GateSlot {
 		public GateSlot() {
-			trigger = 0;
+			trigger = "";
 			triggerParameter = null;
-			action = 0;
+			action = "";
 		}
 
-		int trigger;
+		String trigger;
 		ItemStack triggerParameter;
-		int action;
+		String action;
 
 		public void writeToNBT(NBTTagCompound nbt) {
-			nbt.setInteger("trigger", trigger);
+			nbt.setString("trigger", trigger);
 			if (triggerParameter != null) {
 				NBTTagCompound nbtparam = new NBTTagCompound();
 				triggerParameter.writeToNBT(nbtparam);
 				nbt.setCompoundTag("triggerParameter", nbtparam);
 			}
-			nbt.setInteger("action", action);
+			nbt.setString("action", action);
 		}
 
 		public void readFromNBT(NBTTagCompound nbt) {
-			trigger = nbt.getInteger("trigger");
-			triggerParameter = ItemStack.loadItemStackFromNBT(nbt.getCompoundTag("triggerParameter"));
-			action = nbt.getInteger("action");
+			try {
+				trigger = nbt.getString("trigger");
+				triggerParameter = ItemStack.loadItemStackFromNBT(nbt.getCompoundTag("triggerParameter"));
+				action = nbt.getString("action");
+			} catch(Exception e) {
+			}
 		}
 	};
 
@@ -124,13 +128,13 @@ public class ItemGateSettingsDuplicator extends ABOItem {
 					GateSettings gS = GateSettings.createFromNBT(itemStack.stackTagCompound);
 					if (gS.kind == pipe.gate.kind && gS.isAutarchic == (pipe.gate instanceof GateVanilla && ((GateVanilla) pipe.gate).hasPulser())) {
 						for (int i = 0; i < 8; ++i) {
-							pipe.activatedActions[i] = ActionManager.actions[gS.slots[i].action];
-							pipe.activatedTriggers[i] = ActionManager.triggers[gS.slots[i].trigger];
-							pipe.triggerParameters[i] = new TriggerParameter();
-							pipe.triggerParameters[i].set(gS.slots[i].triggerParameter);
+							pipe.gate.actions[i] = ActionManager.actions.get(gS.slots[i].action);
+							pipe.gate.triggers[i] = ActionManager.triggers.get(gS.slots[i].trigger);
+							pipe.gate.triggerParameters[i] = new TriggerParameter();
+							pipe.gate.triggerParameters[i].set(gS.slots[i].triggerParameter);
 						}
 
-						entityPlayer.sendChatToPlayer("Gate settings pasted");
+						entityPlayer.sendChatToPlayer(ChatMessageComponent.func_111066_d("Gate settings pasted"));
 					}
 
 				} else {
@@ -142,21 +146,21 @@ public class ItemGateSettingsDuplicator extends ABOItem {
 					}
 
 					for (int i = 0; i < 8; ++i) {
-						if (pipe.activatedTriggers[i] != null) {
-							gS.slots[i].trigger = pipe.activatedTriggers[i].getId();
+						if (pipe.gate.triggers[i] != null) {
+							gS.slots[i].trigger = pipe.gate.triggers[i].getUniqueTag();
 						}
 
-						if (pipe.triggerParameters[i] != null) {
-							gS.slots[i].triggerParameter = pipe.triggerParameters[i].getItemStack();
+						if (pipe.gate.triggerParameters[i] != null) {
+							gS.slots[i].triggerParameter = pipe.gate.triggerParameters[i].getItemStack();
 						}
 
-						if (pipe.activatedActions[i] != null) {
-							gS.slots[i].action = pipe.activatedActions[i].getId();
+						if (pipe.gate.actions[i] != null) {
+							gS.slots[i].action = pipe.gate.actions[i].getUniqueTag();
 						}
 					}
 					gS.writeToNBT(itemStack.stackTagCompound);
 
-					entityPlayer.sendChatToPlayer("Gate settings copied");
+					entityPlayer.sendChatToPlayer(ChatMessageComponent.func_111066_d("Gate settings copied"));
 				}
 
 				return true;

@@ -18,35 +18,34 @@ import net.minecraftforge.common.ForgeDirection;
 import abo.PipeIconProvider;
 import abo.pipes.ABOPipe;
 import buildcraft.api.core.Position;
-import buildcraft.api.transport.IPipedItem;
 import buildcraft.transport.IPipeTransportItemsHook;
 import buildcraft.transport.PipeTransportItems;
-import buildcraft.transport.pipes.PipeLogicStone;
+import buildcraft.transport.TravelingItem;
 
 /**
  * This pipe will bounce the items back if not powered.
  * 
  * @author Scott Chamberlain (Leftler) ported to BC > 2.2 by Flow86
  */
-public class PipeItemsBounce extends ABOPipe implements IPipeTransportItemsHook {
+public class PipeItemsBounce extends ABOPipe<PipeTransportItems> implements IPipeTransportItemsHook {
 	private final int openTexture = PipeIconProvider.PipeItemsBounce;
 	private final int closedTexture = PipeIconProvider.PipeItemsBounceClosed;
 
 	public PipeItemsBounce(int itemID) {
-		super(new PipeTransportItems(), new PipeLogicStone(), itemID);
+		super(new PipeTransportItems(), itemID);
 	}
 
 	@Override
 	public int getIconIndex(ForgeDirection direction) {
-		if (worldObj != null)
-			return (worldObj.isBlockIndirectlyGettingPowered(xCoord, yCoord, zCoord) ? openTexture : closedTexture);
+		if (container.worldObj != null)
+			return (container.worldObj.isBlockIndirectlyGettingPowered(container.xCoord, container.yCoord, container.zCoord) ? openTexture : closedTexture);
 		return closedTexture;
 	}
 
 	@Override
-	public LinkedList<ForgeDirection> filterPossibleMovements(LinkedList<ForgeDirection> possibleOrientations, Position pos, IPipedItem item) {
+	public LinkedList<ForgeDirection> filterPossibleMovements(LinkedList<ForgeDirection> possibleOrientations, Position pos, TravelingItem item) {
 
-		if (worldObj.isBlockIndirectlyGettingPowered(xCoord, yCoord, zCoord))
+		if (container.worldObj.isBlockIndirectlyGettingPowered(container.xCoord, container.yCoord, container.zCoord))
 			return possibleOrientations;
 
 		// if unpowered - reverse all items
@@ -58,11 +57,11 @@ public class PipeItemsBounce extends ABOPipe implements IPipeTransportItemsHook 
 	}
 
 	@Override
-	public void entityEntered(IPipedItem item, ForgeDirection orientation) {
+	public void entityEntered(TravelingItem item, ForgeDirection orientation) {
 	}
 
 	@Override
-	public void readjustSpeed(IPipedItem item) {
-		((PipeTransportItems) transport).defaultReajustSpeed(item);
+	public void readjustSpeed(TravelingItem item) {
+		transport.defaultReajustSpeed(item);
 	}
 }
