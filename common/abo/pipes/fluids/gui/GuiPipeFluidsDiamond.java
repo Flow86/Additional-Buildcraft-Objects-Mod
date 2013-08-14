@@ -10,7 +10,7 @@
  * granted by the copyright holder.
  */
 
-package abo.pipes.liquids.gui;
+package abo.pipes.fluids.gui;
 
 import java.util.HashMap;
 import java.util.Iterator;
@@ -25,17 +25,17 @@ import net.minecraftforge.liquids.LiquidStack;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL12;
 
-import abo.network.PacketLiquidSlotChange;
-import abo.pipes.liquids.PipeLiquidsDiamond;
-import abo.pipes.liquids.PipeLogicLiquidsDiamond;
+import abo.network.PacketFluidSlotChange;
+import abo.pipes.fluids.PipeFluidsDistribution;
+import abo.pipes.fluids.PipeLogicLiquidsDiamond;
 import abo.proxy.ABOProxy;
 import buildcraft.core.gui.GuiAdvancedInterface;
 import buildcraft.core.utils.StringUtils;
 import buildcraft.transport.TileGenericPipe;
 
-public class GuiPipeLiquidsDiamond extends GuiAdvancedInterface {
+public class GuiPipeFluidsDiamond extends GuiAdvancedInterface {
 
-	private final ContainerPipeLiquidsDiamond container;
+	private final ContainerPipeFluidsDiamond container;
 	private final HashMap<String, LiquidStack> liquids = new HashMap<String, LiquidStack>();
 	private final LinkedList<String> liquidsList = new LinkedList<String>();
 
@@ -77,10 +77,10 @@ public class GuiPipeLiquidsDiamond extends GuiAdvancedInterface {
 		}
 	}
 
-	public GuiPipeLiquidsDiamond(InventoryPlayer player, TileGenericPipe tile) {
-		super(new ContainerPipeLiquidsDiamond(player, tile), null);
+	public GuiPipeFluidsDiamond(InventoryPlayer player, TileGenericPipe tile) {
+		super(new ContainerPipeFluidsDiamond(player, tile), null);
 
-		container = (ContainerPipeLiquidsDiamond) inventorySlots;
+		container = (ContainerPipeFluidsDiamond) inventorySlots;
 
 		PipeLogicLiquidsDiamond logic = (PipeLogicLiquidsDiamond) container.pipe.logic;
 
@@ -106,7 +106,7 @@ public class GuiPipeLiquidsDiamond extends GuiAdvancedInterface {
 
 	@Override
 	protected void drawGuiContainerForegroundLayer(int x, int y) {
-		String name = StringUtils.localize("item." + PipeLiquidsDiamond.class.getSimpleName());
+		String name = StringUtils.localize("item." + PipeFluidsDistribution.class.getSimpleName());
 
 		fontRenderer.drawString(name, getCenteredOffset(name), 6, 0x404040);
 
@@ -167,7 +167,7 @@ public class GuiPipeLiquidsDiamond extends GuiAdvancedInterface {
 			container.detectAndSendChanges();
 
 			if (container.pipe.worldObj.isRemote) {
-				PacketLiquidSlotChange packet = new PacketLiquidSlotChange(container.pipe.xCoord, container.pipe.yCoord, container.pipe.zCoord, liquidSlot.nr,
+				PacketFluidSlotChange packet = new PacketFluidSlotChange(container.pipe.xCoord, container.pipe.yCoord, container.pipe.zCoord, liquidSlot.nr,
 						liquids.get(liquidSlot.liquid));
 				ABOProxy.proxy.sendToServer(packet.getPacket());
 			}

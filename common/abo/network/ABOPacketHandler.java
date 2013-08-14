@@ -37,7 +37,7 @@ public class ABOPacketHandler implements IPacketHandler {
 				break;
 			}
 			case ABOPacketIds.LiquidSlotChange: {
-				PacketLiquidSlotChange liquidSlotPacket = new PacketLiquidSlotChange(data);
+				PacketFluidSlotChange liquidSlotPacket = new PacketFluidSlotChange(data);
 				liquidSlotPacket.update((EntityPlayer) player);
 				break;
 			}

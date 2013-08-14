@@ -15,19 +15,18 @@ package abo.pipes.power;
 import net.minecraftforge.common.ForgeDirection;
 import abo.PipeIconProvider;
 import abo.pipes.ABOPipe;
-import buildcraft.BuildCraftTransport;
 import buildcraft.transport.IPipeTransportPowerHook;
 import buildcraft.transport.PipeTransportPower;
 
-public class PipePowerIron extends ABOPipe implements IPipeTransportPowerHook {
+public class PipePowerIron extends ABOPipe<PipeTransportPower> implements IPipeTransportPowerHook {
 
 	private final int baseTexture = PipeIconProvider.PipePowerIron;
 	private final int sideTexture = PipeIconProvider.PipePowerIronSide;
 
 	public PipePowerIron(int itemID) {
-		super(new PipeTransportPower(), new PipeLogicPowerIron(), itemID);
-		
-		((PipeTransportPower) transport).maxPower = 256;
+		super(new PipeTransportPower(), itemID);
+
+		transport.maxPower = 256;
 	}
 
 	@Override
@@ -35,7 +34,7 @@ public class PipePowerIron extends ABOPipe implements IPipeTransportPowerHook {
 		if (direction == ForgeDirection.UNKNOWN)
 			return baseTexture;
 		else {
-			int metadata = worldObj.getBlockMetadata(xCoord, yCoord, zCoord);
+			int metadata = container.getBlockMetadata();
 
 			if (metadata == direction.ordinal())
 				return baseTexture;
@@ -45,29 +44,26 @@ public class PipePowerIron extends ABOPipe implements IPipeTransportPowerHook {
 	}
 
 	@Override
-	public double receiveEnergy(ForgeDirection from, double val) {
-		int metadata = worldObj.getBlockMetadata(xCoord, yCoord, zCoord);
-		PipeTransportPower ptransport = (PipeTransportPower) transport;
+	public float receiveEnergy(ForgeDirection from, float val) {
+		int metadata = container.getBlockMetadata();
 
 		if (metadata != from.ordinal() && val > 0.0) {
-			ptransport.internalNextPower[from.ordinal()] += val;
+			transport.internalNextPower[from.ordinal()] += val;
 
-			if (ptransport.internalNextPower[from.ordinal()] > ptransport.maxPower) {
-				val = ptransport.internalNextPower[from.ordinal()] - ptransport.maxPower;
-				ptransport.internalNextPower[from.ordinal()] = ptransport.maxPower;
+			if (transport.internalNextPower[from.ordinal()] > transport.maxPower) {
+				val = transport.internalNextPower[from.ordinal()] - transport.maxPower;
+				transport.internalNextPower[from.ordinal()] = transport.maxPower;
 			}
 		}
 		return val;
 	}
 
 	@Override
-	public void requestEnergy(ForgeDirection from, int i) {
-		int metadata = worldObj.getBlockMetadata(xCoord, yCoord, zCoord);
-		PipeTransportPower ptransport = (PipeTransportPower) transport;
+	public void requestEnergy(ForgeDirection from, float amount) {
+		int metadata = container.getBlockMetadata();
 
 		if (metadata == from.ordinal()) {
-			ptransport.step();
-			ptransport.nextPowerQuery[from.ordinal()] += i;
+			transport.nextPowerQuery[from.ordinal()] += amount;
 		}
 	}
 }

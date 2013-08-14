@@ -10,7 +10,7 @@
  * granted by the copyright holder.
  */
 
-package abo.pipes.liquids;
+package abo.pipes.fluids;
 
 import java.util.LinkedList;
 import java.util.Map;
@@ -34,7 +34,7 @@ import buildcraft.transport.triggers.ActionPipeDirection;
  * @author Flow86
  * 
  */
-public class PipeLiquidsGoldenIron extends ABOPipe<PipeTransportFluids> {
+public class PipeFluidsGoldenIron extends ABOPipe<PipeTransportFluids> {
 
 	private final int standardIconIndex = PipeIconProvider.PipeLiquidsGoldenIron;
 	private final int solidIconIndex = PipeIconProvider.PipeLiquidsGoldenIronSide;
@@ -57,7 +57,7 @@ public class PipeLiquidsGoldenIron extends ABOPipe<PipeTransportFluids> {
 		}
 	};
 
-	public PipeLiquidsGoldenIron(int itemID) {
+	public PipeFluidsGoldenIron(int itemID) {
 		super(new PipeTransportFluids(), itemID);
 
 		transport.flowRate = 80;

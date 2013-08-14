@@ -1,11 +1,11 @@
-package abo.pipes.liquids;
+package abo.pipes.fluids;
 
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraftforge.liquids.LiquidStack;
-import abo.network.ILiquidSlotChange;
+import abo.network.IFluidSlotChange;
 import buildcraft.transport.pipes.PipeLogic;
 
-public class PipeLogicLiquidsDiamond extends PipeLogic implements ILiquidSlotChange {
+public class PipeLogicLiquidsDiamond extends PipeLogic implements IFluidSlotChange {
 
 	public final LiquidStack[] liquidStacks = new LiquidStack[6 * 9];
 

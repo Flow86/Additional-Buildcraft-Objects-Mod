@@ -10,7 +10,7 @@
  * granted by the copyright holder.
  */
 
-package abo.pipes.liquids;
+package abo.pipes.fluids;
 
 import java.util.LinkedList;
 import java.util.Map;
@@ -33,7 +33,7 @@ import buildcraft.transport.pipes.PipeFluidsWood;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
-public class PipeLiquidsValve extends PipeFluidsWood {
+public class PipeFluidsValve extends PipeFluidsWood {
 
 	private final ABOEnergyPulser pulser;
 	private boolean powered;
@@ -45,7 +45,7 @@ public class PipeLiquidsValve extends PipeFluidsWood {
 	private final int openTexture = PipeIconProvider.PipeLiquidsValveOpen;
 	private final int openTextureSide = PipeIconProvider.PipeLiquidsValveOpenSide;
 
-	public PipeLiquidsValve(int itemID) {
+	public PipeFluidsValve(int itemID) {
 		super(itemID);
 
 		transport.flowRate = 160;
@@ -65,7 +65,7 @@ public class PipeLiquidsValve extends PipeFluidsWood {
 		if (direction == ForgeDirection.UNKNOWN)
 			return isPowered() ? openTexture : closedTexture;
 		else {
-			int metadata = container.worldObj.getBlockMetadata(container.xCoord, container.yCoord, container.zCoord);
+			int metadata = container.getBlockMetadata();
 
 			if (metadata == direction.ordinal())
 				return isPowered() ? openTextureSide : closedTextureSide;

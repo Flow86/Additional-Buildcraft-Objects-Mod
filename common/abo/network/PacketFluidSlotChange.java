@@ -19,21 +19,21 @@ import java.io.IOException;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.nbt.CompressedStreamTools;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraftforge.liquids.LiquidStack;
+import net.minecraftforge.fluids.FluidStack;
 import buildcraft.transport.TileGenericPipe;
 
-public class PacketLiquidSlotChange extends ABOPacket {
+public class PacketFluidSlotChange extends ABOPacket {
 
 	private int slot;
-	private LiquidStack stack;
+	private FluidStack stack;
 
-	public PacketLiquidSlotChange(int xCoord, int yCoord, int zCoord, int slot, LiquidStack stack) {
+	public PacketFluidSlotChange(int xCoord, int yCoord, int zCoord, int slot, FluidStack stack) {
 		super(ABOPacketIds.LiquidSlotChange, xCoord, yCoord, zCoord);
 		this.slot = slot;
 		this.stack = stack;
 	}
 
-	public PacketLiquidSlotChange(DataInputStream data) throws IOException {
+	public PacketFluidSlotChange(DataInputStream data) throws IOException {
 		readData(data);
 	}
 
@@ -69,7 +69,7 @@ public class PacketLiquidSlotChange extends ABOPacket {
 			data.readFully(compressed);
 			NBTTagCompound nbt = CompressedStreamTools.decompress(compressed);
 
-			stack = LiquidStack.loadLiquidStackFromNBT(nbt);
+			stack = FluidStack.loadFluidStackFromNBT(nbt);
 		}
 	}
 
@@ -78,9 +78,9 @@ public class PacketLiquidSlotChange extends ABOPacket {
 		if (pipe == null || pipe.pipe == null)
 			return;
 
-		if (!(pipe.pipe.logic instanceof ILiquidSlotChange))
+		if (!(pipe.pipe.logic instanceof IFluidSlotChange))
 			return;
 
-		((ILiquidSlotChange) pipe.pipe.logic).update(slot, stack);
+		((IFluidSlotChange) pipe.pipe.logic).update(slot, stack);
 	}
 }

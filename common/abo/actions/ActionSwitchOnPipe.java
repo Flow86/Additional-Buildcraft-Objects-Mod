@@ -23,7 +23,7 @@ import cpw.mods.fml.relauncher.SideOnly;
 public class ActionSwitchOnPipe extends ABOAction {
 
 	public ActionSwitchOnPipe(int id) {
-		super(id);
+		super(id, "switchonpipe");
 	}
 
 	@Override

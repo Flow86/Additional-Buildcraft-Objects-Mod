@@ -16,9 +16,8 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraftforge.common.ForgeDirection;
 import abo.ItemIconProvider;
 import buildcraft.api.gates.ITriggerParameter;
-import buildcraft.energy.Engine;
-import buildcraft.energy.Engine.EnergyStage;
 import buildcraft.energy.TileEngine;
+import buildcraft.energy.TileEngine.EnergyStage;
 import buildcraft.transport.ITriggerPipe;
 import buildcraft.transport.Pipe;
 import cpw.mods.fml.relauncher.Side;
@@ -31,16 +30,19 @@ import cpw.mods.fml.relauncher.SideOnly;
 public class TriggerEngineSafe extends ABOTrigger implements ITriggerPipe {
 
 	public TriggerEngineSafe(int id) {
-		super(id);
+		super(id, "enginesafe");
 	}
 
-	private boolean checkEngine(TileEntity entity) {
-		Engine engine = ((TileEngine) entity).engine;
+	private boolean checkEngine(TileEntity tile) {
+		if (tile instanceof TileEngine) {
+			TileEngine engine = (TileEngine) tile;
 
-		if (engine != null && (engine.getEnergyStage() != EnergyStage.Blue && engine.getEnergyStage() != EnergyStage.Green))
-			return false;
+			if (engine.getEnergyStage() != EnergyStage.BLUE && engine.getEnergyStage() != EnergyStage.GREEN)
+				return false;
 
-		return true;
+			return true;
+		}
+		return false;
 	}
 
 	@Override

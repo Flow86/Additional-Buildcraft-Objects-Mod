@@ -15,6 +15,7 @@ package abo.actions;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraftforge.common.ForgeDirection;
 import buildcraft.api.power.IPowerReceptor;
+import buildcraft.api.power.PowerHandler.Type;
 
 /**
  * @author Flow86
@@ -31,11 +32,8 @@ public class ABOEnergyPulser {
 	}
 
 	public void update() {
-		if (powerReceptor == null)
-			return;
-
-		if (isActive)
-			powerReceptor.getPowerProvider().receiveEnergy(1, ForgeDirection.WEST);
+		if (isActive && powerReceptor != null)
+			powerReceptor.getPowerReceiver(null).receiveEnergy(Type.GATE, 1, ForgeDirection.WEST);
 	}
 
 	public void enablePulse() {
@@ -45,7 +43,7 @@ public class ABOEnergyPulser {
 	public void disablePulse() {
 		isActive = false;
 		if (powerReceptor != null)
-			powerReceptor.getPowerProvider().useEnergy(powerReceptor.getPowerProvider().getEnergyStored(), powerReceptor.getPowerProvider().getEnergyStored(), true);
+			powerReceptor.getPowerReceiver(null).receiveEnergy(Type.GATE, powerReceptor.getPowerReceiver(null).getEnergyStored(), ForgeDirection.WEST);
 	}
 
 	public boolean isActive() {

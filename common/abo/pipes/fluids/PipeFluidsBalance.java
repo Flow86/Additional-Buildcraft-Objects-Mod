@@ -10,7 +10,7 @@
  * granted by the copyright holder.
  */
 
-package abo.pipes.liquids;
+package abo.pipes.fluids;
 
 import java.util.LinkedList;
 
@@ -90,10 +90,10 @@ class Neighbor {
  * @author Flow86
  * 
  */
-public class PipeLiquidsBalance extends ABOPipe<PipeTransportFluids> {
+public class PipeFluidsBalance extends ABOPipe<PipeTransportFluids> {
 	private final int blockTexture = 5 * 16 + 0;
 
-	public PipeLiquidsBalance(int itemID) {
+	public PipeFluidsBalance(int itemID) {
 		super(new PipeTransportFluids(), itemID);
 
 		transport.flowRate = 160;

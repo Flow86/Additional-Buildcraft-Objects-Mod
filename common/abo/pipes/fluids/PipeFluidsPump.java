@@ -10,7 +10,7 @@
  * granted by the copyright holder.
  */
 
-package abo.pipes.liquids;
+package abo.pipes.fluids;
 
 import net.minecraft.block.Block;
 import net.minecraftforge.common.ForgeDirection;
@@ -29,15 +29,15 @@ import buildcraft.transport.PipeTransportFluids;
  * @author Flow86
  * 
  */
-public class PipeLiquidsPump extends ABOPipe<PipeTransportFluids> {
+public class PipeFluidsPump extends ABOPipe<PipeTransportFluids> {
 
 	private final Block liquid;
 
-	public PipeLiquidsPump(int itemID) {
+	public PipeFluidsPump(int itemID) {
 		this(itemID, Block.waterStill);
 	}
 
-	public PipeLiquidsPump(int itemID, Block liquidStill) {
+	public PipeFluidsPump(int itemID, Block liquidStill) {
 		super(new PipeTransportFluids(), itemID);
 		liquid = liquidStill;
 

@@ -10,7 +10,7 @@
  * granted by the copyright holder.
  */
 
-package abo.pipes.liquids.gui;
+package abo.pipes.fluids.gui;
 
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
@@ -19,20 +19,20 @@ import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraftforge.liquids.LiquidStack;
-import abo.pipes.liquids.PipeLiquidsDiamond;
-import abo.pipes.liquids.PipeLogicLiquidsDiamond;
+import abo.pipes.fluids.PipeFluidsDistribution;
+import abo.pipes.fluids.PipeLogicLiquidsDiamond;
 import buildcraft.core.gui.BuildCraftContainer;
 import buildcraft.transport.TileGenericPipe;
 
-public class ContainerPipeLiquidsDiamond extends BuildCraftContainer {
+public class ContainerPipeFluidsDiamond extends BuildCraftContainer {
 
-	public final PipeLiquidsDiamond pipe;
+	public final PipeFluidsDistribution pipe;
 	private final LiquidStack[] liquidStacks = new LiquidStack[6 * 9];
 
-	public ContainerPipeLiquidsDiamond(InventoryPlayer inventory, TileGenericPipe tile) {
+	public ContainerPipeFluidsDiamond(InventoryPlayer inventory, TileGenericPipe tile) {
 		super(0);
 
-		pipe = (PipeLiquidsDiamond) tile.pipe;
+		pipe = (PipeFluidsDistribution) tile.pipe;
 	}
 
 	@Override

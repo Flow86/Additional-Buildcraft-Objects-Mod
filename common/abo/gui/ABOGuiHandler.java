@@ -15,8 +15,8 @@ package abo.gui;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
-import abo.pipes.liquids.gui.ContainerPipeLiquidsDiamond;
-import abo.pipes.liquids.gui.GuiPipeLiquidsDiamond;
+import abo.pipes.fluids.gui.ContainerPipeFluidsDiamond;
+import abo.pipes.fluids.gui.GuiPipeFluidsDiamond;
 import abo.pipes.power.gui.ContainerPipePowerDiamond;
 import abo.pipes.power.gui.GuiPipePowerDiamond;
 import buildcraft.transport.TileGenericPipe;
@@ -40,7 +40,7 @@ public class ABOGuiHandler implements IGuiHandler {
 
 		switch (ID) {
 		case ABOGuiIds.PIPE_DIAMOND_LIQUIDS:
-			return new ContainerPipeLiquidsDiamond(player.inventory, pipe);
+			return new ContainerPipeFluidsDiamond(player.inventory, pipe);
 
 		case ABOGuiIds.PIPE_DIAMOND_POWER:
 			return new ContainerPipePowerDiamond(player.inventory, pipe);
@@ -66,7 +66,7 @@ public class ABOGuiHandler implements IGuiHandler {
 
 		switch (ID) {
 		case ABOGuiIds.PIPE_DIAMOND_LIQUIDS:
-			return new GuiPipeLiquidsDiamond(player.inventory, pipe);
+			return new GuiPipeFluidsDiamond(player.inventory, pipe);
 
 		case ABOGuiIds.PIPE_DIAMOND_POWER:
 			return new GuiPipePowerDiamond(player.inventory, pipe);

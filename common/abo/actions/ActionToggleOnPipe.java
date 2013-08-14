@@ -19,7 +19,7 @@ import cpw.mods.fml.relauncher.SideOnly;
 public class ActionToggleOnPipe extends ABOAction {
 
 	public ActionToggleOnPipe(int id) {
-		super(id);
+		super(id, "toggleonpipe");
 	}
 
 	@Override

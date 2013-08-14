@@ -29,6 +29,11 @@ import abo.gui.ABOGuiHandler;
 import abo.items.ABOItem;
 import abo.items.ItemGateSettingsDuplicator;
 import abo.network.ABOPacketHandler;
+import abo.pipes.fluids.PipeFluidsBalance;
+import abo.pipes.fluids.PipeFluidsDistribution;
+import abo.pipes.fluids.PipeFluidsGoldenIron;
+import abo.pipes.fluids.PipeFluidsPump;
+import abo.pipes.fluids.PipeFluidsValve;
 import abo.pipes.items.PipeItemsBounce;
 import abo.pipes.items.PipeItemsCompactor;
 import abo.pipes.items.PipeItemsCrossover;
@@ -36,11 +41,6 @@ import abo.pipes.items.PipeItemsExtraction;
 import abo.pipes.items.PipeItemsInsertion;
 import abo.pipes.items.PipeItemsRoundRobin;
 import abo.pipes.items.PipeItemsStripes;
-import abo.pipes.liquids.PipeLiquidsBalance;
-import abo.pipes.liquids.PipeLiquidsDiamond;
-import abo.pipes.liquids.PipeLiquidsGoldenIron;
-import abo.pipes.liquids.PipeLiquidsPump;
-import abo.pipes.liquids.PipeLiquidsValve;
 import abo.pipes.power.PipePowerDistribution;
 import abo.pipes.power.PipePowerIron;
 import abo.pipes.power.PipePowerSwitch;
@@ -166,20 +166,20 @@ public class ABO {
 			itemGateSettingsDuplicator = createItem(itemGateSettingsDuplicatorID, ItemGateSettingsDuplicator.class, "Gate Settings Duplicator",
 					BuildCraftCore.wrenchItem, BuildCraftTransport.pipeGateAutarchic, null);
 
-			pipeLiquidsValve = createPipe(pipeLiquidsValveID, PipeLiquidsValve.class, "Valve Pipe", 1, BuildCraftTransport.pipeLiquidsWood,
+			pipeLiquidsValve = createPipe(pipeLiquidsValveID, PipeFluidsValve.class, "Valve Pipe", 1, BuildCraftTransport.pipeLiquidsWood,
 					BuildCraftTransport.pipeGateAutarchic, null);
 
-			pipeLiquidsGoldenIron = createPipe(pipeLiquidsGoldenIronID, PipeLiquidsGoldenIron.class, "Golden Iron Waterproof Pipe", 1,
+			pipeLiquidsGoldenIron = createPipe(pipeLiquidsGoldenIronID, PipeFluidsGoldenIron.class, "Golden Iron Waterproof Pipe", 1,
 					BuildCraftTransport.pipeLiquidsGold, BuildCraftTransport.pipeLiquidsIron, null);
 
-			pipeLiquidsBalance = createPipe(pipeLiquidsBalanceID, PipeLiquidsBalance.class, "Balancing Waterproof Pipe", 1,
+			pipeLiquidsBalance = createPipe(pipeLiquidsBalanceID, PipeFluidsBalance.class, "Balancing Waterproof Pipe", 1,
 					BuildCraftTransport.pipeLiquidsWood, new ItemStack(BuildCraftEnergy.engineBlock, 1, 0), BuildCraftTransport.pipeLiquidsWood);
 
-			pipeLiquidsDiamond = createPipe(pipeLiquidsDiamondID, PipeLiquidsDiamond.class, "Diamond Waterproof Pipe", 1, BuildCraftTransport.pipeItemsDiamond,
+			pipeLiquidsDiamond = createPipe(pipeLiquidsDiamondID, PipeFluidsDistribution.class, "Diamond Waterproof Pipe", 1, BuildCraftTransport.pipeItemsDiamond,
 					BuildCraftTransport.pipeWaterproof, null);
 
 			if (GameRegistry.findItem("APUnofficial", "item.PipeLiquidsWaterPump") == null) {
-				pipeLiquidsWaterPump = createPipe(pipeLiquidsWaterPumpID, PipeLiquidsPump.class, "Water Pump Pipe", 1, false, new Object[] { " L ", "rPr",
+				pipeLiquidsWaterPump = createPipe(pipeLiquidsWaterPumpID, PipeFluidsPump.class, "Water Pump Pipe", 1, false, new Object[] { " L ", "rPr",
 						" W ", 'r', Item.redstone, 'P', BuildCraftCore.ironGearItem, 'L', BuildCraftTransport.pipeLiquidsGold, 'W',
 						BuildCraftTransport.pipeLiquidsWood });
 			}

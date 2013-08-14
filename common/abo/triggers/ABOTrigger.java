@@ -12,8 +12,8 @@
 
 package abo.triggers;
 
+import net.minecraft.util.Icon;
 import abo.ABO;
-import buildcraft.api.core.IIconProvider;
 import buildcraft.core.triggers.BCTrigger;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
@@ -24,13 +24,13 @@ import cpw.mods.fml.relauncher.SideOnly;
  */
 public abstract class ABOTrigger extends BCTrigger {
 
-	public ABOTrigger(int id) {
-		super(id);
+	public ABOTrigger(int id, String uniqueTag) {
+		super(id, "abo.trigger." + uniqueTag);
 	}
 
 	@Override
 	@SideOnly(Side.CLIENT)
-	public IIconProvider getIconProvider() {
-		return ABO.instance.itemIconProvider;
+	public Icon getIcon() {
+		return ABO.instance.itemIconProvider.getIcon(getIconIndex());
 	}
 }

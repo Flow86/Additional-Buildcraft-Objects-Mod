@@ -10,7 +10,7 @@
  * granted by the copyright holder.
  */
 
-package abo.pipes.liquids;
+package abo.pipes.fluids;
 
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
@@ -35,9 +35,9 @@ import buildcraft.transport.PipeTransportFluids;
  * @author Flow86
  * 
  */
-public class PipeLiquidsDiamond extends ABOPipe<PipeTransportFluids> implements IClientState {
+public class PipeFluidsDistribution extends ABOPipe<PipeTransportFluids> implements IClientState {
 
-	public PipeLiquidsDiamond(int itemID) {
+	public PipeFluidsDistribution(int itemID) {
 		super(new PipeTransportFluids(), new PipeLogicLiquidsDiamond(), itemID);
 
 		transport.flowRate = 160;

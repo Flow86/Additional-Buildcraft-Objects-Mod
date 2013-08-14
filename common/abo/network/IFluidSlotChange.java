@@ -12,8 +12,8 @@
 
 package abo.network;
 
-import net.minecraftforge.liquids.LiquidStack;
+import net.minecraftforge.fluids.FluidStack;
 
-public interface ILiquidSlotChange {
-	public void update(int slot, LiquidStack stack);
+public interface IFluidSlotChange {
+	public void update(int slot, FluidStack stack);
 }
