@@ -7,7 +7,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.world.World;
 import buildcraft.api.core.SafeTimeTracker;
-import buildcraft.core.utils.Utils;
+import buildcraft.core.inventory.InvUtils;
 
 public class PipeItemsCompactorInventory {
 	private class InventorySlot {
@@ -101,16 +101,13 @@ public class PipeItemsCompactorInventory {
 	 */
 	public void dropContents(World worldObj, int xCoord, int yCoord, int zCoord) {
 		for (InventorySlot inventorySlot : inventoryContents) {
-			Utils.dropItems(worldObj, inventorySlot.getItemStack(), xCoord, yCoord, zCoord);
+			InvUtils.dropItems(worldObj, inventorySlot.getItemStack(), xCoord, yCoord, zCoord);
 		}
 		inventoryContents.clear();
 	}
 
 	/**
-	 * finds a stack in the list which fulfills on of these criteria:
-	 * - stackSize is larger than stackSize
-	 * - has not been changed since unchangedSince ticks
-	 * - stack is full or not stackable
+	 * finds a stack in the list which fulfills on of these criteria: - stackSize is larger than stackSize - has not been changed since unchangedSince ticks - stack is full or not stackable
 	 * 
 	 * @param stackSize
 	 * @param unchangedSince
@@ -120,8 +117,7 @@ public class PipeItemsCompactorInventory {
 		for (Iterator<InventorySlot> inventorySlots = inventoryContents.iterator(); inventorySlots.hasNext();) {
 			InventorySlot inventorySlot = inventorySlots.next();
 
-			if (inventorySlot.getItemStack().stackSize >= stackSize || inventorySlot.isItemStackFull()
-					|| inventorySlot.isNotModifiedSince(worldObj, unchangedSince)) {
+			if (inventorySlot.getItemStack().stackSize >= stackSize || inventorySlot.isItemStackFull() || inventorySlot.isNotModifiedSince(worldObj, unchangedSince)) {
 				inventorySlots.remove();
 				return inventorySlot.getItemStack();
 			}

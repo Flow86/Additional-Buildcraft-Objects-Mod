@@ -22,8 +22,6 @@ import net.minecraft.nbt.NBTBase;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.world.World;
 import net.minecraftforge.common.ForgeDirection;
-import net.minecraftforge.liquids.ILiquidTank;
-import net.minecraftforge.liquids.LiquidStack;
 import abo.ABO;
 import abo.PipeIconProvider;
 import abo.gui.ABOGuiIds;
@@ -31,19 +29,19 @@ import abo.pipes.ABOPipe;
 import buildcraft.core.network.IClientState;
 import buildcraft.core.utils.Utils;
 import buildcraft.transport.BlockGenericPipe;
-import buildcraft.transport.PipeTransportLiquids;
+import buildcraft.transport.PipeTransportFluids;
 
 /**
  * @author Flow86
  * 
  */
-public class PipeLiquidsDiamond extends ABOPipe implements IClientState {
+public class PipeLiquidsDiamond extends ABOPipe<PipeTransportFluids> implements IClientState {
 
 	public PipeLiquidsDiamond(int itemID) {
-		super(new PipeTransportLiquids(), new PipeLogicLiquidsDiamond(), itemID);
+		super(new PipeTransportFluids(), new PipeLogicLiquidsDiamond(), itemID);
 
-		((PipeTransportLiquids) transport).flowRate = 160;
-		((PipeTransportLiquids) transport).travelDelay = 2;
+		transport.flowRate = 160;
+		transport.travelDelay = 2;
 	}
 
 	@Override
@@ -89,7 +87,7 @@ public class PipeLiquidsDiamond extends ABOPipe implements IClientState {
 		if (!super.outputOpen(to))
 			return false;
 
-		PipeTransportLiquids transportLiquids = (PipeTransportLiquids) transport;
+		PipeTransportFluids transportLiquids = transport;
 
 		ILiquidTank[] tanks = transportLiquids.getTanks(ForgeDirection.UNKNOWN);
 

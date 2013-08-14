@@ -14,21 +14,22 @@ package abo.pipes.liquids;
 
 import net.minecraft.block.Block;
 import net.minecraftforge.common.ForgeDirection;
-import net.minecraftforge.liquids.LiquidStack;
+import net.minecraftforge.fluids.FluidContainerRegistry;
+import net.minecraftforge.fluids.FluidStack;
 import abo.PipeIconProvider;
 import abo.pipes.ABOPipe;
-import buildcraft.transport.PipeTransportLiquids;
+import buildcraft.core.utils.BlockUtil;
+import buildcraft.transport.PipeTransportFluids;
 
 /**
- * a pump pipe like in AdditionalPipes, but possibility to enable it for
- * different liquids (standard one is for water).
+ * a pump pipe like in AdditionalPipes, but possibility to enable it for different liquids (standard one is for water).
  * 
  * Original authors: Zeldo, DaStormBringer, Kyprus and/or tcooc
  * 
  * @author Flow86
  * 
  */
-public class PipeLiquidsPump extends ABOPipe {
+public class PipeLiquidsPump extends ABOPipe<PipeTransportFluids> {
 
 	private final Block liquid;
 
@@ -37,18 +38,18 @@ public class PipeLiquidsPump extends ABOPipe {
 	}
 
 	public PipeLiquidsPump(int itemID, Block liquidStill) {
-		super(new PipeTransportLiquids(), new PipeLogicPump(), itemID);
+		super(new PipeTransportFluids(), itemID);
 		liquid = liquidStill;
 
-		((PipeTransportLiquids) transport).flowRate = 80;
-		((PipeTransportLiquids) transport).travelDelay = 4;
+		transport.flowRate = 80;
+		transport.travelDelay = 4;
 	}
 
 	@Override
 	public void updateEntity() {
 		super.updateEntity();
-		if (worldObj.getBlockId(xCoord, yCoord - 1, zCoord) == liquid.blockID) {
-			((PipeTransportLiquids) transport).fill(ForgeDirection.DOWN, new LiquidStack(liquid, 100), true);
+		if (container.worldObj.getBlockId(container.xCoord, container.yCoord - 1, container.zCoord) == liquid.blockID) {
+			transport.fill(ForgeDirection.DOWN, new FluidStack(BlockUtil.getFluid(liquid.blockID), FluidContainerRegistry.BUCKET_VOLUME / 10), true);
 		}
 	}
 
