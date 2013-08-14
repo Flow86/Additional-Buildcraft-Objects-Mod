@@ -59,11 +59,12 @@ public class PipePowerIron extends ABOPipe<PipeTransportPower> implements IPipeT
 	}
 
 	@Override
-	public void requestEnergy(ForgeDirection from, float amount) {
+	public float requestEnergy(ForgeDirection from, float amount) {
 		int metadata = container.getBlockMetadata();
 
 		if (metadata == from.ordinal()) {
-			transport.nextPowerQuery[from.ordinal()] += amount;
+			return amount;
 		}
+		return 0;
 	}
 }

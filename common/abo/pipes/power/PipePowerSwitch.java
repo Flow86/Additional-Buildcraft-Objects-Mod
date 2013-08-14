@@ -175,7 +175,6 @@ public class PipePowerSwitch extends ABOPipe<PipeTransportPower> implements IAct
 
 	@Override
 	public float receiveEnergy(ForgeDirection from, float val) {
-
 		// no power is received if "disconnected"
 		if (!isPowered())
 			return val;
@@ -192,11 +191,11 @@ public class PipePowerSwitch extends ABOPipe<PipeTransportPower> implements IAct
 	}
 
 	@Override
-	public void requestEnergy(ForgeDirection from, float amount) {
+	public float requestEnergy(ForgeDirection from, float amount) {
 		// no power is requested if "disconnected"
 		if (!isPowered())
-			return;
+			return 0;
 
-		transport.nextPowerQuery[from.ordinal()] += amount;
+		return amount;
 	}
 }

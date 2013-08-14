@@ -17,18 +17,21 @@ import abo.PipeIconProvider;
 import abo.pipes.ABOPipe;
 import buildcraft.api.core.Position;
 import buildcraft.api.power.IPowerReceptor;
+import buildcraft.api.power.PowerHandler;
+import buildcraft.api.power.PowerHandler.PowerReceiver;
+import buildcraft.api.power.PowerHandler.Type;
 import buildcraft.core.proxy.CoreProxy;
 import buildcraft.core.utils.BlockUtil;
-import buildcraft.core.utils.Utils;
 import buildcraft.transport.IItemTravelingHook;
 import buildcraft.transport.PipeConnectionBans;
 import buildcraft.transport.PipeTransportItems;
+import buildcraft.transport.TravelingItem;
 import buildcraft.transport.pipes.PipeItemsObsidian;
 
 public class PipeItemsStripes extends ABOPipe<PipeTransportItems> implements IItemTravelingHook, IPowerReceptor {
 
-	private static final int powerToBreakABlock = 50;
-	private IPowerProvider powerProvider;
+	private static final float powerToBreakABlock = 50.0f;
+	protected PowerHandler powerHandler;
 
 	public PipeItemsStripes(int itemID) {
 		super(new PipeTransportItems(), itemID);
@@ -37,9 +40,9 @@ public class PipeItemsStripes extends ABOPipe<PipeTransportItems> implements IIt
 
 		transport.travelHook = this;
 
-		powerProvider = PowerFramework.currentFramework.createPowerProvider();
-		powerProvider.configure(25, 0, powerToBreakABlock / 2, powerToBreakABlock, powerToBreakABlock * 10);
-		// powerProvider.configurePowerPerdition(1, 1);
+		powerHandler = new PowerHandler(this, Type.MACHINE);
+		powerHandler.configure(0.0f, powerToBreakABlock / 2.0f, powerToBreakABlock, powerToBreakABlock * 10);
+		powerHandler.configurePowerPerdition(0, 0);
 	}
 
 	@Override
@@ -48,47 +51,49 @@ public class PipeItemsStripes extends ABOPipe<PipeTransportItems> implements IIt
 	}
 
 	@Override
-	public void doWork() {
-		if (powerProvider.useEnergy(powerToBreakABlock, powerToBreakABlock, true) == powerToBreakABlock) {
+	public void doWork(PowerHandler workProvider) {
+		if (workProvider.useEnergy(powerToBreakABlock, powerToBreakABlock, true) == powerToBreakABlock) {
 			ForgeDirection o = getOpenOrientation();
 
 			if (o != ForgeDirection.UNKNOWN) {
-				Position p = new Position(xCoord, yCoord, zCoord, o);
+				Position p = new Position(container.xCoord, container.yCoord, container.zCoord, o);
 				p.moveForwards(1.0);
 
-				List<ItemStack> stacks = BlockUtil.getItemStackFromBlock(worldObj, (int) p.x, (int) p.y, (int) p.z);
+				List<ItemStack> stacks = BlockUtil.getItemStackFromBlock(container.worldObj, (int) p.x, (int) p.y, (int) p.z);
 
-				if (stacks != null)
-					for (ItemStack s : stacks)
+				if (stacks != null) {
+					for (ItemStack s : stacks) {
 						if (s != null) {
-							IPipedItem newItem = new EntityPassiveItem(worldObj, xCoord + 0.5, yCoord + Utils.getPipeFloorOf(s), zCoord + 0.5, s);
-
-							this.container.entityEntering(newItem, o.getOpposite());
+							this.container.injectItem(s, true, o.getOpposite());
 						}
+					}
+				}
 
-				worldObj.setBlock((int) p.x, (int) p.y, (int) p.z, 0);
+				container.worldObj.setBlockToAir((int) p.x, (int) p.y, (int) p.z);
 			}
 		}
 
 	}
 
 	@Override
-	public void drop(PipeTransportItems pipe, EntityData data) {
-		Position p = new Position(xCoord, yCoord, zCoord, data.output);
+	public void drop(PipeTransportItems pipe, TravelingItem item) {
+		Position p = new Position(container.xCoord, container.yCoord, container.zCoord, item.output);
 		p.moveForwards(1.0);
 
 		/*
 		 * if (convertPipe(pipe, data)) if(CoreProxy.proxy.isSimulating(worldObj)) BuildCraftTransport.pipeItemsStipes.onItemUseFirst(new ItemStack(BuildCraftTransport.pipeItemsStipes),
 		 * CoreProxy.proxy.getBuildCraftPlayer(worldObj), worldObj, (int) p.x, (int) p.y - 1, (int) p.z, 1); else
 		 */
-		if (worldObj.getBlockId((int) p.x, (int) p.y, (int) p.z) == 0)
-			data.item.getItemStack().getItem().onItemUse(data.item.getItemStack(), CoreProxy.proxy.getBuildCraftPlayer(worldObj), worldObj, (int) p.x, (int) p.y - 1, (int) p.z, 1, 0.0f, 0.0f, 0.0f);
+		if (container.worldObj.isAirBlock((int) p.x, (int) p.y, (int) p.z))
+			item.getItemStack().getItem()
+					.onItemUse(item.getItemStack(), CoreProxy.proxy.getBuildCraftPlayer(container.worldObj), container.worldObj, (int) p.x, (int) p.y - 1, (int) p.z, 1, 0.0f, 0.0f, 0.0f);
 		else
-			data.item.getItemStack().getItem().onItemUse(data.item.getItemStack(), CoreProxy.proxy.getBuildCraftPlayer(worldObj), worldObj, (int) p.x, (int) p.y, (int) p.z, 1, 0.0f, 0.0f, 0.0f);
+			item.getItemStack().getItem()
+					.onItemUse(item.getItemStack(), CoreProxy.proxy.getBuildCraftPlayer(container.worldObj), container.worldObj, (int) p.x, (int) p.y, (int) p.z, 1, 0.0f, 0.0f, 0.0f);
 	}
 
 	@Override
-	public void centerReached(PipeTransportItems pipe, EntityData data) {
+	public void centerReached(PipeTransportItems pipe, TravelingItem item) {
 		// convertPipe(pipe, data); removed because it is buggy - it does not
 		// sync the pipe change
 	}
@@ -116,22 +121,12 @@ public class PipeItemsStripes extends ABOPipe<PipeTransportItems> implements IIt
 	 */
 
 	@Override
-	public void setPowerProvider(IPowerProvider provider) {
-		powerProvider = provider;
+	public boolean endReached(PipeTransportItems pipe, TravelingItem data, TileEntity tile) {
+		return false;
 	}
 
 	@Override
-	public IPowerProvider getPowerProvider() {
-		return powerProvider;
-	}
-
-	@Override
-	public int powerRequest(ForgeDirection from) {
-		return getPowerProvider().getMaxEnergyReceived();
-	}
-
-	@Override
-	public void endReached(PipeTransportItems pipe, EntityData data, TileEntity tile) {
-
+	public PowerReceiver getPowerReceiver(ForgeDirection side) {
+		return powerHandler.getPowerReceiver();
 	}
 }
