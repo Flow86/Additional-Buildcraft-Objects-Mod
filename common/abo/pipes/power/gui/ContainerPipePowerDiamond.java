@@ -15,7 +15,6 @@ package abo.pipes.power.gui;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.ICrafting;
-import abo.pipes.power.PipeLogicPowerDistribution;
 import abo.pipes.power.PipePowerDistribution;
 import buildcraft.core.gui.BuildCraftContainer;
 import buildcraft.transport.TileGenericPipe;
@@ -29,10 +28,9 @@ public class ContainerPipePowerDiamond extends BuildCraftContainer {
 		super(0);
 
 		pipe = (PipePowerDistribution) tile.pipe;
-		PipeLogicPowerDistribution logic = (PipeLogicPowerDistribution) pipe.logic;
 
 		for (int i = 0; i < 6; ++i)
-			connectionMatrix[i] = logic.connectionMatrix[i];
+			connectionMatrix[i] = pipe.connectionMatrix[i];
 	}
 
 	@Override
@@ -44,15 +42,13 @@ public class ContainerPipePowerDiamond extends BuildCraftContainer {
 	public void detectAndSendChanges() {
 		super.detectAndSendChanges();
 
-		PipeLogicPowerDistribution logic = (PipeLogicPowerDistribution) pipe.logic;
-
 		// send update to all connected crafters
 		for (Object crafter : crafters) {
 			for (int i = 0; i < 6; ++i) {
-				if (connectionMatrix[i] != logic.connectionMatrix[i]) {
+				if (connectionMatrix[i] != pipe.connectionMatrix[i]) {
 					// System.out.println("detectAndSendChanges: " + i + " to " + logic.connectionMatrix[i]);
-					((ICrafting) crafter).sendProgressBarUpdate(this, i, (logic.connectionMatrix[i] ? 1 : 0));
-					connectionMatrix[i] = logic.connectionMatrix[i];
+					((ICrafting) crafter).sendProgressBarUpdate(this, i, (pipe.connectionMatrix[i] ? 1 : 0));
+					connectionMatrix[i] = pipe.connectionMatrix[i];
 				}
 			}
 		}
@@ -60,11 +56,9 @@ public class ContainerPipePowerDiamond extends BuildCraftContainer {
 
 	@Override
 	public void updateProgressBar(int id, int value) {
-		PipeLogicPowerDistribution logic = (PipeLogicPowerDistribution) pipe.logic;
-
 		// System.out.println("updateProgress: " + id + " to " + (value == 1));
-		logic.update(id, (value == 1));
-		connectionMatrix[id] = logic.connectionMatrix[id];
+		pipe.update(id, (value == 1));
+		connectionMatrix[id] = pipe.connectionMatrix[id];
 	}
 
 }

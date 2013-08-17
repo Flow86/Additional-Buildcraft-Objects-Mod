@@ -78,9 +78,9 @@ public class PacketFluidSlotChange extends ABOPacket {
 		if (pipe == null || pipe.pipe == null)
 			return;
 
-		if (!(pipe.pipe.logic instanceof IFluidSlotChange))
+		if (!(pipe.pipe instanceof IFluidSlotChange))
 			return;
 
-		((IFluidSlotChange) pipe.pipe.logic).update(slot, stack);
+		((IFluidSlotChange) pipe.pipe).update(slot, stack);
 	}
 }

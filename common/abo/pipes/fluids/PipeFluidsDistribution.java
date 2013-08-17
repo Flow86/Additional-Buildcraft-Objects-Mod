@@ -20,11 +20,12 @@ import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.nbt.NBTBase;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.world.World;
 import net.minecraftforge.common.ForgeDirection;
+import net.minecraftforge.fluids.FluidStack;
 import abo.ABO;
 import abo.PipeIconProvider;
 import abo.gui.ABOGuiIds;
+import abo.network.IFluidSlotChange;
 import abo.pipes.ABOPipe;
 import buildcraft.core.network.IClientState;
 import buildcraft.core.utils.Utils;
@@ -35,27 +36,30 @@ import buildcraft.transport.PipeTransportFluids;
  * @author Flow86
  * 
  */
-public class PipeFluidsDistribution extends ABOPipe<PipeTransportFluids> implements IClientState {
+public class PipeFluidsDistribution extends ABOPipe<PipeTransportFluids> implements IClientState, IFluidSlotChange {
+
+	public final FluidStack[] fluidStacks = new FluidStack[6 * 9];
+	
 
 	public PipeFluidsDistribution(int itemID) {
-		super(new PipeTransportFluids(), new PipeLogicLiquidsDiamond(), itemID);
+		super(new PipeTransportFluids(), itemID);
 
 		transport.flowRate = 160;
 		transport.travelDelay = 2;
 	}
 
 	@Override
-	public boolean blockActivated(World world, int x, int y, int z, EntityPlayer entityplayer) {
+	public boolean blockActivated(EntityPlayer entityplayer) {
 		if (entityplayer.getCurrentEquippedItem() != null && entityplayer.getCurrentEquippedItem().itemID < Block.blocksList.length) {
 			if (Block.blocksList[entityplayer.getCurrentEquippedItem().itemID] instanceof BlockGenericPipe)
 				return false;
 		}
 
-		if (super.blockActivated(worldObj, x, y, z, entityplayer))
+		if (super.blockActivated(entityplayer))
 			return true;
 
-		if (!worldObj.isRemote)
-			entityplayer.openGui(ABO.instance, ABOGuiIds.PIPE_DIAMOND_LIQUIDS, worldObj, x, y, z);
+		if (!container.worldObj.isRemote)
+			entityplayer.openGui(ABO.instance, ABOGuiIds.PIPE_DIAMOND_LIQUIDS, container.worldObj, container.xCoord, container.yCoord, container.zCoord);
 
 		return true;
 	}
@@ -112,7 +116,7 @@ public class PipeFluidsDistribution extends ABOPipe<PipeTransportFluids> impleme
 
 			if (Utils.checkPipesConnections(container.getTile(dir), container)) {
 				for (int slot = 0; slot < 9; ++slot) {
-					LiquidStack liquidStack = logicDiamond.liquidStacks[dir.ordinal() * 9 + slot];
+					LiquidStack liquidStack = logicDiamond.fluidStacks[dir.ordinal() * 9 + slot];
 
 					if (liquidStack != null) {
 						filteredDirections[dir.ordinal()] = true;
@@ -142,7 +146,12 @@ public class PipeFluidsDistribution extends ABOPipe<PipeTransportFluids> impleme
 	@Override
 	public void writeData(DataOutputStream data) throws IOException {
 		NBTTagCompound nbt = new NBTTagCompound();
-		logic.writeToNBT(nbt);
+		for (int i = 0; i < fluidStacks.length; ++i) {
+			NBTTagCompound nbttagcompound = new NBTTagCompound();
+			if (fluidStacks[i] != null)
+				fluidStacks[i].writeToNBT(nbttagcompound);
+			nbt.setTag("liquidStack[" + i + "]", nbttagcompound);
+		}
 		NBTBase.writeNamedTag(nbt, data);
 	}
 
@@ -150,7 +159,20 @@ public class PipeFluidsDistribution extends ABOPipe<PipeTransportFluids> impleme
 	public void readData(DataInputStream data) throws IOException {
 		NBTBase nbt = NBTBase.readNamedTag(data);
 		if (nbt instanceof NBTTagCompound) {
-			logic.readFromNBT((NBTTagCompound) nbt);
+			for (int i = 0; i < fluidStacks.length; ++i) {
+				NBTTagCompound nbttagcompound = ((NBTTagCompound) nbt).getCompoundTag("liquidStack[" + i + "]");
+				if (nbttagcompound != null)
+					fluidStacks[i] = FluidStack.loadFluidStackFromNBT(nbttagcompound);
+			}
+		}
+	}
+
+	@Override
+	public void update(int slot, FluidStack stack) {
+		// System.out.println("update: " + worldObj.isRemote + " - " + slot + " to " + stack);
+
+		if (stack != fluidStacks[slot]) {
+			fluidStacks[slot] = stack;
 		}
 	}
 }

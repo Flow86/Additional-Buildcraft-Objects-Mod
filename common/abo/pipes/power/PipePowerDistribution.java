@@ -20,40 +20,51 @@ import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.nbt.NBTBase;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.world.World;
+import net.minecraft.tileentity.TileEntity;
 import net.minecraftforge.common.ForgeDirection;
 import abo.ABO;
 import abo.PipeIconProvider;
 import abo.gui.ABOGuiIds;
+import abo.network.IYesNoChange;
 import abo.pipes.ABOPipe;
 import buildcraft.core.network.IClientState;
 import buildcraft.transport.BlockGenericPipe;
 import buildcraft.transport.PipeTransportPower;
 
-public class PipePowerDistribution extends ABOPipe implements IClientState {
+public class PipePowerDistribution extends ABOPipe<PipeTransportPower> implements IClientState, IYesNoChange {
+	public final boolean[] connectionMatrix = { true, true, true, true, true, true };
 
 	public boolean isDirty = true;
 
 	public PipePowerDistribution(int itemID) {
-		super(new PipeTransportPower(), new PipeLogicPowerDistribution(), itemID);
+		super(new PipeTransportPower(), itemID);
 
-		((PipeTransportPower) transport).maxPower = 256;
+		transport.maxPower = 256;
 	}
 
 	@Override
-	public boolean blockActivated(World world, int x, int y, int z, EntityPlayer entityplayer) {
+	public boolean blockActivated(EntityPlayer entityplayer) {
 		if (entityplayer.getCurrentEquippedItem() != null && entityplayer.getCurrentEquippedItem().itemID < Block.blocksList.length) {
 			if (Block.blocksList[entityplayer.getCurrentEquippedItem().itemID] instanceof BlockGenericPipe)
 				return false;
 		}
 
-		if (super.blockActivated(worldObj, x, y, z, entityplayer))
+		if (super.blockActivated(entityplayer))
 			return true;
 
-		if (!worldObj.isRemote)
-			entityplayer.openGui(ABO.instance, ABOGuiIds.PIPE_DIAMOND_POWER, worldObj, x, y, z);
+		if (!container.worldObj.isRemote)
+			entityplayer.openGui(ABO.instance, ABOGuiIds.PIPE_DIAMOND_POWER, container.worldObj, container.xCoord, container.yCoord, container.zCoord);
 
 		return true;
+	}
+
+	@Override
+	public void update(int slot, boolean state) {
+		if (connectionMatrix[slot] != state) {
+			connectionMatrix[slot] = state;
+			isDirty = true;
+			updateEntity();
+		}
 	}
 
 	@Override
@@ -91,11 +102,17 @@ public class PipePowerDistribution extends ABOPipe implements IClientState {
 		}
 	}
 
+	@Override
+	public boolean canPipeConnect(TileEntity tile, ForgeDirection side) {
+		return connectionMatrix[side.ordinal()] && super.canPipeConnect(tile, side);
+	}
+
 	// ICLIENTSTATE
 	@Override
 	public void writeData(DataOutputStream data) throws IOException {
 		NBTTagCompound nbt = new NBTTagCompound();
-		logic.writeToNBT(nbt);
+		for (int i = 0; i < 6; ++i)
+			nbt.setBoolean("connectionMatrix[" + i + "]", connectionMatrix[i]);
 		NBTBase.writeNamedTag(nbt, data);
 	}
 
@@ -103,7 +120,8 @@ public class PipePowerDistribution extends ABOPipe implements IClientState {
 	public void readData(DataInputStream data) throws IOException {
 		NBTBase nbt = NBTBase.readNamedTag(data);
 		if (nbt instanceof NBTTagCompound) {
-			logic.readFromNBT((NBTTagCompound) nbt);
+			for (int i = 0; i < 6; ++i)
+				connectionMatrix[i] = ((NBTTagCompound) nbt).getBoolean("connectionMatrix[" + i + "]");
 		}
 	}
 }

@@ -13,12 +13,12 @@
 package abo.pipes.power.gui;
 
 import net.minecraft.entity.player.InventoryPlayer;
+import net.minecraft.util.ResourceLocation;
 
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL12;
 
 import abo.network.PacketYesNoChange;
-import abo.pipes.power.PipeLogicPowerDistribution;
 import abo.pipes.power.PipePowerDistribution;
 import abo.proxy.ABOProxy;
 import buildcraft.core.gui.GuiAdvancedInterface;
@@ -26,33 +26,34 @@ import buildcraft.core.utils.StringUtils;
 import buildcraft.transport.TileGenericPipe;
 
 public class GuiPipePowerDiamond extends GuiAdvancedInterface {
+	private static final ResourceLocation TEXTURE = new ResourceLocation("abo", "textures/gui/pipePowerDiamond.png");
 
 	class YesNoSlot extends AdvancedSlot {
 
 		private final int nr;
-		private final PipeLogicPowerDistribution logic;
+		private final PipePowerDistribution pipe;
 
 		public YesNoSlot(int nr, int x, int y, TileGenericPipe tile) {
 			super(x, y);
-			logic = (PipeLogicPowerDistribution) tile.pipe.logic;
+			pipe = (PipePowerDistribution) tile.pipe;
 			this.nr = nr;
 		}
 
 		public boolean isYes() {
-			return logic.connectionMatrix[nr];
+			return pipe.connectionMatrix[nr];
 		}
 
 		public void toggle() {
-			logic.update(nr, !logic.connectionMatrix[nr]);
+			pipe.update(nr, !pipe.connectionMatrix[nr]);
 		}
 	}
 
-	private final ContainerPipePowerDiamond container;
+	private final ContainerPipePowerDiamond guiContainer;
 
 	public GuiPipePowerDiamond(InventoryPlayer player, TileGenericPipe tile) {
 		super(new ContainerPipePowerDiamond(player, tile), null);
 
-		container = (ContainerPipePowerDiamond) inventorySlots;
+		guiContainer = (ContainerPipePowerDiamond) inventorySlots;
 
 		slots = new AdvancedSlot[6];
 		for (int i = 0; i < 6; ++i) {
@@ -83,7 +84,7 @@ public class GuiPipePowerDiamond extends GuiAdvancedInterface {
 
 		GL11.glEnable(GL12.GL_RESCALE_NORMAL);
 		GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
-		mc.renderEngine.bindTexture("/gfx/abo/gui/pipePowerDiamond.png");
+		mc.renderEngine.func_110577_a(TEXTURE);
 
 		int cornerX = (width - xSize) / 2;
 		int cornerY = (height - ySize) / 2;
@@ -118,10 +119,10 @@ public class GuiPipePowerDiamond extends GuiAdvancedInterface {
 
 			s.toggle();
 
-			container.detectAndSendChanges();
+			guiContainer.detectAndSendChanges();
 
-			if (container.pipe.worldObj.isRemote) {
-				PacketYesNoChange packet = new PacketYesNoChange(container.pipe.xCoord, container.pipe.yCoord, container.pipe.zCoord, s.nr, s.isYes());
+			if (s.pipe.container.worldObj.isRemote) {
+				PacketYesNoChange packet = new PacketYesNoChange(s.pipe.container.xCoord, s.pipe.container.yCoord, s.pipe.container.zCoord, s.nr, s.isYes());
 				ABOProxy.proxy.sendToServer(packet.getPacket());
 			}
 		}

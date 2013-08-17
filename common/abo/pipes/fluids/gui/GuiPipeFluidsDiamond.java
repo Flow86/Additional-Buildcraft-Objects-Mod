@@ -19,8 +19,7 @@ import java.util.LinkedList;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.Icon;
-import net.minecraftforge.liquids.LiquidDictionary;
-import net.minecraftforge.liquids.LiquidStack;
+import net.minecraftforge.fluids.FluidStack;
 
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL12;
@@ -36,7 +35,7 @@ import buildcraft.transport.TileGenericPipe;
 public class GuiPipeFluidsDiamond extends GuiAdvancedInterface {
 
 	private final ContainerPipeFluidsDiamond container;
-	private final HashMap<String, LiquidStack> liquids = new HashMap<String, LiquidStack>();
+	private final HashMap<String, FluidStack> liquids = new HashMap<String, FluidStack>();
 	private final LinkedList<String> liquidsList = new LinkedList<String>();
 
 	public class LiquidSlot extends AdvancedSlot {
@@ -96,7 +95,7 @@ public class GuiPipeFluidsDiamond extends GuiAdvancedInterface {
 				int nr = i * 9 + j;
 				slots[nr] = new LiquidSlot(nr, 8 + j * (16 + 2), 18 + i * (16 + 2));
 
-				((LiquidSlot) slots[nr]).liquid = LiquidDictionary.findLiquidName(logic.liquidStacks[nr]);
+				((LiquidSlot) slots[nr]).liquid = LiquidDictionary.findLiquidName(logic.fluidStacks[nr]);
 			}
 		}
 
@@ -162,7 +161,7 @@ public class GuiPipeFluidsDiamond extends GuiAdvancedInterface {
 			else
 				liquidSlot.liquid = null;
 
-			((PipeLogicLiquidsDiamond) container.pipe.logic).liquidStacks[liquidSlot.nr] = liquids.get(liquidSlot.liquid);
+			((PipeLogicLiquidsDiamond) container.pipe.logic).fluidStacks[liquidSlot.nr] = liquids.get(liquidSlot.liquid);
 
 			container.detectAndSendChanges();
 

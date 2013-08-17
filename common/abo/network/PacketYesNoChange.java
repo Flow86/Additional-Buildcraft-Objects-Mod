@@ -55,9 +55,9 @@ public class PacketYesNoChange extends ABOPacket {
 		if (pipe == null || pipe.pipe == null)
 			return;
 
-		if (!(pipe.pipe.logic instanceof IYesNoChange))
+		if (!(pipe.pipe instanceof IYesNoChange))
 			return;
 
-		((IYesNoChange) pipe.pipe.logic).update(slot, state);
+		((IYesNoChange) pipe.pipe).update(slot, state);
 	}
 }
