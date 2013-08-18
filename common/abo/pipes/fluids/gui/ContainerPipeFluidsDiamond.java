@@ -16,10 +16,8 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.ICrafting;
 import net.minecraft.inventory.Slot;
-import net.minecraft.item.ItemStack;
 import net.minecraftforge.fluids.Fluid;
-import net.minecraftforge.fluids.FluidContainerRegistry;
-import net.minecraftforge.fluids.FluidStack;
+import net.minecraftforge.fluids.FluidRegistry;
 import abo.pipes.fluids.PipeFluidsDistribution;
 import buildcraft.core.gui.BuildCraftContainer;
 import buildcraft.transport.TileGenericPipe;
@@ -48,9 +46,7 @@ public class ContainerPipeFluidsDiamond extends BuildCraftContainer {
 		for (Object crafter : crafters) {
 			for (int i = 0; i < fluids.length; ++i) {
 				if (fluids[i] != pipe.fluids[i]) {
-					// System.out.println("detectAndSendChanges: " + i + " to " + (logic.FluidStacks[i] != null ? logic.FluidStacks[i].asItemStack() : null));
 					((ICrafting) crafter).sendProgressBarUpdate(this, i, pipe.fluids[i] != null ? pipe.fluids[i].getID() : 0);
-					// ((ICrafting) crafter).sendSlotContents(this, i, pipe.fluidStacks[i] != null ? pipe.fluidStacks[i].asItemStack() : null);
 					fluids[i] = pipe.fluids[i];
 				}
 			}
@@ -59,20 +55,13 @@ public class ContainerPipeFluidsDiamond extends BuildCraftContainer {
 	}
 
 	@Override
-	public Slot getSlot(int id) {
-		return null;
+	public void updateProgressBar(int id, int data) {
+		pipe.update(id, FluidRegistry.getFluid(data));
+		fluids[id] = pipe.fluids[id];
 	}
 
 	@Override
-	public void putStackInSlot(int id, ItemStack value) {
-		FluidStack fluidStack = null;
-
-		if (value != null) {
-			fluidStack = FluidContainerRegistry.getFluidForFilledItem(value);
-		}
-
-		// System.out.println("putStackInSlot: " + id + " to " + FluidStack);
-		pipe.update(id, fluidStack.getFluid());
-		fluids[id] = pipe.fluids[id];
+	public Slot getSlot(int id) {
+		return null;
 	}
 }

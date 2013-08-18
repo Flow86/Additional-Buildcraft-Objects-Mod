@@ -47,7 +47,8 @@ public class PipePowerSwitch extends ABOPipe<PipeTransportPower> implements IAct
 
 		PipeConnectionBans.banConnection(PipePowerSwitch.class, PipePowerSwitch.class);
 
-		transport.maxPower = 256;
+		transport.powerCapacities.put(PipePowerSwitch.class, 1024);
+		transport.initFromPipe(getClass());
 	}
 
 	@Override

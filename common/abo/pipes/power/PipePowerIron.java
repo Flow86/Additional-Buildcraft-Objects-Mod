@@ -74,7 +74,8 @@ public class PipePowerIron extends ABOPipe<PipeTransportPower> implements IPipeT
 	public PipePowerIron(int itemID) {
 		super(new PipeTransportPower(), itemID);
 
-		transport.maxPower = 256;
+		transport.powerCapacities.put(PipePowerIron.class, 1024);
+		transport.initFromPipe(getClass());
 	}
 
 	@Override

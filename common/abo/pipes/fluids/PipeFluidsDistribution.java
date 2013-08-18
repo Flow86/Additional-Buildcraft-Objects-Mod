@@ -98,7 +98,7 @@ public class PipeFluidsDistribution extends ABOPipe<PipeTransportFluids> impleme
 		if (tanks == null || tanks[0] == null || tanks[0].fluid == null || tanks[0].fluid.amount == 0)
 			return true;
 
-		Fluid fluidInTank = tanks[ForgeDirection.UNKNOWN.ordinal()].fluid.getFluid();
+		Fluid fluidInTank = tanks[0].fluid.getFluid();
 
 		boolean[] validDirections = new boolean[ForgeDirection.values().length];
 		boolean[] filteredDirections = new boolean[ForgeDirection.values().length];
@@ -160,6 +160,29 @@ public class PipeFluidsDistribution extends ABOPipe<PipeTransportFluids> impleme
 				if (nbttagcompound != null)
 					fluids[i] = FluidRegistry.getFluid(nbttagcompound.getString("FluidName"));
 			}
+		}
+	}
+
+	@Override
+	public void writeToNBT(NBTTagCompound data) {
+		for (int i = 0; i < fluids.length; ++i) {
+			NBTTagCompound nbt = new NBTTagCompound();
+			if (fluids[i] != null)
+				nbt.setString("FluidName", fluids[i].getName());
+			data.setTag("fluidStack[" + i + "]", nbt);
+		}
+
+		super.writeToNBT(data);
+	}
+
+	@Override
+	public void readFromNBT(NBTTagCompound data) {
+		super.readFromNBT(data);
+
+		for (int i = 0; i < fluids.length; ++i) {
+			NBTTagCompound nbttagcompound = data.getCompoundTag("fluidStack[" + i + "]");
+			if (nbttagcompound != null)
+				fluids[i] = FluidRegistry.getFluid(nbttagcompound.getString("FluidName"));
 		}
 	}
 
