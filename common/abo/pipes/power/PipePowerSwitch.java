@@ -27,7 +27,7 @@ import buildcraft.api.gates.IAction;
 import buildcraft.api.gates.IActionReceptor;
 import buildcraft.transport.BlockGenericPipe;
 import buildcraft.transport.IPipeTransportPowerHook;
-import buildcraft.transport.Pipe;
+import buildcraft.transport.PipeConnectionBans;
 import buildcraft.transport.PipeTransportPower;
 import buildcraft.transport.TileGenericPipe;
 
@@ -45,25 +45,14 @@ public class PipePowerSwitch extends ABOPipe<PipeTransportPower> implements IAct
 	public PipePowerSwitch(int itemID) {
 		super(new PipeTransportPower(), itemID);
 
+		PipeConnectionBans.banConnection(PipePowerSwitch.class, PipePowerSwitch.class);
+
 		transport.maxPower = 256;
 	}
 
 	@Override
 	public int getIconIndex(ForgeDirection direction) {
 		return isPowered() ? poweredTexture : unpoweredTexture;
-	}
-
-	@Override
-	public boolean canPipeConnect(TileEntity tile, ForgeDirection side) {
-		Pipe pipe2 = null;
-
-		if (tile instanceof TileGenericPipe)
-			pipe2 = ((TileGenericPipe) tile).pipe;
-
-		if (!isPowered())
-			return false;
-
-		return (pipe2 == null || !(pipe2 instanceof PipePowerSwitch)) && super.canPipeConnect(tile, side);
 	}
 
 	/**
