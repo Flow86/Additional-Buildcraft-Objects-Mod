@@ -19,7 +19,7 @@ import net.minecraftforge.common.ForgeDirection;
 import abo.PipeIconProvider;
 import abo.pipes.ABOPipe;
 import buildcraft.api.core.Position;
-import buildcraft.api.transport.IPipe;
+import buildcraft.api.transport.IPipeTile;
 import buildcraft.transport.IPipeTransportItemsHook;
 import buildcraft.transport.PipeTransportItems;
 import buildcraft.transport.TravelingItem;
@@ -54,7 +54,7 @@ public class PipeItemsInsertion extends ABOPipe<PipeTransportItems> implements I
 				if (transport.canReceivePipeObjects(o, item)) {
 
 					TileEntity entity = container.getTile(o);
-					if (entity instanceof IPipe)
+					if (entity instanceof IPipeTile)
 						pipesList.add(o);
 					else
 						nonPipesList.add(o);

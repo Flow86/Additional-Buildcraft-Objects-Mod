@@ -21,7 +21,7 @@ import abo.PipeIconProvider;
 import buildcraft.api.core.IIconProvider;
 import buildcraft.api.core.Position;
 import buildcraft.api.power.IPowerReceptor;
-import buildcraft.api.transport.IPipe;
+import buildcraft.api.transport.IPipeTile;
 import buildcraft.transport.IPipeTransportItemsHook;
 import buildcraft.transport.PipeConnectionBans;
 import buildcraft.transport.TravelingItem;
@@ -78,7 +78,7 @@ public class PipeItemsExtraction extends PipeItemsWood implements IPowerReceptor
 				if (transport.canReceivePipeObjects(o, item)) {
 
 					TileEntity entity = container.getTile(o);
-					if (entity instanceof IPipe)
+					if (entity instanceof IPipeTile)
 						pipesList.add(o);
 					else
 						nonPipesList.add(o);
