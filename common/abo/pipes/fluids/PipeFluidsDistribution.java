@@ -21,7 +21,9 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.nbt.NBTBase;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraftforge.common.ForgeDirection;
-import net.minecraftforge.fluids.FluidStack;
+import net.minecraftforge.fluids.Fluid;
+import net.minecraftforge.fluids.FluidRegistry;
+import net.minecraftforge.fluids.FluidTankInfo;
 import abo.ABO;
 import abo.PipeIconProvider;
 import abo.gui.ABOGuiIds;
@@ -38,8 +40,7 @@ import buildcraft.transport.PipeTransportFluids;
  */
 public class PipeFluidsDistribution extends ABOPipe<PipeTransportFluids> implements IClientState, IFluidSlotChange {
 
-	public final FluidStack[] fluidStacks = new FluidStack[6 * 9];
-	
+	public final Fluid[] fluids = new Fluid[6 * 9];
 
 	public PipeFluidsDistribution(int itemID) {
 		super(new PipeTransportFluids(), itemID);
@@ -91,18 +92,14 @@ public class PipeFluidsDistribution extends ABOPipe<PipeTransportFluids> impleme
 		if (!super.outputOpen(to))
 			return false;
 
-		PipeTransportFluids transportLiquids = transport;
-
-		ILiquidTank[] tanks = transportLiquids.getTanks(ForgeDirection.UNKNOWN);
+		FluidTankInfo[] tanks = transport.getTankInfo(ForgeDirection.UNKNOWN);
 
 		// center tank
-		if (tanks == null || tanks[ForgeDirection.UNKNOWN.ordinal()] == null || tanks[ForgeDirection.UNKNOWN.ordinal()].getLiquid() == null
-				|| tanks[ForgeDirection.UNKNOWN.ordinal()].getLiquid().amount == 0)
+		if (tanks == null || tanks[ForgeDirection.UNKNOWN.ordinal()] == null || tanks[ForgeDirection.UNKNOWN.ordinal()].fluid == null
+				|| tanks[ForgeDirection.UNKNOWN.ordinal()].fluid.amount == 0)
 			return true;
 
-		LiquidStack liquid = tanks[ForgeDirection.UNKNOWN.ordinal()].getLiquid();
-
-		PipeLogicLiquidsDiamond logicDiamond = (PipeLogicLiquidsDiamond) logic;
+		Fluid fluidInTank = tanks[ForgeDirection.UNKNOWN.ordinal()].fluid.getFluid();
 
 		boolean[] validDirections = new boolean[ForgeDirection.values().length];
 		boolean[] filteredDirections = new boolean[ForgeDirection.values().length];
@@ -116,12 +113,12 @@ public class PipeFluidsDistribution extends ABOPipe<PipeTransportFluids> impleme
 
 			if (Utils.checkPipesConnections(container.getTile(dir), container)) {
 				for (int slot = 0; slot < 9; ++slot) {
-					LiquidStack liquidStack = logicDiamond.fluidStacks[dir.ordinal() * 9 + slot];
+					Fluid fluid = fluids[dir.ordinal() * 9 + slot];
 
-					if (liquidStack != null) {
+					if (fluid != null) {
 						filteredDirections[dir.ordinal()] = true;
 
-						if (liquid.isLiquidEqual(liquidStack)) {
+						if (fluidInTank.getID() == fluid.getID()) {
 							validDirections[dir.ordinal()] = true;
 							filterForLiquid = true;
 						}
@@ -146,11 +143,11 @@ public class PipeFluidsDistribution extends ABOPipe<PipeTransportFluids> impleme
 	@Override
 	public void writeData(DataOutputStream data) throws IOException {
 		NBTTagCompound nbt = new NBTTagCompound();
-		for (int i = 0; i < fluidStacks.length; ++i) {
+		for (int i = 0; i < fluids.length; ++i) {
 			NBTTagCompound nbttagcompound = new NBTTagCompound();
-			if (fluidStacks[i] != null)
-				fluidStacks[i].writeToNBT(nbttagcompound);
-			nbt.setTag("liquidStack[" + i + "]", nbttagcompound);
+			if (fluids[i] != null)
+				nbttagcompound.setString("FluidName", fluids[i].getName());
+			nbt.setTag("fluidStack[" + i + "]", nbttagcompound);
 		}
 		NBTBase.writeNamedTag(nbt, data);
 	}
@@ -159,20 +156,20 @@ public class PipeFluidsDistribution extends ABOPipe<PipeTransportFluids> impleme
 	public void readData(DataInputStream data) throws IOException {
 		NBTBase nbt = NBTBase.readNamedTag(data);
 		if (nbt instanceof NBTTagCompound) {
-			for (int i = 0; i < fluidStacks.length; ++i) {
-				NBTTagCompound nbttagcompound = ((NBTTagCompound) nbt).getCompoundTag("liquidStack[" + i + "]");
+			for (int i = 0; i < fluids.length; ++i) {
+				NBTTagCompound nbttagcompound = ((NBTTagCompound) nbt).getCompoundTag("fluidStack[" + i + "]");
 				if (nbttagcompound != null)
-					fluidStacks[i] = FluidStack.loadFluidStackFromNBT(nbttagcompound);
+					fluids[i] = FluidRegistry.getFluid(nbttagcompound.getString("FluidName"));
 			}
 		}
 	}
 
 	@Override
-	public void update(int slot, FluidStack stack) {
+	public void update(int slot, Fluid fluid) {
 		// System.out.println("update: " + worldObj.isRemote + " - " + slot + " to " + stack);
 
-		if (stack != fluidStacks[slot]) {
-			fluidStacks[slot] = stack;
+		if (fluid != fluids[slot]) {
+			fluids[slot] = fluid;
 		}
 	}
 }

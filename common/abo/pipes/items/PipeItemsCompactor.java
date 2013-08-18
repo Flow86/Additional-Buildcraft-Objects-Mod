@@ -270,7 +270,8 @@ public class PipeItemsCompactor extends ABOPipe<PipeTransportItems> implements I
 				if (stack != null) {
 					// System.out.println("out: Stack " + stack.toString());
 
-					stack.stackSize -= Utils.addToRandomPipeAround(container.worldObj, container.xCoord, container.yCoord, container.zCoord, receivedStack.getKey(), stack);
+					stack.stackSize -= Utils.addToRandomPipeAround(container.worldObj, container.xCoord, container.yCoord, container.zCoord,
+							receivedStack.getKey(), stack);
 					if (stack.stackSize > 0) {
 						Position destPos = new Position(container.xCoord, container.yCoord, container.zCoord, receivedStack.getKey());
 
@@ -291,7 +292,7 @@ public class PipeItemsCompactor extends ABOPipe<PipeTransportItems> implements I
 
 	@Override
 	public int getIconIndex(ForgeDirection direction) {
-		if (container.worldObj != null)
+		if (container != null && container.worldObj != null)
 			return (isPowered() ? onTexture : offTexture);
 		return offTexture;
 	}

@@ -17,6 +17,7 @@ import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.ICrafting;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
+import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidContainerRegistry;
 import net.minecraftforge.fluids.FluidStack;
 import abo.pipes.fluids.PipeFluidsDistribution;
@@ -26,7 +27,7 @@ import buildcraft.transport.TileGenericPipe;
 public class ContainerPipeFluidsDiamond extends BuildCraftContainer {
 
 	public final PipeFluidsDistribution pipe;
-	private final FluidStack[] fluidStacks = new FluidStack[6 * 9];
+	private final Fluid[] fluids = new Fluid[6 * 9];
 
 	public ContainerPipeFluidsDiamond(InventoryPlayer inventory, TileGenericPipe tile) {
 		super(0);
@@ -45,12 +46,12 @@ public class ContainerPipeFluidsDiamond extends BuildCraftContainer {
 
 		// send update to all connected crafters
 		for (Object crafter : crafters) {
-			for (int i = 0; i < fluidStacks.length; ++i) {
-				if (fluidStacks[i] != pipe.fluidStacks[i]) {
+			for (int i = 0; i < fluids.length; ++i) {
+				if (fluids[i] != pipe.fluids[i]) {
 					// System.out.println("detectAndSendChanges: " + i + " to " + (logic.FluidStacks[i] != null ? logic.FluidStacks[i].asItemStack() : null));
-					((ICrafting) crafter).sendProgressBarUpdate(this, i, pipe.fluidStacks[i] != null ? pipe.fluidStacks[i].fluidID : 0);
+					((ICrafting) crafter).sendProgressBarUpdate(this, i, pipe.fluids[i] != null ? pipe.fluids[i].getID() : 0);
 					// ((ICrafting) crafter).sendSlotContents(this, i, pipe.fluidStacks[i] != null ? pipe.fluidStacks[i].asItemStack() : null);
-					fluidStacks[i] = pipe.fluidStacks[i];
+					fluids[i] = pipe.fluids[i];
 				}
 			}
 		}
@@ -71,7 +72,7 @@ public class ContainerPipeFluidsDiamond extends BuildCraftContainer {
 		}
 
 		// System.out.println("putStackInSlot: " + id + " to " + FluidStack);
-		pipe.update(id, fluidStack);
-		fluidStacks[id] = pipe.fluidStacks[id];
+		pipe.update(id, fluidStack.getFluid());
+		fluids[id] = pipe.fluids[id];
 	}
 }

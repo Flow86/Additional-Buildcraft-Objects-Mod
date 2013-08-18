@@ -18,7 +18,7 @@ import java.util.Map;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraftforge.common.ForgeDirection;
-import net.minecraftforge.fluids.IFluidTank;
+import net.minecraftforge.fluids.IFluidHandler;
 import abo.PipeIconProvider;
 import abo.pipes.ABOPipe;
 import buildcraft.BuildCraftTransport;
@@ -28,6 +28,7 @@ import buildcraft.transport.PipeTransportFluids;
 import buildcraft.transport.TileGenericPipe;
 import buildcraft.transport.pipes.PipeFluidsWood;
 import buildcraft.transport.pipes.PipeLogicIron;
+import buildcraft.transport.pipes.PipeStructureCobblestone;
 import buildcraft.transport.triggers.ActionPipeDirection;
 
 /**
@@ -41,17 +42,16 @@ public class PipeFluidsGoldenIron extends ABOPipe<PipeTransportFluids> {
 
 	private final PipeLogicIron logic = new PipeLogicIron(this) {
 		@Override
-		protected boolean isValidFacing(ForgeDirection facing) {
-			TileEntity tile = pipe.container.getTile(facing);
+		protected boolean isValidConnectingTile(TileEntity tile) {
 			if (tile instanceof TileGenericPipe) {
 				Pipe otherPipe = ((TileGenericPipe) tile).pipe;
-				if (otherPipe instanceof PipeFluidsWood)
+				if (otherPipe instanceof PipeFluidsWood || otherPipe instanceof PipeStructureCobblestone)
 					return false;
 				if (otherPipe.transport instanceof PipeTransportFluids)
 					return true;
 				return false;
 			}
-			if (tile instanceof IFluidTank)
+			if (tile instanceof IFluidHandler)
 				return true;
 			return false;
 		}

@@ -17,8 +17,10 @@ import java.util.Iterator;
 import java.util.LinkedList;
 
 import net.minecraft.entity.player.InventoryPlayer;
-import net.minecraft.item.ItemStack;
 import net.minecraft.util.Icon;
+import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.fluids.Fluid;
+import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fluids.FluidStack;
 
 import org.lwjgl.opengl.GL11;
@@ -26,53 +28,43 @@ import org.lwjgl.opengl.GL12;
 
 import abo.network.PacketFluidSlotChange;
 import abo.pipes.fluids.PipeFluidsDistribution;
-import abo.pipes.fluids.PipeLogicLiquidsDiamond;
 import abo.proxy.ABOProxy;
 import buildcraft.core.gui.GuiAdvancedInterface;
+import buildcraft.core.render.FluidRenderer;
 import buildcraft.core.utils.StringUtils;
 import buildcraft.transport.TileGenericPipe;
 
 public class GuiPipeFluidsDiamond extends GuiAdvancedInterface {
+	private static final ResourceLocation TEXTURE = new ResourceLocation("abo", "textures/gui/pipeLiquidsDiamond.png");
 
 	private final ContainerPipeFluidsDiamond container;
-	private final HashMap<String, FluidStack> liquids = new HashMap<String, FluidStack>();
-	private final LinkedList<String> liquidsList = new LinkedList<String>();
+	private final HashMap<String, Fluid> fluids = new HashMap<String, Fluid>();
+	private final LinkedList<String> fluidsList = new LinkedList<String>();
 
-	public class LiquidSlot extends AdvancedSlot {
+	public class FluidSlot extends AdvancedSlot {
+		public Fluid fluid;
 		public final int nr;
-		public String liquid = null;
 
-		public LiquidSlot(int nr, int x, int y) {
+		public FluidSlot(int nr, int x, int y) {
 			super(x, y);
 			this.nr = nr;
 		}
 
 		@Override
-		public ItemStack getItemStack() {
-			if (liquid == null)
-				return null;
-
-			return liquids.get(liquid).canonical().asItemStack();
-		}
-
-		@Override
-		public Icon getTexture() {
-			if (liquid == null)
-				return null;
-
-			return liquids.get(liquid).canonical().getRenderingIcon();
-		}
-
-		@Override
 		public void drawSprite(int cornerX, int cornerY) {
-			if (liquid == null)
-				return;
+			if (fluid != null)
+				FluidRenderer.setColorForFluidStack(new FluidStack(fluid, 100));
+			super.drawSprite(cornerX, cornerY);
+		}
 
-			Icon icon = getTexture();
-			if (icon != null) {
-				mc.renderEngine.bindTexture(liquids.get(liquid).canonical().getTextureSheet());
-				drawTexturedModelRectFromIcon(cornerX + x + 1, cornerY + y + 1, icon, 14, 14);
-			}
+		@Override
+		public Icon getIcon() {
+			return FluidRenderer.getFluidTexture(fluid, false);
+		}
+
+		@Override
+		public ResourceLocation getTexture() {
+			return FluidRenderer.getFluidSheet(fluid);
 		}
 	}
 
@@ -81,21 +73,19 @@ public class GuiPipeFluidsDiamond extends GuiAdvancedInterface {
 
 		container = (ContainerPipeFluidsDiamond) inventorySlots;
 
-		PipeLogicLiquidsDiamond logic = (PipeLogicLiquidsDiamond) container.pipe.logic;
-
 		// initialize liquids, and add null for empty filter
-		liquids.put(null, null);
-		liquids.putAll(LiquidDictionary.getLiquids());
+		fluids.put(null, null);
+		fluids.putAll(FluidRegistry.getRegisteredFluids());
 
-		liquidsList.addAll(liquids.keySet());
+		fluidsList.addAll(fluids.keySet());
 
 		slots = new AdvancedSlot[6 * 9];
 		for (int i = 0; i < 6; i++) {
 			for (int j = 0; j < 9; j++) {
 				int nr = i * 9 + j;
-				slots[nr] = new LiquidSlot(nr, 8 + j * (16 + 2), 18 + i * (16 + 2));
+				slots[nr] = new FluidSlot(nr, 8 + j * (16 + 2), 18 + i * (16 + 2));
 
-				((LiquidSlot) slots[nr]).liquid = LiquidDictionary.findLiquidName(logic.fluidStacks[nr]);
+				((FluidSlot) slots[nr]).fluid = container.pipe.fluids[nr];
 			}
 		}
 
@@ -117,7 +107,7 @@ public class GuiPipeFluidsDiamond extends GuiAdvancedInterface {
 
 		GL11.glEnable(GL12.GL_RESCALE_NORMAL);
 		GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
-		mc.renderEngine.bindTexture("/gfx/abo/gui/pipeLiquidsDiamond.png");
+		mc.renderEngine.func_110577_a(TEXTURE);
 
 		int cornerX = (width - xSize) / 2;
 		int cornerY = (height - ySize) / 2;
@@ -142,32 +132,32 @@ public class GuiPipeFluidsDiamond extends GuiAdvancedInterface {
 
 		slot = slots[position];
 
-		if (slot instanceof LiquidSlot) {
-			LiquidSlot liquidSlot = (LiquidSlot) slot;
+		if (slot instanceof FluidSlot) {
+			FluidSlot fluidSlot = (FluidSlot) slot;
 
 			// left/right mouse button
 			if (mouseB == 0 || mouseB == 1) {
 				// advance to next/prev liquid
-				for (Iterator<String> key = (mouseB == 0 ? liquidsList.iterator() : liquidsList.descendingIterator()); key.hasNext();) {
-					if (key.next() == liquidSlot.liquid) {
+				for (Iterator<String> key = (mouseB == 0 ? fluidsList.iterator() : fluidsList.descendingIterator()); key.hasNext();) {
+					if (key.next() == fluidSlot.fluid.getName()) {
 						if (!key.hasNext())
-							key = (mouseB == 0 ? liquidsList.iterator() : liquidsList.descendingIterator());
-						liquidSlot.liquid = key.next();
+							key = (mouseB == 0 ? fluidsList.iterator() : fluidsList.descendingIterator());
+						fluidSlot.fluid = fluids.get(key.next());
 					}
 				}
 			}
 
 			// middle mouse button
 			else
-				liquidSlot.liquid = null;
+				fluidSlot.fluid = null;
 
-			((PipeLogicLiquidsDiamond) container.pipe.logic).fluidStacks[liquidSlot.nr] = liquids.get(liquidSlot.liquid);
+			container.pipe.fluids[fluidSlot.nr] = fluids.get(fluidSlot.fluid);
 
 			container.detectAndSendChanges();
 
-			if (container.pipe.worldObj.isRemote) {
-				PacketFluidSlotChange packet = new PacketFluidSlotChange(container.pipe.xCoord, container.pipe.yCoord, container.pipe.zCoord, liquidSlot.nr,
-						liquids.get(liquidSlot.liquid));
+			if (container.pipe.container.worldObj.isRemote) {
+				PacketFluidSlotChange packet = new PacketFluidSlotChange(container.pipe.container.xCoord, container.pipe.container.yCoord,
+						container.pipe.container.zCoord, fluidSlot.nr, fluidSlot.fluid);
 				ABOProxy.proxy.sendToServer(packet.getPacket());
 			}
 		}

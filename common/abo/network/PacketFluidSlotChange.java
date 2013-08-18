@@ -19,18 +19,19 @@ import java.io.IOException;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.nbt.CompressedStreamTools;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraftforge.fluids.FluidStack;
+import net.minecraftforge.fluids.Fluid;
+import net.minecraftforge.fluids.FluidRegistry;
 import buildcraft.transport.TileGenericPipe;
 
 public class PacketFluidSlotChange extends ABOPacket {
 
 	private int slot;
-	private FluidStack stack;
+	private Fluid fluid;
 
-	public PacketFluidSlotChange(int xCoord, int yCoord, int zCoord, int slot, FluidStack stack) {
+	public PacketFluidSlotChange(int xCoord, int yCoord, int zCoord, int slot, Fluid fluid) {
 		super(ABOPacketIds.LiquidSlotChange, xCoord, yCoord, zCoord);
 		this.slot = slot;
-		this.stack = stack;
+		this.fluid = fluid;
 	}
 
 	public PacketFluidSlotChange(DataInputStream data) throws IOException {
@@ -43,11 +44,11 @@ public class PacketFluidSlotChange extends ABOPacket {
 
 		data.writeInt(slot);
 
-		if (stack == null)
+		if (fluid == null)
 			data.writeShort(0);
 		else {
 			NBTTagCompound nbt = new NBTTagCompound();
-			stack.writeToNBT(nbt);
+			nbt.setString("FluidName", fluid.getName());
 
 			byte[] compressed = CompressedStreamTools.compress(nbt);
 			data.writeShort(compressed.length);
@@ -63,13 +64,13 @@ public class PacketFluidSlotChange extends ABOPacket {
 
 		short length = data.readShort();
 		if (length == 0)
-			stack = null;
+			fluid = null;
 		else {
 			byte[] compressed = new byte[length];
 			data.readFully(compressed);
 			NBTTagCompound nbt = CompressedStreamTools.decompress(compressed);
 
-			stack = FluidStack.loadFluidStackFromNBT(nbt);
+			fluid = FluidRegistry.getFluid(nbt.getString("FluidName"));
 		}
 	}
 
@@ -81,6 +82,6 @@ public class PacketFluidSlotChange extends ABOPacket {
 		if (!(pipe.pipe instanceof IFluidSlotChange))
 			return;
 
-		((IFluidSlotChange) pipe.pipe).update(slot, stack);
+		((IFluidSlotChange) pipe.pipe).update(slot, fluid);
 	}
 }

@@ -37,7 +37,7 @@ public class PipeItemsBounce extends ABOPipe<PipeTransportItems> implements IPip
 
 	@Override
 	public int getIconIndex(ForgeDirection direction) {
-		if (container.worldObj != null)
+		if (container != null && container.worldObj != null)
 			return (container.worldObj.isBlockIndirectlyGettingPowered(container.xCoord, container.yCoord, container.zCoord) ? openTexture : closedTexture);
 		return closedTexture;
 	}
