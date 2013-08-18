@@ -26,7 +26,7 @@ import buildcraft.core.utils.StringUtils;
 import buildcraft.transport.TileGenericPipe;
 
 public class GuiPipePowerDiamond extends GuiAdvancedInterface {
-	private static final ResourceLocation TEXTURE = new ResourceLocation("abo", "textures/gui/pipePowerDiamond.png");
+	private static final ResourceLocation TEXTURE = new ResourceLocation("additional-buildcraft-objects", "textures/gui/pipePowerDiamond.png");
 
 	class YesNoSlot extends AdvancedSlot {
 

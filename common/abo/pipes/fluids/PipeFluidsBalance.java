@@ -18,7 +18,7 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraftforge.common.ForgeDirection;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.FluidTankInfo;
-import net.minecraftforge.fluids.IFluidTank;
+import net.minecraftforge.fluids.IFluidHandler;
 import abo.PipeIconProvider;
 import abo.pipes.ABOPipe;
 import buildcraft.transport.PipeTransportFluids;
@@ -29,8 +29,8 @@ import buildcraft.transport.TileGenericPipe;
  * 
  */
 class Neighbor {
-	public Neighbor(IFluidTank container, ForgeDirection orientation) {
-		c = container;
+	public Neighbor(IFluidHandler tile, ForgeDirection orientation) {
+		c = tile;
 		o = orientation;
 	}
 
@@ -62,17 +62,17 @@ class Neighbor {
 
 	public FluidTankInfo getTank() {
 		try {
-			return c.getInfo();
+			return c.getTankInfo(o.getOpposite())[0];
 		} catch (ArrayIndexOutOfBoundsException e) {
 			try {
-				return c.getInfo();
+				return c.getTankInfo(ForgeDirection.UNKNOWN)[0];
 			} catch (ArrayIndexOutOfBoundsException f) {
 				return null;
 			}
 		}
 	}
 
-	public IFluidTank getTankEntity() {
+	public IFluidHandler getTankEntity() {
 		return c;
 	}
 
@@ -80,7 +80,7 @@ class Neighbor {
 		return o;
 	}
 
-	private final IFluidTank c;
+	private final IFluidHandler c;
 	private final ForgeDirection o;
 }
 
@@ -115,7 +115,7 @@ public class PipeFluidsBalance extends ABOPipe<PipeTransportFluids> {
 
 	@Override
 	public boolean canPipeConnect(TileEntity tile, ForgeDirection side) {
-		if (tile == null || !(tile instanceof IFluidTank) || tile instanceof TileGenericPipe)
+		if (tile == null || !(tile instanceof IFluidHandler) || tile instanceof TileGenericPipe)
 			return false;
 
 		return super.canPipeConnect(tile, side);
@@ -127,10 +127,10 @@ public class PipeFluidsBalance extends ABOPipe<PipeTransportFluids> {
 
 		for (ForgeDirection o : ForgeDirection.VALID_DIRECTIONS) {
 			TileEntity tile = container.getTile(o);
-			if (tile == null || tile instanceof TileGenericPipe || !(tile instanceof IFluidTank))
+			if (tile == null || tile instanceof TileGenericPipe || !(tile instanceof IFluidHandler))
 				continue;
 
-			Neighbor neighbor = new Neighbor((IFluidTank) tile, o);
+			Neighbor neighbor = new Neighbor((IFluidHandler) tile, o);
 
 			neighbors.add(neighbor);
 		}
@@ -149,7 +149,7 @@ public class PipeFluidsBalance extends ABOPipe<PipeTransportFluids> {
 				fluidAmount += fluid.amount;
 		}
 
-		FluidTankInfo tank = transport.getTankInfo(ForgeDirection.UNKNOWN)[ForgeDirection.UNKNOWN.ordinal()];
+		FluidTankInfo tank = transport.getTankInfo(ForgeDirection.UNKNOWN)[0];
 		FluidStack fluid = null;
 
 		if (tank != null)
@@ -191,23 +191,22 @@ public class PipeFluidsBalance extends ABOPipe<PipeTransportFluids> {
 
 			if (liquidToExtract > 1) {
 				// drain tank (read available liquid)
-				FluidStack liquidExtracted = neighbor.getTankEntity().drain(liquidToExtract > transport.flowRate ? transport.flowRate : liquidToExtract, false);
+				FluidStack liquidExtracted = neighbor.getTankEntity().drain(neighbor.getOrientation(), liquidToExtract > transport.flowRate ? transport.flowRate : liquidToExtract, false);
 				if (liquidExtracted != null) {
 					// fill pipe
 					int filled = transport.fill(neighbor.getOrientation(), liquidExtracted, true);
 					if (filled != 0) {
 						// really drain tank
-						liquidExtracted = neighbor.getTankEntity().drain(filled, true);
+						liquidExtracted = neighbor.getTankEntity().drain(neighbor.getOrientation(), filled, true);
 					}
 				}
 
 			} else if (liquidToExtract < 1) {
 				// drain pipe (read available liquid)
-				FluidStack liquidExtracted = transport.drain(neighbor.getOrientation().getOpposite(), liquidToExtract > transport.flowRate ? transport.flowRate
-						: liquidToExtract, false);
+				FluidStack liquidExtracted = transport.drain(neighbor.getOrientation().getOpposite(), liquidToExtract > transport.flowRate ? transport.flowRate : liquidToExtract, false);
 				if (liquidExtracted != null) {
 					// fill tank
-					int filled = neighbor.getTankEntity().fill(liquidExtracted, true);
+					int filled = neighbor.getTankEntity().fill(neighbor.getOrientation().getOpposite(), liquidExtracted, true);
 					if (filled != 0) {
 						// really drain pipe
 						liquidExtracted = transport.drain(neighbor.getOrientation().getOpposite(), filled, true);

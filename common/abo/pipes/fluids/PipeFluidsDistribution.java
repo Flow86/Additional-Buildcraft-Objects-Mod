@@ -95,8 +95,7 @@ public class PipeFluidsDistribution extends ABOPipe<PipeTransportFluids> impleme
 		FluidTankInfo[] tanks = transport.getTankInfo(ForgeDirection.UNKNOWN);
 
 		// center tank
-		if (tanks == null || tanks[ForgeDirection.UNKNOWN.ordinal()] == null || tanks[ForgeDirection.UNKNOWN.ordinal()].fluid == null
-				|| tanks[ForgeDirection.UNKNOWN.ordinal()].fluid.amount == 0)
+		if (tanks == null || tanks[0] == null || tanks[0].fluid == null || tanks[0].fluid.amount == 0)
 			return true;
 
 		Fluid fluidInTank = tanks[ForgeDirection.UNKNOWN.ordinal()].fluid.getFluid();

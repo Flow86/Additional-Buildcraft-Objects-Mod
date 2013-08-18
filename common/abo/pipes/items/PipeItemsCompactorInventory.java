@@ -107,7 +107,8 @@ public class PipeItemsCompactorInventory {
 	}
 
 	/**
-	 * finds a stack in the list which fulfills on of these criteria: - stackSize is larger than stackSize - has not been changed since unchangedSince ticks - stack is full or not stackable
+	 * finds a stack in the list which fulfills on of these criteria: - stackSize is larger than stackSize - has not been changed since unchangedSince ticks -
+	 * stack is full or not stackable
 	 * 
 	 * @param stackSize
 	 * @param unchangedSince

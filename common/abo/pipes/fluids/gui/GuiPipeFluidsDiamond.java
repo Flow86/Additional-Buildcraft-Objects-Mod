@@ -35,7 +35,7 @@ import buildcraft.core.utils.StringUtils;
 import buildcraft.transport.TileGenericPipe;
 
 public class GuiPipeFluidsDiamond extends GuiAdvancedInterface {
-	private static final ResourceLocation TEXTURE = new ResourceLocation("abo", "textures/gui/pipeLiquidsDiamond.png");
+	private static final ResourceLocation TEXTURE = new ResourceLocation("additional-buildcraft-objects", "textures/gui/pipeLiquidsDiamond.png");
 
 	private final ContainerPipeFluidsDiamond container;
 	private final HashMap<String, Fluid> fluids = new HashMap<String, Fluid>();
@@ -139,7 +139,7 @@ public class GuiPipeFluidsDiamond extends GuiAdvancedInterface {
 			if (mouseB == 0 || mouseB == 1) {
 				// advance to next/prev liquid
 				for (Iterator<String> key = (mouseB == 0 ? fluidsList.iterator() : fluidsList.descendingIterator()); key.hasNext();) {
-					if (key.next() == fluidSlot.fluid.getName()) {
+					if (fluidSlot.fluid == null || key.next() == fluidSlot.fluid.getName()) {
 						if (!key.hasNext())
 							key = (mouseB == 0 ? fluidsList.iterator() : fluidsList.descendingIterator());
 						fluidSlot.fluid = fluids.get(key.next());
@@ -156,8 +156,8 @@ public class GuiPipeFluidsDiamond extends GuiAdvancedInterface {
 			container.detectAndSendChanges();
 
 			if (container.pipe.container.worldObj.isRemote) {
-				PacketFluidSlotChange packet = new PacketFluidSlotChange(container.pipe.container.xCoord, container.pipe.container.yCoord,
-						container.pipe.container.zCoord, fluidSlot.nr, fluidSlot.fluid);
+				PacketFluidSlotChange packet = new PacketFluidSlotChange(container.pipe.container.xCoord, container.pipe.container.yCoord, container.pipe.container.zCoord, fluidSlot.nr,
+						fluidSlot.fluid);
 				ABOProxy.proxy.sendToServer(packet.getPacket());
 			}
 		}

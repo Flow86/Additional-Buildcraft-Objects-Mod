@@ -270,8 +270,7 @@ public class PipeItemsCompactor extends ABOPipe<PipeTransportItems> implements I
 				if (stack != null) {
 					// System.out.println("out: Stack " + stack.toString());
 
-					stack.stackSize -= Utils.addToRandomPipeAround(container.worldObj, container.xCoord, container.yCoord, container.zCoord,
-							receivedStack.getKey(), stack);
+					stack.stackSize -= Utils.addToRandomPipeAround(container.worldObj, container.xCoord, container.yCoord, container.zCoord, receivedStack.getKey(), stack);
 					if (stack.stackSize > 0) {
 						Position destPos = new Position(container.xCoord, container.yCoord, container.zCoord, receivedStack.getKey());
 

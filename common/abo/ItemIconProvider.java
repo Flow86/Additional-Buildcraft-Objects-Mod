@@ -45,9 +45,9 @@ public class ItemIconProvider implements IIconProvider {
 	public void registerIcons(IconRegister iconRegister) {
 		_icons = new Icon[MAX];
 
-		_icons[TriggerEngineSafe] = iconRegister.registerIcon("abo:triggers/TriggerEngineSafe");
-		_icons[ActionSwitchOnPipe] = iconRegister.registerIcon("abo:actions/ActionSwitchOnPipe");
-		_icons[ActionToggleOnPipe] = iconRegister.registerIcon("abo:actions/ActionToggleOnPipe");
-		_icons[ActionToggleOffPipe] = iconRegister.registerIcon("abo:actions/ActionToggleOffPipe");
+		_icons[TriggerEngineSafe] = iconRegister.registerIcon("additional-buildcraft-objects:triggers/TriggerEngineSafe");
+		_icons[ActionSwitchOnPipe] = iconRegister.registerIcon("additional-buildcraft-objects:actions/ActionSwitchOnPipe");
+		_icons[ActionToggleOnPipe] = iconRegister.registerIcon("additional-buildcraft-objects:actions/ActionToggleOnPipe");
+		_icons[ActionToggleOffPipe] = iconRegister.registerIcon("additional-buildcraft-objects:actions/ActionToggleOffPipe");
 	}
 }

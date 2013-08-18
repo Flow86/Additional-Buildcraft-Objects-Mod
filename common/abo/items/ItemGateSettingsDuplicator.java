@@ -55,7 +55,7 @@ public class ItemGateSettingsDuplicator extends ABOItem {
 				trigger = nbt.getString("trigger");
 				triggerParameter = ItemStack.loadItemStackFromNBT(nbt.getCompoundTag("triggerParameter"));
 				action = nbt.getString("action");
-			} catch(Exception e) {
+			} catch (Exception e) {
 			}
 		}
 	};

@@ -81,8 +81,9 @@ public class PipeItemsStripes extends ABOPipe<PipeTransportItems> implements IIt
 		p.moveForwards(1.0);
 
 		/*
-		 * if (convertPipe(pipe, data)) if(CoreProxy.proxy.isSimulating(worldObj)) BuildCraftTransport.pipeItemsStipes.onItemUseFirst(new ItemStack(BuildCraftTransport.pipeItemsStipes),
-		 * CoreProxy.proxy.getBuildCraftPlayer(worldObj), worldObj, (int) p.x, (int) p.y - 1, (int) p.z, 1); else
+		 * if (convertPipe(pipe, data)) if(CoreProxy.proxy.isSimulating(worldObj)) BuildCraftTransport.pipeItemsStipes.onItemUseFirst(new
+		 * ItemStack(BuildCraftTransport.pipeItemsStipes), CoreProxy.proxy.getBuildCraftPlayer(worldObj), worldObj, (int) p.x, (int) p.y - 1, (int) p.z, 1);
+		 * else
 		 */
 		if (container.worldObj.isAirBlock((int) p.x, (int) p.y, (int) p.z))
 			item.getItemStack().getItem()
@@ -101,10 +102,12 @@ public class PipeItemsStripes extends ABOPipe<PipeTransportItems> implements IIt
 	/*
 	 * @SuppressWarnings("unchecked") public boolean convertPipe(PipeTransportItems pipe, EntityData data) {
 	 * 
-	 * if (data.item.getItemStack().getItem() instanceof ItemPipe) { if (!(data.item.getItemStack().itemID == BuildCraftTransport.pipeItemsStipes.shiftedIndex)) {
+	 * if (data.item.getItemStack().getItem() instanceof ItemPipe) { if (!(data.item.getItemStack().itemID == BuildCraftTransport.pipeItemsStipes.shiftedIndex))
+	 * {
 	 * 
-	 * Pipe newPipe = BlockGenericPipe.createPipe(data.item.getItemStack().itemID); if(newPipe.transport instanceof PipeTransportItems) { newPipe.setTile(this.container); this.container.pipe =
-	 * newPipe; ((PipeTransportItems) newPipe.transport).travelingEntities = (TreeMap<Integer, EntityData>) pipe.travelingEntities .clone();
+	 * Pipe newPipe = BlockGenericPipe.createPipe(data.item.getItemStack().itemID); if(newPipe.transport instanceof PipeTransportItems) {
+	 * newPipe.setTile(this.container); this.container.pipe = newPipe; ((PipeTransportItems) newPipe.transport).travelingEntities = (TreeMap<Integer,
+	 * EntityData>) pipe.travelingEntities .clone();
 	 * 
 	 * 
 	 * 
@@ -112,7 +115,8 @@ public class PipeItemsStripes extends ABOPipe<PipeTransportItems> implements IIt
 	 * 
 	 * //Block.blocksList[blockID].onBlockPlacedBy(worldObj, xCoord, yCoord, zCoord, entityplayer);
 	 * 
-	 * data.item.getItemStack().stackSize--; } if (data.item.getItemStack().stackSize <= 0){ ((PipeTransportItems) newPipe.transport).travelingEntities.remove(data.item.getEntityId());
+	 * data.item.getItemStack().stackSize--; } if (data.item.getItemStack().stackSize <= 0){ ((PipeTransportItems)
+	 * newPipe.transport).travelingEntities.remove(data.item.getEntityId());
 	 * 
 	 * pipe.scheduleRemoval(data.item); }
 	 * 

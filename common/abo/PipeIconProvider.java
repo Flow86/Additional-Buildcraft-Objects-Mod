@@ -89,53 +89,53 @@ public class PipeIconProvider implements IIconProvider {
 	public void registerIcons(IconRegister iconRegister) {
 		_icons = new Icon[MAX];
 
-		_icons[PipeItemsBounceClosed] = iconRegister.registerIcon("abo:PipeItemsBounceClosed");
-		_icons[PipeItemsBounce] = iconRegister.registerIcon("abo:PipeItemsBounce");
+		_icons[PipeItemsBounceClosed] = iconRegister.registerIcon("additional-buildcraft-objects:PipeItemsBounceClosed");
+		_icons[PipeItemsBounce] = iconRegister.registerIcon("additional-buildcraft-objects:PipeItemsBounce");
 
-		_icons[PipeItemsCrossover] = iconRegister.registerIcon("abo:PipeItemsCrossover");
+		_icons[PipeItemsCrossover] = iconRegister.registerIcon("additional-buildcraft-objects:PipeItemsCrossover");
 
-		_icons[PipeItemsExtraction] = iconRegister.registerIcon("abo:PipeItemsExtract");
-		_icons[PipeItemsExtractionSide] = iconRegister.registerIcon("abo:PipeItemsExtractSide");
+		_icons[PipeItemsExtraction] = iconRegister.registerIcon("additional-buildcraft-objects:PipeItemsExtract");
+		_icons[PipeItemsExtractionSide] = iconRegister.registerIcon("additional-buildcraft-objects:PipeItemsExtractSide");
 
-		_icons[PipeItemsInsertion] = iconRegister.registerIcon("abo:PipeItemsInsert");
-		_icons[PipeItemsRoundRobin] = iconRegister.registerIcon("abo:PipeItemsRoundRobin");
-		_icons[PipeItemsStripes] = iconRegister.registerIcon("abo:PipeItemsStripes");
+		_icons[PipeItemsInsertion] = iconRegister.registerIcon("additional-buildcraft-objects:PipeItemsInsert");
+		_icons[PipeItemsRoundRobin] = iconRegister.registerIcon("additional-buildcraft-objects:PipeItemsRoundRobin");
+		_icons[PipeItemsStripes] = iconRegister.registerIcon("additional-buildcraft-objects:PipeItemsStripes");
 
-		_icons[PipeLiquidsBalance] = iconRegister.registerIcon("abo:PipeLiquidsBalance");
+		_icons[PipeLiquidsBalance] = iconRegister.registerIcon("additional-buildcraft-objects:PipeLiquidsBalance");
 
-		_icons[PipeLiquidsDiamondCenter] = iconRegister.registerIcon("abo:PipeLiquidsDiamondCenter");
-		_icons[PipeLiquidsDiamondDown] = iconRegister.registerIcon("abo:PipeLiquidsDiamondDown");
-		_icons[PipeLiquidsDiamondUp] = iconRegister.registerIcon("abo:PipeLiquidsDiamondUp");
-		_icons[PipeLiquidsDiamondNorth] = iconRegister.registerIcon("abo:PipeLiquidsDiamondNorth");
-		_icons[PipeLiquidsDiamondSouth] = iconRegister.registerIcon("abo:PipeLiquidsDiamondSouth");
-		_icons[PipeLiquidsDiamondWest] = iconRegister.registerIcon("abo:PipeLiquidsDiamondWest");
-		_icons[PipeLiquidsDiamondEast] = iconRegister.registerIcon("abo:PipeLiquidsDiamondEast");
+		_icons[PipeLiquidsDiamondCenter] = iconRegister.registerIcon("additional-buildcraft-objects:PipeLiquidsDiamondCenter");
+		_icons[PipeLiquidsDiamondDown] = iconRegister.registerIcon("additional-buildcraft-objects:PipeLiquidsDiamondDown");
+		_icons[PipeLiquidsDiamondUp] = iconRegister.registerIcon("additional-buildcraft-objects:PipeLiquidsDiamondUp");
+		_icons[PipeLiquidsDiamondNorth] = iconRegister.registerIcon("additional-buildcraft-objects:PipeLiquidsDiamondNorth");
+		_icons[PipeLiquidsDiamondSouth] = iconRegister.registerIcon("additional-buildcraft-objects:PipeLiquidsDiamondSouth");
+		_icons[PipeLiquidsDiamondWest] = iconRegister.registerIcon("additional-buildcraft-objects:PipeLiquidsDiamondWest");
+		_icons[PipeLiquidsDiamondEast] = iconRegister.registerIcon("additional-buildcraft-objects:PipeLiquidsDiamondEast");
 
-		_icons[PipeLiquidsGoldenIron] = iconRegister.registerIcon("abo:PipeLiquidsGoldenIron");
-		_icons[PipeLiquidsGoldenIronSide] = iconRegister.registerIcon("abo:PipeLiquidsGoldenIronSide");
+		_icons[PipeLiquidsGoldenIron] = iconRegister.registerIcon("additional-buildcraft-objects:PipeLiquidsGoldenIron");
+		_icons[PipeLiquidsGoldenIronSide] = iconRegister.registerIcon("additional-buildcraft-objects:PipeLiquidsGoldenIronSide");
 
-		_icons[PipeLiquidsValveClosed] = iconRegister.registerIcon("abo:PipeLiquidsValveClosed");
-		_icons[PipeLiquidsValveClosedSide] = iconRegister.registerIcon("abo:PipeLiquidsValveClosedSide");
-		_icons[PipeLiquidsValveOpen] = iconRegister.registerIcon("abo:PipeLiquidsValveOpen");
-		_icons[PipeLiquidsValveOpenSide] = iconRegister.registerIcon("abo:PipeLiquidsValveOpenSide");
+		_icons[PipeLiquidsValveClosed] = iconRegister.registerIcon("additional-buildcraft-objects:PipeLiquidsValveClosed");
+		_icons[PipeLiquidsValveClosedSide] = iconRegister.registerIcon("additional-buildcraft-objects:PipeLiquidsValveClosedSide");
+		_icons[PipeLiquidsValveOpen] = iconRegister.registerIcon("additional-buildcraft-objects:PipeLiquidsValveOpen");
+		_icons[PipeLiquidsValveOpenSide] = iconRegister.registerIcon("additional-buildcraft-objects:PipeLiquidsValveOpenSide");
 
-		_icons[PipePowerSwitchPowered] = iconRegister.registerIcon("abo:PipePowerSwitchPowered");
-		_icons[PipePowerSwitchUnpowered] = iconRegister.registerIcon("abo:PipePowerSwitchUnpowered");
+		_icons[PipePowerSwitchPowered] = iconRegister.registerIcon("additional-buildcraft-objects:PipePowerSwitchPowered");
+		_icons[PipePowerSwitchUnpowered] = iconRegister.registerIcon("additional-buildcraft-objects:PipePowerSwitchUnpowered");
 
-		_icons[PipePowerDiamondCenter] = iconRegister.registerIcon("abo:PipePowerDiamondCenter");
-		_icons[PipePowerDiamondDown] = iconRegister.registerIcon("abo:PipePowerDiamondDown");
-		_icons[PipePowerDiamondUp] = iconRegister.registerIcon("abo:PipePowerDiamondUp");
-		_icons[PipePowerDiamondNorth] = iconRegister.registerIcon("abo:PipePowerDiamondNorth");
-		_icons[PipePowerDiamondSouth] = iconRegister.registerIcon("abo:PipePowerDiamondSouth");
-		_icons[PipePowerDiamondWest] = iconRegister.registerIcon("abo:PipePowerDiamondWest");
-		_icons[PipePowerDiamondEast] = iconRegister.registerIcon("abo:PipePowerDiamondEast");
+		_icons[PipePowerDiamondCenter] = iconRegister.registerIcon("additional-buildcraft-objects:PipePowerDiamondCenter");
+		_icons[PipePowerDiamondDown] = iconRegister.registerIcon("additional-buildcraft-objects:PipePowerDiamondDown");
+		_icons[PipePowerDiamondUp] = iconRegister.registerIcon("additional-buildcraft-objects:PipePowerDiamondUp");
+		_icons[PipePowerDiamondNorth] = iconRegister.registerIcon("additional-buildcraft-objects:PipePowerDiamondNorth");
+		_icons[PipePowerDiamondSouth] = iconRegister.registerIcon("additional-buildcraft-objects:PipePowerDiamondSouth");
+		_icons[PipePowerDiamondWest] = iconRegister.registerIcon("additional-buildcraft-objects:PipePowerDiamondWest");
+		_icons[PipePowerDiamondEast] = iconRegister.registerIcon("additional-buildcraft-objects:PipePowerDiamondEast");
 
-		_icons[PipePowerIron] = iconRegister.registerIcon("abo:PipePowerIron");
-		_icons[PipePowerIronSide] = iconRegister.registerIcon("abo:PipePowerIronSide");
+		_icons[PipePowerIron] = iconRegister.registerIcon("additional-buildcraft-objects:PipePowerIron");
+		_icons[PipePowerIronSide] = iconRegister.registerIcon("additional-buildcraft-objects:PipePowerIronSide");
 
-		_icons[PipeLiquidsPump] = iconRegister.registerIcon("abo:PipeLiquidsPump");
+		_icons[PipeLiquidsPump] = iconRegister.registerIcon("additional-buildcraft-objects:PipeLiquidsPump");
 
-		_icons[PipeItemsCompactorOn] = iconRegister.registerIcon("abo:PipeItemsCompactorOn");
-		_icons[PipeItemsCompactorOff] = iconRegister.registerIcon("abo:PipeItemsCompactorOff");
+		_icons[PipeItemsCompactorOn] = iconRegister.registerIcon("additional-buildcraft-objects:PipeItemsCompactorOn");
+		_icons[PipeItemsCompactorOff] = iconRegister.registerIcon("additional-buildcraft-objects:PipeItemsCompactorOff");
 	}
 }

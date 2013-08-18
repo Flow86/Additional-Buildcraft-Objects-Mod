@@ -49,6 +49,6 @@ public class ABOItem extends Item {
 	@Override
 	@SideOnly(Side.CLIENT)
 	public void registerIcons(IconRegister iconRegister) {
-		this.itemIcon = iconRegister.registerIcon("abo:" + iconName);
+		this.itemIcon = iconRegister.registerIcon("additional-buildcraft-objects:" + iconName);
 	}
 }
