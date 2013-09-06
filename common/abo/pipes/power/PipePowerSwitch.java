@@ -13,12 +13,14 @@
 package abo.pipes.power;
 
 import java.util.LinkedList;
+import java.util.Map;
 
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraftforge.common.ForgeDirection;
 import abo.ABO;
 import abo.PipeIconProvider;
+import abo.actions.ActionSwitchOnPipe;
 import abo.actions.ActionToggleOffPipe;
 import abo.actions.ActionToggleOnPipe;
 import abo.pipes.ABOPipe;
@@ -35,7 +37,7 @@ import buildcraft.transport.TileGenericPipe;
  * @author Flow86
  * 
  */
-public class PipePowerSwitch extends ABOPipe<PipeTransportPower> implements IActionReceptor, IPipeTransportPowerHook {
+public class PipePowerSwitch extends ABOPipe<PipeTransportPower> implements IPipeTransportPowerHook {
 	private final int unpoweredTexture = PipeIconProvider.PipePowerSwitchUnpowered;
 	private final int poweredTexture = PipeIconProvider.PipePowerSwitchPowered;
 	private boolean powered;
@@ -142,23 +144,30 @@ public class PipePowerSwitch extends ABOPipe<PipeTransportPower> implements IAct
 	}
 
 	@Override
-	public void actionActivated(IAction action) {
+	protected void actionsActivated(Map<IAction, Boolean> actions) {
 		boolean lastSwitched = switched;
 		boolean lastToggled = toggled;
 
+		super.actionsActivated(actions);
+		
 		switched = false;
-
 		// Activate the actions
-		if (action instanceof ActionToggleOnPipe) {
-			toggled = true;
-		} else if (action instanceof ActionToggleOffPipe) {
-			toggled = false;
+		for (IAction i : actions.keySet()) {
+			if (actions.get(i)) {
+				if (i instanceof ActionSwitchOnPipe) {
+					switched = true;
+				} else if (i instanceof ActionToggleOnPipe) {
+					toggled = true;
+				} else if (i instanceof ActionToggleOffPipe) {
+					toggled = false;
+				}
+			}
 		}
-
 		if ((lastSwitched != switched) || (lastToggled != toggled)) {
 			if (lastSwitched != switched && !switched)
 				toggled = false;
-			container.scheduleNeighborChange();
+
+			container.scheduleRenderUpdate();
 			updateNeighbors(true);
 		}
 	}
