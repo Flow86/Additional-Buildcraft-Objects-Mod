@@ -71,6 +71,7 @@
 				<exclude name="build.number"/>
 				<exclude name="LICENSE.txt"/>
 				<exclude name="mcmod.info"/>
+				<exclude name="pack.mcmeta"/>
 			</fileset>
 		</copy>
 
@@ -88,6 +89,7 @@
 				<exclude name="build.xml"/>
 				<exclude name="build.number"/>
 				<exclude name="mcmod.info"/>
+				<exclude name="pack.mcmeta"/>
 			</fileset>
 		</copy>
 	</target>
@@ -179,8 +181,8 @@
 		<jar destfile="${jar.dir}/buildcraft-Z-additional-buildcraft-objects-${abo.version.full}.jar" basedir="${classes.dir}"/>
 
 		<!-- Reset src dir to post-forge-install state -->
-		<delete dir="${mcpsrc.dir}/minecraft/gfx/abo"/>
-		<delete dir="${mcpsrc.dir}/minecraft/gfx/buildcraft"/>
+		<delete dir="${mcpsrc.dir}/minecraft/assets/additional-buildcraft-objects"/>
+		<delete dir="${mcpsrc.dir}/minecraft/assets/buildcraft"/>
 		<delete dir="${mcpsrc.dir}/minecraft/abo"/>
 		<delete dir="${mcpsrc.dir}/minecraft/buildcraft"/>
 		<delete dir="${mcpsrc.dir}/minecraft/lang/abo"/>

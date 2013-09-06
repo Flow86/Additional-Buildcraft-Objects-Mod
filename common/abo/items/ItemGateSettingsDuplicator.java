@@ -19,6 +19,7 @@ import net.minecraft.util.ChatMessageComponent;
 import net.minecraft.world.World;
 import buildcraft.api.gates.ActionManager;
 import buildcraft.api.gates.TriggerParameter;
+import buildcraft.core.utils.StringUtils;
 import buildcraft.transport.BlockGenericPipe;
 import buildcraft.transport.Gate.GateKind;
 import buildcraft.transport.GateVanilla;
@@ -134,7 +135,7 @@ public class ItemGateSettingsDuplicator extends ABOItem {
 							pipe.gate.triggerParameters[i].set(gS.slots[i].triggerParameter);
 						}
 
-						entityPlayer.sendChatToPlayer(ChatMessageComponent.func_111066_d("Gate settings pasted"));
+						entityPlayer.sendChatToPlayer(ChatMessageComponent.func_111066_d(StringUtils.localize("gui.GateSettings.pasted")));
 					}
 
 				} else {
@@ -160,7 +161,7 @@ public class ItemGateSettingsDuplicator extends ABOItem {
 					}
 					gS.writeToNBT(itemStack.stackTagCompound);
 
-					entityPlayer.sendChatToPlayer(ChatMessageComponent.func_111066_d("Gate settings copied"));
+					entityPlayer.sendChatToPlayer(ChatMessageComponent.func_111066_d(StringUtils.localize("gui.GateSettings.copied")));
 				}
 
 				return true;

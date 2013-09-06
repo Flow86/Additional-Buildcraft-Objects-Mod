@@ -295,8 +295,8 @@ public class ABO {
 			return item;
 
 		item.setUnlocalizedName(clazz.getSimpleName());
-		LanguageRegistry.addName(item, descr);
 		GameRegistry.registerItem(item, item.getUnlocalizedName().replace("item.", ""));
+		LanguageRegistry.addName(item, descr);
 
 		addReceipe(item, 1, ingredient1, ingredient2, ingredient3);
 
