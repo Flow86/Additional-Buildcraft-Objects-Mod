@@ -32,7 +32,7 @@
 	</target>
 
 	<!-- Clean -->
-	<target name="clean" depends="BuildCraft.clean">
+	<target name="clean"> <!-- depends="BuildCraft.clean" -->
 		<delete file="jenkins.properties" failonerror="false" />
 	</target>
 
