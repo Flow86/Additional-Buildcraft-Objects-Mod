@@ -84,7 +84,7 @@ public class GuiPipePowerDiamond extends GuiAdvancedInterface {
 
 		GL11.glEnable(GL12.GL_RESCALE_NORMAL);
 		GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
-		mc.renderEngine.func_110577_a(TEXTURE);
+		mc.renderEngine.bindTexture(TEXTURE);
 
 		int cornerX = (width - xSize) / 2;
 		int cornerY = (height - ySize) / 2;

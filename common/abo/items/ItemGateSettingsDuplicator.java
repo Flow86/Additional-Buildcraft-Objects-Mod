@@ -135,7 +135,7 @@ public class ItemGateSettingsDuplicator extends ABOItem {
 							pipe.gate.triggerParameters[i].set(gS.slots[i].triggerParameter);
 						}
 
-						entityPlayer.sendChatToPlayer(ChatMessageComponent.func_111066_d(StringUtils.localize("gui.GateSettings.pasted")));
+						entityPlayer.sendChatToPlayer(ChatMessageComponent.createFromText(StringUtils.localize("gui.GateSettings.pasted")));
 					}
 
 				} else {
@@ -161,7 +161,7 @@ public class ItemGateSettingsDuplicator extends ABOItem {
 					}
 					gS.writeToNBT(itemStack.stackTagCompound);
 
-					entityPlayer.sendChatToPlayer(ChatMessageComponent.func_111066_d(StringUtils.localize("gui.GateSettings.copied")));
+					entityPlayer.sendChatToPlayer(ChatMessageComponent.createFromText(StringUtils.localize("gui.GateSettings.copied")));
 				}
 
 				return true;
