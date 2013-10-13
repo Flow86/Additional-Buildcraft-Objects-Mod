@@ -108,6 +108,25 @@ public class PipePowerDistribution extends ABOPipe<PipeTransportPower> implement
 		return connectionMatrix[side.ordinal()] && super.canPipeConnect(tile, side);
 	}
 
+	@Override
+	public void writeToNBT(NBTTagCompound nbt) {
+		super.writeToNBT(nbt);
+
+		for (int i = 0; i < 6; ++i)
+			nbt.setBoolean("connectionMatrix[" + i + "]", connectionMatrix[i]);
+	}
+
+	@Override
+	public void readFromNBT(NBTTagCompound nbt) {
+		super.readFromNBT(nbt);
+
+		for (int i = 0; i < 6; ++i) {
+			if (nbt.hasKey("connectionMatrix[" + i + "]"))
+				connectionMatrix[i] = nbt.getBoolean("connectionMatrix[" + i + "]");
+		}
+		isDirty = true;
+	}
+
 	// ICLIENTSTATE
 	@Override
 	public void writeData(DataOutputStream data) throws IOException {
@@ -123,6 +142,7 @@ public class PipePowerDistribution extends ABOPipe<PipeTransportPower> implement
 		if (nbt instanceof NBTTagCompound) {
 			for (int i = 0; i < 6; ++i)
 				connectionMatrix[i] = ((NBTTagCompound) nbt).getBoolean("connectionMatrix[" + i + "]");
+			isDirty = true;
 		}
 	}
 }
