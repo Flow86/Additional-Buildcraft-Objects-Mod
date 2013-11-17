@@ -38,6 +38,7 @@ import buildcraft.transport.BlockGenericPipe;
 import buildcraft.transport.IPipeTransportItemsHook;
 import buildcraft.transport.PipeTransportItems;
 import buildcraft.transport.TileGenericPipe;
+import buildcraft.transport.TransportConstants;
 import buildcraft.transport.TravelingItem;
 
 /**
@@ -286,7 +287,7 @@ public class PipeItemsCompactor extends ABOPipe<PipeTransportItems> implements I
 
 	@Override
 	public void readjustSpeed(TravelingItem item) {
-		item.setSpeed(Math.min(Math.max(Utils.pipeNormalSpeed, item.getSpeed()) * 2f, Utils.pipeNormalSpeed * 30F));
+		item.setSpeed(Math.min(Math.max(TransportConstants.PIPE_NORMAL_SPEED, item.getSpeed()) * 2f, TransportConstants.PIPE_NORMAL_SPEED * 20F));
 	}
 
 	@Override

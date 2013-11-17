@@ -32,7 +32,7 @@ public class ABOItem extends Item {
 
 	public ABOItem(int itemID) {
 		super(itemID);
-		setCreativeTab(CreativeTabBuildCraft.tabBuildCraft);
+		setCreativeTab(CreativeTabBuildCraft.MACHINES.get());
 	}
 
 	@Override
