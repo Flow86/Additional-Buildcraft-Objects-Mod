@@ -51,7 +51,7 @@ public class GuiPipePowerDiamond extends GuiAdvancedInterface {
 	private final ContainerPipePowerDiamond guiContainer;
 
 	public GuiPipePowerDiamond(InventoryPlayer player, TileGenericPipe tile) {
-		super(new ContainerPipePowerDiamond(player, tile), null);
+		super(new ContainerPipePowerDiamond(player, tile), null, TEXTURE);
 
 		guiContainer = (ContainerPipePowerDiamond) inventorySlots;
 

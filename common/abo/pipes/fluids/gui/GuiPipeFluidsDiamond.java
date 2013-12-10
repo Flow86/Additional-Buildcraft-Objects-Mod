@@ -69,7 +69,7 @@ public class GuiPipeFluidsDiamond extends GuiAdvancedInterface {
 	}
 
 	public GuiPipeFluidsDiamond(InventoryPlayer player, TileGenericPipe tile) {
-		super(new ContainerPipeFluidsDiamond(player, tile), null);
+		super(new ContainerPipeFluidsDiamond(player, tile), null, TEXTURE);
 
 		container = (ContainerPipeFluidsDiamond) inventorySlots;
 
