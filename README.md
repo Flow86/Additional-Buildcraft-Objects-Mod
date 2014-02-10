@@ -172,28 +172,28 @@
 
    * Recipe:
 
-      ![GoldenConductivePipe Lever](recipes/PowerSwitchPipe.png)
+      ![GoldenKinesisPipe Lever](recipes/PowerSwitchPipe.png)
 
-#### Iron Conductive Pipe
-   acts as a diode/iron pipe for conductive pipes
+#### Directed Kinesis Pipe
+   acts as a diode/iron pipe for kinesis pipes
 
    * Recipe:
 
-      ![IronTransportPipe Redstone](recipes/IronConductivePipe.png)
+      ![GoldenKinesisPipe IronANDGate](recipes/DirectedKinesisPipe.png)
 
-#### Distribution Conductive Pipe
+#### Distribution Kinesis Pipe
    acts as a power distributor - every filter line which has an item in it is 
    "open" to receive power
 
    * Recipe:
 
-      ![DiamondTransportPipe IronConductivePipe](recipes/DistributionConductivePipe.png)
+      ![DiamondTransportPipe DirectedKinesisPipe](recipes/DistributionKinesisPipe.png)
 
    * GUI:
 
       You can toggle each side on or off via GUI.
 	  
-	  ![Diamond Conductive Pipe GUI](recipes/DistributionConductivePipeGUI.png)
+	  ![Diamond Kinesis Pipe GUI](recipes/DistributionKinesisPipeGUI.png)
 
 #### Water Pump Pipe
    soaks water from a source block below it
@@ -241,6 +241,11 @@
 ---------------------------------------------------------------------------------
 
 ## Changelog:
+
+* 1.0.7@559
+  - fixed recipe conflict (Iron Kinesis Pipe)
+    renamed it to Directed Kinesis Pipe
+  - renamed all Conductive Pipes to Kinesis Pipes in readme
 
 * 1.0.6
   - fixed recipe conflict (Insertion Pipe)

@@ -26,7 +26,7 @@ import buildcraft.transport.pipes.PipeLogicIron;
 import buildcraft.transport.pipes.PipePowerWood;
 import buildcraft.transport.pipes.PipeStructureCobblestone;
 
-public class PipePowerIron extends ABOPipe<PipeTransportPower> implements IPipeTransportPowerHook {
+public class PipePowerDirected extends ABOPipe<PipeTransportPower> implements IPipeTransportPowerHook {
 
 	private final int baseTexture = PipeIconProvider.PipePowerIron;
 	private final int sideTexture = PipeIconProvider.PipePowerIronSide;
@@ -71,10 +71,10 @@ public class PipePowerIron extends ABOPipe<PipeTransportPower> implements IPipeT
 		super.initialize();
 	}
 
-	public PipePowerIron(int itemID) {
+	public PipePowerDirected(int itemID) {
 		super(new PipeTransportPower(), itemID);
 
-		transport.powerCapacities.put(PipePowerIron.class, 1024);
+		transport.powerCapacities.put(PipePowerDirected.class, 1024);
 		transport.initFromPipe(getClass());
 	}
 

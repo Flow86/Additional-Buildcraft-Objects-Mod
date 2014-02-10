@@ -44,8 +44,8 @@ import abo.pipes.items.PipeItemsExtraction;
 import abo.pipes.items.PipeItemsInsertion;
 import abo.pipes.items.PipeItemsRoundRobin;
 import abo.pipes.items.PipeItemsStripes;
+import abo.pipes.power.PipePowerDirected;
 import abo.pipes.power.PipePowerDistribution;
-import abo.pipes.power.PipePowerIron;
 import abo.pipes.power.PipePowerSwitch;
 import abo.proxy.ABOProxy;
 import abo.triggers.ABOTriggerProvider;
@@ -202,7 +202,8 @@ public class ABO {
 
 			pipePowerSwitch = createPipe(pipePowerSwitchID, PipePowerSwitch.class, "Power Switch Pipe", 1, BuildCraftTransport.pipePowerGold, Block.lever, null);
 
-			pipePowerIron = createPipe(pipePowerIronID, PipePowerIron.class, "Iron Power Pipe", 1, Item.redstone, BuildCraftTransport.pipeItemsIron, null);
+			pipePowerIron = createPipe(pipePowerIronID, PipePowerDirected.class, "Directed Kinesis Pipe", 1, new ItemStack(BuildCraftTransport.pipeGate, 1, 1),
+					BuildCraftTransport.pipePowerGold, null);
 
 			pipeDistributionConductive = createPipe(pipeDistributionConductiveID, PipePowerDistribution.class, "Distribution Conductive Pipe", 2, pipePowerIron, BuildCraftTransport.pipeItemsDiamond,
 					pipePowerIron);
