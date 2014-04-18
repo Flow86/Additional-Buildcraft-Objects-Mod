@@ -178,7 +178,7 @@
 	<target name="package">
 		<echo message="Creating JAR"/>
 		
-		<jar destfile="${jar.dir}/buildcraft-Z-additional-buildcraft-objects-${abo.version.full}.jar" basedir="${classes.dir}"/>
+		<jar destfile="${jar.dir}/buildcraft-Z-additional-buildcraft-objects-${mc.version}-${bc.version}-${abo.version.full}.jar" basedir="${classes.dir}"/>
 
 		<!-- Reset src dir to post-forge-install state -->
 		<delete dir="${mcpsrc.dir}/minecraft/assets/additional-buildcraft-objects"/>
